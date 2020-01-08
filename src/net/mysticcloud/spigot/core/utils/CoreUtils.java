@@ -42,6 +42,9 @@ import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CoreUtils {
+	
+	
+	public static int particletest = 1;
 
 	private static IDatabase db = new IDatabase("localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
 	private static IDatabase wbconn = new IDatabase("localhost", "Website", 3306, "mysql", "v4pob8LW");

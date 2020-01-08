@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface ParticleFormat {
 	
-	public void display(UUID uid, int i);
+	public void display(UUID uid, int i) throws IllegalArgumentException;
 
 }

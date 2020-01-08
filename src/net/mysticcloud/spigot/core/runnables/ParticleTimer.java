@@ -22,7 +22,12 @@ public class ParticleTimer implements Runnable {
 	public void run() {
 		
 		for(Entry<UUID, ParticleFormatEnum> entry : CoreUtils.particles.entrySet()) {
-				entry.getValue().formatter().display(entry.getKey(), i);
+				try{
+					if(CoreUtils.debugOn()) entry.getValue().formatter().display(entry.getKey(), i);
+				} catch(IllegalArgumentException ex) {
+					
+				}
+			
 		}
 		i=i+1;
 		

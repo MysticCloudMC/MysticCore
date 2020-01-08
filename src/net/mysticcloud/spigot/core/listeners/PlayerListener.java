@@ -2,13 +2,16 @@ package net.mysticcloud.spigot.core.listeners;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -37,17 +40,18 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
+		CoreUtils.playerparticles.put(e.getPlayer().getUniqueId(), false);
 		if(PetManager.hasPet(e.getPlayer())) {
 			PetManager.removePets(e.getPlayer());
 		}
 	}
 	
-//	@EventHandler
-//	public void onPlayerInteract(PlayerInteractEvent e) {
-//		if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getPlayer().isSneaking()) {
-//			e.getPlayer().block
-//		}
-//	}
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		if(e.getAction().equals(Action.LEFT_CLICK_AIR) && e.getPlayer().isSneaking()) {
+			CoreUtils.particletest = CoreUtils.particletest > Particle.values().length ? 1 : CoreUtils.particletest+1;
+		}
+	}
 //	
 	
 	
