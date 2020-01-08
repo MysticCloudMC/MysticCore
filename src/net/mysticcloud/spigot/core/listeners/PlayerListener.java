@@ -6,10 +6,9 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -17,6 +16,8 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
@@ -50,9 +51,27 @@ public class PlayerListener implements Listener {
 //	
 	
 	
+	@EventHandler
+	public void onPlayerDeath(EntityDamageEvent e) {
+		if(e.getEntity() instanceof Player) {
+			if(((Player)e.getEntity()).getHealth() - e.getDamage() <= 0) {
+				e.setCancelled(true);
+				CoreUtils.teleportToSpawn((Player)e.getEntity(), SpawnReason.DEATH);
+				((Player)e.getEntity()).setHealth(((Player)e.getEntity()).getMaxHealth());
+				
+			}
+		}
+	}
+
+	
+	
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		
+		CoreUtils.particles.put(e.getPlayer().getUniqueId(), ParticleFormatEnum.CIRCLE_HEAD);
+		
+		
 		e.getPlayer().setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(e.getPlayer()) + e.getPlayer().getName()));
 		CoreUtils.playerparticles.put(e.getPlayer().getUniqueId(), true);
 	}

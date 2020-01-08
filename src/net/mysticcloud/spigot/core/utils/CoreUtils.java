@@ -35,6 +35,8 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -48,6 +50,8 @@ public class CoreUtils {
 	private static Date date = new Date();
 	private static Inventory settingsMenu = null;
 	public static Map<UUID, Boolean> playerparticles = new HashMap<>();
+	
+	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -144,22 +148,22 @@ public class CoreUtils {
 
 		}
 		PetManager.registerPets();
-		
-		
-		
-		if(Main.getPlugin().getConfig().isSet("SPAWN") && Main.getPlugin().getConfig().getString("SPAWN") != "")
+
+		if (Main.getPlugin().getConfig().isSet("SPAWN") && Main.getPlugin().getConfig().getString("SPAWN") != "")
 			spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
-		
-		
-		
+
+	}
+
+	public static void end() {
+		KitManager.unloadCooldowns();
+		saveConfig();
 	}
 
 	public static void saveConfig() {
-		
-		if(spawn!=null)
-		Main.getPlugin().getConfig().set("SPAWN", encryptLocation(spawn));
-		
-		
+
+		if (spawn != null)
+			Main.getPlugin().getConfig().set("SPAWN", encryptLocation(spawn));
+
 		Main.getPlugin().saveConfig();
 
 	}
@@ -169,9 +173,9 @@ public class CoreUtils {
 			return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
 		else
 			try {
-			return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch() + ":"
-					+ loc.getYaw();
-			} catch(NullPointerException ex) {
+				return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":"
+						+ loc.getPitch() + ":" + loc.getYaw();
+			} catch (NullPointerException ex) {
 				return "";
 			}
 	}
@@ -195,15 +199,21 @@ public class CoreUtils {
 	}
 
 	public static void teleportToSpawn(Player player) {
+		teleportToSpawn(player, SpawnReason.SELF);
+	}
+
+	public static void teleportToSpawn(Player player, SpawnReason reason) {
+		if (spawn == null)
+			return;
 		try {
 			player.teleport(spawn);
-			player.sendMessage(fullPrefix + "You have been teleported to spawn.");
-		} catch(IllegalArgumentException ex) {
+			player.sendMessage(fullPrefix + reason.message());
+		} catch (IllegalArgumentException ex) {
 			spawn.getWorld().loadChunk(spawn.getChunk());
 			player.teleport(spawn);
-			player.sendMessage(fullPrefix + "You have been teleported to spawn.");
+			player.sendMessage(fullPrefix + reason.message());
 		}
-		
+
 	}
 
 	public static String prefixes(String key) {
@@ -245,6 +255,7 @@ public class CoreUtils {
 			return hr + ":" + min + " AM";
 		}
 	}
+
 	public static boolean loreContains(List<String> lore, String string) {
 		for (String s : lore) {
 			if (s.contains(string)) {
@@ -254,7 +265,7 @@ public class CoreUtils {
 		return false;
 
 	}
-	
+
 	public static boolean isFood(ItemStack item) {
 		for (Entry<String, ItemStack> entry : items.entrySet()) {
 			if (entry.getValue().hasItemMeta()
@@ -467,6 +478,10 @@ public class CoreUtils {
 
 	public static void setDebug(boolean status) {
 		debug = status;
+	}
+	
+	public static void debug(Object obj) {
+		debug(obj + "");
 	}
 
 	public static void debug(String message) {

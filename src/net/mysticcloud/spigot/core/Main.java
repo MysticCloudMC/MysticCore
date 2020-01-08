@@ -16,7 +16,9 @@ import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
+import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class Main extends JavaPlugin {
@@ -47,6 +49,7 @@ public class Main extends JavaPlugin {
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
 			CoreUtils.playerparticles.put(player.getUniqueId(), true);
+			CoreUtils.particles.put(player.getUniqueId(), ParticleFormatEnum.CIRCLE_HEAD);
 		}
 		
 		
@@ -55,13 +58,13 @@ public class Main extends JavaPlugin {
 	
 	public void onDisable() {
 		
-		CoreUtils.saveConfig();
+		CoreUtils.end();
 		
 		PetManager.removeAllPets();
 	}
 	
 	private static void startDateChecker(){
-		
+		Bukkit.getScheduler().runTaskLater(getPlugin(), new ParticleTimer(1), 1);
 		Bukkit.getScheduler().runTaskLater(getPlugin(), new DateChecker(), 1);
 	}
 	

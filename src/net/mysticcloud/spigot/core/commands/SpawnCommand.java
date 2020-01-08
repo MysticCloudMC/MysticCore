@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.SpawnReason;
 
 public class SpawnCommand implements CommandExecutor {
 
@@ -39,10 +40,14 @@ public class SpawnCommand implements CommandExecutor {
 					if (Bukkit.getPlayer(args[0]) == null) {
 						sender.sendMessage(CoreUtils.prefixes("admin") + "That player is not currently online.");
 					} else {
-						CoreUtils.teleportToSpawn(Bukkit.getPlayer(args[0]));
+						CoreUtils.teleportToSpawn(Bukkit.getPlayer(args[0]), SpawnReason.OTHER);
 						sender.sendMessage(CoreUtils.prefixes("admin")
 								+ CoreUtils.colorize("Teleported &7" + args[0] + "&f to spawn."));
 					}
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("admin")
+							+ CoreUtils.colorize("That is an admin only command."));
+					
 				}
 			}
 		}

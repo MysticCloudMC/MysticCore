@@ -36,9 +36,10 @@ public class KitCommand implements CommandExecutor {
 				}
 				if (sender.hasPermission("mysticcloud.kit.gui")) {
 					((Player) sender).openInventory(KitManager.getGUI(((Player) sender)));
-					((Player)sender).setMetadata("kitinv", new FixedMetadataValue(Main.getPlugin(), "yes"));
+					((Player) sender).setMetadata("kitinv", new FixedMetadataValue(Main.getPlugin(), "yes"));
 				}
-				sender.sendMessage(CoreUtils.prefixes().get("kits") + ("You have access to these kits: " + s.toString()));
+				sender.sendMessage(
+						CoreUtils.prefixes().get("kits") + ("You have access to these kits: " + s.toString()));
 			} else {
 				sender.sendMessage(CoreUtils.prefixes().get("kits") + ("Only players can run that command."));
 			}
@@ -50,14 +51,8 @@ public class KitCommand implements CommandExecutor {
 
 					if (KitManager.kitExists(args[0])) {
 						if (sender.hasPermission("mysticcloud.kit." + args[0])) {
-							if (!KitManager.isInCooldown(((Player) sender).getUniqueId(), args[0])
-									|| sender.hasPermission("mysticcloud.kit.overridecooldown")) {
-								KitManager.applyKit(((Player) sender), args[0]);
-								return false;
-							} else {
-								sender.sendMessage(
-										CoreUtils.prefixes().get("kits") + ("You need to wait to use that kit."));
-							}
+							KitManager.applyKit(((Player) sender), args[0]);
+							return false;
 						} else {
 							sender.sendMessage(
 									CoreUtils.prefixes().get("kits") + ("You don't have permission to use that kit"));
