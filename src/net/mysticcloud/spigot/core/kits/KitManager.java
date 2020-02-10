@@ -235,11 +235,10 @@ public class KitManager {
 				if (player.hasPermission("mysticcloud.kit." + KitManager.getKits().get(i).getName())) {
 					inv.addItem(KitManager.getKits().get(i).getItem(), KitManager.getKits().get(i).getDisplayName(),
 							(char) i, KitManager.getKits().get(i).getDescription(),
-							KitManager.getKits().get(i).getItem().getDurability(), false);
+							 true, true, KitManager.getKits().get(i).getItem().getDurability());
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
-							KitManager.getKits().get(i).getDisplayName(), (char) i, new String[] { "&cLocked..." },
-							(short) 15, false);
+							KitManager.getKits().get(i).getDisplayName(), (char) i, new String[] { "&cLocked..." },false);
 				}
 				c.add((char) i);
 			} else {

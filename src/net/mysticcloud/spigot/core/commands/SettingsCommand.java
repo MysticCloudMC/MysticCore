@@ -4,9 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.GUIManager;
 
 public class SettingsCommand implements CommandExecutor {
 
@@ -19,7 +20,8 @@ public class SettingsCommand implements CommandExecutor {
 		if(sender instanceof Player) {
 			Player player = ((Player)sender);
 			if(args.length == 0) {
-				player.openInventory(CoreUtils.getSettingsMenu());
+				
+				GUIManager.openInventory(player, GUIManager.getSettingsMenu(), "Settings");
 			}
 		}
 		return true;

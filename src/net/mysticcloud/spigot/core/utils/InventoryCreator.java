@@ -28,116 +28,68 @@ public class InventoryCreator {
 	}
 
 	
-	public void addItem(ItemStack item, String name, char identifier, List<String> lore, short value) {
-
-		if (item != null && (item.getType() != Material.AIR)) {
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(CoreUtils.colorize(name));
-			if (lore != null) {
-				try{
-					im.setLore(CoreUtils.colorizeStringList(lore));
-				} catch(NullPointerException ex){
-				}
-			}
-			item.setItemMeta(im);
-		}
-		this.identifier.put(identifier, item);
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore) {
+		
+		addItem(item,name,identifier,((String[])lore.toArray()), false, true);
 	}
 	
 	
 	public void addItem(ItemStack item, String name, char identifier, String[] lore) {
-
-		if (item != null && (item.getType() != Material.AIR)) {
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(CoreUtils.colorize(name));
-			if (lore != null) {
-				try{
-					im.setLore(CoreUtils.colorizeStringList(lore));
-				} catch(NullPointerException ex){
-				}
-			}
-			item.setItemMeta(im);
-			
-		}
-		this.identifier.put(identifier, item);
+		addItem(item,name,identifier,lore, false, true);
 	}
 	
 	
 
-	public void addItem(ItemStack item, String name, char identifier, List<String> lore, short value, boolean showValues) {
-
-		if (item != null && (item.getType() != Material.AIR)) {
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(CoreUtils.colorize(name));
-			if (lore != null) {
-				try{
-					im.setLore(CoreUtils.colorizeStringList(lore));
-				} catch(NullPointerException ex){
-				}
-			}
-			if(!showValues){
-				im.setUnbreakable(true);
-				im.addItemFlags(ItemFlag.values());
-			}
-			
-			item.setItemMeta(im);
-			
-			
-		}
-		this.identifier.put(identifier, item);
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean showValues) {
+		addItem(item,name,identifier,(String[])lore.toArray(), false, showValues);
 	}
 	
-	public void addItem(ItemStack item, String name, char identifier, String[] lore, short value, boolean showValues) {
-
-		if (item != null && (item.getType() != Material.AIR)) {
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(CoreUtils.colorize(name));
-			if (lore != null) {
-				try{
-					im.setLore(CoreUtils.colorizeStringList(lore));
-				} catch(NullPointerException ex){
-				}
-			}
-			if(!showValues){
-				im.setUnbreakable(true);
-				im.addItemFlags(ItemFlag.values());
-			}
-			
-			item.setItemMeta(im);
-			
-			
-		}
-		this.identifier.put(identifier, item);
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean showValues) {
+		addItem(item,name,identifier,lore,false,showValues);
 	}
 
-	public void addItem(ItemStack item, String name, char identifier, List<String> lore, short value, boolean unbreakable, boolean showValues) {
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable, boolean showValues) {
+		addItem(item,name,identifier,(String[])lore.toArray(), unbreakable, showValues);
+	}
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable, boolean showValues) {
+		addItem(item,name,identifier,lore,unbreakable,showValues,(short)0);
+	}
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable, boolean showValues, short data) {
+		addItem(item,name,identifier,(String[])lore.toArray(),unbreakable,showValues,data);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable, boolean showValues, short data) {
 
 		if (item != null && (item.getType() != Material.AIR)) {
 			ItemMeta im = item.getItemMeta();
+			if(data != (short)0) item.setDurability(data);
+			
 			im.setDisplayName(CoreUtils.colorize(name));
 			if (lore != null) {
 
 				im.setLore(CoreUtils.colorizeStringList(lore));
+			} else {
+				im.setLore(null);
 			}
-			im.setUnbreakable(true);
-			if(!showValues) im.addItemFlags(ItemFlag.values());
+			im.setUnbreakable(unbreakable);
+			if(!showValues) {
+				for(ItemFlag flag : ItemFlag.values()) {
+					im.addItemFlags(flag);
+				}
+//				im.addItemFlags(ItemFlag.values());
+			}
 			item.setItemMeta(im);
 		}
 		this.identifier.put(identifier, item);
 	}
-	public void addItem(ItemStack item, String name, char identifier, String[] lore, short value, boolean unbreakable, boolean showValues) {
-
-		if (item != null && (item.getType() != Material.AIR)) {
-			ItemMeta im = item.getItemMeta();
-			im.setDisplayName(CoreUtils.colorize(name));
-			if (lore != null) {
-
-				im.setLore(CoreUtils.colorizeStringList(lore));
-			}
-			im.setUnbreakable(true);
-			if(!showValues) im.addItemFlags(ItemFlag.values());
-			item.setItemMeta(im);
-		}
+	
+	
+	public void addItem(ItemStack item, String name, char identifier) {
+			addItem(item, name, identifier, (String[]) null);
+	}
+	
+	public void addItem(ItemStack item, char identifier) {
 		this.identifier.put(identifier, item);
 	}
 

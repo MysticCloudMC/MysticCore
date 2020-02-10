@@ -15,10 +15,13 @@ import net.mysticcloud.spigot.core.utils.SpawnReason;
 
 public class SpawnCommand implements CommandExecutor {
 
-	public SpawnCommand(Main plugin, String cmd) {
-		PluginCommand com = plugin.getCommand(cmd);
-		com.setExecutor(this);
-		com.setTabCompleter(new CommandTabCompleter());
+	public SpawnCommand(Main plugin, String... cmd) {
+		for(String comd : cmd) {
+			PluginCommand com = plugin.getCommand(comd);
+			com.setExecutor(this);
+			com.setTabCompleter(new CommandTabCompleter());
+		}
+		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

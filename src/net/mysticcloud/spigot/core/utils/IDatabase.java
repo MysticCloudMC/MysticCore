@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.utils;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,29 +9,35 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
-* The IDatabase is a simple class that adds all the utils you need to communicate with an SQL server.
-*
-* @author  Cameron Witcher
-* @version 1.0
-* @since   2016-12-09 
-*/
+ * The IDatabase is a simple class that adds all the utils you need to
+ * communicate with an SQL server.
+ *
+ * @author Cameron Witcher
+ * @version 1.0
+ * @since 2016-12-09
+ */
 public class IDatabase {
-	
-	
 
 	public Connection connection;
 	private Properties properties;
 	private String user;
 	private String pass;
 	private String url;
+	private SQLDriver driver;
 
-	public IDatabase(String host, String database, Integer port, String username, String password) {
+	public IDatabase(SQLDriver driver, String db) {
+		this.url = "jdbc:sqlite:/sqlite/db/" + db;
+		this.driver = driver;
+	}
+
+	public IDatabase(SQLDriver driver, String host, String database, Integer port, String username, String password) {
 		this.properties = new Properties();
 		this.user = username;
 		this.pass = password;
 		this.properties.setProperty("user", username);
 		this.properties.setProperty("password", password);
 		this.url = "jdbc:mysql://" + host + ":" + port + "/" + database;
+		this.driver = driver;
 	}
 
 	public Boolean init() {
@@ -39,18 +46,28 @@ public class IDatabase {
 //		      Properties info = new Properties();
 //		      info.put("user", "root");
 //		      info.put("password", "test");
-			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection(url, user, pass);
+//			
+			if (driver.equals(SQLDriver.MYSQL)) {
+				Class.forName("com.mysql.jdbc.Driver");
+				connection = DriverManager.getConnection(url, properties);
+			}
+			if (driver.equals(SQLDriver.SQLITE)) {
+				Class.forName("org.sqlite.JDBC");
+				connection = DriverManager.getConnection(url);
+			}
 
-		      if (connection != null) {
-		        System.out.println("Successfully connected to MySQL database test");
-		        return true;
-		      }
+			if (connection != null) {
+				DatabaseMetaData meta = connection.getMetaData();
+				System.out.println("Successfully connected to database");
+				System.out.println("Driver: " + meta.getDriverName());
+				return true;
+			}
 
-		    } catch (SQLException | ClassNotFoundException ex) {
-		      System.out.println("An error occurred while connecting MySQL databse");
-		      return false;
-		    }
+		} catch (SQLException | ClassNotFoundException ex) {
+			System.out.println("An error occurred while connecting databse");
+			ex.printStackTrace();
+			return false;
+		}
 //		try {
 //			if (connection != null && !connection.isClosed()) {
 //				return true;
@@ -88,11 +105,9 @@ public class IDatabase {
 			exception.printStackTrace();
 			return -1;
 		}
-		
-
 
 	}
-	
+
 	public boolean input(String query, Object... values) {
 		try {
 			PreparedStatement statement = prepare(query, values);
@@ -103,8 +118,6 @@ public class IDatabase {
 		} catch (Exception exception) {
 			return false;
 		}
-		
-
 
 	}
 

@@ -17,14 +17,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -42,18 +44,14 @@ import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CoreUtils {
-	
-	
-	public static int particletest = 1;
 
-	private static IDatabase db = new IDatabase("localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
-	private static IDatabase wbconn = new IDatabase("localhost", "Website", 3306, "mysql", "v4pob8LW");
+	private static IDatabase db;
+	private static IDatabase wbconn;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
 	private static Date date = new Date();
-	private static Inventory settingsMenu = null;
 	public static Map<UUID, Boolean> playerparticles = new HashMap<>();
-	
+
 	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
@@ -64,12 +62,22 @@ public class CoreUtils {
 	private static boolean debug = false;
 	private static Location spawn = null;
 
+	private static Map<String, String> playerlist = new HashMap<>();
+
 	private static File itemfile = new File(Main.getPlugin().getDataFolder() + "/Items");
 	private static List<FileConfiguration> itemFiles = new ArrayList<>();
 	private static Map<String, ItemStack> items = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
 
+	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
+	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
+	
+	public static Block testblock = null;
+	public static float t = 0;
+
 	public static void start() {
+		
+		prefixes.put("root", fullPrefix);
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
 		prefixes.put("settings", colorize("&3&lSettings &7>&f "));
@@ -78,14 +86,27 @@ public class CoreUtils {
 		prefixes.put("pets", colorize("&3&lPets &7>&f "));
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
-		if (!connected) {
-			if (testSQLConnection()) {
-				connected = true;
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to SQL.");
-			} else {
-				connected = false;
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to SQL. Disabling...");
+
+		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
+			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
+				List<String> perms = Main.getPlugin().getConfig().getStringList("TimedPerm." + uid);
+				for (String data : perms) {
+					addExistingTimedPermission(UUID.fromString(uid), data.split(":")[2], data.split(":")[3],
+							Long.parseLong(data.split(":")[0]), Long.parseLong(data.split(":")[1]));
+				}
 			}
+		}
+
+		if (testSQLConnection()) {
+			connected = true;
+			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
+			wbconn = new IDatabase(SQLDriver.MYSQL, "localhost", "Website", 3306, "mysql", "v4pob8LW");
+			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
+		} else {
+			connected = false;
+			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
+			wbconn = new IDatabase(SQLDriver.SQLITE, "Website");
+			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
 		}
 		if (!itemfile.exists()) {
 			itemfile.mkdirs();
@@ -155,6 +176,16 @@ public class CoreUtils {
 		if (Main.getPlugin().getConfig().isSet("SPAWN") && Main.getPlugin().getConfig().getString("SPAWN") != "")
 			spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
 
+		if (Main.getPlugin().getConfig().isSet("PlayerList.Header")) {
+			playerlist.put("header", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Header")));
+		}
+		if (Main.getPlugin().getConfig().isSet("PlayerList.PlayerName")) {
+			playerlist.put("name", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.PlayerName")));
+		}
+		if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
+			playerlist.put("footer", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
+		}
+
 	}
 
 	public static void end() {
@@ -166,31 +197,59 @@ public class CoreUtils {
 
 		if (spawn != null)
 			Main.getPlugin().getConfig().set("SPAWN", encryptLocation(spawn));
+		if (playerlist.containsKey("header"))
+			Main.getPlugin().getConfig().set("PlayerList.Header", playerList("header"));
+		if (playerlist.containsKey("name"))
+			Main.getPlugin().getConfig().set("PlayerList.PlayerName", playerList("name"));
+		if (playerlist.containsKey("footer"))
+			Main.getPlugin().getConfig().set("PlayerList.Footer", playerList("footer"));
+		Map<String, List<String>> storage = new HashMap<>();
+		List<String> users = new ArrayList<>();
+		for (Entry<UUID, List<TimedPerm>> entry : timedPerms.entrySet()) {
+			users.add(entry.getKey() + "");
+
+			storage.put(entry.getKey() + "", new ArrayList<>());
+			for (TimedPerm perm : entry.getValue()) {
+				storage.get(entry.getKey() + "")
+						.add(perm.started() + ":" + perm.liveFor() + ":" + perm.permission() + ":" + perm.display());
+			}
+
+		}
+		for (Entry<String, List<String>> estorage : storage.entrySet()) {
+			Main.getPlugin().getConfig().set("TimedPerm." + estorage.getKey(), estorage.getValue());
+		}
+		Main.getPlugin().getConfig().set("TimedUsers", users);
 
 		Main.getPlugin().saveConfig();
 
 	}
 
+	public static String playerList(String key) {
+		return playerlist.containsKey(key) ? playerlist.get(key) : "";
+	}
+
+	public static void playerList(String key, String value) {
+		playerlist.put(key, value);
+	}
+
+	public static void particles(UUID uid, ParticleFormatEnum format) {
+		particles.put(uid, format);
+	}
+
+	public static ParticleFormatEnum particles(UUID uid) throws NullPointerException {
+		return particles.containsKey(uid) ? particles.get(uid) : null;
+	}
+
 	public static String encryptLocation(Location loc) {
-		if (loc.getPitch() != 0 && loc.getYaw() != 0)
-			return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ();
-		else
-			try {
-				return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":"
-						+ loc.getPitch() + ":" + loc.getYaw();
-			} catch (NullPointerException ex) {
-				return "";
-			}
+		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
+				+ ":" + loc.getYaw();
 	}
 
 	public static Location decryptLocation(String s) {
 		debug("Decrypting Location: " + s);
 		String[] args = s.split(":");
-		return (args.length < 5)
-				? new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
-						Double.parseDouble(args[3]))
-				: new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
-						Double.parseDouble(args[3]), Float.parseFloat(args[4]), Float.parseFloat(args[5]));
+		return new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
+				Double.parseDouble(args[3]));
 	}
 
 	public static Map<String, String> prefixes() {
@@ -206,15 +265,17 @@ public class CoreUtils {
 	}
 
 	public static void teleportToSpawn(Player player, SpawnReason reason) {
-		if (spawn == null)
+		if (spawn == null) {
+			debug("Spawn Location null...");
 			return;
+		}
 		try {
 			player.teleport(spawn);
 			player.sendMessage(fullPrefix + reason.message());
 		} catch (IllegalArgumentException ex) {
-			spawn.getWorld().loadChunk(spawn.getChunk());
-			player.teleport(spawn);
-			player.sendMessage(fullPrefix + reason.message());
+//			spawn.getWorld().loadChunk(spawn.getChunk());
+//			player.teleport(spawn);
+//			player.sendMessage(fullPrefix + reason.message());
 		}
 
 	}
@@ -237,7 +298,7 @@ public class CoreUtils {
 	}
 
 	private static boolean testSQLConnection() {
-		return connected ? db.init() : connected;
+		return new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW").init();
 
 	}
 
@@ -307,67 +368,41 @@ public class CoreUtils {
 	public static int registerPlayer(String webName, Player player) throws SQLException {
 		if (isPlayerRegistered(webName, player))
 			return -100;
-		return connected ? wbconn.update("UPDATE Users SET REGISTERED='waiting',MINECRAFT_UUID='" + player.getUniqueId()
-				+ "' WHERE USERNAME='" + webName + "'") : -99;
+		return wbconn.update("UPDATE Users SET REGISTERED='waiting',MINECRAFT_UUID='" + player.getUniqueId()
+				+ "' WHERE USERNAME='" + webName + "'");
 	}
 
 	private static boolean isPlayerRegistered(String webName, Player player) throws SQLException {
 
-		if (connected) {
-			wbconn.init();
-			ResultSet rs = wbconn.query("SELECT * FROM Users");
-			while (rs.next()) {
-				if (rs.getString("USERNAME").equalsIgnoreCase(webName)) {
-					try {
-						if (!rs.getString("REGISTERED").equalsIgnoreCase("true"))
-							return false;
-						else
-							return true;
-					} catch (NullPointerException ex) {
+		wbconn.init();
+		ResultSet rs = wbconn.query("SELECT * FROM Users");
+		while (rs.next()) {
+			if (rs.getString("USERNAME").equalsIgnoreCase(webName)) {
+				try {
+					if (!rs.getString("REGISTERED").equalsIgnoreCase("true"))
 						return false;
-					}
-
+					else
+						return true;
+				} catch (NullPointerException ex) {
+					return false;
 				}
 
 			}
-			return false;
-		} else {
-			return false;
-		}
 
+		}
+		return false;
 	}
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
-		if (connected) {
-			return db.query(query);
-		} else {
-			if (testSQLConnection()) {
-				return db.query(query);
-			}
-			return null;
-		}
+		return db.query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
-		if (connected) {
-			return db.update(query);
-		} else {
-			if (testSQLConnection()) {
-				return db.update(query);
-			}
-			return null;
-		}
+		return db.update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
-		if (connected) {
-			return db.input(query);
-		} else {
-			if (testSQLConnection()) {
-				return db.input(query);
-			}
-			return false;
-		}
+		return db.input(query);
 	}
 
 	public static String toString(String[] args) {
@@ -376,6 +411,11 @@ public class CoreUtils {
 			s = s + " " + a;
 		}
 		return s;
+	}
+
+	public static void updateDate() {
+
+		date = new Date();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -394,6 +434,10 @@ public class CoreUtils {
 
 	public static Holiday getHoliday() {
 		return holiday;
+	}
+
+	public static Date getDate() {
+		return date;
 	}
 
 	public static List<String> colorizeStringList(List<String> stringList) {
@@ -416,23 +460,11 @@ public class CoreUtils {
 		return new Random();
 	}
 
-	public static Inventory createSettingsMenu() {
-		InventoryCreator inv = new InventoryCreator("&6Settings", null, 9);
-		inv.addItem(new ItemStack(Material.DIAMOND), "&eParticles", 'A', new String[] {});
-		inv.setConfiguration(new char[] { 'A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
-		settingsMenu = inv.getInventory();
-		return settingsMenu;
-	}
-
-	public static Inventory getSettingsMenu() {
-		if (settingsMenu == null) {
-			createSettingsMenu();
-
-		}
-		return settingsMenu;
-	}
-
 	public static void toggleParticles(Player player) {
+		if (!playerparticles.containsKey(player.getUniqueId())) {
+			playerparticles.put(player.getUniqueId(), true);
+			return;
+		}
 		if (playerparticles.get(player.getUniqueId())) {
 			player.sendMessage(prefixes.get("settings") + "Particles turned off");
 			playerparticles.put(player.getUniqueId(), false);
@@ -442,10 +474,42 @@ public class CoreUtils {
 		}
 	}
 
+	public static void addPermission(Player player, String permission) {
+		PermissionsEx.getUser(player).addPermission(permission);
+	}
+
+	public static void addTimedPermission(Player player, String permission, String display, long livefor) {
+		TimedPerm perm = new TimedPerm(player.getUniqueId(), permission, livefor);
+		perm.display(display);
+		if (timedPerms.get(player.getUniqueId()) == null) {
+			timedPerms.put(player.getUniqueId(), new ArrayList<>());
+		}
+		timedPerms.get(player.getUniqueId()).add(perm);
+		debug("Added TimedPerm for " + player.getName());
+		PermissionsEx.getUser(player).addPermission(permission);
+	}
+
+	public static void addExistingTimedPermission(UUID uid, String permission, String display, long started,
+			long livefor) {
+		TimedPerm perm = new TimedPerm(uid, permission, livefor);
+		perm.display(display);
+		if (timedPerms.get(uid) == null) {
+			timedPerms.put(uid, new ArrayList<>());
+		}
+		perm.started(started);
+		debug("Added existing TimedPerm for " + uid);
+		timedPerms.get(uid).add(perm);
+	}
+
+	public static void removeTimedPermission(Player player, String permission) {
+		PermissionsEx.getUser(player).removePermission(permission);
+		debug("Removed TimedPerm for " + player.getName());
+		timedPerms.remove(player.getUniqueId());
+	}
+
 	@SuppressWarnings("deprecation")
 	public static String getPlayerPrefix(Player player) {
 		if (PermissionsEx.getUser(player).getGroups().length > 0) {
-
 			String prefix = "";
 			for (PermissionGroup group : PermissionsEx.getUser(player).getGroups()) {
 
@@ -482,14 +546,18 @@ public class CoreUtils {
 	public static void setDebug(boolean status) {
 		debug = status;
 	}
-	
+
 	public static void debug(Object obj) {
 		debug(obj + "");
 	}
 
 	public static void debug(String message) {
 		if (debug)
-			Bukkit.broadcastMessage(colorize(prefixes("debug") + message));
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (player.hasPermission("mysticcloud.admin")) {
+					player.sendMessage(colorize(prefixes("debug") + message));
+				}
+			}
 		Bukkit.getConsoleSender().sendMessage(colorize(prefixes("debug") + message));
 	}
 
@@ -661,6 +729,18 @@ public class CoreUtils {
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
 
+			if (item.isSet(name + ".Enchantments")) {
+				for (String en : item.getStringList(name + ".Enchantments")) {
+					if (en.contains("-")) {
+						a.addEnchant(Enchantment.getByName(en.split("-")[0].toUpperCase()),
+								Integer.parseInt(en.split("-")[1]), true);
+					} else {
+						a.addEnchant(Enchantment.getByName(en.toUpperCase()), 1, false);
+					}
+
+				}
+			}
+
 		}
 		a.setDisplayName(a.hasDisplayName() ? a.getDisplayName() : CoreUtils.colorize("&cERROR"));
 		i.setItemMeta(a);
@@ -691,6 +771,104 @@ public class CoreUtils {
 
 	public static void setSpawnLocation(Location location) {
 		spawn = location;
+	}
+
+	public static String particlesToString(Particle p) {
+		switch (p) {
+		case FLAME:
+			return "&6Flame";
+		case FALLING_LAVA:
+			return "&cLava";
+		case FALLING_WATER:
+			return "&bWater";
+		case TOTEM:
+			return "&aGreen Dots";
+		case NOTE:
+			return "&3Notes";
+		case CRIT:
+			return "&eYellow Sparkles";
+		case CRIT_MAGIC:
+			return "&3Magic Sparkles";
+		case ENCHANTMENT_TABLE:
+			return "&7Enchantments";
+		case SMOKE_NORMAL:
+			return "&8Smoke";
+		case DAMAGE_INDICATOR:
+			return "&cBouncing Hearts";
+		case COMPOSTER:
+			return "&aGreen Sparkles";
+		case PORTAL:
+			return "&dNether Portal";
+		case SPELL_WITCH:
+			return "&5Purple Sparkles";
+		case SPELL_MOB:
+			return "&8Black Swirls";
+		case SPELL_INSTANT:
+			return "&fWhite Sparkles";
+		case HEART:
+			return "&cHearts";
+		case VILLAGER_ANGRY:
+			return "&7Storm Clouds";
+		case NAUTILUS:
+			return "&9Nautilus";
+		case WATER_DROP:
+			return "&bRain";
+		case DOLPHIN:
+			return "&bBlue Dots";
+		default:
+			return "0";
+		}
+	}
+
+	public static ItemStack particleToItemStack(Particle p, boolean unlocked) {
+		switch (p) {
+		case FLAME:
+			return new ItemStack(unlocked ? Material.CAMPFIRE : Material.ORANGE_STAINED_GLASS_PANE);
+		case FALLING_LAVA:
+			return new ItemStack(unlocked ? Material.LAVA_BUCKET : Material.ORANGE_STAINED_GLASS_PANE);
+		case FALLING_WATER:
+			return new ItemStack(unlocked ? Material.WATER_BUCKET : Material.BLUE_STAINED_GLASS_PANE);
+		case TOTEM:
+			return new ItemStack(unlocked ? Material.LIME_DYE : Material.LIME_STAINED_GLASS_PANE);
+		case NOTE:
+			return new ItemStack(unlocked ? Material.MUSIC_DISC_BLOCKS : Material.GREEN_STAINED_GLASS_PANE);
+		case CRIT:
+			return new ItemStack(unlocked ? Material.GLOWSTONE_DUST : Material.YELLOW_STAINED_GLASS_PANE);
+		case CRIT_MAGIC:
+			return new ItemStack(unlocked ? Material.LIGHT_BLUE_DYE : Material.CYAN_STAINED_GLASS_PANE);
+		case ENCHANTMENT_TABLE:
+			return new ItemStack(unlocked ? Material.ENCHANTING_TABLE : Material.WHITE_STAINED_GLASS_PANE);
+		case SMOKE_NORMAL:
+			return new ItemStack(unlocked ? Material.COAL : Material.GRAY_STAINED_GLASS_PANE);
+		case DAMAGE_INDICATOR:
+			return new ItemStack(unlocked ? Material.RED_DYE : Material.RED_STAINED_GLASS_PANE);
+		case COMPOSTER:
+			return new ItemStack(unlocked ? Material.SCUTE : Material.GREEN_STAINED_GLASS_PANE);
+		case PORTAL:
+			return new ItemStack(unlocked ? Material.MAGENTA_DYE : Material.MAGENTA_STAINED_GLASS_PANE);
+		case SPELL_WITCH:
+			return new ItemStack(unlocked ? Material.PURPLE_DYE : Material.PURPLE_STAINED_GLASS_PANE);
+		case SPELL_MOB:
+			return new ItemStack(unlocked ? Material.POTION : Material.BLACK_STAINED_GLASS_PANE);
+		case SPELL_INSTANT:
+			return new ItemStack(unlocked ? Material.NETHER_STAR : Material.WHITE_STAINED_GLASS_PANE);
+		case HEART:
+			return new ItemStack(unlocked ? Material.REDSTONE : Material.MAGENTA_STAINED_GLASS_PANE);
+		case VILLAGER_ANGRY:
+			return new ItemStack(unlocked ? Material.FIRE_CHARGE : Material.GRAY_STAINED_GLASS_PANE);
+		case NAUTILUS:
+			return new ItemStack(unlocked ? Material.ENDER_PEARL : Material.PURPLE_STAINED_GLASS_PANE);
+		case WATER_DROP:
+			return new ItemStack(unlocked ? Material.WATER_BUCKET : Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+		case DOLPHIN:
+			return new ItemStack(unlocked ? Material.LIGHT_BLUE_DYE : Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+		default:
+			return new ItemStack(Material.GRASS_BLOCK);
+		}
+	}
+
+	public static ItemStack particleToItemStack(Particle p) {
+		return particleToItemStack(p, true);
 	}
 
 }

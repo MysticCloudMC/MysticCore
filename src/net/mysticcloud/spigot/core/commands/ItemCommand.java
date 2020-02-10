@@ -24,24 +24,22 @@ public class ItemCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			sender.sendMessage(CoreUtils.prefixes().get("items")
-					+ ((sender instanceof Player) 
-							? "Usage: /item <item>" 
-							: "Usage: /item <item> <player>"));
+					+ ((sender instanceof Player) ? "Usage: /item <item>" : "Usage: /item <item> <player>"));
 		}
 		if (args.length == 1) {
 			if (sender instanceof Player && sender.hasPermission("mysticcloud.item." + args[0].toLowerCase())) {
 				ItemStack i = CoreUtils.getItem(args[0]);
 				((Player) sender).getInventory().addItem(i);
-				if(ChatColor.stripColor(i.getItemMeta().getDisplayName()).equalsIgnoreCase("ERROR")) {
+				if (ChatColor.stripColor(i.getItemMeta().getDisplayName()).equalsIgnoreCase("ERROR")) {
 					sender.sendMessage(CoreUtils.prefixes("items") + "There was an error finding that item...");
 				} else {
-					sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + ((Player)sender).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+					sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7"
+							+ ((Player) sender).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
 				}
-				
-			}
-			 else
-				sender.sendMessage(
-						CoreUtils.prefixes().get("items") + CoreUtils.colorize("Error proccessing command. Try /item <item> [amount] [player]"));
+
+			} else
+				sender.sendMessage(CoreUtils.prefixes().get("items")
+						+ CoreUtils.colorize("You don't have permission to use that command."));
 		}
 		if (args.length == 2) {
 			if (sender instanceof Player && sender.hasPermission("mysticcloud.item." + args[0].toLowerCase())) {
@@ -49,7 +47,8 @@ public class ItemCommand implements CommandExecutor {
 				ItemStack i = CoreUtils.getItem(args[0]);
 				i.setAmount(Integer.parseInt(args[1]));
 				player.getInventory().addItem(i);
-				sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + ((Player)sender).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+				sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize(
+						"Gave &7" + ((Player) sender).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
 			}
 		}
 		if (args.length == 3) {
@@ -61,8 +60,10 @@ public class ItemCommand implements CommandExecutor {
 							ItemStack i = CoreUtils.getItem(args[0]);
 							i.setAmount(Integer.parseInt(args[1]));
 							player.getInventory().addItem(i);
-							sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + player.getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
-							player.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + player.getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+							sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize(
+									"Gave &7" + player.getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+							player.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize(
+									"Gave &7" + player.getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
 
 						}
 						return true;
@@ -73,8 +74,10 @@ public class ItemCommand implements CommandExecutor {
 				ItemStack i = CoreUtils.getItem(args[0]);
 				i.setAmount(Integer.parseInt(args[1]));
 				Bukkit.getPlayer(args[2]).getInventory().addItem(i);
-				sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + Bukkit.getPlayer(args[2]).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
-				Bukkit.getPlayer(args[2]).sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7" + Bukkit.getPlayer(args[2]).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+				sender.sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7"
+						+ Bukkit.getPlayer(args[2]).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
+				Bukkit.getPlayer(args[2]).sendMessage(CoreUtils.prefixes("items") + CoreUtils.colorize("Gave &7"
+						+ Bukkit.getPlayer(args[2]).getName() + "&f " + i.getAmount() + " of &7" + args[0] + "&f."));
 			}
 		}
 

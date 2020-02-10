@@ -3,12 +3,13 @@ package net.mysticcloud.spigot.core;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import net.mysticcloud.spigot.core.commands.DebugCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
+import net.mysticcloud.spigot.core.commands.ParticlesCommand;
 import net.mysticcloud.spigot.core.commands.PetCommand;
+import net.mysticcloud.spigot.core.commands.PlayerListCommand;
 import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
@@ -18,19 +19,16 @@ import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class Main extends JavaPlugin {
-	
 	static Main plugin;
+
 	public void onEnable() {
 		plugin = this;
-		
 		CoreUtils.start();
-		
 		KitManager.registerKits();
-		
 		new PlayerListener(this);
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
@@ -40,38 +38,27 @@ public class Main extends JavaPlugin {
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
-		new SpawnCommand(this, "spawn");
-		new SpawnCommand(this, "setspawn");
-		
-		
+		new SpawnCommand(this, "spawn", "setspawn");
+		new ParticlesCommand(this, "particles");
+		new PlayerListCommand(this, "playerlist");
 		startDateChecker();
-		
-		for(Player player : Bukkit.getOnlinePlayers()) {
+		GUIManager.init();
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
-			CoreUtils.playerparticles.put(player.getUniqueId(), true);
-			CoreUtils.particles.put(player.getUniqueId(), ParticleFormatEnum.CIRCLE_HEAD);
 		}
-		
-		
-		
 	}
-	
+
 	public void onDisable() {
-		
 		CoreUtils.end();
-		
 		PetManager.removeAllPets();
 	}
-	
-	private static void startDateChecker(){
+
+	private static void startDateChecker() {
 		Bukkit.getScheduler().runTaskLater(getPlugin(), new ParticleTimer(1), 1);
 		Bukkit.getScheduler().runTaskLater(getPlugin(), new DateChecker(), 1);
 	}
-	
-	
-	
-	public static Main getPlugin(){
+
+	public static Main getPlugin() {
 		return plugin;
 	}
-
 }

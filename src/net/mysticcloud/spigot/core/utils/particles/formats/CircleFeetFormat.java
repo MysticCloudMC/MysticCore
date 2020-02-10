@@ -10,31 +10,26 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
-public class CircleHeadFormat extends ParticleFormat {
+public class CircleFeetFormat extends ParticleFormat {
 	
-	double delta = 20;
-	double radius = 1;
-	
-	public CircleHeadFormat() {
+	public CircleFeetFormat() {
 		changeParticle = true;
-		allowedParticles.add(Particle.FALLING_LAVA);
-		allowedParticles.add(Particle.FALLING_WATER);
-		allowedParticles.add(Particle.TOTEM);
-		allowedParticles.add(Particle.CRIT);
-		allowedParticles.add(Particle.CRIT_MAGIC);
-		allowedParticles.add(Particle.SMOKE_NORMAL);
-		allowedParticles.add(Particle.VILLAGER_ANGRY);
-		allowedParticles.add(Particle.NOTE);
-		allowedParticles.add(Particle.ENCHANTMENT_TABLE);
-		allowedParticles.add(Particle.FLAME);
-		allowedParticles.add(Particle.HEART);
-		allowedParticles.add(Particle.COMPOSTER);
+		allowedParticles.add(Particle.SPELL_INSTANT);
+		allowedParticles.add(Particle.SPELL_MOB);
+		allowedParticles.add(Particle.SPELL_WITCH);
+		allowedParticles.add(Particle.PORTAL);
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
+		allowedParticles.add(Particle.COMPOSTER);
+		allowedParticles.add(Particle.FLAME);
 		
-		guiItem = new ItemStack(Material.DIAMOND_HELMET);
-		name = "Circle Head";
+		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
+		name = "Circle Feet";
 		
 		particle = (Particle) allowedParticles.toArray()[0];
+		
+		
+		
+		
 	}
 	
 	
@@ -53,14 +48,14 @@ public class CircleHeadFormat extends ParticleFormat {
 		}
 		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i) * (360 / delta)) * (radius)),
+						Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))), 0.1,
+						Math.sin(Math.toRadians(i) * (360 / 20)) * (1)),
 				0, 0, 0, 0, 2);
 		
 		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i+(delta/2)) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i+(delta/2)) * (360 / delta)) * (radius)),
+						Math.cos(Math.toRadians(((i+10) * (360 / 20)) * (1))), 0.1,
+						Math.sin(Math.toRadians(i+10) * (360 / 20)) * (1)),
 				0, 0, 0, 0, 2);
 		
 	}

@@ -149,23 +149,26 @@ public class Pet extends EntityArmorStand {
 
 		dx = 0;
 		dz = 0;
-		this.yaw = (float) Math.toDegrees(Math.atan2(Bukkit.getPlayer(owner).getLocation().getZ() - locZ(),
-				Bukkit.getPlayer(owner).getLocation().getX() - locX())) - 90;
+		float d1 = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - (locX()), 2)));
+		float d2 = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
+		CoreUtils.debug(Math.toDegrees(Math.tan(d2/d1)));
+		this.yaw = (float) Math.toDegrees(Math.tan(d2/d1));
 		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
-				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR)
-				|| (new Location(getWorld().getWorld(), locX() - 1, locY(), locZ()).getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR)
-				|| new Location(getWorld().getWorld(), locX(), locY(), locZ() - 1).getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-			if (new Location(getWorld().getWorld(), locX(), locY() - 1, locZ()).getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-				this.setLocation(locX(), locY()+1.1, locZ(), 0, 0);
+				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
+						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
+				|| (new Location(getWorld().getWorld(), locX() - 1, locY(), locZ()).getBlock()
+						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
+				|| new Location(getWorld().getWorld(), locX(), locY(), locZ() - 1).getBlock()
+						.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+			if (new Location(getWorld().getWorld(), locX(), locY() - 1, locZ()).getBlock().getRelative(BlockFace.DOWN)
+					.getType() != Material.AIR) {
+//				this.setLocation(locX(), locY()+1.1, locZ(), 0, 0);
 			}
 		}
 		if (distance > 2) {
 
 			dx = (distance * (Math.sin(yaw))) / 100;
 			dz = -(distance * (Math.cos(yaw))) / 100;
-
-			CoreUtils.debug("DX: " + dx);
-			CoreUtils.debug("DZ: " + dz);
 
 //			dx = (Bukkit.getPlayer(owner).getLocation().getX() - locX > 0) ? 0.1 : -0.1;
 //			dy = (Bukkit.getPlayer(owner).getLocation().getZ() - locZ > 0) ? 0.1 : -0.1;

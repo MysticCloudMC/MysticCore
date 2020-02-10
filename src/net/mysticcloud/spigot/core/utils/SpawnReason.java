@@ -1,20 +1,25 @@
 package net.mysticcloud.spigot.core.utils;
 
+import java.util.Random;
+
 public enum SpawnReason {
 	
-	SELF("You teleported to Spawn."),
-	OTHER("Someone has teleported you to Spawn."),
-	DEATH("You died. Good job.");
+	SELF(new String[] {"You teleported to Spawn."}),
+	OTHER(new String[] {"Someone has teleported you to Spawn."}),
+	DEATH(new String[] {"You died. Good job.","Another death message. There's loads of these"});
 	
 	
-	String message;
+	String[] messages;
 	
-	SpawnReason(String message){
-		this.message = message;
+	SpawnReason(String[] messages){
+		this.messages = messages;
 	}
 	
 	public String message() {
-		return message;
+		return messages[new Random().nextInt(messages.length)];
+	}
+	public String[] messages() {
+		return messages;
 	}
 
 }

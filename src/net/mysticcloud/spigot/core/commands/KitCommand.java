@@ -15,6 +15,7 @@ import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.GUIManager;
 
 public class KitCommand implements CommandExecutor {
 
@@ -35,8 +36,7 @@ public class KitCommand implements CommandExecutor {
 					}
 				}
 				if (sender.hasPermission("mysticcloud.kit.gui")) {
-					((Player) sender).openInventory(KitManager.getGUI(((Player) sender)));
-					((Player) sender).setMetadata("kitinv", new FixedMetadataValue(Main.getPlugin(), "yes"));
+					GUIManager.openInventory(((Player) sender),KitManager.getGUI(((Player) sender)), "Kits");
 				}
 				sender.sendMessage(
 						CoreUtils.prefixes().get("kits") + ("You have access to these kits: " + s.toString()));

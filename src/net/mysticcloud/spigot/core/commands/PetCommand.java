@@ -4,9 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class PetCommand implements CommandExecutor {
@@ -20,8 +20,7 @@ public class PetCommand implements CommandExecutor {
 //			PetManager.spawnPet(((Player)sender), ((Player)sender).getLocation());
 //			Minion minion = (Minion) CoreUtils.spawnEntity(new Minion(((CraftWorld)((Player)sender).getWorld()).getHandle()), ((Player)sender).getLocation());
 //			minion.setOwner(((Player)sender).getName());
-			((Player)sender).openInventory(PetManager.getGUI(((Player)sender)));
-			((Player)sender).setMetadata("petinv", new FixedMetadataValue(Main.getPlugin(), "yes"));
+			GUIManager.openInventory(((Player)sender), PetManager.getGUI(((Player)sender)), "Pets");
 //			PetManager.spawnPet(((Player) sender), "demo", ((Player)sender).getLocation());
 		}
 		return false;

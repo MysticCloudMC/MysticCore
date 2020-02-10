@@ -4,10 +4,10 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class ParticleTimer implements Runnable {
@@ -21,12 +21,16 @@ public class ParticleTimer implements Runnable {
 	@Override
 	public void run() {
 		
+		if(i>360)
+			i=1;
+		
 		for(Entry<UUID, ParticleFormatEnum> entry : CoreUtils.particles.entrySet()) {
 				try{
-					if(CoreUtils.debugOn()) entry.getValue().formatter().display(entry.getKey(), i);
+					entry.getValue().formatter().display(entry.getKey(), i);
 				} catch(IllegalArgumentException ex) {
 					
 				}
+//				CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 			
 		}
 		i=i+1;

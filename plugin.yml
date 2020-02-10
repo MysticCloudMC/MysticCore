@@ -34,3 +34,11 @@ commands:
   setspawn:
     usage: /setspawn [<world> <x> <y> <z>]
     description: Sets the spawn at your current location, or at a specified location.
+  particles:
+    usage: /particles
+    description: Shortcut to the Particle GUI
+    aliases: ['p']
+  playerlist:
+    usage: /playerlist
+    aliases: ['pl','list']
+    description: Edit or chech the Player List
