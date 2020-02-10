@@ -48,6 +48,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
+					<includes>
+						<include>**</include>
+					</includes>
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
