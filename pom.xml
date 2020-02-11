@@ -9,10 +9,7 @@
 
 	<repositories>
 		<!-- This adds the Spigot Maven repository to the build -->
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-		</repository>
+		
 		<!-- <repository>
 			<id>minecraft</id>
 			<url>https://mvnrepository.com/artifact/net.minecraft/server</url>
