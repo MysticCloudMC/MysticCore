@@ -1,14 +1,11 @@
-package net.mysticcloud.spigot.core.commands;
-
-import java.util.concurrent.TimeUnit;
+package main.java.net.mysticcloud.spigot.core.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.CoreUtils;
+import main.java.net.mysticcloud.spigot.core.Main;
+import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class DebugCommand implements CommandExecutor {
 

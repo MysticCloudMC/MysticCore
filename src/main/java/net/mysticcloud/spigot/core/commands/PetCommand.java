@@ -1,13 +1,13 @@
-package net.mysticcloud.spigot.core.commands;
+package main.java.net.mysticcloud.spigot.core.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import main.java.net.mysticcloud.spigot.core.Main;
+import main.java.net.mysticcloud.spigot.core.utils.GUIManager;
+import main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class PetCommand implements CommandExecutor {
 

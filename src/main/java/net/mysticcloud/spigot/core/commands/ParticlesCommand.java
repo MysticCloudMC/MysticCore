@@ -1,15 +1,14 @@
-package net.mysticcloud.spigot.core.commands;
+package main.java.net.mysticcloud.spigot.core.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
-import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
-import net.mysticcloud.spigot.core.utils.GUIManager;
+import main.java.net.mysticcloud.spigot.core.Main;
+import main.java.net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
+import main.java.net.mysticcloud.spigot.core.utils.GUIManager;
 
 public class ParticlesCommand implements CommandExecutor {
 

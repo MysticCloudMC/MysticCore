@@ -1,14 +1,13 @@
-package net.mysticcloud.spigot.core.runnables;
+package main.java.net.mysticcloud.spigot.core.runnables;
 
 import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 
-import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import main.java.net.mysticcloud.spigot.core.Main;
+import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
+import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class ParticleTimer implements Runnable {
 	

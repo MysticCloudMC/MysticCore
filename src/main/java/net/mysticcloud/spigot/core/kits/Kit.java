@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.kits;
+package main.java.net.mysticcloud.spigot.core.kits;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import net.mysticcloud.spigot.core.utils.CoreUtils;
+import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class Kit {
 	

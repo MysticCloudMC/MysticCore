@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package main.java.net.mysticcloud.spigot.core.utils;
 
 import java.util.Date;
 import java.util.UUID;

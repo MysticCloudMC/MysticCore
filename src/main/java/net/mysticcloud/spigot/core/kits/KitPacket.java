@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.kits;
+package main.java.net.mysticcloud.spigot.core.kits;
 
 public class KitPacket {
 	
