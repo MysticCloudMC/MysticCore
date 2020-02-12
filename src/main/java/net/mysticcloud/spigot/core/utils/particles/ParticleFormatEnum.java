@@ -1,12 +1,12 @@
-package main.java.net.mysticcloud.spigot.core.utils.particles;
+package net.mysticcloud.spigot.core.utils.particles;
 
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.CircleHeadFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.HatFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.HelixFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.LilyPadFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleHeadFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.HatFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.HelixFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.LilyPadFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 
 public enum ParticleFormatEnum {
 

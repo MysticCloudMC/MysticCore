@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,10 +36,10 @@ import org.bukkit.potion.PotionEffectType;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.kits.KitManager;
-import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 

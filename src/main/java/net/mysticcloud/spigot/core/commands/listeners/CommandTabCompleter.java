@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.commands.listeners;
+package net.mysticcloud.spigot.core.commands.listeners;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,9 +11,9 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
-import main.java.net.mysticcloud.spigot.core.kits.Kit;
-import main.java.net.mysticcloud.spigot.core.kits.KitManager;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.kits.Kit;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class CommandTabCompleter implements TabCompleter {
 

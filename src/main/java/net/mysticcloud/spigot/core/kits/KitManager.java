@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.kits;
+package net.mysticcloud.spigot.core.kits;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,10 +18,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.runnables.KitCooldownTimer;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.runnables.KitCooldownTimer;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.InventoryCreator;
 
 public class KitManager {
 

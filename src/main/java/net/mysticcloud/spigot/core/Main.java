@@ -1,27 +1,27 @@
-package main.java.net.mysticcloud.spigot.core;
+package net.mysticcloud.spigot.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import main.java.net.mysticcloud.spigot.core.commands.DebugCommand;
-import main.java.net.mysticcloud.spigot.core.commands.GRLCommand;
-import main.java.net.mysticcloud.spigot.core.commands.ItemCommand;
-import main.java.net.mysticcloud.spigot.core.commands.KitCommand;
-import main.java.net.mysticcloud.spigot.core.commands.ParticlesCommand;
-import main.java.net.mysticcloud.spigot.core.commands.PetCommand;
-import main.java.net.mysticcloud.spigot.core.commands.PlayerListCommand;
-import main.java.net.mysticcloud.spigot.core.commands.RegisterCommand;
-import main.java.net.mysticcloud.spigot.core.commands.SQLCommand;
-import main.java.net.mysticcloud.spigot.core.commands.SettingsCommand;
-import main.java.net.mysticcloud.spigot.core.commands.SpawnCommand;
-import main.java.net.mysticcloud.spigot.core.kits.KitManager;
-import main.java.net.mysticcloud.spigot.core.listeners.PlayerListener;
-import main.java.net.mysticcloud.spigot.core.runnables.DateChecker;
-import main.java.net.mysticcloud.spigot.core.runnables.ParticleTimer;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.GUIManager;
-import main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.commands.DebugCommand;
+import net.mysticcloud.spigot.core.commands.GRLCommand;
+import net.mysticcloud.spigot.core.commands.ItemCommand;
+import net.mysticcloud.spigot.core.commands.KitCommand;
+import net.mysticcloud.spigot.core.commands.ParticlesCommand;
+import net.mysticcloud.spigot.core.commands.PetCommand;
+import net.mysticcloud.spigot.core.commands.PlayerListCommand;
+import net.mysticcloud.spigot.core.commands.RegisterCommand;
+import net.mysticcloud.spigot.core.commands.SQLCommand;
+import net.mysticcloud.spigot.core.commands.SettingsCommand;
+import net.mysticcloud.spigot.core.commands.SpawnCommand;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.listeners.PlayerListener;
+import net.mysticcloud.spigot.core.runnables.DateChecker;
+import net.mysticcloud.spigot.core.runnables.ParticleTimer;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class Main extends JavaPlugin {
 	static Main plugin;

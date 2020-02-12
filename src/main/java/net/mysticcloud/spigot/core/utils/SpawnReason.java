@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils;
 
 import java.util.Random;
 

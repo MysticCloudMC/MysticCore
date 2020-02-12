@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.runnables;
+package net.mysticcloud.spigot.core.runnables;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -8,10 +8,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.Holiday;
-import main.java.net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.Holiday;
+import net.mysticcloud.spigot.core.utils.TimedPerm;
 
 public class DateChecker implements Runnable {
 

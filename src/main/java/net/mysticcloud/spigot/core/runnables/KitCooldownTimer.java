@@ -1,13 +1,13 @@
-package main.java.net.mysticcloud.spigot.core.runnables;
+package net.mysticcloud.spigot.core.runnables;
 
 import java.util.Date;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.kits.KitManager;
-import main.java.net.mysticcloud.spigot.core.kits.KitWrapper;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.kits.KitWrapper;
 
 
 public class KitCooldownTimer implements Runnable {

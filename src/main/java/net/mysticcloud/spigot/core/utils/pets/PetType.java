@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.pets;
+package net.mysticcloud.spigot.core.utils.pets;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

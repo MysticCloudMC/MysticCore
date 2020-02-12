@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.commands;
+package net.mysticcloud.spigot.core.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -7,9 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class PlayerListCommand implements CommandExecutor {
 

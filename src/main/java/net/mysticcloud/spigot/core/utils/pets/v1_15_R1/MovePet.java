@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
+package net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
 
 public class MovePet implements Runnable {
 

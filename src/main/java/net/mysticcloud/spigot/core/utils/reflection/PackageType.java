@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.reflection;
+package net.mysticcloud.spigot.core.utils.reflection;
 
 import org.bukkit.Bukkit;
 

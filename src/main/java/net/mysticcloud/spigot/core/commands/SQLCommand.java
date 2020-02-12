@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.commands;
+package net.mysticcloud.spigot.core.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,8 +7,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class SQLCommand implements CommandExecutor {
 

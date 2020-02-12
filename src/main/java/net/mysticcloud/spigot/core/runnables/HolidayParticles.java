@@ -1,12 +1,12 @@
-package main.java.net.mysticcloud.spigot.core.runnables;
+package net.mysticcloud.spigot.core.runnables;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.Holiday;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.Holiday;
 
 public class HolidayParticles implements Runnable {
 

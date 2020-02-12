@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.listeners;
+package net.mysticcloud.spigot.core.listeners;
 
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -25,16 +25,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.kits.Kit;
-import main.java.net.mysticcloud.spigot.core.kits.KitManager;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.FoodInfo;
-import main.java.net.mysticcloud.spigot.core.utils.GUIManager;
-import main.java.net.mysticcloud.spigot.core.utils.SpawnReason;
-import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
-import main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.kits.Kit;
+import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.FoodInfo;
+import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
+import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 
 public class PlayerListener implements Listener {
 

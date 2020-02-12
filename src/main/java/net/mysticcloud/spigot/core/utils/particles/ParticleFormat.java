@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.particles;
+package net.mysticcloud.spigot.core.utils.particles;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
-import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class GUIManager {
 

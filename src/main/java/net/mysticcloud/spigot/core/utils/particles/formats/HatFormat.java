@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.particles.formats;
+package net.mysticcloud.spigot.core.utils.particles.formats;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
-import main.java.net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class HatFormat extends ParticleFormat {
 

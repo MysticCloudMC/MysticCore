@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
+package net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
 
 import java.util.UUID;
 
@@ -9,9 +9,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.pets.PetType;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.pets.PetType;
 import net.minecraft.server.v1_15_R1.EntityArmorStand;
 import net.minecraft.server.v1_15_R1.World;
 

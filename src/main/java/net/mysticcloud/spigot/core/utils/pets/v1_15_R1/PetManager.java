@@ -1,4 +1,4 @@
-package main.java.net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
+package net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +19,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import main.java.net.mysticcloud.spigot.core.Main;
-import main.java.net.mysticcloud.spigot.core.utils.CoreUtils;
-import main.java.net.mysticcloud.spigot.core.utils.InventoryCreator;
-import main.java.net.mysticcloud.spigot.core.utils.pets.PetType;
-import main.java.net.mysticcloud.spigot.core.utils.reflection.PackageType;
-import main.java.net.mysticcloud.spigot.core.utils.reflection.ReflectionUtils;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.pets.PetType;
+import net.mysticcloud.spigot.core.utils.reflection.PackageType;
+import net.mysticcloud.spigot.core.utils.reflection.ReflectionUtils;
 
 public class PetManager {
 
