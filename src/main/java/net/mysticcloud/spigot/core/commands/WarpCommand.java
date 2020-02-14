@@ -34,14 +34,14 @@ public class WarpCommand implements CommandExecutor {
 					sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
 					List<String> warps = new ArrayList<>();
 					for (String type : WarpUtils.getWarpTypes()) {
-						String m = type + ":";
+						String m = "&3" + type + "&f:";
 						for (Warp warp : WarpUtils.getWarps(type)) {
 							m = m + " " + warp.name();
 						}
 						warps.add(m);
 					}
 					for (String m : warps) {
-						sender.sendMessage(m);
+						sender.sendMessage(CoreUtils.colorize(m));
 					}
 					return false;
 				}
