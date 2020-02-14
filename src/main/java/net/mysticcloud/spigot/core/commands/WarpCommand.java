@@ -67,7 +67,7 @@ public class WarpCommand implements CommandExecutor {
 				}
 				WarpUtils.addWarp(args.length == 2 ? args[0] : "warp",
 						new Warp(args.length == 2 ? args[1] : args[0], ((Player) sender).getLocation()));
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created!");
+				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created! " + (args.length == 2 ? args[0] : "warp") + ":" + (args.length == 2 ? args[1] : args[0]));
 
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
