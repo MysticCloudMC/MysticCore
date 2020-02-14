@@ -27,7 +27,7 @@ public class WarpUtils {
 
 		for (File file : warps_dir.listFiles()) {
 			FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-			for (String test : config.getConfigurationSection("warps").getKeys(false)) {
+			for (String test : config.getConfigurationSection("Warps").getKeys(false)) {
 				CoreUtils.debug(test);
 			}
 		}
