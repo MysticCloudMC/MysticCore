@@ -127,10 +127,9 @@ public class WarpUtils {
 	}
 
 	private static void checkWarps(String type) {
-		if (!warps.containsKey(type)) {
-
-		}
-		warps.put(type, new ArrayList<Warp>());
+		if (!warps.containsKey(type)) 
+			warps.put(type, new ArrayList<Warp>());
+		
 	}
 
 }
