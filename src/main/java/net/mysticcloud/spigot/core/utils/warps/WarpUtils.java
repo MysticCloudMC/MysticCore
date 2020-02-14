@@ -30,6 +30,7 @@ public class WarpUtils {
 
 		for (File file : warps_dir.listFiles()) {
 			FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+			String type = file.getName().replace(".yml", "");
 			for (String name : config.getConfigurationSection("Warps").getKeys(false)) {
 				Warp warp = new Warp(name);
 				for(String data : config.getConfigurationSection("Warps." + name).getKeys(false)) {
@@ -39,8 +40,9 @@ public class WarpUtils {
 						warp.metadata(data, config.get("Warps." + name + "." + data));
 					
 				}
+				addWarp(type,warp);
+				Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("warps") + "Registered Warp " + type + ":" + warp.name());
 				
-				Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("warps") + "Registered Warp " + warp.name());
 			}
 		}
 
