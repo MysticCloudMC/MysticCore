@@ -43,7 +43,7 @@ public class Main extends JavaPlugin {
 		new SpawnCommand(this, "spawn", "setspawn");
 		new ParticlesCommand(this, "particles");
 		new PlayerListCommand(this, "playerlist");
-		new WarpCommand(this, "warp");
+		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

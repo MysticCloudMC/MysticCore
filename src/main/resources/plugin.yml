@@ -45,3 +45,11 @@ commands:
   warp:
     usage: /warp [type|default=warp] <name>
     description: Teleport to a location
+  addwarp:
+    aliases: ['createwarp']
+    usage: /addwarp [type|default=warp] <name>
+    description: Add a warp to the database
+  removewarp:
+    aliases: ['deletewarp']
+    usage: /deletewarp [type|default=warp] <name>
+    description: remove a warp from the database
