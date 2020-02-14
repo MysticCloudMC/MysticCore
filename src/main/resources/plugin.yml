@@ -42,3 +42,6 @@ commands:
     usage: /playerlist
     aliases: ['pl','list']
     description: Edit or chech the Player List
+  warp:
+    usage: /warp [type|default=warp] <name>
+    description: Teleport to a location

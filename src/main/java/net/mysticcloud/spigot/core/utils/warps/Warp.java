@@ -16,12 +16,31 @@ public class Warp {
 		this.loc = location;
 		this.name = name;
 	}
+	Warp(String name){
+		this.name = name;
+	}
 	
 	public String name(){
 		return name;
 	}
 	public Location location(){
 		return loc;
+	}
+	void location(Location location){
+		loc = location;
+	}
+	public void metadata(String data, Object object) {
+		metadata.put(data,object);
+		
+	}
+	
+	public Object metadata(String data) {
+		if(metadata.containsKey(data))
+			return metadata.get(data);
+		else return null;
+	}
+	public Map<String, Object> metadata() {
+		return metadata;
 	}
 
 }

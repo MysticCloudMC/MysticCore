@@ -87,6 +87,7 @@ public class CoreUtils {
 		prefixes.put("pets", colorize("&3&lPets &7>&f "));
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
+		prefixes.put("warps", colorize("&3&lWarps &7>&f "));
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {

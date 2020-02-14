@@ -15,6 +15,7 @@ import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
 import net.mysticcloud.spigot.core.commands.SpawnCommand;
+import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
@@ -42,6 +43,7 @@ public class Main extends JavaPlugin {
 		new SpawnCommand(this, "spawn", "setspawn");
 		new ParticlesCommand(this, "particles");
 		new PlayerListCommand(this, "playerlist");
+		new WarpCommand(this, "warp");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
