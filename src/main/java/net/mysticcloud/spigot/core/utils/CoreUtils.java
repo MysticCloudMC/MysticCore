@@ -40,6 +40,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
@@ -185,6 +186,8 @@ public class CoreUtils {
 		if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
 			playerlist.put("footer", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
 		}
+		
+		WarpUtils.registerWarps();
 
 	}
 

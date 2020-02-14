@@ -5,6 +5,9 @@
 	<artifactId>mystic-core</artifactId>
 	<version>0.5</version>
 	<name>MysticCore</name>
+	<properties>
+	  <rootdir>C:/</rootdir>
+	</properties>
 	<url>http://www.mysticcloud.net</url>
 
 	<repositories>
@@ -27,7 +30,7 @@
 			<artifactId>permissionsex</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>/home/Minecraft/Dependencies/PermissionsEx.jar</systemPath>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/PermissionsEx.jar</systemPath>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.minecraft/server -->
 		<dependency>
@@ -35,7 +38,7 @@
 			<artifactId>server</artifactId>
 			<version>1.15.1</version>
 			<scope>system</scope>
-			<systemPath>/home/Minecraft/Dependencies/spigot.jar</systemPath>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/spigot.jar</systemPath>
 		</dependency>
 	</dependencies>
 
