@@ -11,7 +11,7 @@ public class Warp {
 	String name;
 	int id;
 	
-	Map<String, Object> metadata = new HashMap<>();
+	Map<String, String> metadata = new HashMap<>();
 	
 	public Warp(int id, String name, Location location){
 		this.id = id;
@@ -39,8 +39,8 @@ public class Warp {
 		return loc;
 	}
 	
-	public void metadata(String data, Object object) {
-		metadata.put(data,object);
+	public void metadata(String key, String value) {
+		metadata.put(key,value);
 		
 	}
 	
@@ -49,7 +49,7 @@ public class Warp {
 			return metadata.get(data);
 		else return null;
 	}
-	public Map<String, Object> metadata() {
+	public Map<String, String> metadata() {
 		return metadata;
 	}
 

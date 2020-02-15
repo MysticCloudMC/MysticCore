@@ -15,7 +15,7 @@ public class WarpBuilder {
 		return this;
 	}
 
-	public WarpBuilder setMetadata(String key, Object value) {
+	public WarpBuilder setMetadata(String key, String value) {
 		warp.metadata(key, value);
 		return this;
 	}
