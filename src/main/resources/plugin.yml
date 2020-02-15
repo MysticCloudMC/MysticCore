@@ -43,7 +43,7 @@ commands:
     aliases: ['pl','list']
     description: Edit or chech the Player List
   warp:
-    usage: /warp [type|default=warp] <name>
+    usage: /warp [type|default=warp] <name> [selector]
     description: Teleport to a location
   addwarp:
     aliases: ['createwarp']

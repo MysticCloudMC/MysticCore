@@ -56,10 +56,10 @@ public class WarpCommand implements CommandExecutor {
 					return false;
 				}
 
-				if (warps.size() >= 2) {
+				if (warps.size() >= 2 && sel == 0) {
 					sender.sendMessage(CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
-					sender.sendMessage(CoreUtils.colorize("&3Warping to first in list. To specify type \"/warp " + type
-							+ " " + name + " <1-" + warps.size() + ">\""));
+					sender.sendMessage(CoreUtils.colorize("&3Warping to first in list. To specify type \"&f/warp " + type
+							+ " " + name + " <1-" + warps.size() + ">&3\""));
 				}
 				((Player) sender).teleport(warps.get(sel).location());
 
@@ -90,14 +90,43 @@ public class WarpCommand implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("removewarp")) {
 			if (sender instanceof Player) {
 				if (args.length == 0) {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
+					List<String> warps = new ArrayList<>();
+					for (String type : WarpUtils.getWarpTypes()) {
+						String m = "&3" + type + "&f:";
+						for (Warp warp : WarpUtils.getWarps(type)) {
+							m = m + " " + warp.name();
+						}
+						warps.add(m);
+					}
+					for (String m : warps) {
+						sender.sendMessage(CoreUtils.colorize(m));
+					}
 					return false;
 				}
-				WarpUtils.removeWarp(args.length >= 2 ? args[0] : "warp",
-						Integer.parseInt(args.length >= 2 ? args[1] : args[0]));
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp removed!");
+				String type = args.length >= 2 ? args[0] : "warp";
+				String name = args.length >= 2 ? args[1] : args[0];
+				int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
+				List<Warp> warps = WarpUtils.getWarps(type, name);
+
+				if (warps.size() == 0) {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
+					return false;
+				}
+
+				if (warps.size() >= 2 && sel == 0) {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
+					sender.sendMessage(CoreUtils.colorize("&3To specify type \"&f/removewarp " + type
+							+ " " + name + " <1-" + warps.size() + ">&3\""));
+					return true;
+				}
+				
+				WarpUtils.removeWarp(type,warps.get(sel));
+				sender.sendMessage(CoreUtils.prefixes("warps") + "Removed warp " + type + ":" + name);
 
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
+				return true;
 			}
 		}
 
