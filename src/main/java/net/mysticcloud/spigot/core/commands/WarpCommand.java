@@ -48,7 +48,7 @@ public class WarpCommand implements CommandExecutor {
 				}
 				String type = args.length >= 2 ? args[0] : "warp";
 				String name = args.length >= 2 ? args[1] : args[0];
-				int sel = args.length >= 2 ? Integer.parseInt(args[2]) - 1 : 0;
+				int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
 				List<Warp> warps = WarpUtils.getWarps(type, name);
 
 				if (warps.size() == 0) {
