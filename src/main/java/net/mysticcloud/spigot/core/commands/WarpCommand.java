@@ -62,6 +62,7 @@ public class WarpCommand implements CommandExecutor {
 							+ " " + name + " <1-" + warps.size() + ">&3\""));
 				}
 				((Player) sender).teleport(warps.get(sel).location());
+				sender.sendMessage(CoreUtils.prefixes("warps") + "Teleporting to " + (type.equalsIgnoreCase("warp") ? "" : type + ":") + name);
 
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
