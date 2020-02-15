@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -90,6 +89,17 @@ public class WarpUtils {
 
 	public static void removeWarp(String type, Warp warp) {
 		checkWarps(type);
+		File file = new File(warps_dir.getAbsoluteFile() + "/" + type + ".yml");
+		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+		if(config.isSet("Warps." + warp.id())) {
+			config.set("Warps." + warp.id(), null);
+			try {
+				config.save(file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if (warps.get(type).contains(warp))
 			warps.get(type).remove(warp);
 	}
