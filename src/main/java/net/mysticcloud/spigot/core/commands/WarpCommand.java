@@ -30,104 +30,126 @@ public class WarpCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (cmd.getName().equalsIgnoreCase("warp")) {
-			if (sender instanceof Player) {
-				if (args.length == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
-					List<String> warps = new ArrayList<>();
-					for (String type : WarpUtils.getWarpTypes()) {
-						String m = "&3" + type + "&f:";
-						for (Warp warp : WarpUtils.getWarps(type)) {
-							m = m + " " + warp.name();
+			if (sender.hasPermission("mysticcloud.cmd.warp")) {
+				if (sender instanceof Player) {
+					if (args.length == 0) {
+						sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
+						List<String> warps = new ArrayList<>();
+						for (String type : WarpUtils.getWarpTypes()) {
+							String m = "";
+							for (Warp warp : WarpUtils.getWarps(type)) {
+								if (sender.hasPermission("mysticcloud.warp." + type + "." + warp.name())) {
+									if (m == "")
+										m = "&3" + type + "&f:";
+									m = m + " " + warp.name();
+								}
+
+							}
+							warps.add(m);
 						}
-						warps.add(m);
+						for (String m : warps) {
+							sender.sendMessage(CoreUtils.colorize(m));
+						}
+						return false;
 					}
-					for (String m : warps) {
-						sender.sendMessage(CoreUtils.colorize(m));
+					String type = args.length >= 2 ? args[0] : "warp";
+					String name = args.length >= 2 ? args[1] : args[0];
+					if (!sender.hasPermission("mysticcloud.warp." + type + "." + name)) {
+						sender.sendMessage(CoreUtils.prefixes("warps") + "You don't have permission to use that warp.");
+						return true;
 					}
-					return false;
-				}
-				String type = args.length >= 2 ? args[0] : "warp";
-				String name = args.length >= 2 ? args[1] : args[0];
-				int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
-				List<Warp> warps = WarpUtils.getWarps(type, name);
+					int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
+					List<Warp> warps = WarpUtils.getWarps(type, name);
 
-				if (warps.size() == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
-					return false;
-				}
+					if (warps.size() == 0) {
+						sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
+						return false;
+					}
 
-				if (warps.size() >= 2 && sel == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
-					sender.sendMessage(CoreUtils.colorize("&3Warping to first in list. To specify type \"&f/warp " + type
-							+ " " + name + " <1-" + warps.size() + ">&3\""));
-				}
-				((Player) sender).teleport(warps.get(sel).location());
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Teleporting to " + (type.equalsIgnoreCase("warp") ? "" : type + ":") + name);
+					if (warps.size() >= 2 && sel == 0) {
+						sender.sendMessage(
+								CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
+						sender.sendMessage(CoreUtils.colorize("&3Warping to first in list. To specify type \"&f/warp "
+								+ type + " " + name + " <1-" + warps.size() + ">&3\""));
+					}
+					((Player) sender).teleport(warps.get(sel).location());
+					sender.sendMessage(CoreUtils.prefixes("warps") + "Teleporting to "
+							+ (type.equalsIgnoreCase("warp") ? "" : type + ":") + name);
 
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
+					return true;
+				}
 			} else {
-				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
-				return true;
+				sender.sendMessage(CoreUtils.prefixes("warps") + "You don't have permission to use this command.");
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("addwarp")) {
-			if (sender instanceof Player) {
-				if (args.length == 0) {
-					return false;
-				}
-				WarpBuilder warp = new WarpBuilder();
-				warp.createWarp()
-						.setType(args.length >= 2 ? args[0] : "warp")
-						.setName(args.length >= 2 ? args[1] : args[0])
-						.setLocation(((Player) sender).getLocation())
-						.getWarp();
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created! "
-						+ (args.length >= 2 ? args[0] : "warp") + ":" + (args.length >= 2 ? args[1] : args[0]));
+			if (sender.hasPermission("mysticcloud.cmd.addwarp")) {
+				if (sender instanceof Player) {
+					if (args.length == 0) {
+						return false;
+					}
+					WarpBuilder warp = new WarpBuilder();
+					warp.createWarp().setType(args.length >= 2 ? args[0] : "warp")
+							.setName(args.length >= 2 ? args[1] : args[0]).setLocation(((Player) sender).getLocation())
+							.getWarp();
+					sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created! "
+							+ (args.length >= 2 ? args[0] : "warp") + ":" + (args.length >= 2 ? args[1] : args[0]));
 
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
+				}
 			} else {
-				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
+				sender.sendMessage(CoreUtils.prefixes("warps") + "You don't have permission to use this command.");
 			}
 		}
 
 		if (cmd.getName().equalsIgnoreCase("removewarp")) {
-			if (sender instanceof Player) {
-				if (args.length == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
-					List<String> warps = new ArrayList<>();
-					for (String type : WarpUtils.getWarpTypes()) {
-						String m = "&3" + type + "&f:";
-						for (Warp warp : WarpUtils.getWarps(type)) {
-							m = m + " " + warp.name();
+			if (sender.hasPermission("mysticcloud.cmd.removewarp")) {
+				if (sender instanceof Player) {
+					if (args.length == 0) {
+						sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
+						List<String> warps = new ArrayList<>();
+						for (String type : WarpUtils.getWarpTypes()) {
+							String m = "&3" + type + "&f:";
+							for (Warp warp : WarpUtils.getWarps(type)) {
+								m = m + " " + warp.name();
+							}
+							warps.add(m);
 						}
-						warps.add(m);
+						for (String m : warps) {
+							sender.sendMessage(CoreUtils.colorize(m));
+						}
+						return false;
 					}
-					for (String m : warps) {
-						sender.sendMessage(CoreUtils.colorize(m));
+					String type = args.length >= 2 ? args[0] : "warp";
+					String name = args.length >= 2 ? args[1] : args[0];
+					int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
+					List<Warp> warps = WarpUtils.getWarps(type, name);
+
+					if (warps.size() == 0) {
+						sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
+						return false;
 					}
-					return false;
-				}
-				String type = args.length >= 2 ? args[0] : "warp";
-				String name = args.length >= 2 ? args[1] : args[0];
-				int sel = args.length >= 3 ? Integer.parseInt(args[2]) - 1 : 0;
-				List<Warp> warps = WarpUtils.getWarps(type, name);
 
-				if (warps.size() == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
-					return false;
-				}
+					if (warps.size() >= 2 && sel == 0) {
+						sender.sendMessage(
+								CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
+						sender.sendMessage(CoreUtils.colorize("&3To specify type \"&f/removewarp " + type + " " + name
+								+ " <1-" + warps.size() + ">&3\""));
+						return true;
+					}
 
-				if (warps.size() >= 2 && sel == 0) {
-					sender.sendMessage(CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
-					sender.sendMessage(CoreUtils.colorize("&3To specify type \"&f/removewarp " + type
-							+ " " + name + " <1-" + warps.size() + ">&3\""));
+					WarpUtils.removeWarp(type, warps.get(sel));
+					sender.sendMessage(CoreUtils.prefixes("warps") + "Removed warp " + type + ":" + name);
+
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
 					return true;
 				}
-				
-				WarpUtils.removeWarp(type,warps.get(sel));
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Removed warp " + type + ":" + name);
-
 			} else {
-				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
-				return true;
+				sender.sendMessage(CoreUtils.prefixes("warps") + "You don't have permission to use this command.");
 			}
 		}
 
