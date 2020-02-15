@@ -9,15 +9,27 @@ public class Warp {
 	
 	Location loc;
 	String name;
+	int id;
 	
 	Map<String, Object> metadata = new HashMap<>();
 	
-	public Warp(String name, Location location){
+	public Warp(int id, String name, Location location){
+		this.id = id;
 		this.loc = location;
 		this.name = name;
 	}
-	Warp(String name){
+	Warp(int id){
+		this.id = id;
+	}
+	void location(Location location){
+		loc = location;
+	}
+	void name(String name) {
 		this.name = name;
+	}
+	
+	public int id() {
+		return id;
 	}
 	
 	public String name(){
@@ -26,9 +38,7 @@ public class Warp {
 	public Location location(){
 		return loc;
 	}
-	void location(Location location){
-		loc = location;
-	}
+	
 	public void metadata(String data, Object object) {
 		metadata.put(data,object);
 		

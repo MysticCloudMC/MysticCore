@@ -21,6 +21,11 @@ public class WarpUtils {
 
 	private static Map<String, List<Warp>> warps = new HashMap<>();
 	static File warps_dir = new File(Main.getPlugin().getDataFolder() + "/warps/");
+	
+	static void addWarp(String type, Warp warp) {
+		checkWarps(type);
+		warps.get(type).add(warp);
+	}
 
 	public static void registerWarps() {
 		
@@ -31,13 +36,18 @@ public class WarpUtils {
 		for (File file : warps_dir.listFiles()) {
 			FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 			String type = file.getName().replace(".yml", "");
-			for (String name : config.getConfigurationSection("Warps").getKeys(false)) {
-				Warp warp = new Warp(name);
-				for(String data : config.getConfigurationSection("Warps." + name).getKeys(false)) {
-					if(data.equalsIgnoreCase("Location"))
-						warp.location(CoreUtils.decryptLocation(config.getString("Warps." + name + "." + data)));
-					else 
-						warp.metadata(data, config.get("Warps." + name + "." + data));
+			for (String idstr : config.getConfigurationSection("Warps").getKeys(false)) {
+				Warp warp = new Warp(Integer.parseInt(idstr));
+				for(String data : config.getConfigurationSection("Warps." + idstr).getKeys(false)) {
+					if(data.equalsIgnoreCase("Location")){
+						warp.location(CoreUtils.decryptLocation(config.getString("Warps." + idstr + "." + data)));
+						continue;
+					}
+					if(data.equalsIgnoreCase("Name")){
+						warp.name(config.getString("Warps." + idstr + "." + data));
+						continue;
+					}
+					warp.metadata(data, config.get("Warps." + idstr + "." + data));
 					
 				}
 				addWarp(type,warp);
@@ -52,13 +62,23 @@ public class WarpUtils {
 		return warps.keySet();
 	}
 	
-	public static Warp getWarp(String type, String name) {
+	public static List<Warp> getWarps(String type, String name) {
 		checkWarps(type);
+		List<Warp> rtrn = new ArrayList<>();
 		for(Warp warp : warps.get(type)) {
 			if(warp.name().equals(name))
-				return warp;
+				rtrn.add(warp);
 		}
-		return null;
+		return rtrn;
+	}
+	public static List<Warp> getAllWarps(){
+		List<Warp> warps = new ArrayList<>();
+		for(String type : getWarpTypes()) {
+			for(Warp warp : WarpUtils.warps.get(type)) {
+				warps.add(warp);
+			}
+		}
+		return warps;
 	}
 
 	public static List<Warp> getWarps(String type) {
@@ -66,44 +86,28 @@ public class WarpUtils {
 		return warps.get(type);
 	}
 
-	public static void addWarp(String type, Warp warp) {
-		checkWarps(type);
-		warps.get(type).add(warp);
-	}
+	
 
 	public static void removeWarp(String type, Warp warp) {
 		checkWarps(type);
 		if (warps.get(type).contains(warp))
 			warps.get(type).remove(warp);
 	}
-
-	public static void removeWarp(String type, Location location) {
+	
+	public static void removeWarp(String type, int id) {
 		checkWarps(type);
 		Warp tmp = null;
-		for (Warp warp : warps.get(type)) {
-			if (warp.location().equals(location)) {
+		for(Warp warp : warps.get(type)) {
+			if(warp.id() == id) {
 				tmp = warp;
 				break;
 			}
 		}
-		if (tmp != null)
-			removeWarp(type, tmp);
+		removeWarp(type,tmp);
 		tmp = null;
 	}
 
-	public static void removeWarp(String type, String name) {
-		checkWarps(type);
-		Warp tmp = null;
-		for (Warp warp : warps.get(type)) {
-			if (warp.name().equals(name)) {
-				tmp = warp;
-				break;
-			}
-		}
-		if (tmp != null)
-			removeWarp(type, tmp);
-		tmp = null;
-	}
+
 	
 	public static void save() {
 		for(String type : warps.keySet()){

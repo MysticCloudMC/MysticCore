@@ -23,14 +23,18 @@ public class PlayerListCommand implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (args.length == 0) {
-			String s = "";
-			for(Player player : Bukkit.getOnlinePlayers()){
-				s = s + player.getName() + ", ";
+		try {
+			if (args.length == 0) {
+				String s = "";
+				for (Player player : Bukkit.getOnlinePlayers()) {
+					s = s + player.getName() + ", ";
+				}
+				s = s.substring(0, s.length() - 2);
+				sender.sendMessage(CoreUtils.fullPrefix + "Here's a list of online players: " + s);
+				return true;
 			}
-			s = s.substring(0, s.length()-2);
-			sender.sendMessage(CoreUtils.fullPrefix + "Here's a list of online players: " + s);
-			return true;
+		} catch (NullPointerException ex) {
+
 		}
 		if (args.length >= 2) {
 //			if(args[1].equalsIgnoreCase("header")) {
@@ -39,16 +43,17 @@ public class PlayerListCommand implements CommandExecutor {
 				builder = builder + args[i] + " ";
 
 			}
-			
-			builder = builder.substring(0, builder.length()-1);
-			
-			switch(args[0].toLowerCase()) {
+
+			builder = builder.substring(0, builder.length() - 1);
+
+			switch (args[0].toLowerCase()) {
 			case "header":
 			case "name":
 			case "footer":
 				break;
 			default:
-				sender.sendMessage(CoreUtils.prefixes("hub") + CoreUtils.colorize("Valid arguments are: [header, name, footer]"));
+				sender.sendMessage(
+						CoreUtils.prefixes("hub") + CoreUtils.colorize("Valid arguments are: [header, name, footer]"));
 				return true;
 			}
 
@@ -62,14 +67,14 @@ public class PlayerListCommand implements CommandExecutor {
 				if (phs.contains("%player%")) {
 					phs = phs.replaceAll("%player%", player.getName());
 				}
-				
 
 				player.setPlayerListName(CoreUtils.colorize(phs));
 
 				player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 			}
-			
-			sender.sendMessage(CoreUtils.prefixes("hub") + CoreUtils.colorize("Set \"&7" + args[0].toLowerCase() + "&f\" to \"&7" + builder + "&f\"."));
+
+			sender.sendMessage(CoreUtils.prefixes("hub")
+					+ CoreUtils.colorize("Set \"&7" + args[0].toLowerCase() + "&f\" to \"&7" + builder + "&f\"."));
 
 		} else {
 

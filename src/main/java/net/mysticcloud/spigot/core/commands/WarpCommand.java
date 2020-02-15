@@ -13,6 +13,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.warps.Warp;
+import net.mysticcloud.spigot.core.utils.warps.WarpBuilder;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
 public class WarpCommand implements CommandExecutor {
@@ -30,7 +31,7 @@ public class WarpCommand implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("warp")) {
 			if (sender instanceof Player) {
-				if(args.length == 0) {
+				if (args.length == 0) {
 					sender.sendMessage(CoreUtils.prefixes("warps") + "Here is a list of avalible warps:");
 					List<String> warps = new ArrayList<>();
 					for (String type : WarpUtils.getWarpTypes()) {
@@ -45,16 +46,23 @@ public class WarpCommand implements CommandExecutor {
 					}
 					return false;
 				}
-				String type = args.length == 2 ? args[0] : "warp";
-				String name = args.length == 2 ? args[1] : args[0];
-				
-				if(WarpUtils.getWarp(type, name) != null) {
-					((Player)sender).teleport(WarpUtils.getWarp(type,name).location());
-					sender.sendMessage(CoreUtils.prefixes("warps") + "You have been warped to " + name);
-				} else {
+				String type = args.length >= 2 ? args[0] : "warp";
+				String name = args.length >= 2 ? args[1] : args[0];
+				int sel = args.length >= 2 ? Integer.parseInt(args[2]) - 1 : 0;
+				List<Warp> warps = WarpUtils.getWarps(type, name);
+
+				if (warps.size() == 0) {
 					sender.sendMessage(CoreUtils.prefixes("warps") + "Can't find that warp...");
+					return false;
 				}
-				
+
+				if (warps.size() >= 2) {
+					sender.sendMessage(CoreUtils.prefixes("warps") + "There are more than one warp with that name.");
+					sender.sendMessage(CoreUtils.colorize("&3Warping to first in list. To specify type \"/warp " + type
+							+ " " + name + " <1-" + warps.size() + ">\""));
+				}
+				((Player) sender).teleport(warps.get(sel).location());
+
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
 				return true;
@@ -65,22 +73,27 @@ public class WarpCommand implements CommandExecutor {
 				if (args.length == 0) {
 					return false;
 				}
-				WarpUtils.addWarp(args.length == 2 ? args[0] : "warp",
-						new Warp(args.length == 2 ? args[1] : args[0], ((Player) sender).getLocation()));
-				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created! " + (args.length == 2 ? args[0] : "warp") + ":" + (args.length == 2 ? args[1] : args[0]));
+				WarpBuilder warp = new WarpBuilder();
+				warp.createWarp()
+						.setType(args.length >= 2 ? args[0] : "warp")
+						.setName(args.length >= 2 ? args[1] : args[0])
+						.setLocation(((Player) sender).getLocation())
+						.getWarp();
+				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp created! "
+						+ (args.length >= 2 ? args[0] : "warp") + ":" + (args.length >= 2 ? args[1] : args[0]));
 
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You must be a player to use that command.");
 			}
 		}
-		
+
 		if (cmd.getName().equalsIgnoreCase("removewarp")) {
 			if (sender instanceof Player) {
 				if (args.length == 0) {
 					return false;
 				}
-				WarpUtils.removeWarp(args.length == 2 ? args[0] : "warp",
-						new Warp(args.length == 2 ? args[1] : args[0], ((Player) sender).getLocation()));
+				WarpUtils.removeWarp(args.length >= 2 ? args[0] : "warp",
+						Integer.parseInt(args.length >= 2 ? args[1] : args[0]));
 				sender.sendMessage(CoreUtils.prefixes("warps") + "Warp removed!");
 
 			} else {
