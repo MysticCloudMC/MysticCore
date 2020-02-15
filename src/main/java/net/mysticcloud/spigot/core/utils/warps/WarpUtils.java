@@ -119,9 +119,10 @@ public class WarpUtils {
 		File file = new File(warps_dir.getAbsoluteFile() + "/" + type + ".yml");
 		FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 		for(Warp warp : warps.get(type)) {
-			config.set("Warps." + warp.name() + ".Location", CoreUtils.encryptLocation(warp.location()));
+			config.set("Warps." + warp.id() + ".Location", CoreUtils.encryptLocation(warp.location()));
+			config.set("Warps." + warp.id() + ".Name", warp.name());
 			for(Entry<String, Object> entry : warp.metadata().entrySet()) {
-				config.set("Warps." + warp.name() + "." + entry.getKey(),entry.getValue());
+				config.set("Warps." + warp.id() + "." + entry.getKey(),entry.getValue());
 			}
 		}
 		try {
