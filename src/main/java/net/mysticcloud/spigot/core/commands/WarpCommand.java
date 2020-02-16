@@ -39,9 +39,7 @@ public class WarpCommand implements CommandExecutor {
 							String m = "";
 							for (Warp warp : WarpUtils.getWarps(type)) {
 								if (sender.hasPermission("mysticcloud.warp." + type + "." + warp.name())) {
-									if (m == "")
-										m = "&3" + type + "&f:";
-									m = m + " " + warp.name();
+									m = m == "" ? m = "&3" + type + "&f: " + warp.name() : m + ", " + warp.name();
 								}
 
 							}
@@ -105,6 +103,8 @@ public class WarpCommand implements CommandExecutor {
 			}
 		}
 
+		
+
 		if (cmd.getName().equalsIgnoreCase("removewarp")) {
 			if (sender.hasPermission("mysticcloud.cmd.removewarp")) {
 				if (sender instanceof Player) {
@@ -114,7 +114,7 @@ public class WarpCommand implements CommandExecutor {
 						for (String type : WarpUtils.getWarpTypes()) {
 							String m = "&3" + type + "&f:";
 							for (Warp warp : WarpUtils.getWarps(type)) {
-								m = m + " " + warp.name();
+								m = m == "" ? warp.name() : m + ", " + warp.name();
 							}
 							warps.add(m);
 						}
@@ -140,7 +140,6 @@ public class WarpCommand implements CommandExecutor {
 								+ " <1-" + warps.size() + ">&3\""));
 						return true;
 					}
-
 					WarpUtils.removeWarp(type, warps.get(sel));
 					sender.sendMessage(CoreUtils.prefixes("warps") + "Removed warp " + type + ":" + name);
 
@@ -152,6 +151,7 @@ public class WarpCommand implements CommandExecutor {
 				sender.sendMessage(CoreUtils.prefixes("warps") + "You don't have permission to use this command.");
 			}
 		}
+		
 
 		return true;
 	}
