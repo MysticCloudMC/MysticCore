@@ -46,7 +46,7 @@ public class WarpUtils {
 						warp.name(config.getString("Warps." + idstr + "." + data));
 						continue;
 					}
-					warp.metadata(data, config.get("Warps." + idstr + "." + data));
+					warp.metadata(data, config.getString("Warps." + idstr + "." + data));
 					
 				}
 				addWarp(type,warp);
@@ -131,7 +131,7 @@ public class WarpUtils {
 		for(Warp warp : warps.get(type)) {
 			config.set("Warps." + warp.id() + ".Location", CoreUtils.encryptLocation(warp.location()));
 			config.set("Warps." + warp.id() + ".Name", warp.name());
-			for(Entry<String, Object> entry : warp.metadata().entrySet()) {
+			for(Entry<String, String> entry : warp.metadata().entrySet()) {
 				config.set("Warps." + warp.id() + "." + entry.getKey(),entry.getValue());
 			}
 		}
