@@ -446,11 +446,7 @@ public class CoreUtils {
 	}
 
 	public static List<String> colorizeStringList(List<String> stringList) {
-		List<String> ret = new ArrayList<>();
-		for (String s : stringList) {
-			ret.add(colorize(s));
-		}
-		return ret;
+		return colorizeStringList((String[])stringList.toArray());
 	}
 
 	public static List<String> colorizeStringList(String[] stringList) {

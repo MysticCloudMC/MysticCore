@@ -29,8 +29,8 @@ public class PlayerListCommand implements CommandExecutor {
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					s = s + player.getName() + ", ";
 				}
-				s = s.substring(0, s.length() - 2);
-				sender.sendMessage(CoreUtils.fullPrefix + "Here's a list of online players: " + s);
+				if(s!="")s = s.substring(0, s.length() - 2);
+				sender.sendMessage(s=="" ? CoreUtils.fullPrefix + "There are no players online." : CoreUtils.fullPrefix + "Here's a list of online players: " + s);
 				return true;
 			}
 		} catch (NullPointerException ex) {
