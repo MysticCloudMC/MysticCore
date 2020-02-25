@@ -23,6 +23,58 @@ public class HolidayParticles implements Runnable {
 				} catch (NullPointerException ex) {
 					continue;
 				}
+				if (CoreUtils.holidayparticles.get(player.getUniqueId())) {
+					switch(CoreUtils.getRandom().nextInt(3)) {
+					case 1:
+						player.spawnParticle(Particle.REDSTONE,
+								player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+										(1.5 + CoreUtils.getRandom().nextDouble())
+												- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+										-0.5 + CoreUtils.getRandom().nextDouble()),
+								0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 255, (int) 0, (int) 0), 1));
+						break;
+					case 2:
+						player.spawnParticle(Particle.REDSTONE,
+								player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+										(1.5 + CoreUtils.getRandom().nextDouble())
+												- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+										-0.5 + CoreUtils.getRandom().nextDouble()),
+								0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 255, (int) 255, (int) 255), 1));
+						break;
+					case 3:
+						player.spawnParticle(Particle.REDSTONE,
+								player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+										(1.5 + CoreUtils.getRandom().nextDouble())
+												- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+										-0.5 + CoreUtils.getRandom().nextDouble()),
+								0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 0, (int) 255, (int) 0), 1));
+						break;
+					default:
+						player.spawnParticle(Particle.REDSTONE,
+								player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+										(1.5 + CoreUtils.getRandom().nextDouble())
+												- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+										-0.5 + CoreUtils.getRandom().nextDouble()),
+								0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 255, (int) 0, (int) 0), 1));
+						break;
+					}
+				}
+					player.spawnParticle(Particle.REDSTONE,
+							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+									(1.5 + CoreUtils.getRandom().nextDouble())
+											- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+									-0.5 + CoreUtils.getRandom().nextDouble()),
+							0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 0, (int) 255, (int) 2), 1));
+			}
+			break;
+		case ST_PATRICKS:
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				try {
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
+						continue;
+				} catch (NullPointerException ex) {
+					continue;
+				}
 				if (CoreUtils.holidayparticles.get(player.getUniqueId()))
 					player.spawnParticle(Particle.REDSTONE,
 							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
