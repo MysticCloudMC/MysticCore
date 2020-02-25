@@ -98,13 +98,20 @@ public class CoreUtils {
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
 		
-		registerScoreboard("sidebar", colorize("&3&l" + prefix));
+		registerScoreboard("sidebar", colorize("&3&lMystic&f&lCloud"));
 		
-		sidebar.add("&6Test 1");
-		sidebar.add("&6Test 2");
-		sidebar.add("&2Player: %player%");
-		sidebar.add("&cBalance: %balance%");
-		sidebar.add("&6Test: %gems%");
+		sidebar.add("&c");
+		sidebar.add("&eUsername");
+		sidebar.add("&f%player%");
+		sidebar.add("&c&c");
+		sidebar.add("&cBalance");
+		sidebar.add("&f%balance%");
+		sidebar.add("&c&c&c");
+		sidebar.add("&6Level");
+		sidebar.add("&f%level%");
+		sidebar.add("&c&f&c");
+		sidebar.add("&aGems");
+		sidebar.add("&f%gems%");
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
