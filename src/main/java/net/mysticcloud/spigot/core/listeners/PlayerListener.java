@@ -94,6 +94,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		
+		CoreUtils.enableScoreboard(e.getPlayer());
 
 		CoreUtils.updateDate();
 

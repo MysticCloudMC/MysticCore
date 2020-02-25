@@ -21,7 +21,6 @@ import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -32,7 +31,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -44,6 +42,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -58,6 +57,7 @@ public class CoreUtils {
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 
 	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
+	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -87,6 +87,7 @@ public class CoreUtils {
 	public static void start() {
 
 		prefixes.put("root", fullPrefix);
+		
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
 		prefixes.put("settings", colorize("&3&lSettings &7>&f "));
@@ -96,6 +97,14 @@ public class CoreUtils {
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
+		
+		registerScoreboard("sidebar", colorize("&3&l" + prefix));
+		
+		sidebar.add("&6Test 1");
+		sidebar.add("&6Test 2");
+		sidebar.add("&2Player: %player%");
+		sidebar.add("&cBalance: %balance%");
+		sidebar.add("&6Test: %gems%");
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -606,7 +615,7 @@ public class CoreUtils {
 	public static void enableScoreboard(Player player) {
 		int count = sidebar.size();
 		for (String text : sidebar) {
-			objective.getScore(colorize(text)).setScore(count);
+			objective.getScore(colorize(PlaceholderUtils.replace(player,text))).setScore(count);
 			count--;
 		}
 		player.setScoreboard(scoreboard);
@@ -893,6 +902,60 @@ public class CoreUtils {
 
 	public static ItemStack particleToItemStack(Particle p) {
 		return particleToItemStack(p, true);
+
+	}
+
+	public static MysticPlayer getMysticPlayer(Player player) {
+		return getMysticPlayer(player.getUniqueId());
+	}
+
+	public static MysticPlayer getMysticPlayer(UUID uid) {
+
+		if (mplayers.containsKey(uid)) {
+			return mplayers.get(uid);
+		}
+		
+
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
+		int a = 0;
+		try {
+			while (rs.next()) {
+				MysticPlayer mp = new MysticPlayer(uid);
+				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
+				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
+				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
+				mplayers.put(uid, mp);
+				CoreUtils.debug("Registered MysticPlayer: " + uid);
+				return mp;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(a == 0) {
+			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString() + "','0','0','1');");
+			
+		}
+		
+	
+		
+		if (Bukkit.getPlayer(uid) == null) {
+			Bukkit.getConsoleSender().sendMessage(
+					CoreUtils.colorize("&cA new MysticPlayer was requested while the associated player was offline."));
+			return null;
+		}
+
+		MysticPlayer player = new MysticPlayer(uid);
+
+		mplayers.put(uid, player);
+
+		saveMysticPlayer(player);
+
+		return player;
+
+	}
+
+	private static void saveMysticPlayer(MysticPlayer player) {
+		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel() + "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
 	}
 
 }
