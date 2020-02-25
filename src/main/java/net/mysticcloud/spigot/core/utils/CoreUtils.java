@@ -104,10 +104,10 @@ public class CoreUtils {
 		sidebar.add("&eUsername");
 		sidebar.add("&f%player%");
 		sidebar.add("&c&c");
-		sidebar.add("&cBalance");
+		sidebar.add("&6Balance");
 		sidebar.add("&6$&f %balance%");
 		sidebar.add("&c&c&c");
-		sidebar.add("&6Level");
+		sidebar.add("&cLevel");
 		sidebar.add("&f%level%");
 		sidebar.add("&c&f&c");
 		sidebar.add("&aGems");
