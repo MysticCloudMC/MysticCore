@@ -30,67 +30,6 @@ public class DateChecker implements Runnable {
 			}
 		}
 
-		if (CoreUtils.testblock != null) {
-			for (int r = 0; r != 20; r++) {
-				double dx = Math.sqrt(Math.pow(Bukkit.getPlayer("QuickScythe").getLocation().getX()
-						- (CoreUtils.testblock.getLocation().getX() + 0.5), 2));
-				double dz = Math.sqrt(Math.pow(Bukkit.getPlayer("QuickScythe").getLocation().getZ()
-						- (CoreUtils.testblock.getLocation().getZ() + 0.5), 2));
-				double distance = Math.sqrt(Math.pow(((Bukkit.getPlayer("QuickScythe").getLocation().getZ())
-						- (CoreUtils.testblock.getLocation().getZ() + 0.5))
-						+ ((Bukkit.getPlayer("QuickScythe").getLocation().getX())
-								- (CoreUtils.testblock.getLocation().getX() + 0.5)),
-						2));
-				float d1 = (float) (Math.atan(dz / dx));
-				float d2 = (float) (Math.atan(dx / dz));
-
-				float d3 = (float) Math.asin(Math.toDegrees(dx) / Math.toDegrees(distance));
-				float d4 = (float) Math.asin(Math.toDegrees(dz) / Math.toDegrees(distance));
-
-				float test = (float) Math.asin(dz / distance);
-				float test2 = (float) Math.acos(Math.toDegrees(dx) / Math.toDegrees(distance));
-
-				Location loc;
-				if (Bukkit.getPlayer("QuickScythe").getLocation().getX()
-						- (CoreUtils.testblock.getLocation().getX() + 0.5) > 0) {
-					if (Bukkit.getPlayer("QuickScythe").getLocation().getZ()
-							- (CoreUtils.testblock.getLocation().getZ() + 0.5) > 0) {
-						CoreUtils.t = 1;
-						loc = CoreUtils.testblock.getLocation().clone().add(
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d1)) + 0.5,
-								Math.sin((r) * (2 * Math.PI / 20)) * (1.5) + 2.5,
-								Math.cos((r) * (2 * Math.PI / 20)) * ((-d2)) + 0.5);
-
-					} else {
-						CoreUtils.t = 4;
-						loc = CoreUtils.testblock.getLocation().clone().add(
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d1)) + 0.5,
-								Math.sin((r) * (2 * Math.PI / 20)) * (1.5) + 2.5,
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d2)) + 0.5);
-					}
-
-				} else {
-					if (Bukkit.getPlayer("QuickScythe").getLocation().getZ()
-							- (CoreUtils.testblock.getLocation().getZ() + 0.5) > 0) {
-						CoreUtils.t = 2;
-						loc = CoreUtils.testblock.getLocation().clone().add(
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d1)) + 0.5,
-								Math.sin((r) * (2 * Math.PI / 20)) * (1.5) + 2.5,
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d2)) + 0.5);
-					} else {
-						CoreUtils.t = 3;
-						loc = CoreUtils.testblock.getLocation().clone().add(
-								Math.cos((r) * (2 * Math.PI / 20)) * ((d1)) + 0.5,
-								Math.sin((r) * (2 * Math.PI / 20)) * (1.5) + 2.5,
-								Math.cos((r) * (2 * Math.PI / 20)) * ((-d2)) + 0.5);
-					}
-				}
-
-				CoreUtils.debug("Quadrant: " + CoreUtils.t);
-				Bukkit.getPlayer("QuickScythe").spawnParticle(Particle.COMPOSTER, loc, 0);
-			}
-		}
-
 		CoreUtils.setHoliday(Holiday.NONE);
 
 		if (CoreUtils.getMonth() == Calendar.JANUARY) {
@@ -99,13 +38,30 @@ public class DateChecker implements Runnable {
 
 		}
 
-		if (CoreUtils.getMonth() == Calendar.FEBRUARY || CoreUtils.getMonth() == Calendar.JANUARY) {
-			CoreUtils.setHoliday(Holiday.VALENTINES);
+		if (CoreUtils.getMonth() == Calendar.FEBRUARY) {
+			if (CoreUtils.getDay() == 13 || CoreUtils.getDay() == 14)
+				CoreUtils.setHoliday(Holiday.VALENTINES);
+		}
+		
+		if(CoreUtils.getMonth() == Calendar.MARCH) {
+			if(CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20) 
+				CoreUtils.setHoliday(Holiday.ST_PATRICKS);
+			
+		}
+		if(CoreUtils.getMonth() == Calendar.MAY) {
+			if(CoreUtils.getDay() == 5) 
+				CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
+			
+		}
+		if(CoreUtils.getMonth() == Calendar.JULY) {
+			if(CoreUtils.getDay() == 31) 
+				CoreUtils.setHoliday(Holiday.AVACADO_DAY);
+			
 		}
 
 		if (CoreUtils.getMonth() == Calendar.OCTOBER) {
-//			if (CoreUtils.getDay() == 31)
-			CoreUtils.setHoliday(Holiday.HALLOWEEN);
+			if (CoreUtils.getDay() >= 20)
+				CoreUtils.setHoliday(Holiday.HALLOWEEN);
 
 		}
 //		if (CoreUtils.getMonth() == Calendar.NOVEMBER) {
@@ -119,6 +75,8 @@ public class DateChecker implements Runnable {
 //
 //			
 		}
+		
+		CoreUtils.setHoliday(Holiday.TEST);
 
 //		if(CoreUtils.getHoliday() != Holiday.NONE){
 //			CoreUtils.runRunnables();
@@ -129,7 +87,7 @@ public class DateChecker implements Runnable {
 //		CoreUtils.updateDate();
 
 		if (CoreUtils.getHoliday() != Holiday.NONE)
-			Bukkit.getScheduler().runTask(Main.getPlugin(), new HolidayParticles());
+			Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
 
 		if (!CoreUtils.debugOn())
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(), 1);

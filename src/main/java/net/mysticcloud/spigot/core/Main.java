@@ -49,6 +49,9 @@ public class Main extends JavaPlugin {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
 		}
+		
+		
+		
 	}
 
 	public void onDisable() {

@@ -15,15 +15,32 @@ public class HolidayParticles implements Runnable {
 		if (CoreUtils.getHoliday().equals(Holiday.NONE))
 			return;
 		switch (CoreUtils.getHoliday()) {
-		case VALENTINES:
+		case TEST:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					if (!CoreUtils.playerparticles.get(player.getUniqueId()))
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
 						continue;
 				} catch (NullPointerException ex) {
 					continue;
 				}
-				if (CoreUtils.playerparticles.get(player.getUniqueId()))
+				if (CoreUtils.holidayparticles.get(player.getUniqueId()))
+					player.spawnParticle(Particle.REDSTONE,
+							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+									(1.5 + CoreUtils.getRandom().nextDouble())
+											- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+									-0.5 + CoreUtils.getRandom().nextDouble()),
+							0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 0, (int) 255, (int) 2), 1));
+			}
+			break;
+		case VALENTINES:
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				try {
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
+						continue;
+				} catch (NullPointerException ex) {
+					continue;
+				}
+				if (CoreUtils.holidayparticles.get(player.getUniqueId()))
 					player.spawnParticle(Particle.REDSTONE,
 							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
 									(1.5 + CoreUtils.getRandom().nextDouble())
@@ -36,7 +53,7 @@ public class HolidayParticles implements Runnable {
 		case CHRISTMAS:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					if (!CoreUtils.playerparticles.get(player.getUniqueId()))
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
 						continue;
 				} catch (NullPointerException ex) {
 					continue;
@@ -62,7 +79,7 @@ public class HolidayParticles implements Runnable {
 		case NEW_YEARS:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					if (!CoreUtils.playerparticles.get(player.getUniqueId()))
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
 						continue;
 				} catch (NullPointerException ex) {
 					continue;
@@ -88,7 +105,7 @@ public class HolidayParticles implements Runnable {
 		case HALLOWEEN:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
-					if (!CoreUtils.playerparticles.get(player.getUniqueId()))
+					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
 						continue;
 				} catch (NullPointerException ex) {
 					continue;

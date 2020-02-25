@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		CoreUtils.playerparticles.put(e.getPlayer().getUniqueId(), false);
+		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), false);
 		if (PetManager.hasPet(e.getPlayer())) {
 			PetManager.removePets(e.getPlayer());
 		}
@@ -130,14 +130,11 @@ public class PlayerListener implements Listener {
 
 		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
-		CoreUtils.playerparticles.put(e.getPlayer().getUniqueId(), true);
+		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), true);
 	}
 
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && CoreUtils.debugOn()) {
-			CoreUtils.testblock = e.getClickedBlock();
-		}
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 			if (e.getItem() == null)
 				return;

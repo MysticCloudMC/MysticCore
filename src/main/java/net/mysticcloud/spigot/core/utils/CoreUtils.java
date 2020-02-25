@@ -32,6 +32,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -51,7 +55,7 @@ public class CoreUtils {
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
 	private static Date date = new Date();
-	public static Map<UUID, Boolean> playerparticles = new HashMap<>();
+	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 
 	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
 
@@ -72,22 +76,26 @@ public class CoreUtils {
 
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
-	
-	public static Block testblock = null;
+
+	private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+	private static Objective objective = null;
+
+	private static List<String> sidebar = new ArrayList<>();
+
 	public static float t = 0;
 
 	public static void start() {
-		
+
 		prefixes.put("root", fullPrefix);
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
 		prefixes.put("settings", colorize("&3&lSettings &7>&f "));
 		prefixes.put("items", colorize("&3&lItems &7>&f "));
 		prefixes.put("kits", colorize("&3&lKits &7>&f "));
-		prefixes.put("pets", colorize("&3&lPets &7>&f "));
+		prefixes.put("pets", colorize("&e&lPets &7>&f "));
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
-		prefixes.put("warps", colorize("&3&lWarps &7>&f "));
+		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -187,7 +195,7 @@ public class CoreUtils {
 		if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
 			playerlist.put("footer", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
 		}
-		
+
 		WarpUtils.registerWarps();
 
 	}
@@ -446,7 +454,7 @@ public class CoreUtils {
 	}
 
 	public static List<String> colorizeStringList(List<String> stringList) {
-		return colorizeStringList((String[])stringList.toArray());
+		return colorizeStringList((String[]) stringList.toArray());
 	}
 
 	public static List<String> colorizeStringList(String[] stringList) {
@@ -462,16 +470,16 @@ public class CoreUtils {
 	}
 
 	public static void toggleParticles(Player player) {
-		if (!playerparticles.containsKey(player.getUniqueId())) {
-			playerparticles.put(player.getUniqueId(), true);
+		if (!holidayparticles.containsKey(player.getUniqueId())) {
+			holidayparticles.put(player.getUniqueId(), true);
 			return;
 		}
-		if (playerparticles.get(player.getUniqueId())) {
+		if (holidayparticles.get(player.getUniqueId())) {
 			player.sendMessage(prefixes.get("settings") + "Particles turned off");
-			playerparticles.put(player.getUniqueId(), false);
+			holidayparticles.put(player.getUniqueId(), false);
 		} else {
 			player.sendMessage(prefixes.get("settings") + "Particles turned on");
-			playerparticles.put(player.getUniqueId(), true);
+			holidayparticles.put(player.getUniqueId(), true);
 		}
 	}
 
@@ -587,6 +595,21 @@ public class CoreUtils {
 			return new ItemStack(Material.valueOf(s));
 		}
 
+	}
+
+	public static void registerScoreboard(String name, String title) {
+		objective = scoreboard.registerNewObjective(name, "dummy", title);
+		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+	}
+
+	public static void enableScoreboard(Player player) {
+		int count = sidebar.size();
+		for (String text : sidebar) {
+			objective.getScore(colorize(text)).setScore(count);
+			count--;
+		}
+		player.setScoreboard(scoreboard);
 	}
 
 	public static ItemStack getItem(String name) {
