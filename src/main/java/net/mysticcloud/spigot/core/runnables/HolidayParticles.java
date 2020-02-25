@@ -15,7 +15,7 @@ public class HolidayParticles implements Runnable {
 		if (CoreUtils.getHoliday().equals(Holiday.NONE))
 			return;
 		switch (CoreUtils.getHoliday()) {
-		case TEST:
+		case CINCO_DE_MAYO:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
 					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))

@@ -73,6 +73,7 @@ public class CoreUtils {
 	private static List<FileConfiguration> itemFiles = new ArrayList<>();
 	private static Map<String, ItemStack> items = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
+	private static Map<String, String> variables = new HashMap<>();
 
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
@@ -97,6 +98,8 @@ public class CoreUtils {
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
+		
+		loadVariables();
 		
 		registerScoreboard("sidebar", colorize("&3&lMystic&f&lCloud"));
 		
@@ -214,6 +217,22 @@ public class CoreUtils {
 
 		WarpUtils.registerWarps();
 
+	}
+
+	public static void loadVariables() {
+		ResultSet rs = sendQuery("SELECT * FROM Settings");
+		try {
+			while(rs.next()) {
+				variables.put(rs.getString("SETTING"), rs.getString("VALUE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getVariable(String var) {
+		return variables.containsKey(var) ? variables.get(var) : "ERROR";
 	}
 
 	public static void end() {
