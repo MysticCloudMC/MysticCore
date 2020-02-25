@@ -99,7 +99,7 @@ public class CoreUtils {
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
 		
-		loadVariables();
+		
 		
 		registerScoreboard("sidebar", colorize("&3&lMystic&f&lCloud"));
 		
@@ -137,6 +137,7 @@ public class CoreUtils {
 			wbconn = new IDatabase(SQLDriver.SQLITE, "Website");
 			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
 		}
+		loadVariables();
 		if (!itemfile.exists()) {
 			itemfile.mkdirs();
 		}
