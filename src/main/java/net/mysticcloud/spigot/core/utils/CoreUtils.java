@@ -105,7 +105,7 @@ public class CoreUtils {
 		sidebar.add("&f%player%");
 		sidebar.add("&c&c");
 		sidebar.add("&cBalance");
-		sidebar.add("&f%balance%");
+		sidebar.add("&6$&f %balance%");
 		sidebar.add("&c&c&c");
 		sidebar.add("&6Level");
 		sidebar.add("&f%level%");
@@ -927,6 +927,7 @@ public class CoreUtils {
 		int a = 0;
 		try {
 			while (rs.next()) {
+				a=a+1;
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
@@ -960,8 +961,12 @@ public class CoreUtils {
 		return player;
 
 	}
+	
+	public static void saveMysticPlayer(Player player) {
+		saveMysticPlayer(getMysticPlayer(player));
+	}
 
-	private static void saveMysticPlayer(MysticPlayer player) {
+	public static void saveMysticPlayer(MysticPlayer player) {
 		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel() + "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
 	}
 
