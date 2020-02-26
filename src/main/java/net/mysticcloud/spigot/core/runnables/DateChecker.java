@@ -27,9 +27,9 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		counter = counter+1;
-		if(counter >= 20) {
+		if(counter%20 == 0) {
 			counter = 0;
-			Bukkit.broadcastMessage("Updating scoreboards");
+			
 			for(Player player : Bukkit.getOnlinePlayers()) {
 				CoreUtils.enableScoreboard(player);
 			}
