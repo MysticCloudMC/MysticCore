@@ -628,7 +628,7 @@ public class CoreUtils {
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
 		for (Entry<Integer, String> entry : sidebar.entrySet()) {
-			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+			
 			for (String s : scoreboard.getEntries()) {
 
 				if (entry.getKey() == objective.getScore(s).getScore()) {
@@ -638,6 +638,7 @@ public class CoreUtils {
 				} else
 					continue;
 			}
+			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
 
 		}
 
