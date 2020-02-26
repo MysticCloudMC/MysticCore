@@ -14,22 +14,22 @@ import net.mysticcloud.spigot.core.utils.TimedPerm;
 
 public class DateChecker implements Runnable {
 	
-	boolean sw;
+	int counter;
 	
-	public DateChecker(boolean sw) {
-		this.sw = sw;
+	public DateChecker(int counter) {
+		this.counter = counter;
 	}
 	
 	public DateChecker() {
-		sw = false;
+		counter = 0;
 	}
 
 	@Override
 	public void run() {
-		
-		if(CoreUtils.debugOn()) Bukkit.broadcastMessage("HELP");
-		
-		if(!sw) {
+		counter = counter+1;
+		if(counter >= 20) {
+			counter = 0;
+			Bukkit.broadcastMessage("Updating scoreboards");
 			for(Player player : Bukkit.getOnlinePlayers()) {
 				CoreUtils.enableScoreboard(player);
 			}
@@ -107,9 +107,9 @@ public class DateChecker implements Runnable {
 			Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
 
 		if (!CoreUtils.debugOn())
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(!sw), 1);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
 		else
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(!sw), 10);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 10);
 	}
 
 }
