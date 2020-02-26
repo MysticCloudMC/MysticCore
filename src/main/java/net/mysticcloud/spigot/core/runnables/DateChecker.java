@@ -5,8 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -14,9 +13,25 @@ import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
 
 public class DateChecker implements Runnable {
+	
+	boolean sw;
+	
+	public DateChecker(boolean sw) {
+		this.sw = sw;
+	}
+	
+	public DateChecker() {
+		sw = false;
+	}
 
 	@Override
 	public void run() {
+		
+		if(!sw) {
+			for(Player player : Bukkit.getOnlinePlayers()) {
+				CoreUtils.enableScoreboard(player);
+			}
+		}
 
 		for (List<TimedPerm> perms : CoreUtils.timedPerms.values()) {
 			for (TimedPerm perm : perms) {
@@ -90,9 +105,9 @@ public class DateChecker implements Runnable {
 			Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
 
 		if (!CoreUtils.debugOn())
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(), 1);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(!sw), 1);
 		else
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(), 10);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(!sw), 10);
 	}
 
 }
