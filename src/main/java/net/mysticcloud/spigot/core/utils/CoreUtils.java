@@ -101,20 +101,10 @@ public class CoreUtils {
 		
 		
 		
-		registerScoreboard("sidebar", colorize("&3&lMystic&f&lCloud"));
+		registerScoreboard("sidebar", colorize("        &3&lMystic&f&lCloud        "));
 		
-		sidebar.add("&c");
-		sidebar.add("&eUsername");
-		sidebar.add("&f%player%");
-		sidebar.add("&c&c");
-		sidebar.add("&6Balance");
-		sidebar.add("&6$&f %balance%");
-		sidebar.add("&c&c&c");
-		sidebar.add("&cLevel");
-		sidebar.add("&f%level%");
-		sidebar.add("&c&f&c");
-		sidebar.add("&aGems");
-		sidebar.add("&f%gems%");
+		registerSidebarList();
+		
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -640,12 +630,32 @@ public class CoreUtils {
 	}
 
 	public static void enableScoreboard(Player player) {
+		registerSidebarList();
 		int count = sidebar.size();
 		for (String text : sidebar) {
 			objective.getScore(colorize(PlaceholderUtils.replace(player,text))).setScore(count);
 			count--;
 		}
 		player.setScoreboard(scoreboard);
+	}
+
+	private static void registerSidebarList() {
+		sidebar.clear();
+		sidebar.add("&c");
+		sidebar.add("&etime");
+		sidebar.add("&f%time%");
+		sidebar.add("&c&c");
+		sidebar.add("&6Balance");
+		sidebar.add("&6$&f %balance%");
+		sidebar.add("&c&c&c");
+		sidebar.add("&cLevel");
+		sidebar.add("&f%level%");
+		sidebar.add("&c&f&c");
+		sidebar.add("&aGems");
+		sidebar.add("&f%gems%");
+		sidebar.add("&f&f&c");
+		sidebar.add("&b%holiday%");
+		sidebar.add("%holidayline%");
 	}
 
 	public static ItemStack getItem(String name) {

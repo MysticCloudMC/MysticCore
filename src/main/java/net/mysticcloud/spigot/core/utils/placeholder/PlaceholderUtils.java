@@ -33,6 +33,8 @@ public class PlaceholderUtils {
 			case HALLOWEEN:
 				string = string.replaceAll("%holidayline%", "&6&lHappy &5&lHolloween&f");
 				break;
+			default:
+				break;
 			}
 		} else {
 			string = string.replaceAll("%holiday%", "");
