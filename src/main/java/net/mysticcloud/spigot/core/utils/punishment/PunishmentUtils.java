@@ -42,7 +42,7 @@ public class PunishmentUtils {
 	}
 
 	public static void punish(UUID uid, PunishmentType type, String notes) {
-		int occurrences = 0;
+		int occurrences = 1;
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
@@ -61,7 +61,11 @@ public class PunishmentUtils {
 			if(Bukkit.getPlayer(uid)!=null){
 				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked");
 			}
-
+		if(type.equals(PunishmentType.MUTE)) {
+			if(Bukkit.getPlayer(uid)!=null){
+				Bukkit.getPlayer(uid).kickPlayer("You've been muted.");
+			}
+		}
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES) VALUES ('" + uid.toString()
 				+ "','" + type.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes + "');");
 
