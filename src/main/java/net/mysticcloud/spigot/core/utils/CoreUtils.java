@@ -629,19 +629,18 @@ public class CoreUtils {
 		registerSidebarList();
 
 		for (String s : scoreboard.getEntries()) {
-			for (Entry<Integer,String> entry : sidebar.entrySet()) {
-				if(entry.getKey() == objective.getScore(s).getScore()) {
-					if(!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
+			for (Entry<Integer, String> entry : sidebar.entrySet()) {
+				if (entry.getKey() == objective.getScore(s).getScore()) {
+					if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
 						scoreboard.resetScores(s);
-					} 
-				}else continue;
+					}
+				} else
+					continue;
 			}
-			
-			
-			
+
 		}
 
-		for (Entry<Integer,String> entry : sidebar.entrySet()) {
+		for (Entry<Integer, String> entry : sidebar.entrySet()) {
 			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
 		}
 		player.setScoreboard(scoreboard);
@@ -964,27 +963,7 @@ public class CoreUtils {
 			return mplayers.get(uid);
 		}
 
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
-		int a = 0;
-		try {
-			while (rs.next()) {
-				a = a + 1;
-				MysticPlayer mp = new MysticPlayer(uid);
-				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
-				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
-				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
-				mplayers.put(uid, mp);
-				CoreUtils.debug("Registered MysticPlayer: " + uid);
-				return mp;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (a == 0) {
-			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
-					+ "','0','0','1');");
-
-		}
+		if(updateMysticPlayer(Bukkit.getPlayer(uid))) return getMysticPlayer(uid);
 
 		if (Bukkit.getPlayer(uid) == null) {
 			Bukkit.getConsoleSender().sendMessage(
@@ -1010,6 +989,32 @@ public class CoreUtils {
 		CoreUtils
 				.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel()
 						+ "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
+	}
+
+	public static boolean updateMysticPlayer(Player player) {
+		ResultSet rs = CoreUtils
+				.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + player.getUniqueId().toString() + "';");
+		int a = 0;
+		try {
+			while (rs.next()) {
+				a = a + 1;
+				MysticPlayer mp = new MysticPlayer(player.getUniqueId());
+				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
+				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
+				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
+				mplayers.put(player.getUniqueId(), mp);
+				CoreUtils.debug("Registered MysticPlayer: " + player.getUniqueId());
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (a == 0) {
+			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('"
+					+ player.getUniqueId().toString() + "','0','0','1');");
+
+		}
+		return false;
 	}
 
 }

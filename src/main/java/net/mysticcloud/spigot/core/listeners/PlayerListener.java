@@ -98,6 +98,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		
+		CoreUtils.updateMysticPlayer(e.getPlayer());
 
 		CoreUtils.enableScoreboard(e.getPlayer());
 
