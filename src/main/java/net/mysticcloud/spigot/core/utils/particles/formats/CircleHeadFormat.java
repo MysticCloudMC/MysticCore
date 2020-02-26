@@ -29,6 +29,7 @@ public class CircleHeadFormat extends ParticleFormat {
 		allowedParticles.add(Particle.HEART);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
+		allowedParticles.add(Particle.REDSTONE);
 
 		guiItem = new ItemStack(Material.DIAMOND_HELMET);
 		name = "Circle Head";
@@ -37,7 +38,7 @@ public class CircleHeadFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if(particle == null) return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
 						Math.cos(Math.toRadians(((i) * (360 / delta)) * (radius))), 2,

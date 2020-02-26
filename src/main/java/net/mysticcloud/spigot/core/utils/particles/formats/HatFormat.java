@@ -27,7 +27,7 @@ public class HatFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if(particle == null) return;
 		if(particle!=null)spawnParticle(
 				uid,
 				particle,

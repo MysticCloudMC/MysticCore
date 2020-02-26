@@ -21,6 +21,7 @@ public class LilyPadFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
+		if(particle == null) return;
 		spawnParticle(uid, particle, Bukkit.getPlayer(uid).getEyeLocation().clone().add(
 				Math.cos(Math.toRadians(((i) * (360 / 20)))) * (Math.cos(Math.toRadians(((i) * (360 / 260)) * (1.3)))),
 				0.2,

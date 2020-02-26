@@ -21,7 +21,8 @@ public class RandomFormat extends ParticleFormat {
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FLAME);
-
+		allowedParticles.add(Particle.REDSTONE);
+		
 		guiItem = new ItemStack(Material.IRON_SWORD);
 		name = "Random";
 
@@ -31,7 +32,7 @@ public class RandomFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		spawnParticle(uid, particle,
+		if(particle!=null)spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getEyeLocation().clone().add(-0.5 + CoreUtils.getRandom().nextDouble(),
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),

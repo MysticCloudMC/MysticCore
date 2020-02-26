@@ -20,6 +20,7 @@ public class CircleFeetFormat extends ParticleFormat {
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FLAME);
+		allowedParticles.add(Particle.REDSTONE);
 
 		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
 		name = "Circle Feet";
@@ -28,7 +29,7 @@ public class CircleFeetFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if(particle == null) return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getEyeLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
 						0.1, Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));

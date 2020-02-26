@@ -19,6 +19,7 @@ public class HelixFormat extends ParticleFormat {
 		allowedParticles.add(Particle.FALLING_WATER);
 		allowedParticles.add(Particle.NOTE);
 		allowedParticles.add(Particle.END_ROD);
+		allowedParticles.add(Particle.REDSTONE);
 
 		name = "Helix";
 		guiItem = new ItemStack(Material.REDSTONE);
@@ -26,7 +27,7 @@ public class HelixFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if(particle == null) return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getEyeLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
 						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),

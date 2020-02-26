@@ -20,12 +20,12 @@ public class HaloFormat extends ParticleFormat {
 
 		name = "Halo";
 		guiItem = new ItemStack(Material.DIAMOND);
+		allowedParticles.add(Particle.REDSTONE);
 	}
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
-
+		if(particle == null) return;
 		for (int a = 1; a != 41; a++) {
 //			if (i % 0.009765625 == 0)
 			if (i % 2 == 0) {
