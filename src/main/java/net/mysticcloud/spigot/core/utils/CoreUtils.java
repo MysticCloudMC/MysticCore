@@ -109,6 +109,7 @@ public class CoreUtils {
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
+		prefixes.put("eco", colorize("&6&lEconomy &7>&f "));
 
 		registerScoreboard("sidebar", colorize("        &3&lMystic&f&lCloud        "));
 

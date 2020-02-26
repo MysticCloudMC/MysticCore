@@ -1,11 +1,7 @@
 package net.mysticcloud.spigot.core.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -13,22 +9,20 @@ import net.mysticcloud.spigot.core.Main;
 
 public class VaultAPI extends AbstractEconomy {
 
-	public boolean hasAccount(String name) {
+	public boolean hasAccount(String uid) {
 
-		if (CoreUtils.getEconomyConfig().getStringList("EconomyList")
-				.contains(Bukkit.getOfflinePlayer(name).getUniqueId().toString()))
+		if (CoreUtils.getEconomyConfig().getStringList("EconomyList").contains(uid))
 			return true;
 		return false;
 	}
 
-	public double getBalance(String name) {
+	public double getBalance(String uid) {
 
-		if (!hasAccount(name)) {
-			createPlayerAccount(name);
+		if (!hasAccount(uid)) {
+			createPlayerAccount(uid);
 		}
 
-		return CoreUtils.getMoneyFormat(
-				CoreUtils.getEconomyConfig().getDouble(Bukkit.getOfflinePlayer(name).getUniqueId().toString()));
+		return CoreUtils.getMoneyFormat(CoreUtils.getEconomyConfig().getDouble(uid));
 	}
 
 	public boolean has(String name, double amount) {
@@ -41,22 +35,21 @@ public class VaultAPI extends AbstractEconomy {
 		return true;
 	}
 
-	public EconomyResponse withdrawPlayer(String name, double amount) {
-		
-		if (!hasAccount(name)) {
+	public EconomyResponse withdrawPlayer(String uid, double amount) {
+
+		if (!hasAccount(uid)) {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE,
 					"The player does not have an account!");
 		}
-		double balance = getBalance(name);
+		double balance = getBalance(uid);
 
-		if (getBalance(name) < CoreUtils.getMoneyFormat(amount)) {
+		if (getBalance(uid) < CoreUtils.getMoneyFormat(amount)) {
 			return new EconomyResponse(0.0D, balance, EconomyResponse.ResponseType.FAILURE,
 					"The value is more than the player's balance!");
 		}
 		balance -= CoreUtils.getMoneyFormat(amount);
 
-		CoreUtils.getEconomyConfig().set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
-				Double.valueOf(CoreUtils.getMoneyFormat(balance)));
+		CoreUtils.getEconomyConfig().set(uid, Double.valueOf(CoreUtils.getMoneyFormat(balance)));
 		try {
 			CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
 		} catch (IOException p) {
@@ -67,8 +60,8 @@ public class VaultAPI extends AbstractEconomy {
 				EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
-	public EconomyResponse depositPlayer(String name, double amount) {
-		if (!hasAccount(name)) {
+	public EconomyResponse depositPlayer(String uid, double amount) {
+		if (!hasAccount(uid)) {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE,
 					"The player does not have an account!");
 		}
@@ -76,9 +69,8 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.getEconomyConfig().set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
-				Double.valueOf(CoreUtils.getMoneyFormat(
-						CoreUtils.getEconomyConfig().getDouble(Bukkit.getOfflinePlayer(name).getUniqueId().toString()))
+		CoreUtils.getEconomyConfig().set(uid,
+				Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.getEconomyConfig().getDouble(uid))
 						+ CoreUtils.getMoneyFormat(amount)));
 		try {
 			CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
@@ -89,13 +81,12 @@ public class VaultAPI extends AbstractEconomy {
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
-	public boolean createPlayerAccount(String name) {
-		if (!hasAccount(name)) {
+	public boolean createPlayerAccount(String uid) {
+		if (!hasAccount(uid)) {
 
-			CoreUtils.ecoaccounts.add(Bukkit.getPlayer(name).getUniqueId().toString());
+			CoreUtils.ecoaccounts.add(uid);
 			CoreUtils.getEconomyConfig().set("EconomyList", CoreUtils.ecoaccounts);
-			CoreUtils.getEconomyConfig().set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
-					Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)));
+			CoreUtils.getEconomyConfig().set(uid, Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)));
 			try {
 				CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
 			} catch (IOException p) {
@@ -112,20 +103,20 @@ public class VaultAPI extends AbstractEconomy {
 		return String.valueOf(summ);
 	}
 
-	public boolean hasAccount(String name, String world) {
-		return hasAccount(name);
+	public boolean hasAccount(String uid, String world) {
+		return hasAccount(uid);
 	}
 
-	public boolean has(String name, String world, double amount) {
-		return has(name, amount);
+	public boolean has(String uid, String world, double amount) {
+		return has(uid, amount);
 	}
 
-	public double getBalance(String name, String world) {
-		return getBalance(name);
+	public double getBalance(String uid, String world) {
+		return getBalance(uid);
 	}
 
-	public EconomyResponse withdrawPlayer(String name, String world, double amount) {
-		return withdrawPlayer(name, amount);
+	public EconomyResponse withdrawPlayer(String uid, String world, double amount) {
+		return withdrawPlayer(uid, amount);
 	}
 
 	public EconomyResponse depositPlayer(String name, String world, double amount) {
