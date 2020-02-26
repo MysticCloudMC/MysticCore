@@ -62,9 +62,6 @@ public class CoreUtils {
 
 	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
-	private static File playerdata = new File(
-			Main.getPlugin().getDataFolder() + File.separator + "economy" + File.separator + "playerdata.yml");
-	private static YamlConfiguration ecoconfig = YamlConfiguration.loadConfiguration(playerdata);
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -223,9 +220,6 @@ public class CoreUtils {
 		return economy;
 	}
 	
-	public static YamlConfiguration getEconomyConfig() {
-		return ecoconfig;
-	}
 
 	public static void setupEconomy() {
 
@@ -1083,8 +1077,5 @@ public class CoreUtils {
 		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
 	}
 
-	public static File getPlayerDatafile() {
-		return playerdata;
-	}
 
 }

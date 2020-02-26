@@ -1,6 +1,8 @@
 package net.mysticcloud.spigot.core.utils;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import net.milkbowl.vault.economy.AbstractEconomy;
@@ -10,10 +12,12 @@ import net.mysticcloud.spigot.core.Main;
 public class VaultAPI extends AbstractEconomy {
 
 	public boolean hasAccount(String uid) {
+		try {
+			return CoreUtils.sendQuery("SELECT * FROM Economy WHERE UUID='" + uid + "';").next();
+		} catch (NullPointerException | SQLException e) {
+			return false;
+		}
 
-		if (CoreUtils.getEconomyConfig().getStringList("EconomyList").contains(uid))
-			return true;
-		return false;
 	}
 
 	public double getBalance(String uid) {
@@ -21,8 +25,19 @@ public class VaultAPI extends AbstractEconomy {
 		if (!hasAccount(uid)) {
 			createPlayerAccount(uid);
 		}
+		
+		ResultSet rs = CoreUtils.sendQuery("SELECT BALANCE FROM Economy WHERE UUID='" + uid + "';");
+		
+		try {
+			while(rs.next()) {
+				return CoreUtils.getMoneyFormat(Double.parseDouble(rs.getString("BALANCE")));
+			}
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
 
-		return CoreUtils.getMoneyFormat(CoreUtils.getEconomyConfig().getDouble(uid));
 	}
 
 	public boolean has(String name, double amount) {
@@ -48,13 +63,9 @@ public class VaultAPI extends AbstractEconomy {
 					"The value is more than the player's balance!");
 		}
 		balance -= CoreUtils.getMoneyFormat(amount);
+		
+		CoreUtils.sendUpdate("UPDATE Economy SET BALANCE='" + balance + "' WHERE UUID='" + uid + "';");
 
-		CoreUtils.getEconomyConfig().set(uid, Double.valueOf(CoreUtils.getMoneyFormat(balance)));
-		try {
-			CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
-		} catch (IOException p) {
-			p.printStackTrace();
-		}
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
 				EconomyResponse.ResponseType.SUCCESS, "");
@@ -69,29 +80,15 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.getEconomyConfig().set(uid,
-				Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.getEconomyConfig().getDouble(uid))
-						+ CoreUtils.getMoneyFormat(amount)));
-		try {
-			CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
-		} catch (IOException p) {
-			p.printStackTrace();
-		}
+		CoreUtils.sendUpdate("UPDATE Economy SET BALANCE='" + amount + "' WHERE UUID='" + uid + "';");
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
 	public boolean createPlayerAccount(String uid) {
 		if (!hasAccount(uid)) {
-
-			CoreUtils.ecoaccounts.add(uid);
-			CoreUtils.getEconomyConfig().set("EconomyList", CoreUtils.ecoaccounts);
-			CoreUtils.getEconomyConfig().set(uid, Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)));
-			try {
-				CoreUtils.getEconomyConfig().save(CoreUtils.getPlayerDatafile());
-			} catch (IOException p) {
-				p.printStackTrace();
-			}
+			CoreUtils.sendInsert("INSERT INTO Economy (UUID, BALANCE) VALUES ('" + uid + "','"
+					+ Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)) + "');");
 
 			return true;
 		}
@@ -172,7 +169,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public String getName() {
-		return "AConomy";
+		return "Economy";
 	}
 
 	public int fractionalDigits() {
