@@ -4,6 +4,7 @@ version: 1.0.0
 description: Runs on all MysticCloud servers
 api-version: 1.15
 main: net.mysticcloud.spigot.core.Main
+dependencies: ['Vault']
 commands:
   sql:
     usage: /sql [query]

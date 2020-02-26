@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,6 +81,9 @@ public class CoreUtils {
 
 	private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 	private static Objective objective = null;
+
+	public static List<String> ecoaccounts = new ArrayList<>();
+	public static double startingBalance = 100.00;
 
 	private static Map<Integer, String> sidebar = new HashMap<>();
 
@@ -628,7 +632,7 @@ public class CoreUtils {
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
 		for (Entry<Integer, String> entry : sidebar.entrySet()) {
-			
+
 			for (String s : scoreboard.getEntries()) {
 
 				if (entry.getKey() == objective.getScore(s).getScore()) {
@@ -1030,6 +1034,10 @@ public class CoreUtils {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static double getMoneyFormat(double amount) {
+		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
 	}
 
 }
