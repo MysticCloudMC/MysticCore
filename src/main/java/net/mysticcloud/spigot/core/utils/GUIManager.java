@@ -146,4 +146,33 @@ public class GUIManager {
 		return createSettingsMenu();
 	}
 
+	public static Inventory generateParticleColorMenu(Player player, Particle particle) {
+		InventoryCreator inv = new InventoryCreator("&b&lColors", null, 36);
+		
+		inv.addItem(new ItemStack(Material.PINK_DYE), "&dPink", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_DYE), "&cRed", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&6Orange", 'C', new String[] {});
+		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&eYellow", 'D', new String[] {});
+		
+		inv.addItem(new ItemStack(Material.LIME_DYE), "&aLime Green", 'E', new String[] {});
+		inv.addItem(new ItemStack(Material.GREEN_DYE), "&2Green", 'F', new String[] {});
+
+		inv.addItem(new ItemStack(Material.BLUE_DYE), "&3Blue", 'G', new String[] {});
+		inv.addItem(new ItemStack(Material.PURPLE_DYE), "&5Purple", 'H', new String[] {});
+		inv.addItem(new ItemStack(Material.BROWN_DYE), "&6Brown", 'I', new String[] {});
+		
+		inv.addItem(new ItemStack(Material.BLACK_DYE), "&7Black", 'J', new String[] {});
+		inv.addItem(new ItemStack(Material.WHITE_DYE), "&fWhite", 'K', new String[] {});
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+		
+		inv.setConfiguration(new char[] {
+				'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+				'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X',
+				'X', 'X', 'H', 'I', 'X', 'J', 'K', 'X', 'X',
+				'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
+				});
+		return inv.getInventory();
+	}
+
 }

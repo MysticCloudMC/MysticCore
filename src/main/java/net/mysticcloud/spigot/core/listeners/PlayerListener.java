@@ -5,9 +5,11 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -95,7 +97,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		
+
 		CoreUtils.enableScoreboard(e.getPlayer());
 
 		CoreUtils.updateDate();
@@ -199,10 +201,59 @@ public class PlayerListener implements Listener {
 				if (e.getCurrentItem().getItemMeta().getDisplayName()
 						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {
 					CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().particle(particle);
-					e.getWhoClicked().closeInventory();
+					if (particle.getDataType() != Void.class) {
+						if (particle.getDataType() == DustOptions.class)
+							GUIManager.switchInventory(((Player) e.getWhoClicked()),
+									GUIManager.generateParticleColorMenu(((Player) e.getWhoClicked()), particle),
+									"Particle Color");
+
+					}
+
+					else
+						e.getWhoClicked().closeInventory();
 					return;
 				}
 			}
+
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Color") {
+			e.setCancelled(true);
+			switch (e.getCurrentItem().getType()) {
+			case PINK_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.fromRGB(255, 124, 163), 1));
+				break;
+			case RED_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.RED, 1));
+				break;
+			case ORANGE_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.ORANGE, 1));
+				break;
+			case YELLOW_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.YELLOW, 1));
+				break;
+			case LIME_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.LIME, 1));
+				break;
+			case GREEN_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.GREEN, 1));
+				break;
+			case BLUE_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.TEAL, 1));
+				break;
+			case PURPLE_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.PURPLE, 1));
+				break;
+			case BROWN_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.fromRGB(84, 53, 0), 1));
+				break;
+			case BLACK_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.BLACK, 1));
+				break;
+			case WHITE_DYE:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().setDustOptions(new DustOptions(Color.WHITE, 1));
+				break;
+			}
+			
 
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {

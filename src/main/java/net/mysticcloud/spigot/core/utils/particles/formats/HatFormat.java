@@ -13,11 +13,10 @@ public class HatFormat extends ParticleFormat {
 
 	public HatFormat() {
 		changeParticle = true;
-		allowedParticles.add(Particle.NAUTILUS);
-		allowedParticles.add(Particle.WATER_DROP);
-		allowedParticles.add(Particle.FALLING_LAVA);
+		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FALLING_WATER);
-
+		allowedParticles.add(Particle.CRIT);
+		allowedParticles.add(Particle.REDSTONE);
 
 		name = "Hat";
 		guiItem = new ItemStack(Material.LEATHER_HELMET);
@@ -26,17 +25,20 @@ public class HatFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		
-		for(int f=0;f!=5;f++) {
-			for(int g=0;g!=20;g++) {
-				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-						Bukkit.getPlayer(uid).getEyeLocation().clone().add(
-								Math.cos(Math.toRadians(g) * ((360) / (20))) * (0.5- Integer.parseInt("0."+f)), 1 + Integer.parseInt("0."+f),
-								Math.sin(Math.toRadians(g) * ((360) / (20))) * (0.5- Integer.parseInt("0."+f))),
-						0, 0, 0, 0, 2);
-			}
-		}
-
+		if (dustoptions != null)
+			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+					Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0), 0, 0, 0, 0, 2, dustoptions);
+		else if (materialdata != null)
+			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+					Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0), 0, 0, 0, 0, 2, materialdata);
+		else if (itemstack != null)
+			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+					Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0), 0, 0, 0, 0, 2, itemstack);
+		else if (blockdata != null)
+			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+					Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0), 0, 0, 0, 0, 2, blockdata);
+		else Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0), 0, 0, 0, 0, 2);
 
 	}
 

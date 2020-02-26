@@ -1000,4 +1000,14 @@ public class CoreUtils {
 		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel() + "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
 	}
 
+	public static boolean particleNeedsData(Particle particle) {
+		switch(particle) {
+		case BLOCK_CRACK:
+		case BLOCK_DUST:
+		case REDSTONE:
+			return true;
+		default: return false;
+		}
+	}
+
 }
