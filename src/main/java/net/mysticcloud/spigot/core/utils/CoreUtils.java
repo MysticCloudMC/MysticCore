@@ -627,20 +627,18 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
+		for (Entry<Integer, String> entry : sidebar.entrySet()) {
+			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+			for (String s : scoreboard.getEntries()) {
 
-		for (String s : scoreboard.getEntries()) {
-			for (Entry<Integer,String> entry : sidebar.entrySet()) {
-				if(entry.getKey() == objective.getScore(s).getScore()) {
-					if(!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
+				if (entry.getKey() == objective.getScore(s).getScore()) {
+					if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
 						scoreboard.resetScores(s);
-						
-					} 
-				}else continue;
-				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+					}
+				} else
+					continue;
 			}
-			
-			
-			
+
 		}
 
 		player.setScoreboard(scoreboard);
@@ -1016,8 +1014,7 @@ public class CoreUtils {
 	}
 
 	private static void updateMysticPlayer(UUID uid) {
-		ResultSet rs = CoreUtils
-				.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
 		int a = 0;
 		try {
 			while (rs.next()) {
