@@ -24,6 +24,7 @@ import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class Main extends JavaPlugin {
 	static Main plugin;
@@ -31,6 +32,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 		CoreUtils.start();
+		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
 		new PlayerListener(this);
 		new KitCommand(this, "kit");
