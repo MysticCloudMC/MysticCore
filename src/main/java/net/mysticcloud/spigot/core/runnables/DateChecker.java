@@ -26,6 +26,7 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
+		if(CoreUtils.debugOn()) Bukkit.broadcastMessage("Bull");
 		
 		if(!sw) {
 			for(Player player : Bukkit.getOnlinePlayers()) {
