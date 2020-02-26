@@ -643,7 +643,7 @@ public class CoreUtils {
 		sidebar.clear();
 		sidebar.add("&c");
 		sidebar.add("&eUsername");
-		sidebar.add("&f%time%");
+		sidebar.add("&f%player%");
 		sidebar.add("&c&c");
 		sidebar.add("&6Balance");
 		sidebar.add("&6$&f %balance%");
