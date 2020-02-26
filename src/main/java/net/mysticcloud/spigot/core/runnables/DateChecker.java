@@ -101,7 +101,6 @@ public class DateChecker implements Runnable {
 //			
 		}
 		
-		CoreUtils.setHoliday(Holiday.AVACADO_DAY);
 
 //		if(CoreUtils.getHoliday() != Holiday.NONE){
 //			CoreUtils.runRunnables();

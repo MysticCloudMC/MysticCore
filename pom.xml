@@ -35,6 +35,13 @@
 			<scope>system</scope>
 			<systemPath>${rootdir}home/Minecraft/Dependencies/spigot.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>net.milkbowl</groupId>
+			<artifactId>vault</artifactId>
+			<version>1.13</version>
+			<scope>system</scope>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/Vault.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 
