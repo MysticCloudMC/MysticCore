@@ -632,8 +632,8 @@ public class CoreUtils {
 			for (Entry<Integer,String> entry : sidebar.entrySet()) {
 				if(entry.getKey() == objective.getScore(s).getScore()) {
 					if(!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
-						Bukkit.broadcastMessage("Resetting: " + s);
 						scoreboard.resetScores(s);
+						objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
 					} 
 				}else continue;
 			}
@@ -642,9 +642,6 @@ public class CoreUtils {
 			
 		}
 
-		for (Entry<Integer,String> entry : sidebar.entrySet()) {
-			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
-		}
 		player.setScoreboard(scoreboard);
 	}
 
