@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -170,6 +171,15 @@ public class PlayerListener implements Listener {
 				}
 				e.setCancelled(true);
 				return;
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onItemPickup(EntityPickupItemEvent e) {
+		if(e.getEntity()instanceof Player) {
+			if(e.getItem().getItemStack().getType().equals(Material.EMERALD)) {
+				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(1);
 			}
 		}
 	}

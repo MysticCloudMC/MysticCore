@@ -37,4 +37,8 @@ public class MysticPlayer {
 		return uid;
 	}
 
+	public void addGems(int i) {
+		gems = gems + i;
+	}
+
 }
