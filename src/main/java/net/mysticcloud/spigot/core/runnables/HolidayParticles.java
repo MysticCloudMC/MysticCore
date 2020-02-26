@@ -15,7 +15,7 @@ public class HolidayParticles implements Runnable {
 		if (CoreUtils.getHoliday().equals(Holiday.NONE))
 			return;
 		switch (CoreUtils.getHoliday()) {
-		case CINCO_DE_MAYO:
+		case TEST:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
 					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
@@ -73,7 +73,7 @@ public class HolidayParticles implements Runnable {
 						0, 0, 0, 0, new Particle.DustOptions(Color.fromRGB((int) 84, (int) 53, (int) 0), 1));
 			}
 			break;
-		case TEST:
+		case ST_PATRICKS:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
 					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))
