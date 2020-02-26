@@ -64,6 +64,7 @@ public class CoreUtils {
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 	private static File playerdata = new File(
 			Main.getPlugin().getDataFolder() + File.separator + "economy" + File.separator + "playerdata.yml");
+	private static YamlConfiguration ecoconfig = YamlConfiguration.loadConfiguration(playerdata);
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -219,6 +220,9 @@ public class CoreUtils {
 		return economy;
 	}
 	
+	public static YamlConfiguration getEconomyConfig() {
+		return ecoconfig;
+	}
 
 	public static void setupEconomy() {
 
