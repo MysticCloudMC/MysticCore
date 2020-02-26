@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class PunishmentUtils {
@@ -53,6 +55,11 @@ public class PunishmentUtils {
 		
 		Punishment punish = new Punishment(uid, type, duration, new Date().getTime());
 		punishments.add(punish);
+		
+		if(type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK))
+			if(Bukkit.getPlayer(uid)!=null){
+				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked");
+			}
 
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES) VALUES ('" + uid.toString()
 				+ "','" + type.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes + "');");
