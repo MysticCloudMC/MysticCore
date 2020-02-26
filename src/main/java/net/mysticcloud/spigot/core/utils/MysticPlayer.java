@@ -5,7 +5,7 @@ import java.util.UUID;
 public class MysticPlayer {
 	
 	UUID uid;
-	private int balance = 0;
+	private double balance = 0;
 	private int level = 1;
 	private int gems = 0;
 	
@@ -13,7 +13,7 @@ public class MysticPlayer {
 		this.uid = uid;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	public void setLevel(int level) {
@@ -23,7 +23,7 @@ public class MysticPlayer {
 		this.gems = gems;
 	}
 	
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 	public int getLevel() {

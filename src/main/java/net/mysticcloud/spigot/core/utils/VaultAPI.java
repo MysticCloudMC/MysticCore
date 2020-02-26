@@ -12,38 +12,15 @@ import net.mysticcloud.spigot.core.Main;
 public class VaultAPI extends AbstractEconomy {
 
 	public boolean hasAccount(String uid) {
-		try {
-			return CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid + "';").next();
-		} catch (NullPointerException | SQLException e) {
-			return false;
-		}
+		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
 
 	}
 
 	public double getBalance(String uid) {
-
-		if (!hasAccount(uid)) {
-			createPlayerAccount(uid);
-		}
-		
-		ResultSet rs = CoreUtils.sendQuery("SELECT BALANCE FROM MysticPlayers WHERE UUID='" + uid + "';");
-		
-		try {
-			while(rs.next()) {
-				return CoreUtils.getMoneyFormat(Double.parseDouble(rs.getString("BALANCE")));
-			}
-		} catch (NumberFormatException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return -1;
-
+		return CoreUtils.getMysticPlayer(UUID.fromString(uid)).getBalance();
 	}
 
 	public boolean has(String name, double amount) {
-		if (!hasAccount(name)) {
-			createPlayerAccount(name);
-		}
 		if (getBalance(name) < CoreUtils.getMoneyFormat(amount)) {
 			return false;
 		}
@@ -63,9 +40,8 @@ public class VaultAPI extends AbstractEconomy {
 					"The value is more than the player's balance!");
 		}
 		balance -= CoreUtils.getMoneyFormat(amount);
-		
-		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + balance + "' WHERE UUID='" + uid + "';");
 
+		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(balance);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
 				EconomyResponse.ResponseType.SUCCESS, "");
@@ -80,19 +56,13 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + amount + "' WHERE UUID='" + uid + "';");
+		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(amount);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
 	public boolean createPlayerAccount(String uid) {
-		if (!hasAccount(uid)) {
-			CoreUtils.getMysticPlayer(UUID.fromString(uid));
-
-			return true;
-		}
-
-		return false;
+		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
 	}
 
 	public String format(double summ) {
