@@ -96,6 +96,8 @@ public class CoreUtils {
 	public static float t = 0;
 
 	public static void start() {
+		
+		setupEconomy();
 
 		prefixes.put("root", fullPrefix);
 
