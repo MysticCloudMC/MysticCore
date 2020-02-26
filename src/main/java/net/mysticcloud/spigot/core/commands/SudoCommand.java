@@ -22,8 +22,8 @@ public class SudoCommand implements CommandExecutor {
 					return true;
 				}
 				String command = "";
-				for(String s : args) {
-					command = command == "" ? s : command + " " + s;
+				for(int s=1;s!=args.length;s++) {
+					command = command == "" ? args[s] : command + " " + args[s];
 				}
 				if(args[1].startsWith("/")) {
 					Bukkit.getPlayer(args[0]).performCommand(command);
