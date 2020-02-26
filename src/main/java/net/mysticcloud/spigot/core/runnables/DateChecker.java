@@ -33,7 +33,8 @@ public class DateChecker implements Runnable {
 			counter = 0;
 			CoreUtils.updateDate();
 			for(Punishment punishment : PunishmentUtils.getPunishments()) {
-				if(punishment.getDate() + punishment.getDuration() >= CoreUtils.getDate().getTime()) {
+				Bukkit.broadcastMessage("Punishment time left: " + (punishment.getDate() + punishment.getDuration() - new Date().getTime()));
+				if(punishment.getDate() + punishment.getDuration() - new Date().getTime() <= 1) {
 					PunishmentUtils.finishPunishment(punishment);
 				}
 			}
