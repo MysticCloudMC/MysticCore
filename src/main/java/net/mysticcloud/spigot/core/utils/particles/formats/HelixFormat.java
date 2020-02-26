@@ -20,7 +20,6 @@ public class HelixFormat extends ParticleFormat {
 		allowedParticles.add(Particle.NOTE);
 		allowedParticles.add(Particle.END_ROD);
 		
-		particle = (Particle) allowedParticles.toArray()[0];
 		
 		name = "Helix";
 		guiItem = new ItemStack(Material.REDSTONE);
@@ -28,6 +27,7 @@ public class HelixFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

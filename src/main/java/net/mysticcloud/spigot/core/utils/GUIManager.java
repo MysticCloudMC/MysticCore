@@ -57,7 +57,7 @@ public class GUIManager {
 				invTracker.put(player.getUniqueId(), title);
 			}
 
-		}, 20);
+		}, 5);
 	}
 
 	public static void closeInventory(Player player) {

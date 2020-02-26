@@ -19,6 +19,7 @@ public class LilyPadFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

@@ -24,7 +24,6 @@ public class CircleFeetFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
 		name = "Circle Feet";
 		
-		particle = (Particle) allowedParticles.toArray()[0];
 		
 		
 		
@@ -36,6 +35,7 @@ public class CircleFeetFormat extends ParticleFormat {
 	
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

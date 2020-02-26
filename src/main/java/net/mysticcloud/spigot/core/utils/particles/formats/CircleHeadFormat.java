@@ -33,7 +33,6 @@ public class CircleHeadFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.DIAMOND_HELMET);
 		name = "Circle Head";
 		
-		particle = (Particle) allowedParticles.toArray()[0];
 	}
 	
 	
@@ -41,6 +40,7 @@ public class CircleHeadFormat extends ParticleFormat {
 	
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

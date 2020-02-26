@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 public class ParticleFormat {
 	
 	protected boolean changeParticle = false;
-	protected Particle particle = Particle.COMPOSTER;
+	protected Particle particle = null;
 	protected List<Particle> allowedParticles = new ArrayList<>();
 	
 	protected String name = "Format Name";
@@ -19,6 +19,7 @@ public class ParticleFormat {
 	protected ItemStack guiItem = new ItemStack(Material.GRASS_BLOCK);
 	
 	public void display(UUID uid, int i) throws IllegalArgumentException {
+		if(particle == null) return;
 		
 	}
 

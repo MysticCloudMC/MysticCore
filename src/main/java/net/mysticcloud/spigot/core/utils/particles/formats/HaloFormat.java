@@ -18,7 +18,6 @@ public class HaloFormat extends ParticleFormat {
 		allowedParticles.add(Particle.FALLING_LAVA);
 		allowedParticles.add(Particle.FALLING_WATER);
 
-		particle = (Particle) allowedParticles.toArray()[0];
 
 		name = "Halo";
 		guiItem = new ItemStack(Material.DIAMOND);
@@ -26,6 +25,7 @@ public class HaloFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

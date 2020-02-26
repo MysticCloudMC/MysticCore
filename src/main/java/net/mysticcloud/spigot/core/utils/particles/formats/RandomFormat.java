@@ -25,12 +25,12 @@ public class RandomFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.IRON_SWORD);
 		name = "Random";
 
-		particle = (Particle) allowedParticles.toArray()[0];
 
 	}
 
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {

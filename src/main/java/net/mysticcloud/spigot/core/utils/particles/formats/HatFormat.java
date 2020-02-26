@@ -18,7 +18,6 @@ public class HatFormat extends ParticleFormat {
 		allowedParticles.add(Particle.FALLING_LAVA);
 		allowedParticles.add(Particle.FALLING_WATER);
 
-		particle = (Particle) allowedParticles.toArray()[0];
 
 		name = "Hat";
 		guiItem = new ItemStack(Material.LEATHER_HELMET);
@@ -26,6 +25,7 @@ public class HatFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		super.display(uid, i);
 		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
 			for(Particle particle : allowedParticles) {
 				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
