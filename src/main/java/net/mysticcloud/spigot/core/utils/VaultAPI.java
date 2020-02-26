@@ -1,9 +1,9 @@
 package net.mysticcloud.spigot.core.utils;
 
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -13,7 +13,7 @@ public class VaultAPI extends AbstractEconomy {
 
 	public boolean hasAccount(String uid) {
 		try {
-			return CoreUtils.sendQuery("SELECT * FROM Economy WHERE UUID='" + uid + "';").next();
+			return CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid + "';").next();
 		} catch (NullPointerException | SQLException e) {
 			return false;
 		}
@@ -26,7 +26,7 @@ public class VaultAPI extends AbstractEconomy {
 			createPlayerAccount(uid);
 		}
 		
-		ResultSet rs = CoreUtils.sendQuery("SELECT BALANCE FROM Economy WHERE UUID='" + uid + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT BALANCE FROM MysticPlayers WHERE UUID='" + uid + "';");
 		
 		try {
 			while(rs.next()) {
@@ -64,7 +64,7 @@ public class VaultAPI extends AbstractEconomy {
 		}
 		balance -= CoreUtils.getMoneyFormat(amount);
 		
-		CoreUtils.sendUpdate("UPDATE Economy SET BALANCE='" + balance + "' WHERE UUID='" + uid + "';");
+		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + balance + "' WHERE UUID='" + uid + "';");
 
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
@@ -80,15 +80,14 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.sendUpdate("UPDATE Economy SET BALANCE='" + amount + "' WHERE UUID='" + uid + "';");
+		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + amount + "' WHERE UUID='" + uid + "';");
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
 
 	public boolean createPlayerAccount(String uid) {
 		if (!hasAccount(uid)) {
-			CoreUtils.sendInsert("INSERT INTO Economy (UUID, BALANCE) VALUES ('" + uid + "','"
-					+ Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)) + "');");
+			CoreUtils.getMysticPlayer(UUID.fromString(uid));
 
 			return true;
 		}

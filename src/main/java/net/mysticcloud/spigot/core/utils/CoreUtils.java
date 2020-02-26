@@ -222,26 +222,6 @@ public class CoreUtils {
 	
 
 	public static void setupEconomy() {
-
-		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
-		if (!playerdata.exists()) {
-			try {
-				playerdata.createNewFile();
-			} catch (IOException p) {
-				p.printStackTrace();
-			}
-			List<String> players = new ArrayList<>();
-			players.add("14555508-6819-4434-aa6a-e5ce1509ea35");
-			yamlConfiguration.set("EconomyList", players);
-			yamlConfiguration.set("14555508-6819-4434-aa6a-e5ce1509ea35", Double.valueOf(startingBalance));
-			try {
-				yamlConfiguration.save(playerdata);
-			} catch (IOException p) {
-				p.printStackTrace();
-			}
-		}
-		ecoaccounts = yamlConfiguration.getStringList("EconomyList");
-
 		Main.getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(),
 				(Plugin) Main.getPlugin(), ServicePriority.Normal);
 		economy = (Economy) new VaultAPI();
