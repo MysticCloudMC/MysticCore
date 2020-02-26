@@ -17,9 +17,12 @@ commands:
   pet:
     usage: /pet
     description: Summon a pet to follow you!
+  sudo:
+    usage: /pet
+    description: Summon a pet to follow you!
   debug:
-    usage: /debug
-    description: Toggles debug messages
+    usage: /sudo <user> <command>
+    description: Force a user to do something.
   item:
     usage: /item <item> [player|all]
     description: Gives player a predefined custom item.
