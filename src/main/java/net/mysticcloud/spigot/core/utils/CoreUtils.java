@@ -7,12 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
-import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -83,14 +81,13 @@ public class CoreUtils {
 	private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 	private static Objective objective = null;
 
-	private static List<String> sidebar = new ArrayList<>();
+	private static Map<Integer, String> sidebar = new HashMap<>();
 
 	public static float t = 0;
 
 	public static void start() {
 
 		prefixes.put("root", fullPrefix);
-		
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
 		prefixes.put("settings", colorize("&3&lSettings &7>&f "));
@@ -100,13 +97,10 @@ public class CoreUtils {
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
 		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
-		
-		
-		
+
 		registerScoreboard("sidebar", colorize("        &3&lMystic&f&lCloud        "));
-		
+
 		registerSidebarList();
-		
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -215,7 +209,7 @@ public class CoreUtils {
 	public static void loadVariables() {
 		ResultSet rs = sendQuery("SELECT * FROM Settings");
 		try {
-			while(rs.next()) {
+			while (rs.next()) {
 				variables.put(rs.getString("SETTING"), rs.getString("VALUE"));
 			}
 		} catch (SQLException e) {
@@ -223,7 +217,7 @@ public class CoreUtils {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String getVariable(String var) {
 		return variables.containsKey(var) ? variables.get(var) : "ERROR";
 	}
@@ -633,37 +627,38 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
-		
-		
-		for(String s : scoreboard.getEntries()){
-			scoreboard.resetScores(s);
+
+		int counter = 1;
+		for (String s : scoreboard.getEntries()) {
+			
+			if (objective.getScore(s).getEntry() != sidebar.get(counter))
+				scoreboard.resetScores(s);
+			counter = counter + 1;
 		}
-		
-		int count = sidebar.size();
-		for (String text : sidebar) {
-			objective.getScore(colorize(PlaceholderUtils.replace(player,text))).setScore(count);
-			count--;
+
+		for (Entry<Integer,String> entry : sidebar.entrySet()) {
+			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
 		}
 		player.setScoreboard(scoreboard);
 	}
 
 	private static void registerSidebarList() {
 		sidebar.clear();
-		sidebar.add("&c");
-		sidebar.add("&eTime");
-		sidebar.add("&f%time%");
-		sidebar.add("&c&c");
-		sidebar.add("&6Balance");
-		sidebar.add("&6$&f %balance%");
-		sidebar.add("&c&c&c");
-		sidebar.add("&cLevel");
-		sidebar.add("&f%level%");
-		sidebar.add("&c&f&c");
-		sidebar.add("&aGems");
-		sidebar.add("&f%gems%");
-		sidebar.add("&b");
-		sidebar.add("&b%holiday%");
-		sidebar.add("&c%holidayline%");
+		sidebar.put(15, "&c");
+		sidebar.put(14, "&eTime");
+		sidebar.put(13, "&f%time%");
+		sidebar.put(12, "&c&c");
+		sidebar.put(11, "&6Balance");
+		sidebar.put(10, "&6$&f %balance%");
+		sidebar.put(9, "&c&c&c");
+		sidebar.put(8, "&cLevel");
+		sidebar.put(7, "&f%level%");
+		sidebar.put(6, "&c&f&c");
+		sidebar.put(5, "&aGems");
+		sidebar.put(4, "&f%gems%");
+		sidebar.put(3, "&b");
+		sidebar.put(2, "&b%holiday%");
+		sidebar.put(1, "&c%holidayline%");
 	}
 
 	public static ItemStack getItem(String name) {
@@ -963,13 +958,12 @@ public class CoreUtils {
 		if (mplayers.containsKey(uid)) {
 			return mplayers.get(uid);
 		}
-		
 
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
 		int a = 0;
 		try {
 			while (rs.next()) {
-				a=a+1;
+				a = a + 1;
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
@@ -981,13 +975,12 @@ public class CoreUtils {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(a == 0) {
-			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString() + "','0','0','1');");
-			
+		if (a == 0) {
+			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
+					+ "','0','0','1');");
+
 		}
-		
-	
-		
+
 		if (Bukkit.getPlayer(uid) == null) {
 			Bukkit.getConsoleSender().sendMessage(
 					CoreUtils.colorize("&cA new MysticPlayer was requested while the associated player was offline."));
@@ -1003,15 +996,15 @@ public class CoreUtils {
 		return player;
 
 	}
-	
+
 	public static void saveMysticPlayer(Player player) {
 		saveMysticPlayer(getMysticPlayer(player));
 	}
 
 	public static void saveMysticPlayer(MysticPlayer player) {
-		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel() + "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
+		CoreUtils
+				.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel()
+						+ "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
 	}
-
-	
 
 }
