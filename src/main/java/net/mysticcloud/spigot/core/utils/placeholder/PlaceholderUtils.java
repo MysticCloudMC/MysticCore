@@ -21,14 +21,14 @@ public class PlaceholderUtils {
 			case CHRISTMAS:
 				string = string.replaceAll("%holidayline%", "&c&lMerry &a&lChristmas&f");
 				break;
-			case ST_PATRICKS:
+			case TEST:
 				string = string.replaceAll("%holidayline%", "&fHappy &a&lSt. Patrick's day&f");
 				break;
 			case AVACADO_DAY:
 				string = string.replaceAll("%holidayline%", "&2&lAVACADO DAY!");
 				break;
-			case TEST:
-				string = string.replaceAll("%holidayline%", "&d&lH&f&lA&b&lP&a&lP&e&lY &cB&4&lI&6&lR&e&lT&a&lH&2&lD&b&lA&3&lY&1&l!");
+			case BIRTHDAY:
+				string = string.replaceAll("%holidayline%", "&bHappy Birthday!");
 				break;
 			case HALLOWEEN:
 				string = string.replaceAll("%holidayline%", "&6&lHappy &5&lHolloween&f");
@@ -36,6 +36,8 @@ public class PlaceholderUtils {
 			default:
 				break;
 			}
+			string = string.replaceAll("%holiday%", "&b" + CoreUtils.getHoliday().getName());
+			
 		} else {
 			string = string.replaceAll("%holiday%", "");
 			string = string.replaceAll("%holidayline%", "");
