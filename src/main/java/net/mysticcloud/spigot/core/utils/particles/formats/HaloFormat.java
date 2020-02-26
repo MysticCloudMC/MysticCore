@@ -26,15 +26,6 @@ public class HaloFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-			for(Particle particle : allowedParticles) {
-				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-					this.particle = particle;
-					return;
-				}
-			}
-			return;
-		}
 
 		for (int a = 1; a != 41; a++) {
 //			if (i % 0.009765625 == 0)

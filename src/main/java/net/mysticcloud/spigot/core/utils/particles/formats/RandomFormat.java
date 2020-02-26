@@ -31,15 +31,6 @@ public class RandomFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-			for(Particle particle : allowedParticles) {
-				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-					this.particle = particle;
-					return;
-				}
-			}
-			return;
-		}
 		Bukkit.getPlayer(uid).spawnParticle(particle,
 				Bukkit.getPlayer(uid).getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
 						(1.5 + CoreUtils.getRandom().nextDouble())

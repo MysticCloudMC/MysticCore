@@ -26,15 +26,6 @@ public class HatFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-			for(Particle particle : allowedParticles) {
-				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-					this.particle = particle;
-					return;
-				}
-			}
-			return;
-		}
 		
 		for(int f=0;f!=5;f++) {
 			for(int g=0;g!=20;g++) {

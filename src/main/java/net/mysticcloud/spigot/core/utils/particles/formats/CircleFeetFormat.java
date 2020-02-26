@@ -36,15 +36,6 @@ public class CircleFeetFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		if(!Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-			for(Particle particle : allowedParticles) {
-				if(Bukkit.getPlayer(uid).hasPermission("mysticcloud.particle." + particle.name().toLowerCase())) {
-					this.particle = particle;
-					return;
-				}
-			}
-			return;
-		}
 		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
 						Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))), 0.1,
