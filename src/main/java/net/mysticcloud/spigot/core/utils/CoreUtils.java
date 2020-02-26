@@ -885,6 +885,8 @@ public class CoreUtils {
 			return "&bRain";
 		case DOLPHIN:
 			return "&bBlue Dots";
+		case REDSTONE:
+			return "&cColorful Dust";
 		default:
 			return "0";
 		}
@@ -932,6 +934,8 @@ public class CoreUtils {
 			return new ItemStack(unlocked ? Material.WATER_BUCKET : Material.LIGHT_BLUE_STAINED_GLASS_PANE);
 		case DOLPHIN:
 			return new ItemStack(unlocked ? Material.LIGHT_BLUE_DYE : Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+		case REDSTONE:
+			return new ItemStack(unlocked ? Material.REDSTONE : Material.RED_STAINED_GLASS_PANE);
 		default:
 			return new ItemStack(Material.GRASS_BLOCK);
 		}
@@ -1000,14 +1004,6 @@ public class CoreUtils {
 		CoreUtils.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel() + "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
 	}
 
-	public static boolean particleNeedsData(Particle particle) {
-		switch(particle) {
-		case BLOCK_CRACK:
-		case BLOCK_DUST:
-		case REDSTONE:
-			return true;
-		default: return false;
-		}
-	}
+	
 
 }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
@@ -41,6 +43,31 @@ public class ParticleFormat {
 	}
 	public void setMaterialData(MaterialData materialdata) {
 		this.materialdata = materialdata;
+	}
+	
+	
+	public void spawnParticle(UUID uid, Particle particle, Location loc) {
+
+		if(particle.getDataType() != Void.class) {
+			if (particle.getDataType() == DustOptions.class)
+				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+						loc, 0, 0, 0, 0, 2, dustoptions);
+			if (particle.getDataType() == MaterialData.class)
+				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+						loc, 0, 0, 0, 0, 2, materialdata);
+			if (particle.getDataType() == ItemStack.class)
+				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+						loc, 0, 0, 0, 0, 2, itemstack);
+			if (particle.getDataType() == BlockData.class)
+				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+						loc, 0, 0, 0, 0, 2, blockdata);
+		} else {
+			 Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+				loc, 0, 0, 0, 0, 2);
+		}
+		
+
+	
 	}
 
 	public List<Particle> allowedParticles() {

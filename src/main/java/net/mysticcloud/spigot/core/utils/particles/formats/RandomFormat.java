@@ -31,12 +31,11 @@ public class RandomFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		Bukkit.getPlayer(uid).spawnParticle(particle,
-				Bukkit.getPlayer(uid).getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(-0.5 + CoreUtils.getRandom().nextDouble(),
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
-						-0.5 + CoreUtils.getRandom().nextDouble()),
-				0, 0, 0, 0, 2);
+						-0.5 + CoreUtils.getRandom().nextDouble()));
 	}
 
 }

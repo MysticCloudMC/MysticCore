@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class CircleFeetFormat extends ParticleFormat {
-	
+
 	public CircleFeetFormat() {
 		changeParticle = true;
 		allowedParticles.add(Particle.SPELL_INSTANT);
@@ -20,34 +20,23 @@ public class CircleFeetFormat extends ParticleFormat {
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FLAME);
-		
+
 		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
 		name = "Circle Feet";
-		
-		
-		
-		
-		
-	}
-	
-	
 
-	
+	}
+
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))), 0.1,
-						Math.sin(Math.toRadians(i) * (360 / 20)) * (1)),
-				0, 0, 0, 0, 2);
-		
-		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i+10) * (360 / 20)) * (1))), 0.1,
-						Math.sin(Math.toRadians(i+10) * (360 / 20)) * (1)),
-				0, 0, 0, 0, 2);
-		
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
+						0.1, Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))), 0.1,
+						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));
+
 	}
 
 }

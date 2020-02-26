@@ -10,10 +10,10 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class CircleHeadFormat extends ParticleFormat {
-	
+
 	double delta = 20;
 	double radius = 1;
-	
+
 	public CircleHeadFormat() {
 		changeParticle = true;
 		allowedParticles.add(Particle.FALLING_LAVA);
@@ -29,30 +29,24 @@ public class CircleHeadFormat extends ParticleFormat {
 		allowedParticles.add(Particle.HEART);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DAMAGE_INDICATOR);
-		
+
 		guiItem = new ItemStack(Material.DIAMOND_HELMET);
 		name = "Circle Head";
-		
-	}
-	
-	
 
-	
+	}
+
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
 						Math.cos(Math.toRadians(((i) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i) * (360 / delta)) * (radius)),
-				0, 0, 0, 0, 2);
-		
-		Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i+(delta/2)) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i+(delta/2)) * (360 / delta)) * (radius)),
-				0, 0, 0, 0, 2);
-		
+						Math.sin(Math.toRadians(i) * (360 / delta)) * (radius)));
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+						Math.cos(Math.toRadians(((i + (delta / 2)) * (360 / delta)) * (radius))), 2,
+						Math.sin(Math.toRadians(i + (delta / 2)) * (360 / delta)) * (radius)));
+
 	}
 
 }
