@@ -90,7 +90,6 @@ public class PunishmentUtils {
 	}
 	public static void finishPunishments() {
 		for(Punishment finish :finished) {
-			Bukkit.broadcastMessage("finished punishment: " + finish.getType().name());
 			punishments.remove(finish);
 		}
 		finished.clear();
