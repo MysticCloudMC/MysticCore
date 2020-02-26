@@ -11,6 +11,7 @@ import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.ParticlesCommand;
 import net.mysticcloud.spigot.core.commands.PetCommand;
 import net.mysticcloud.spigot.core.commands.PlayerListCommand;
+import net.mysticcloud.spigot.core.commands.PunishCommand;
 import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin {
 		new ParticlesCommand(this, "particles");
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
+		new PunishCommand(this, "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		startDateChecker();
 		GUIManager.init();
