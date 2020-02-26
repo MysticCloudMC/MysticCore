@@ -26,6 +26,7 @@ public class SudoCommand implements CommandExecutor {
 					command = command == "" ? args[s] : command + " " + args[s];
 				}
 				if(args[1].startsWith("/")) {
+					command = command.replaceFirst("/", "");
 					Bukkit.getPlayer(args[0]).performCommand(command);
 				} else {
 					Bukkit.getPlayer(args[0]).chat(command);
