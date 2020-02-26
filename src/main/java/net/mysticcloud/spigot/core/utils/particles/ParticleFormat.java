@@ -47,6 +47,11 @@ public class ParticleFormat {
 	
 	
 	public void spawnParticle(UUID uid, Particle particle, Location loc) {
+		if(particle.getDataType() == null) {
+			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
+					loc, 0, 0, 0, 0, 2);
+			return;
+		}
 
 		if(particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class)
