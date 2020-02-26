@@ -13,11 +13,9 @@ import net.mysticcloud.spigot.core.Main;
 
 public class VaultAPI extends AbstractEconomy {
 
-	File playerdata = new File(
-			Main.getPlugin().getDataFolder() + File.separator + "economy" + File.separator + "playerdata.yml");
 
 	public boolean hasAccount(String name) {
-		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(CoreUtils.getPlayerDatafile());
 		if (yamlConfiguration.getStringList("EconomyList")
 				.contains(Bukkit.getOfflinePlayer(name).getUniqueId().toString()))
 			return true;
@@ -25,7 +23,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public double getBalance(String name) {
-		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(CoreUtils.getPlayerDatafile());
 
 		return CoreUtils
 				.getMoneyFormat(yamlConfiguration.getDouble(Bukkit.getOfflinePlayer(name).getUniqueId().toString()));
@@ -51,12 +49,12 @@ public class VaultAPI extends AbstractEconomy {
 		}
 		balance -= CoreUtils.getMoneyFormat(amount);
 
-		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(CoreUtils.getPlayerDatafile());
 
 		yamlConfiguration.set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
 				Double.valueOf(CoreUtils.getMoneyFormat(balance)));
 		try {
-			yamlConfiguration.save(playerdata);
+			yamlConfiguration.save(CoreUtils.getPlayerDatafile());
 		} catch (IOException p) {
 			p.printStackTrace();
 		}
@@ -74,14 +72,14 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(CoreUtils.getPlayerDatafile());
 
 		yamlConfiguration.set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
 				Double.valueOf(CoreUtils.getMoneyFormat(
 						yamlConfiguration.getDouble(Bukkit.getOfflinePlayer(name).getUniqueId().toString()))
 						+ CoreUtils.getMoneyFormat(amount)));
 		try {
-			yamlConfiguration.save(playerdata);
+			yamlConfiguration.save(CoreUtils.getPlayerDatafile());
 		} catch (IOException p) {
 			p.printStackTrace();
 		}
@@ -91,14 +89,14 @@ public class VaultAPI extends AbstractEconomy {
 
 	public boolean createPlayerAccount(String name) {
 		if (!hasAccount(name)) {
-			YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+			YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(CoreUtils.getPlayerDatafile());
 
 			CoreUtils.ecoaccounts.add(Bukkit.getPlayer(name).getUniqueId().toString());
-			yamlConfiguration.set("AConomyPlayerList", CoreUtils.ecoaccounts);
+			yamlConfiguration.set("EconomyList", CoreUtils.ecoaccounts);
 			yamlConfiguration.set(Bukkit.getOfflinePlayer(name).getUniqueId().toString(),
 					Double.valueOf(CoreUtils.getMoneyFormat(CoreUtils.startingBalance)));
 			try {
-				yamlConfiguration.save(playerdata);
+				yamlConfiguration.save(CoreUtils.getPlayerDatafile());
 			} catch (IOException p) {
 				p.printStackTrace();
 			}

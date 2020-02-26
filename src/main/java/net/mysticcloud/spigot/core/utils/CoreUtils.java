@@ -30,6 +30,8 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -39,6 +41,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
+import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -59,6 +62,8 @@ public class CoreUtils {
 
 	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
+	private static File playerdata = new File(
+			Main.getPlugin().getDataFolder() + File.separator + "economy" + File.separator + "playerdata.yml");
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -84,7 +89,7 @@ public class CoreUtils {
 
 	public static List<String> ecoaccounts = new ArrayList<>();
 	public static double startingBalance = 100.00;
-
+	private static Economy economy = null;
 	private static Map<Integer, String> sidebar = new HashMap<>();
 
 	public static float t = 0;
@@ -208,6 +213,37 @@ public class CoreUtils {
 
 		WarpUtils.registerWarps();
 
+	}
+	
+	public static Economy getEconomy() {
+		return economy;
+	}
+	
+
+	public static void setupEconomy() {
+
+		YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(playerdata);
+		if (!playerdata.exists()) {
+			try {
+				playerdata.createNewFile();
+			} catch (IOException p) {
+				p.printStackTrace();
+			}
+			List<String> players = new ArrayList<>();
+			players.add("14555508-6819-4434-aa6a-e5ce1509ea35");
+			yamlConfiguration.set("EconomyList", players);
+			yamlConfiguration.set("14555508-6819-4434-aa6a-e5ce1509ea35", Double.valueOf(startingBalance));
+			try {
+				yamlConfiguration.save(playerdata);
+			} catch (IOException p) {
+				p.printStackTrace();
+			}
+		}
+		ecoaccounts = yamlConfiguration.getStringList("EconomyList");
+
+		Main.getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(),
+				(Plugin) Main.getPlugin(), ServicePriority.Normal);
+		economy = (Economy) new VaultAPI();
 	}
 
 	public static void loadVariables() {
@@ -1038,6 +1074,10 @@ public class CoreUtils {
 
 	public static double getMoneyFormat(double amount) {
 		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
+	}
+
+	public static File getPlayerDatafile() {
+		return playerdata;
 	}
 
 }

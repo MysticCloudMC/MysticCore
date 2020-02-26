@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.mysticcloud.spigot.core.commands.DebugCommand;
+import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
@@ -48,6 +49,7 @@ public class Main extends JavaPlugin {
 		new ParticlesCommand(this, "particles");
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
+		new EconomyCommand(this, "balance");
 		new PunishCommand(this, "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		startDateChecker();

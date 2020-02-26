@@ -21,6 +21,7 @@ commands:
   sudo:
     usage: /sudo <user> <command>
     description: Troll your friends.
+  balance:
   punish:
     usage: /punish
     description: Punish a user
