@@ -630,8 +630,10 @@ public class CoreUtils {
 
 		int counter = 1;
 		for (String s : scoreboard.getEntries()) {
+			Bukkit.broadcastMessage("OB:" + objective.getScore(s).getEntry());
+			Bukkit.broadcastMessage("SB:" + sidebar.get(counter));
 			
-			if (objective.getScore(s).getEntry() != sidebar.get(counter))
+			if (objective.getScore(s).getEntry().equals(sidebar.get(counter)))
 				scoreboard.resetScores(s);
 			counter = counter + 1;
 		}
