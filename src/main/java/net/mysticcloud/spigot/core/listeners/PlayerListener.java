@@ -18,7 +18,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -38,6 +37,9 @@ import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.punishment.Punishment;
+import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
+import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class PlayerListener implements Listener {
 
@@ -98,6 +100,15 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+		
+		for(Punishment punish : PunishmentUtils.getPunishments()) {
+			if(punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
+				if(punish.getType().equals(PunishmentType.BAN)) {
+					e.getPlayer().kickPlayer("You are currently banned.");
+				}
+			}
+		}
+		
 		
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
