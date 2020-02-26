@@ -58,6 +58,9 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		CoreUtils.end();
 		PetManager.removeAllPets();
+		for(Player player : Bukkit.getOnlinePlayers()) {
+			CoreUtils.saveMysticPlayer(player);
+		}
 	}
 
 	private static void startDateChecker() {
