@@ -63,7 +63,7 @@ public class HolidayParticles implements Runnable {
 				
 			}
 			break;
-		case TEST:
+		case AVACADO_DAY:
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				try {
 					if (!CoreUtils.holidayparticles.get(player.getUniqueId()))

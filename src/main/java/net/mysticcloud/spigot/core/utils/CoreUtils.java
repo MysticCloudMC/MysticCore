@@ -655,7 +655,7 @@ public class CoreUtils {
 		sidebar.add("&f%gems%");
 		sidebar.add("&b");
 		sidebar.add("&b%holiday%");
-		sidebar.add("&b%holidayline%");
+		sidebar.add("&c%holidayline%");
 	}
 
 	public static ItemStack getItem(String name) {
