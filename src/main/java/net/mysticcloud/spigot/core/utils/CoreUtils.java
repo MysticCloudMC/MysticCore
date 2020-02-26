@@ -628,14 +628,17 @@ public class CoreUtils {
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
 
-		int counter = 1;
 		for (String s : scoreboard.getEntries()) {
-			Bukkit.broadcastMessage("OB:" + objective.getScore(s).getEntry());
-			Bukkit.broadcastMessage("SB:" + sidebar.get(counter));
+			for (Entry<Integer,String> entry : sidebar.entrySet()) {
+				if(entry.getKey() == objective.getScore(s).getScore()) {
+					if(!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
+						scoreboard.resetScores(s);
+					} 
+				}else continue;
+			}
 			
-			if (objective.getScore(s).getEntry().equals(sidebar.get(counter)))
-				scoreboard.resetScores(s);
-			counter = counter + 1;
+			
+			
 		}
 
 		for (Entry<Integer,String> entry : sidebar.entrySet()) {
