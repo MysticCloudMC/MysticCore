@@ -28,7 +28,10 @@ public class HatFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		spawnParticle(uid,particle,Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0));
+		spawnParticle(
+				uid,
+				particle,
+				Bukkit.getPlayer(uid).getEyeLocation().clone().add(0, 1, 0));
 	}
 
 }
