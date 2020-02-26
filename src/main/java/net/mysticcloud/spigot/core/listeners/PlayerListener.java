@@ -175,14 +175,7 @@ public class PlayerListener implements Listener {
 		}
 	}
 	
-	@EventHandler
-	public void onItemPickup(EntityPickupItemEvent e) {
-		if(e.getEntity()instanceof Player) {
-			if(e.getItem().getItemStack().getType().equals(Material.EMERALD)) {
-				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(1);
-			}
-		}
-	}
+	
 
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
