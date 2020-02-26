@@ -27,6 +27,8 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		
+		if(CoreUtils.debugOn()) Bukkit.broadcastMessage("HELP");
+		
 		if(!sw) {
 			for(Player player : Bukkit.getOnlinePlayers()) {
 				CoreUtils.enableScoreboard(player);
