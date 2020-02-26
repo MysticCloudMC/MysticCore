@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 
@@ -51,9 +52,9 @@ public class PunishmentUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int duration = occurrences * 3;
+		long duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
 		
-		Punishment punish = new Punishment(uid, type, duration, new Date().getTime());
+		Punishment punish = new Punishment(uid, type, (int)duration, new Date().getTime());
 		punishments.add(punish);
 		
 		if(type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK))
