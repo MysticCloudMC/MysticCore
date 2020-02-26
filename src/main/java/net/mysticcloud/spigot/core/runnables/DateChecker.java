@@ -11,6 +11,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class DateChecker implements Runnable {
 	
@@ -31,6 +32,7 @@ public class DateChecker implements Runnable {
 			counter = 0;
 			
 			for(Player player : Bukkit.getOnlinePlayers()) {
+				player.sendMessage(PlaceholderUtils.replace(player,"%time%"));
 				CoreUtils.enableScoreboard(player);
 			}
 		}

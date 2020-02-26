@@ -631,7 +631,6 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
-		Bukkit.broadcastMessage("Updating scoreboards");
 		int count = sidebar.size();
 		for (String text : sidebar) {
 			objective.getScore(colorize(PlaceholderUtils.replace(player,text))).setScore(count);
