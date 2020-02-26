@@ -28,11 +28,10 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		counter = counter+1;
-		if(counter%20 == 0) {
+		if(counter%40 == 0) {
 			counter = 0;
-			
+			CoreUtils.updateDate();
 			for(Player player : Bukkit.getOnlinePlayers()) {
-				player.sendMessage(PlaceholderUtils.replace(player,"%time%"));
 				CoreUtils.enableScoreboard(player);
 			}
 		}
