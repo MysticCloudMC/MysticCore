@@ -633,13 +633,10 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
-		Set<String> entries = new HashSet<>();
+		
 		
 		for(String s : scoreboard.getEntries()){
-			entries.add(s);
-		}
-		for(String s : entries){
-			scoreboard.getEntries().remove(s);
+			scoreboard.resetScores(s);
 		}
 		
 		int count = sidebar.size();
