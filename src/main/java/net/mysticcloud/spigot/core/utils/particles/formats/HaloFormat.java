@@ -31,13 +31,13 @@ public class HaloFormat extends ParticleFormat {
 			if (i % 2 == 0) {
 				if (a % 2 == 0)
 					spawnParticle(uid, particle,
-							Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+							Bukkit.getPlayer(uid).getLocation().clone().add(
 									Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
 									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
 			} else {
 				if (a % 2 != 0)
 					spawnParticle(uid, particle,
-							Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+							Bukkit.getPlayer(uid).getLocation().clone().add(
 									Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
 									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
 			}

@@ -29,11 +29,11 @@ public class HelixFormat extends ParticleFormat {
 	public void display(UUID uid, int i) {
 		if(particle == null) return;
 		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getEyeLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
+				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
 						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
 						Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
 		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+				Bukkit.getPlayer(uid).getLocation().clone().add(
 						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))),
 						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
 						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));

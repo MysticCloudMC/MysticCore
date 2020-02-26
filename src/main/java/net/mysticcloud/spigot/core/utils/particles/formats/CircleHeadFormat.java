@@ -40,11 +40,11 @@ public class CircleHeadFormat extends ParticleFormat {
 	public void display(UUID uid, int i) {
 		if(particle == null) return;
 		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+				Bukkit.getPlayer(uid).getLocation().clone().add(
 						Math.cos(Math.toRadians(((i) * (360 / delta)) * (radius))), 2,
 						Math.sin(Math.toRadians(i) * (360 / delta)) * (radius)));
 		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getEyeLocation().clone().add(
+				Bukkit.getPlayer(uid).getLocation().clone().add(
 						Math.cos(Math.toRadians(((i + (delta / 2)) * (360 / delta)) * (radius))), 2,
 						Math.sin(Math.toRadians(i + (delta / 2)) * (360 / delta)) * (radius)));
 
