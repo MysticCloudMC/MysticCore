@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -631,9 +633,15 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		registerSidebarList();
+		Set<String> entries = new HashSet<>();
+		
 		for(String s : scoreboard.getEntries()){
-			Bukkit.broadcastMessage(s);
+			entries.add(s);
 		}
+		for(String s : entries){
+			scoreboard.getEntries().remove(s);
+		}
+		
 		int count = sidebar.size();
 		for (String text : sidebar) {
 			objective.getScore(colorize(PlaceholderUtils.replace(player,text))).setScore(count);
