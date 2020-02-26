@@ -642,7 +642,7 @@ public class CoreUtils {
 	private static void registerSidebarList() {
 		sidebar.clear();
 		sidebar.add("&c");
-		sidebar.add("&etime");
+		sidebar.add("&eUsername");
 		sidebar.add("&f%time%");
 		sidebar.add("&c&c");
 		sidebar.add("&6Balance");
