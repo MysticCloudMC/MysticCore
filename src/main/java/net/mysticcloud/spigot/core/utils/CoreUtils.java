@@ -124,8 +124,8 @@ public class CoreUtils {
 
 		if (testSQLConnection()) {
 			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
-			wbconn = new IDatabase(SQLDriver.MYSQL, "localhost", "Website", 3306, "mysql", "v4pob8LW");
+			db = new IDatabase(SQLDriver.MYSQL, "157.245.121.66", "Minecraft", 3306, "mysql", "v4pob8LW");
+			wbconn = new IDatabase(SQLDriver.MYSQL, "157.245.121.66", "Website", 3306, "mysql", "v4pob8LW");
 			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
 		} else {
 			connected = false;
