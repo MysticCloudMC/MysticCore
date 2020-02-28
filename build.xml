@@ -9,9 +9,7 @@
 	</target>
 	
 	<target name="mvn" depends="clean">
-	    <exec dir="." executable="sh">
-	        <arg line="-c 'mvn clean install'" />
-	    </exec>
+	    
 	</target>
 
 	<target name="CreateJar" description="Create a jar for the project" depends="clean">
