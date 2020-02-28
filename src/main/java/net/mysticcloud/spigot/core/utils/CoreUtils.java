@@ -93,7 +93,7 @@ public class CoreUtils {
 	public static float t = 0;
 
 	public static void start() {
-		
+
 		setupEconomy();
 
 		prefixes.put("root", fullPrefix);
@@ -122,12 +122,13 @@ public class CoreUtils {
 			}
 		}
 
-		if (testSQLConnection()) {
+		try {
 			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "157.245.121.66", "Minecraft", 3306, "mysql", "v4pob8LW");
-			wbconn = new IDatabase(SQLDriver.MYSQL, "157.245.121.66", "Website", 3306, "mysql", "v4pob8LW");
-			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
-		} else {
+			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
+			wbconn = new IDatabase(SQLDriver.MYSQL, "localhost", "Website", 3306, "mysql", "v4pob8LW");
+			if (db.init() && wbconn.init())
+				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
+		} catch (NullPointerException ex) {
 			connected = false;
 			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
 			wbconn = new IDatabase(SQLDriver.SQLITE, "Website");
@@ -215,11 +216,10 @@ public class CoreUtils {
 		WarpUtils.registerWarps();
 
 	}
-	
+
 	public static Economy getEconomy() {
 		return economy;
 	}
-	
 
 	public static void setupEconomy() {
 		Main.getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(),
@@ -1056,6 +1056,5 @@ public class CoreUtils {
 	public static double getMoneyFormat(double amount) {
 		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
 	}
-
 
 }
