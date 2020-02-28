@@ -7,6 +7,12 @@
 	<target name="clean" description="Cleans project">
 		<delete file="${project.pluginsLocation}\${project.projectname}.jar" />
 	</target>
+	
+	<target name="mvn" depends="clean">
+	    <exec dir="." executable="sh">
+	        <arg line="-c 'mvn clean install'" />
+	    </exec>
+	</target>
 
 	<target name="CreateJar" description="Create a jar for the project" depends="clean">
 		<jar destfile="${project.pluginsLocation}\${project.projectname}.jar">
