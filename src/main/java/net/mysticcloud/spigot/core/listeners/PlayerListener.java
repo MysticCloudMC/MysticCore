@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.listeners;
 
+import java.util.Date;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
+import net.mysticcloud.spigot.chat.utils.ChatUtils;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
@@ -100,16 +102,16 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		
-		for(Punishment punish : PunishmentUtils.getPunishments()) {
-			if(punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
-				if(punish.getType().equals(PunishmentType.BAN)) {
-					e.getPlayer().kickPlayer("You are currently banned.");
+
+		for (Punishment punish : PunishmentUtils.getPunishments()) {
+			if (punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
+				if (punish.getType().equals(PunishmentType.BAN)) {
+					e.getPlayer().kickPlayer(CoreUtils.colorize("&cYou are banned for " + CoreUtils
+							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime())));
 				}
 			}
 		}
-		
-		
+
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
 		CoreUtils.enableScoreboard(e.getPlayer());
@@ -187,8 +189,6 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
-	
 
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {

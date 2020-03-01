@@ -1057,4 +1057,33 @@ public class CoreUtils {
 		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
 	}
 
+	public static String getSimpleTimeFormat(long micro) {
+
+		int l = (int) (micro / 1000);
+		int sec = l % 60;
+		int min = (l / 60) % 60;
+		int hours = ((l / 60) / 60) % 24;
+		int days = (((l / 60) / 60) / 24) % 7;
+		int weeks = (((l / 60) / 60) / 24) / 7;
+
+		if (weeks > 0) {
+			return "&4" + weeks + " &cweeks, &4" + days + "&c days, &4" + hours + "&c hours, &4" + min + "&c minutes, and &4"
+					+ sec + " seconds";
+		}
+		if (days > 0) {
+			return "&4" + days + "&c days, &4" + hours + "&c hours, &4" + min + "&c minutes, and &4" + sec + "&c seconds";
+		}
+		if (hours > 0) {
+			return "&4" + hours + "&c hours, &4" + min + "&c minutes, and &4" + sec + "&c seconds";
+		}
+		if (min > 0) {
+			return "&4" + min + "&c minutes, and &4" + sec + "&c seconds";
+		}
+		if (sec > 0) {
+			return "&4" + sec + "&c seconds";
+		}
+
+		return "&4less than a second&c. Chill out.";
+	}
+
 }
