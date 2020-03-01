@@ -23,6 +23,7 @@ commands:
     description: Troll your friends.
   balance:
     usage: /balance
+    aliases: ['bal']
     description: Check your balance.
   pay:
     usage: /pay <user> <amount>
