@@ -49,7 +49,7 @@ public class Main extends JavaPlugin {
 		new ParticlesCommand(this, "particles");
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
-		new EconomyCommand(this, "balance");
+		new EconomyCommand(this, "balance", "pay");
 		new PunishCommand(this, "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		startDateChecker();

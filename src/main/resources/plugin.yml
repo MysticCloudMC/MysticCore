@@ -22,6 +22,11 @@ commands:
     usage: /sudo <user> <command>
     description: Troll your friends.
   balance:
+    usage: /balance
+    description: Check your balance.
+  pay:
+    usage: /pay <user> <amount>
+    description: Pay another user.
   punish:
     usage: /punish
     description: Punish a user
