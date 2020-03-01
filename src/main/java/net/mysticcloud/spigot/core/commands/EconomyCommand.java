@@ -31,7 +31,8 @@ public class EconomyCommand implements CommandExecutor {
 				Economy eco = CoreUtils.getEconomy();
 				eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
 				eco.depositPlayer(Bukkit.getPlayer(args[0]).getUniqueId().toString(), Double.parseDouble(args[1]));
-				sender.sendMessage(CoreUtils.prefixes("eco") + "You paid &6$" + args[1] + "&f to &7" + args[0] + "&f.");
+				sender.sendMessage(CoreUtils.prefixes("eco")
+						+ CoreUtils.colorize("You paid &6$" + args[1] + "&f to &7" + args[0] + "&f."));
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("balance")) {
@@ -39,12 +40,12 @@ public class EconomyCommand implements CommandExecutor {
 				if (args.length == 1 && sender.hasPermission("mysticcloud.admin.setbalance")) {
 					CoreUtils.getEconomy().depositPlayer(((Player) sender).getUniqueId().toString(),
 							Double.parseDouble(args[0]));
-					sender.sendMessage(CoreUtils.prefixes("eco") + "Your current balance is &6$"
-							+ CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()) + "&f.");
+					sender.sendMessage(CoreUtils.prefixes("eco") + CoreUtils.colorize("Your current balance is &6$"
+							+ CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()) + "&f."));
 
 				}
-				sender.sendMessage(CoreUtils.prefixes("eco") + "Your current balance is &6$"
-						+ CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()) + "&f.");
+				sender.sendMessage(CoreUtils.prefixes("eco") + CoreUtils.colorize("Your current balance is &6$"
+						+ CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()) + "&f."));
 
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("eco") + "Only players can use that command.");
