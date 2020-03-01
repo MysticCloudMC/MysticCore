@@ -28,7 +28,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import net.mysticcloud.spigot.chat.utils.ChatUtils;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
