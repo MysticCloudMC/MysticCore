@@ -27,7 +27,12 @@ public class EconomyCommand implements CommandExecutor {
 						CoreUtils.prefixes("eco") + "Sorry, the player you are trying to pay must be online.");
 				return true;
 			}
+			if(Double.parseDouble(args[1]) > 0) {
+				sender.sendMessage(CoreUtils.prefixes("eco") + "Value must be above 0.");
+				return true;
+			}
 			if (CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]))) {
+				
 				Economy eco = CoreUtils.getEconomy();
 				eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
 				eco.depositPlayer(Bukkit.getPlayer(args[0]).getUniqueId().toString(), Double.parseDouble(args[1]));
