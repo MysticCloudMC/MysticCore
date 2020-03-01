@@ -35,6 +35,8 @@ public class EconomyCommand implements CommandExecutor {
 						+ CoreUtils.colorize("You paid &6$" + args[1] + "&f to &7" + args[0] + "&f."));
 				Bukkit.getPlayer(args[0]).sendMessage(CoreUtils.prefixes("eco")
 						+ CoreUtils.colorize("&7" + sender.getName() + "&f has sent you &6$" + args[1] + "&f."));
+			} else {
+				sender.sendMessage(CoreUtils.prefixes("eco") + "You can't afford that.");
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("balance")) {

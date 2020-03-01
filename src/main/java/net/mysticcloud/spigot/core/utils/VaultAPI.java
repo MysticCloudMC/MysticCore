@@ -146,10 +146,10 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public String currencyNamePlural() {
-		return "";
+		return "Unubtaniums";
 	}
 
 	public String currencyNameSingular() {
-		return "";
+		return "Unubtanium";
 	}
 }
