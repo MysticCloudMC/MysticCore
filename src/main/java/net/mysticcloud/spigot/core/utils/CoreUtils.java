@@ -678,8 +678,8 @@ public class CoreUtils {
 		sidebar.put(8, "&cLevel");
 		sidebar.put(7, "&f%level%");
 		sidebar.put(6, "&c&f&c");
-		sidebar.put(5, "&aGems");
-		sidebar.put(4, "&f%gems%");
+		sidebar.put(5, "&aCoins \u26c1");
+		sidebar.put(4, "&f%coins%");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday%");
 		sidebar.put(1, "&c%holidayline%");
@@ -990,7 +990,7 @@ public class CoreUtils {
 				a = a + 1;
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
-				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
+				mp.setGems(Integer.parseInt(rs.getString("COINS")));
 				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
@@ -1043,7 +1043,7 @@ public class CoreUtils {
 				a = a + 1;
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
-				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
+				mp.setGems(Integer.parseInt(rs.getString("COINS")));
 				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
