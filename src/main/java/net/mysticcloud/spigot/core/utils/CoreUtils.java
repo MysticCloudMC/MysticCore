@@ -346,7 +346,8 @@ public class CoreUtils {
 	}
 
 	public static void sendPluginMessage(Player player, String channel, String... arguments) {
-		if(arguments == null) return;
+		if(arguments == null | arguments.length == 0
+				) return;
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		for (String s : arguments) {
 			out.writeUTF(s);
