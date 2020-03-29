@@ -19,6 +19,8 @@ public class PunishCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
+			if (sender instanceof Player)
+				PunishmentUtils.punish(((Player) sender).getUniqueId(), PunishmentType.MUTE);
 			return false;
 		}
 		if (args.length == 1) {
@@ -29,8 +31,7 @@ public class PunishCommand implements CommandExecutor {
 				else sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
 			}
 		}
-		if (sender instanceof Player)
-			PunishmentUtils.punish(((Player) sender).getUniqueId(), PunishmentType.MUTE);
+		
 		return true;
 	}
 }

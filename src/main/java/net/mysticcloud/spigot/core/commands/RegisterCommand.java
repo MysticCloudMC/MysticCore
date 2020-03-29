@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.MysticPlayer;
 
 public class RegisterCommand implements CommandExecutor {
 
@@ -29,7 +30,9 @@ public class RegisterCommand implements CommandExecutor {
 			try {
 				switch(CoreUtils.registerPlayer(args[0], ((Player)sender))) {
 				case 1:
-					sender.sendMessage(CoreUtils.colorize("&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process."));
+					sender.sendMessage(CoreUtils.colorize("&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process. Here's $55 for registering!"));
+					MysticPlayer pl = CoreUtils.getMysticPlayer(((Player)sender));
+					pl.setBalance(pl.getBalance()+100);
 					break;
 				case 0:
 					sender.sendMessage(CoreUtils.colorize("&cError 0"));
