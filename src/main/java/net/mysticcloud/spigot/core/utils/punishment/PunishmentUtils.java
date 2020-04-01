@@ -41,11 +41,11 @@ public class PunishmentUtils {
 
 	}
 
-	public static void punish(UUID uid, PunishmentType type) {
-		punish(uid, type, "");
+	public static void punish(String staff, UUID uid, PunishmentType type) {
+		punish(staff, uid, type, "");
 	}
 
-	public static void punish(UUID uid, PunishmentType type, String notes) {
+	public static void punish(String staff, UUID uid, PunishmentType type, String notes) {
 		int occurrences = 1;
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
 		try {
@@ -70,8 +70,8 @@ public class PunishmentUtils {
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been muted.");
 			}
 		}
-		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES) VALUES ('" + uid.toString()
-				+ "','" + type.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes + "');");
+		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF) VALUES ('" + uid.toString()
+				+ "','" + type.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes + "','" + staff + "');");
 
 	}
 	
