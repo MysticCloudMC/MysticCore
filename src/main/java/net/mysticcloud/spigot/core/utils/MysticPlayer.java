@@ -13,13 +13,17 @@ public class MysticPlayer {
 	MysticPlayer(UUID uid){
 		this.uid = uid;
 	}
-
-	public void setBalance(double balance) {
-		
+	
+	public void setBalance(double balance, boolean save){
 		this.balance = balance;
-		if(Bukkit.getPlayer(uid) != null){
+		if(Bukkit.getPlayer(uid) != null && save){
 			CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 		}
+	}
+
+	public void setBalance(double balance) {
+		setBalance(balance,false);
+		
 	}
 	public void setLevel(int level) {
 		this.level = level;
