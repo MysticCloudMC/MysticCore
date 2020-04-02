@@ -53,17 +53,19 @@ public class PunishmentUtils {
 			notes = "[WARNING] " + notes;
 		} else {
 			duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
+			Punishment punish = new Punishment(uid, type, (int) duration, new Date().getTime());
+			punishments.add(punish);
+			
 		}
 		
 
-		Punishment punish = new Punishment(uid, type, (int) duration, new Date().getTime());
-		punishments.add(punish);
+		
 
-		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK))
+		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK) && !warn)
 			if (Bukkit.getPlayer(uid) != null) {
 				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked");
 			}
-		if (type.equals(PunishmentType.MUTE)) {
+		if (type.equals(PunishmentType.MUTE) && !warn) {
 			if (Bukkit.getPlayer(uid) != null) {
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been muted.");
 			}
