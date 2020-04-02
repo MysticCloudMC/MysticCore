@@ -681,7 +681,7 @@ public class CoreUtils {
 		sidebar.put(8, "&aLevel");
 		sidebar.put(7, "&f%level%");
 		sidebar.put(6, "&c&f&c");
-		sidebar.put(5, "&cGems \u1F7CA");
+		sidebar.put(5, "&cGems \u2B50");
 		sidebar.put(4, "&f%gems%");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday%");
