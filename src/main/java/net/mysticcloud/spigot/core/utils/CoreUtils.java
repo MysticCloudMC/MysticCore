@@ -428,6 +428,7 @@ public class CoreUtils {
 	public static int registerPlayer(String webName, Player player) throws SQLException {
 		if (isPlayerRegistered(webName, player))
 			return -100;
+		getMysticPlayer(player);
 		return wbconn.update("UPDATE Users SET REGISTERED='waiting',MINECRAFT_UUID='" + player.getUniqueId()
 				+ "' WHERE USERNAME='" + webName + "'");
 	}
