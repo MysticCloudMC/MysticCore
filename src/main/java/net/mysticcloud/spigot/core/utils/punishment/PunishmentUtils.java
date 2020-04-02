@@ -181,6 +181,7 @@ public class PunishmentUtils {
 
 		inv.setConfiguration(
 				new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'});
+		return inv.getInventory();
 	}
 }
 						
