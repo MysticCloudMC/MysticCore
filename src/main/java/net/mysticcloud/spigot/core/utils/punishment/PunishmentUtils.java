@@ -55,11 +55,12 @@ public class PunishmentUtils {
 			duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
 
 		}
-		if (!warn && !type.equals(PunishmentType.KICK)) {
+		if (!warn) {
 			switch (inf) {
 			case CHAT:
 				if(occurrences <= 1){
 					type = PunishmentType.KICK;
+					if(!notes.contains("[WARNING]")) notes = "[WARNING] " + notes;
 				} else {
 					type = PunishmentType.MUTE;
 				}
@@ -67,9 +68,10 @@ public class PunishmentUtils {
 			default:
 				break;
 			}
-
-			Punishment punish = new Punishment(offender, type, (int) duration, new Date().getTime());
-			punishments.add(punish);
+			if(!type.equals(PunishmentType.KICK)){
+				Punishment punish = new Punishment(offender, type, (int) duration, new Date().getTime());
+				punishments.add(punish);
+			}	
 		}
 		punish(staf, offender, inf, type, notes, warn, duration);
 		
