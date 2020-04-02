@@ -55,7 +55,7 @@ public class PunishmentUtils {
 			duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
 
 		}
-		if (!warn) {
+		if (!warn && !type.equals(PunishmentType.KICK)) {
 			switch (inf) {
 			case CHAT:
 				if(occurrences <= 1){
@@ -81,7 +81,7 @@ public class PunishmentUtils {
 		
 		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK) && !warn)
 			if (Bukkit.getPlayer(uid) != null) {
-				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked");
+				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked\n") + notes;
 			}
 		if (type.equals(PunishmentType.MUTE) && !warn) {
 			if (Bukkit.getPlayer(uid) != null) {
