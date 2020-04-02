@@ -15,6 +15,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%time%", CoreUtils.getTime());
 		string = string.replaceAll("%balance%", ""+mp.getBalance());
 		string = string.replaceAll("%gems%", ""+mp.getGems());
+		string = string.replaceAll("%g%", ""+mp.getGems());
 		string = string.replaceAll("%level%", ""+mp.getLevel());
 		if(!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			switch(CoreUtils.getHoliday()) {
