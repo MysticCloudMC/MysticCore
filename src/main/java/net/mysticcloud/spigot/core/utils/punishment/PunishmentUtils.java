@@ -81,7 +81,7 @@ public class PunishmentUtils {
 		
 		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK) && !warn)
 			if (Bukkit.getPlayer(uid) != null) {
-				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked: ") + notes;
+				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked\n" + notes);
 			}
 		if (type.equals(PunishmentType.MUTE) && !warn) {
 			if (Bukkit.getPlayer(uid) != null) {
@@ -181,8 +181,4 @@ public class PunishmentUtils {
 
 		inv.setConfiguration(
 				new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X',
-						'X', 'X', 'H', 'I', 'X', 'J', 'K', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
-		return inv.getInventory();
-	}
-
-}
+						
