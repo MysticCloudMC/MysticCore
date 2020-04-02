@@ -56,7 +56,7 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(getBalance(uid) + amount);
+		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(getBalance(uid) + amount,true);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
