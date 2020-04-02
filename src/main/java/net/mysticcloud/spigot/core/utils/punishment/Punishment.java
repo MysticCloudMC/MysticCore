@@ -2,6 +2,8 @@ package net.mysticcloud.spigot.core.utils.punishment;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
+
 public class Punishment {
 	
 	int duration;
@@ -34,11 +36,22 @@ public class Punishment {
 		return notes;
 	}
 	
+	public InfringementSeverity getSeverity(){
+		if(notes.contains("[SEVERITY ")){
+			String sev = notes.replaceAll("[","|");
+			sev = sev.replaceAll("]","|");
+			sev = sev.split("EVERITY ")[1].split("|")[0];
+			return InfringementSeverity.valueOf(sev);
+		} 
+		return InfringementSeverity.LOW;
+	}
+	
 	
 	
 	
 	public void setNotes(String notes){
 		this.notes = notes;
 	}
+	
 
 }
