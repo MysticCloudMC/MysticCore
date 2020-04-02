@@ -78,6 +78,7 @@ public class CoreUtils {
 	private static Map<String, ItemStack> items = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
 	private static Map<String, String> variables = new HashMap<>();
+	private static Map<UUID, MysticPlayer> mps = new HashMap<>();
 
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
@@ -1044,7 +1045,7 @@ public class CoreUtils {
 		try {
 			while (rs.next()) {
 				a = a + 1;
-				MysticPlayer mp = new MysticPlayer(uid);
+				MysticPlayer mp = getMysticPlayer(uid);
 				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("COINS")));
 				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
