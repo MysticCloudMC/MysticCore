@@ -30,7 +30,7 @@ public class PunishmentUtils {
 				PunishmentType type = PunishmentType.valueOf(rs.getString("TYPE"));
 				long date = Long.parseLong(rs.getString("DATE"));
 				String notes = rs.getString("NOTES");
-				if(!notes.contains("[WARNING]") {
+				if(!notes.contains("[WARNING]")) {
 					Punishment punishment = new Punishment(uid, type, duration, date);
 					punishments.add(punishment);
 				}
