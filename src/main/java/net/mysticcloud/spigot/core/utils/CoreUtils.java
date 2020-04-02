@@ -678,11 +678,11 @@ public class CoreUtils {
 		sidebar.put(11, "&6Balance");
 		sidebar.put(10, "&6$&f %balance%");
 		sidebar.put(9, "&c&c&c");
-		sidebar.put(8, "&cLevel");
+		sidebar.put(8, "&aLevel");
 		sidebar.put(7, "&f%level%");
 		sidebar.put(6, "&c&f&c");
-		sidebar.put(5, "&aCoins \u26c1");
-		sidebar.put(4, "&f%coins%");
+		sidebar.put(5, "&cGems \u2605");
+		sidebar.put(4, "&f%gems%");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday%");
 		sidebar.put(1, "&c%holidayline%");
