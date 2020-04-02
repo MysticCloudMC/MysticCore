@@ -8,6 +8,7 @@ public class Punishment {
 	PunishmentType type;
 	UUID user;
 	long date;
+	String notes = "";
 	
 	public Punishment(UUID user, PunishmentType type, int duration, long date) {
 		this.user = user;
@@ -27,6 +28,17 @@ public class Punishment {
 	}
 	public long getDate() {
 		return date;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+	
+	
+	
+	
+	public void setNotes(String notes){
+		this.notes = notes;
 	}
 
 }

@@ -32,7 +32,9 @@ public class PunishmentUtils {
 				String notes = rs.getString("NOTES");
 				if (!notes.contains("[WARNING]")) {
 					Punishment punishment = new Punishment(uid, type, duration, date);
+					punishment.setNotes(notes);
 					punishments.add(punishment);
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -41,8 +43,12 @@ public class PunishmentUtils {
 		}
 
 	}
+	
+	public static void punish(UUID staff, UUID offender, InfringementType inf, String notes) {
+		punish(staff,offender,inf,InfringementSeverity.LOW, notes);
+	}
 
-	public static void punish(UUID staff, UUID offender, InfringmentType inf, String notes) {
+	public static void punish(UUID staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
 		int occurrences = getOccurrences(offender, inf);
 		boolean warn = false;
 		long duration = 0;
@@ -51,25 +57,52 @@ public class PunishmentUtils {
 		if (occurrences == 0) {
 			warn = true;
 			notes = "[WARNING] " + notes;
-		} else {
-			duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
-
 		}
+			
+
+		
+		notes = "[SEVERITY " + severity.name() + "] " + notes; 
 		if (!warn) {
 			switch (inf) {
+			case DISRESPECT:
 			case CHAT:
 				if(occurrences <= 1){
 					type = PunishmentType.KICK;
 					if(!notes.contains("[WARNING]")) notes = "[WARNING] " + notes;
 				} else {
 					type = PunishmentType.MUTE;
+					duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
 				}
+				break;
+			case HACKING:
+				type = PunishmentType.BAN;
+				switch(severity){
+				case EXTREME:
+					if(getOccurrences(offender,inf,severity) >= 1){
+						duration = TimeUnit.MILLISECONDS.convert(Integer.MAX_VALUE, TimeUnit.DAYS);
+					} else {
+						duration = TimeUnit.MILLISECONDS.convert(31, TimeUnit.DAYS);
+					}
+					break;
+				case HIGH:
+					duration = TimeUnit.MILLISECONDS.convert(occurrences * 7, TimeUnit.DAYS);
+					break;
+				case MEDIUM:
+					duration = TimeUnit.MILLISECONDS.convert(occurrences, TimeUnit.DAYS);
+					break;
+				case LOW:
+				default:
+					duration = TimeUnit.MILLISECONDS.convert(occurrences*3, TimeUnit.HOURS);
+					break;
+				}
+				
 				break;
 			default:
 				break;
 			}
 			if(!type.equals(PunishmentType.KICK)){
 				Punishment punish = new Punishment(offender, type, (int) duration, new Date().getTime());
+				punish.setNotes(notes);
 				punishments.add(punish);
 			}	
 		}
@@ -78,22 +111,25 @@ public class PunishmentUtils {
 	}
 
 
-	private static void punish(String staff, UUID uid, InfringmentType inf, PunishmentType type, String notes, boolean warn, long duration) {
+	private static void punish(String staff, UUID uid, InfringementType inf, PunishmentType type, String notes, boolean warn, long duration) {
 
 		
-		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK) && !warn)
-			if (Bukkit.getPlayer(uid) != null) {
-				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked\n" + notes);
-			}
+		if (type.equals(PunishmentType.KICK) && !warn)
+			if (Bukkit.getPlayer(uid) != null) 
+				Bukkit.getPlayer(uid).kickPlayer("You've been kicked\n" + notes);
+			
+		if(type.equals(PunishmentType.BAN))
+			if(Bukkit.getPlayer(uid) != null)
+				Bukkit.getPlayer(uid).kickPlayer("You've been banned for &4" + CoreUtils.getSimpleTimeFormat(duration) + "&f\n" + notes);
 		if (type.equals(PunishmentType.MUTE) && !warn) {
-			if (Bukkit.getPlayer(uid) != null) {
+			if (Bukkit.getPlayer(uid) != null) 
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been muted.");
-			}
+			
 		}
-		if (warn) {
-			if (Bukkit.getPlayer(uid) != null) {
+		if (type.equals(PunishmentType.WARN) || warn) {
+			if (Bukkit.getPlayer(uid) != null) 
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been warned: " + notes);
-			}
+			
 		}
 
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
@@ -120,13 +156,37 @@ public class PunishmentUtils {
 		return occurrences;
 	}
 
-	public static int getOccurrences(UUID uid, InfringmentType type) {
+	public static int getOccurrences(UUID uid, InfringementType type) {
 		int occurrences = 0;
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
 				if (rs.getString("TYPE").equalsIgnoreCase(type.name()))
 					occurrences = occurrences + 1;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return occurrences;
+	}
+	public static int getOccurrences(UUID uid, InfringementType type, InfringementSeverity severity) {
+		int occurrences = 0;
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
+		try {
+			while (rs.next()) {
+				if (rs.getString("TYPE").equalsIgnoreCase(type.name())){
+					if(rs.getString("NOTES").contains("[SEVERITY ")){
+						String sev = rs.getString("NOTES").replaceAll("[","|");
+						sev = sev.replaceAll("]","|");
+						sev = sev.split("EVERITY ")[1].split("|")[0];
+						Bukkit.broadcastMessage(sev);
+						if(InfringementSeverity.valueOf(sev).equals(severity)){
+							occurrences = occurrences+1;
+						}
+					} 
+				}
+					
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

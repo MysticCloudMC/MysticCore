@@ -105,8 +105,8 @@ public class PlayerListener implements Listener {
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			if (punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
 				if (punish.getType().equals(PunishmentType.BAN)) {
-					e.getPlayer().kickPlayer(CoreUtils.colorize("&cYou are banned for " + CoreUtils
-							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime())));
+					e.getPlayer().kickPlayer(CoreUtils.colorize("&cYou're are banned for " + CoreUtils
+							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime()) + "\n&f[Reason] " + punish.getNotes()));
 				}
 			}
 		}

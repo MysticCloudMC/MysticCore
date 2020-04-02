@@ -1,6 +1,6 @@
 package net.mysticcloud.spigot.core.utils.punishment;
 
-public enum InfringmentType {
+public enum InfringementType {
 	
 	CHAT,
 	DISRESPECT,
