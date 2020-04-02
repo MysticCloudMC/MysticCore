@@ -20,7 +20,7 @@ public class PunishCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			if (sender instanceof Player)
-				PunishmentUtils.punish(((Player) sender).getName(), ((Player) sender).getUniqueId(), PunishmentType.MUTE);
+				PunishmentUtils.punish(((Player) sender).getName(), ((Player) sender).getUniqueId(), PunishmentType.MUTE, "Spam");
 			return false;
 		}
 		if (args.length == 1) {
