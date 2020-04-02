@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
+import net.mysticcloud.spigot.core.utils.punishment.InfringmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class PunishCommand implements CommandExecutor {
@@ -20,7 +20,7 @@ public class PunishCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			if (sender instanceof Player)
-				PunishmentUtils.punish(((Player) sender).getName(), ((Player) sender).getUniqueId(), PunishmentType.MUTE, "Spam");
+				PunishmentUtils.punish(((Player) sender).getUniqueId(), ((Player) sender).getUniqueId(), InfringmentType.CHAT, "Spam");
 			return false;
 		}
 		if (args.length == 1) {
