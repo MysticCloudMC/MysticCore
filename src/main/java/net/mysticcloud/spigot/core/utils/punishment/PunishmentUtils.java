@@ -46,9 +46,11 @@ public class PunishmentUtils {
 	public static void punish(String staff, UUID uid, PunishmentType type, String notes) {
 		
 		int occurrences = getOccurrences(uid, type);
+		boolean warn = false;
 		long duration = 0;
 		if(occurrences == 0){
-			type = PunishmentType.WARN;
+			warn = true;
+			notes = "[WARNING] " + notes;
 		} else {
 			duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
 		}
