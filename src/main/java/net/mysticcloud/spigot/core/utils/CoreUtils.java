@@ -1047,7 +1047,7 @@ public class CoreUtils {
 			while (rs.next()) {
 				a = a + 1;
 				MysticPlayer mp = getMysticPlayer(uid);
-				mp.setBalance(Integer.parseInt(rs.getString("BALANCE")));
+				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("COINS")));
 				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
