@@ -27,7 +27,7 @@ public class PunishmentUtils {
 			while (rs.next()) {
 				int duration = Integer.parseInt(rs.getString("DURATION"));
 				UUID uid = UUID.fromString(rs.getString("UUID"));
-				PunishmentType type = PunishmentType.valueOf(rs.getString("TYPE"));
+				PunishmentType type = PunishmentType.valueOf(rs.getString("ACTION"));
 				long date = Long.parseLong(rs.getString("DATE"));
 				String notes = rs.getString("NOTES");
 				if (!notes.contains("[WARNING]")) {
