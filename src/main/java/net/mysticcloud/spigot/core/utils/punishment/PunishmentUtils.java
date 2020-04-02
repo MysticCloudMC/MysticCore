@@ -81,7 +81,7 @@ public class PunishmentUtils {
 		
 		if (type.equals(PunishmentType.BAN) || type.equals(PunishmentType.KICK) && !warn)
 			if (Bukkit.getPlayer(uid) != null) {
-				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked\n") + notes;
+				Bukkit.getPlayer(uid).kickPlayer("You've been banned/kicked: ") + notes;
 			}
 		if (type.equals(PunishmentType.MUTE) && !warn) {
 			if (Bukkit.getPlayer(uid) != null) {
