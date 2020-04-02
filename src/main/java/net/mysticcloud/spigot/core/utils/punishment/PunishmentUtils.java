@@ -29,8 +29,11 @@ public class PunishmentUtils {
 				UUID uid = UUID.fromString(rs.getString("UUID"));
 				PunishmentType type = PunishmentType.valueOf(rs.getString("TYPE"));
 				long date = Long.parseLong(rs.getString("DATE"));
-				Punishment punishment = new Punishment(uid, type, duration, date);
-				punishments.add(punishment);
+				String notes = rs.getString("NOTES");
+				if(!notes.contains("[WARNING]") {
+					Punishment punishment = new Punishment(uid, type, duration, date);
+					punishments.add(punishment);
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +73,7 @@ public class PunishmentUtils {
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been muted.");
 			}
 		}
-		if (type.equals(PunishmentType.WARN)) {
+		if (warn) {
 			if (Bukkit.getPlayer(uid) != null) {
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been warned: " + notes);
 			}
