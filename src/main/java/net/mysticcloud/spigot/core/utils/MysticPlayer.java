@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class MysticPlayer {
 	
-	UUID uid;
+	public UUID uid;
 	private double balance = 0;
 	private int level = 1;
 	private int gems = 0;
