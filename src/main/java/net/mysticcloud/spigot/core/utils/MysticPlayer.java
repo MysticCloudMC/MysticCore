@@ -16,7 +16,9 @@ public class MysticPlayer {
 	public void setBalance(double balance) {
 		
 		this.balance = balance;
-		CoreUtils.updateMysticPlayer(uid);
+		if(Bukkit.getPlayer(uid) != null){
+			CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
+		}
 	}
 	public void setLevel(int level) {
 		this.level = level;
