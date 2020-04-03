@@ -107,7 +107,9 @@ public class PlayerListener implements Listener {
 			Bukkit.broadcastMessage("UUID: " + punish.getUser());
 			Bukkit.broadcastMessage("TYPE: " + punish.getType());
 			if (punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
+				Bukkit.broadcastMessage("UUID Check");
 				if (punish.getType().equals(PunishmentType.BAN)) {
+					Bukkit.broadcastMessage("TYPE Check");
 					e.disallow(Result.KICK_BANNED, CoreUtils.colorize("&cYou're are banned for " + CoreUtils
 							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime()) + "\n&f[Reason] " + punish.getNotes()));
 					
