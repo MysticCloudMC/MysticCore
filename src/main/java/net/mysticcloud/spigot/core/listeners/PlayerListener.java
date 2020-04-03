@@ -106,7 +106,7 @@ public class PlayerListener implements Listener {
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			Bukkit.broadcastMessage("UUID: " + punish.getUser());
 			Bukkit.broadcastMessage("TYPE: " + punish.getType());
-			if (punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
+			if (punish.getUser().equals("" + e.getPlayer().getUniqueId())) {
 				Bukkit.broadcastMessage("UUID Check");
 				if (punish.getType().equals(PunishmentType.BAN)) {
 					Bukkit.broadcastMessage("TYPE Check");
