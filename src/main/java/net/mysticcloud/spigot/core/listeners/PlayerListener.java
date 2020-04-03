@@ -24,6 +24,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -98,26 +100,24 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-
+	
 	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
-
+	public void onPlayerLogin(PlayerLoginEvent e){
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			if (punish.getUser().equals(e.getPlayer().getUniqueId().toString())) {
 				if (punish.getType().equals(PunishmentType.BAN)) {
-					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable(){
-
-						@Override
-						public void run() {
-							e.getPlayer().kickPlayer(CoreUtils.colorize("&cYou're are banned for " + CoreUtils
-									.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime()) + "\n&f[Reason] " + punish.getNotes()));
-						}
-						
-					}, 10);
+					e.disallow(Result.KICK_BANNED, CoreUtils.colorize("&cYou're are banned for " + CoreUtils
+							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime()) + "\n&f[Reason] " + punish.getNotes()));
 					
 				}
 			}
 		}
+	}
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) {
+
+		
 
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
