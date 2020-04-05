@@ -6,13 +6,13 @@ import org.bukkit.Bukkit;
 
 public class Punishment {
 	
-	int duration;
+	long duration;
 	PunishmentType type;
 	UUID user;
 	long date;
 	String notes = "";
 	
-	public Punishment(UUID user, PunishmentType type, int duration, long date) {
+	public Punishment(UUID user, PunishmentType type, long duration, long date) {
 		this.user = user;
 		this.type = type;
 		this.duration = duration;
@@ -22,7 +22,7 @@ public class Punishment {
 	public UUID getUser() {
 		return user;
 	}
-	public int getDuration() {
+	public long getDuration() {
 		return duration;
 	}
 	public PunishmentType getType() {
