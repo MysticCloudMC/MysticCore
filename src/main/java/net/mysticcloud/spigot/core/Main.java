@@ -18,6 +18,7 @@ import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
 import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
+import net.mysticcloud.spigot.core.commands.UUIDCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
@@ -52,6 +53,7 @@ public class Main extends JavaPlugin {
 		new EconomyCommand(this, "balance", "pay");
 		new PunishCommand(this, "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
+		new UUIDCommand(this, "uuid");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

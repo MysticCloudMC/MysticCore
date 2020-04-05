@@ -218,6 +218,24 @@ public class CoreUtils {
 		WarpUtils.registerWarps();
 
 	}
+	
+	public static UUID LookupUUID(String player){
+		UUID uid = null;
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
+		try {
+			while (rs.next()) {
+				if(rs.getString("NAME").equalsIgnoreCase(player)){
+					uid = UUID.fromString(rs.getString("UUID"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return uid;
+	
+	}
 
 	public static Economy getEconomy() {
 		return economy;

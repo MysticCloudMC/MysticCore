@@ -67,3 +67,7 @@ commands:
     aliases: ['deletewarp']
     usage: /deletewarp [type|default=warp] <name>
     description: remove a warp from the database
+  uuid:
+    aliases: ['uid','idlookup']
+    usage: /uuid <player>
+    description: Look up the UUID of an offline player that has previously joined the network.
