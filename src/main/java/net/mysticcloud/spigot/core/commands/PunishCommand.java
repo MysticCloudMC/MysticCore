@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,7 +39,13 @@ public class PunishCommand implements CommandExecutor {
 			}
 		}
 		if (args.length >= 3) {
-			if (Bukkit.getPlayer(args[0]) != null) {
+			UUID uid = null;
+			if (Bukkit.getPlayer(args[0]) == null) {
+				uid = CoreUtils.LookupUUID(args[0]);
+			} else {
+				uid = Bukkit.getPlayer(args[0]).getUniqueId();
+			}
+			if (uid != null) {
 				InfringementType inf = null;
 				InfringementSeverity sev = null;
 				try {
@@ -54,7 +62,7 @@ public class PunishCommand implements CommandExecutor {
 					notes = notes == "" ? args[a] : notes + " " + args[a];
 				String staff = (sender instanceof Player)  ? ((Player)sender).getName() : "CONSOLE";
 
-				PunishmentUtils.punish(staff, (Bukkit.getPlayer(args[0])).getUniqueId(),
+				PunishmentUtils.punish(staff, uid,
 						inf, sev, notes);
 			} else
 				sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
