@@ -40,6 +40,8 @@ import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
+import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -200,6 +202,9 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
+			if(GUIManager.getOpenInventory((Player) e.getPlayer()) == "PunishmentNotes"){
+				
+			}
 			GUIManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
 			// this is stupid.
@@ -216,6 +221,40 @@ public class PlayerListener implements Listener {
 			return;
 		if (e.getInventory().getHolder() == null)
 			e.setCancelled(true);
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "OffenceTypes") {
+			e.setCancelled(true);
+			switch (e.getCurrentItem().getType()) {
+			default: break;
+			case ENCHANTED_GOLDEN_APPLE:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getHackingPunishmentGUI(), "HackingSeverity");
+				break;
+			case DIAMOND_SWORD:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getThreatsPunishmentGUI(), "ThreatsSeverity");
+				break;
+			case PAPER:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getChatPunishmentGUI(), "ChatSeverity");
+				break;
+			}
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "PunishmentNotes") {
+			e.setCancelled(true);
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
+			e.setCancelled(true);
+			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			switch (e.getCurrentItem().getType()) {
+			default: break;
+			case PINK_DYE:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. "), "PunishmentNotes");
+				break;
+			case ORANGE_DYE:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. "), "PunishmentNotes");
+				break;
+			case RED_DYE:
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. "), "PunishmentNotes");
+				break;
+			}
+		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
 				return;

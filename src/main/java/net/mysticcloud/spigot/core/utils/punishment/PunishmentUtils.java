@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -69,7 +70,19 @@ public class PunishmentUtils {
 					if(!notes.contains("[WARNING]")) notes = "[WARNING] " + notes;
 				} else {
 					type = PunishmentType.MUTE;
-					duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
+					switch(severity){
+					
+					
+					
+					case MINIMAL:
+						duration = TimeUnit.MILLISECONDS.convert(occurrences * 3, TimeUnit.HOURS);
+						break;
+					
+					default:
+						duration = TimeUnit.MILLISECONDS.convert(occurrences * 6, TimeUnit.HOURS);
+						break;
+					}
+					
 				}
 				break;
 			case HACKING:
@@ -223,28 +236,99 @@ public class PunishmentUtils {
 	}
 
 	public static Inventory getPunishmentGUI(String string) {
-		InventoryCreator inv = new InventoryCreator("&b&lColors", null, 36);
+		InventoryCreator inv = new InventoryCreator("&8What kind of offence was this?", null, 36);
 
-		inv.addItem(new ItemStack(Material.PINK_DYE), "&eChat spamming", 'A', new String[] {});
-		inv.addItem(new ItemStack(Material.RED_DYE), "&eStaff disrespect", 'B', new String[] {});
-		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&eHacking", 'C', new String[] {});
-		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&eYellow", 'D', new String[] {});
-
-		inv.addItem(new ItemStack(Material.LIME_DYE), "&aLime Green", 'E', new String[] {});
-		inv.addItem(new ItemStack(Material.GREEN_DYE), "&2Green", 'F', new String[] {});
-
-		inv.addItem(new ItemStack(Material.BLUE_DYE), "&3Blue", 'G', new String[] {});
-		inv.addItem(new ItemStack(Material.PURPLE_DYE), "&5Purple", 'H', new String[] {});
-		inv.addItem(new ItemStack(Material.BROWN_DYE), "&6Brown", 'I', new String[] {});
-
-		inv.addItem(new ItemStack(Material.BLACK_DYE), "&7Black", 'J', new String[] {});
-		inv.addItem(new ItemStack(Material.WHITE_DYE), "&fWhite", 'K', new String[] {});
+		inv.addItem(new ItemStack(Material.PAPER), "&eChat Offences", 'A', new String[] {
+				"&7 - Spamming",
+				"&7 - Advertising",
+				"&7 - Disrespect"});
+		inv.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE), "&eHacking Offences", 'B', new String[] {
+				"&7(Basically anything that gives a player an advantage. This INCLUDES taking advanage of bugs and glitches)"});
+		inv.addItem(new ItemStack(Material.DIAMOND_SWORD), "&cThreats or Attacks", 'C', new String[] {
+				"&7 - DDoS",
+				"&7 - DOX",
+				"&7 - Threatens harm to a player (even if it's not feasible)"});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
 		inv.setConfiguration(
-				new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'});
+				new char[] { 
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'X', 'X', 'A', 'B', 'C', 'X', 'X', 'X',
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
+						});
 		return inv.getInventory();
 	}
+	
+	public static Inventory getChatPunishmentGUI() {
+		InventoryCreator inv = new InventoryCreator("&8What kind of offence was this?", null, 36);
+
+		inv.addItem(new ItemStack(Material.PINK_DYE), "&eChat spamming", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_DYE), "&eAdvertising", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&eDisrespect", 'C', new String[] {});
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+
+		inv.setConfiguration(
+				new char[] { 
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'X', 'X', 'A', 'B', 'C', 'X', 'X', 'X',
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
+						});
+		return inv.getInventory();
+	}
+
+	public static Inventory getHackingPunishmentGUI() {
+		InventoryCreator inv = new InventoryCreator("&8How severe was this?", null, 36);
+
+		inv.addItem(new ItemStack(Material.CYAN_DYE), "&7Severity: &bMINIMAL", 'A', new String[] {
+				"&7 - X-Raying"
+		});
+		inv.addItem(new ItemStack(Material.LIME_DYE), "&7Severity: &aLOW", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&7Severity: &eMEDIUM", 'C', new String[] {});
+		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&7Severity: &6HIGH", 'D', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_DYE), "&7Severity: &cEXTREME", 'E', new String[] {});
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+
+		inv.setConfiguration(
+				new char[] { 
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'X', 'A', 'B', 'C', 'D', 'E', 'X', 'X',
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
+						});
+		return inv.getInventory();
+	}
+
+	public static Inventory getThreatsPunishmentGUI() {
+		InventoryCreator inv = new InventoryCreator("&8How severe was this?", null, 36);
+
+		inv.addItem(new ItemStack(Material.CYAN_DYE), "&7Severity: &bMINIMAL", 'A', new String[] {
+				""
+		});
+		inv.addItem(new ItemStack(Material.LIME_DYE), "&7Severity: &aLOW", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&7Severity: &eMEDIUM", 'C', new String[] {});
+		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&7Severity: &6HIGH", 'D', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_DYE), "&7Severity: &cEXTREME", 'E', new String[] {});
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+
+		inv.setConfiguration(
+				new char[] { 
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'X', 'A', 'B', 'C', 'D', 'E', 'X', 'X',
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
+						});
+		return inv.getInventory();
+	}
+	
+	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
+		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Anvil Type");
+	    
+		
+		
+        return inv;
+	}
+	
 }
 						

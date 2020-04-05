@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -30,11 +31,13 @@ public class PunishCommand implements CommandExecutor {
 		}
 		if (args.length == 1) {
 			if (sender instanceof Player) {
-				if (Bukkit.getPlayer(args[0]) != null)
+				if (Bukkit.getPlayer(args[0]) != null){
+					((Player) sender).setMetadata("punish", new FixedMetadataValue(Main.getPlugin(), args[0]));
 					GUIManager.openInventory(((Player) sender),
-							PunishmentUtils.getPunishmentGUI(Bukkit.getPlayer(args[0]).getUniqueId().toString()),
+				
+							PunishmentUtils.getPunishmentGUI(""),
 							"Punishment Dashboard");
-				else
+				} else
 					sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
 			}
 		}
@@ -65,7 +68,7 @@ public class PunishCommand implements CommandExecutor {
 				PunishmentUtils.punish(staff, uid,
 						inf, sev, notes);
 			} else
-				sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
+				sender.sendMessage(CoreUtils.prefixes("punishments") + "Couldn't find that player online, or in the MysticCloud UUID database.");
 		}
 
 		return true;
