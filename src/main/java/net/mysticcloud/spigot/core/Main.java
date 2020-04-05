@@ -15,6 +15,7 @@ import net.mysticcloud.spigot.core.commands.PlayerListCommand;
 import net.mysticcloud.spigot.core.commands.PunishCommand;
 import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
+import net.mysticcloud.spigot.core.commands.SeenCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
 import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
@@ -54,6 +55,7 @@ public class Main extends JavaPlugin {
 		new PunishCommand(this, "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		new UUIDCommand(this, "uuid");
+		new SeenCommand(this, "seen");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

@@ -236,6 +236,42 @@ public class CoreUtils {
 		return uid;
 	
 	}
+	
+	@Deprecated
+	public static long LookupLastSeen(String player){
+		long date = 0;
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
+		try {
+			while (rs.next()) {
+				if(rs.getString("NAME").equalsIgnoreCase(player)){
+					date = Long.parseLong(rs.getString("DATE"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return date;
+	
+	}
+	public static long LookupLastSeen(UUID player){
+		long date = 0;
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
+		try {
+			while (rs.next()) {
+				if(rs.getString("UUID").equalsIgnoreCase(player.toString())){
+					date = Long.parseLong(rs.getString("DATE"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return date;
+	
+	}
 
 	public static Economy getEconomy() {
 		return economy;

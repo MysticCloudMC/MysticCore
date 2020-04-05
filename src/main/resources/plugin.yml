@@ -71,3 +71,7 @@ commands:
     aliases: ['uid','idlookup']
     usage: /uuid <player>
     description: Look up the UUID of an offline player that has previously joined the network.
+  seen:
+    aliases: ['lastseen']
+    usage: /seen <player>
+    description: Look up when a player was last seen.
