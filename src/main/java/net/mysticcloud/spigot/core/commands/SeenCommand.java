@@ -22,10 +22,10 @@ public class SeenCommand implements CommandExecutor {
 			if(args.length == 1) {
 				UUID uid = CoreUtils.LookupUUID(args[0]);
 				if(uid != null){
-					SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm");
+					SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy hh:mm");
 					
 					String seen = sdf.format(new Date(CoreUtils.LookupLastSeen(uid)));
-					sender.sendMessage(CoreUtils.colorize("&3&lMysticCore &7>&f " + args[0] + "was last seen: " + (seen)));
+					sender.sendMessage(CoreUtils.colorize("&3&lMysticCore &7>&f " + args[0] + " was last seen: " + (seen)));
 					
 				} else {
 					sender.sendMessage(CoreUtils.colorize("&3&lMysticCore &7>&f That player couldn't be found in the database."));
