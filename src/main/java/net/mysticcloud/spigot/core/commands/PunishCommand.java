@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
@@ -20,18 +22,44 @@ public class PunishCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
 			if (sender instanceof Player)
-				PunishmentUtils.punish(((Player) sender).getUniqueId(), ((Player) sender).getUniqueId(), InfringementType.HACKING, "x-raying");
-			return false;
+				PunishmentUtils.punish(((Player) sender).getName(), ((Player) sender).getUniqueId(),
+						InfringementType.HACKING, "x-raying");
+			return true;
 		}
 		if (args.length == 1) {
 			if (sender instanceof Player) {
-				if(Bukkit.getPlayer(args[0]) != null)
-				GUIManager.openInventory(((Player) sender),
-						PunishmentUtils.getPunishmentGUI(Bukkit.getPlayer(args[0]).getUniqueId().toString()), "Punishment Dashboard");
-				else sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
+				if (Bukkit.getPlayer(args[0]) != null)
+					GUIManager.openInventory(((Player) sender),
+							PunishmentUtils.getPunishmentGUI(Bukkit.getPlayer(args[0]).getUniqueId().toString()),
+							"Punishment Dashboard");
+				else
+					sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
 			}
 		}
-		
+		if (args.length >= 3) {
+			if (Bukkit.getPlayer(args[0]) != null) {
+				InfringementType inf = null;
+				InfringementSeverity sev = null;
+				try {
+					inf = InfringementType.valueOf(args[1].toUpperCase());
+					sev = InfringementSeverity.valueOf(args[2].toUpperCase());
+				} catch (NullPointerException ex) {
+					sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("punishments")
+							+ "Try \"&c/punish <player> <CHAT|HACKING|GREIF> <MINIMAL,LOW,MEDIUM,HIGH,EXTREME> [notes]"));
+					return true;
+				}
+				String notes = "";
+
+				for (int a = 3; a != args.length; a++)
+					notes = notes == "" ? args[a] : notes + " " + args[a];
+				String staff = (sender instanceof Player)  ? ((Player)sender).getName() : "CONSOLE";
+
+				PunishmentUtils.punish(staff, (Bukkit.getPlayer(args[0])).getUniqueId(),
+						inf, sev, notes);
+			} else
+				sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
+		}
+
 		return true;
 	}
 }

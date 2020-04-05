@@ -44,15 +44,14 @@ public class PunishmentUtils {
 
 	}
 	
-	public static void punish(UUID staff, UUID offender, InfringementType inf, String notes) {
+	public static void punish(String staff, UUID offender, InfringementType inf, String notes) {
 		punish(staff,offender,inf,InfringementSeverity.LOW, notes);
 	}
 
-	public static void punish(UUID staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
+	public static void punish(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
 		int occurrences = getOccurrences(offender, inf);
 		boolean warn = false;
 		long duration = 0;
-		String staf = Bukkit.getPlayer(staff) == null ? staff.toString() : Bukkit.getPlayer(staff).getName();
 		PunishmentType type = PunishmentType.WARN;
 		if (occurrences == 0) {
 			warn = true;
@@ -64,7 +63,6 @@ public class PunishmentUtils {
 		notes = "[SEVERITY " + severity.name() + "] " + notes; 
 		if (!warn) {
 			switch (inf) {
-			case DISRESPECT:
 			case CHAT:
 				if(occurrences <= 1){
 					type = PunishmentType.KICK;
@@ -85,16 +83,19 @@ public class PunishmentUtils {
 					}
 					break;
 				case HIGH:
-					duration = TimeUnit.MILLISECONDS.convert(occurrences * 7, TimeUnit.DAYS);
+					duration = TimeUnit.MILLISECONDS.convert(occurrences * 30, TimeUnit.DAYS);
 					break;
 				case MEDIUM:
-					duration = TimeUnit.MILLISECONDS.convert(occurrences, TimeUnit.DAYS);
+					duration = TimeUnit.MILLISECONDS.convert(occurrences*7, TimeUnit.DAYS);
 					break;
 				case LOW:
 				default:
-					duration = TimeUnit.MILLISECONDS.convert(occurrences*3, TimeUnit.HOURS);
+					duration = TimeUnit.MILLISECONDS.convert(occurrences*3, TimeUnit.DAYS);
 					break;
 				}
+				
+				break;
+			case GREIF:
 				
 				break;
 			default:
@@ -106,7 +107,7 @@ public class PunishmentUtils {
 				punishments.add(punish);
 			}	
 		}
-		punish(staf, offender, inf, type, notes, warn, duration);
+		punish(staff, offender, inf, type, notes, warn, duration);
 		
 	}
 
