@@ -15,7 +15,7 @@ public class UUIDCommand implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(sender.hasPermission("mysticcloud.admin.cmd.uuid")){
-			if(args.length > 1) {
+			if(args.length == 1) {
 				sender.sendMessage(CoreUtils.colorize("&e&lUUID &7>&f Search result for \"" + args[0] + "\": " + CoreUtils.LookupUUID(args[0])));
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("admin") + "/uuid <user>");
