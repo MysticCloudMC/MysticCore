@@ -279,8 +279,8 @@ public class CoreUtils {
 		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
 		try {
 			while (rs.next()) {
-				if (rs.getString("NAME").equalsIgnoreCase(uid.toString())) {
-					user = (rs.getString("USERNAME"));
+				if (rs.getString("UUID").equalsIgnoreCase(uid.toString())) {
+					user = (rs.getString("NAME"));
 				}
 			}
 		} catch (SQLException e) {

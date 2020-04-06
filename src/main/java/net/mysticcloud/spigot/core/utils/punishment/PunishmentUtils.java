@@ -153,9 +153,13 @@ public class PunishmentUtils {
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
 		if(!staff.equals("CONSOLE")){
-			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin")) + type.name() + " " + CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8"));
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " " + CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8")));
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize("&3Infringement&7: " + inf.name()));
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize("&3Notes&7: " + notes));
+		} else {
+			Bukkit.getConsoleSender().sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " " + CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8")));
+			Bukkit.getConsoleSender().sendMessage(CoreUtils.colorize("&3Infringement&7: " + inf.name()));
+			Bukkit.getConsoleSender().sendMessage(CoreUtils.colorize("&3Notes&7: " + notes));
 		}
 
 	}
@@ -253,11 +257,15 @@ public class PunishmentUtils {
 				"&7 - Advertising",
 				"&7 - Disrespect"});
 		inv.addItem(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE), "&eHacking Offences", 'B', new String[] {
-				"&7(Basically anything that gives a player an advantage. This INCLUDES taking advanage of bugs and glitches)"});
+				"&7(Basically anything that gives a player",
+				"an advantage. This INCLUDES taking",
+				"advanage of bugs and glitches)"});
 		inv.addItem(new ItemStack(Material.DIAMOND_SWORD), "&cThreats or Attacks", 'C', new String[] {
 				"&7 - DDoS",
 				"&7 - DOX",
-				"&7 - Threatens harm to a player (even if it's not feasible)"});
+				"&7 - Threatens harm",
+				"to a player (even if",
+				"it's not feasible)"});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
@@ -314,7 +322,6 @@ public class PunishmentUtils {
 		InventoryCreator inv = new InventoryCreator("&8How severe was this?", null, 36);
 
 		inv.addItem(new ItemStack(Material.CYAN_DYE), "&7Severity: &bMINIMAL", 'A', new String[] {
-				""
 		});
 		inv.addItem(new ItemStack(Material.LIME_DYE), "&7Severity: &aLOW", 'B', new String[] {});
 		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&7Severity: &eMEDIUM", 'C', new String[] {});
@@ -334,6 +341,7 @@ public class PunishmentUtils {
 	
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
 		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Notes");
+		inv.setItem(0,new ItemStack(Material.PAPER));
 	    
 		List<Object> punishInfo = new ArrayList<>();
 		punishInfo.add(offender);
