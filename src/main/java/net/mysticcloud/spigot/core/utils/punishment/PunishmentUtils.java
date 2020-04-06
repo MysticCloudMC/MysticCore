@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -21,6 +23,7 @@ public class PunishmentUtils {
 
 	static List<Punishment> punishments = new ArrayList<>();
 	static List<Punishment> finished = new ArrayList<>();
+	private static Map<String, List<Object>> punishmentBuilder = new HashMap<>();
 
 	public static void registerPunishments() {
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments;");
@@ -149,8 +152,15 @@ public class PunishmentUtils {
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
+		if(!staff.equals("CONSOLE")){
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin")) + type.name() + " " + CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8"));
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize("&3Infringement&7: " + inf.name()));
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize("&3Notes&7: " + notes));
+		}
 
 	}
+	
+	
 
 	public static List<Punishment> getPunishments() {
 		return punishments;
@@ -323,11 +333,44 @@ public class PunishmentUtils {
 	}
 	
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
-		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Anvil Type");
+		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Notes");
 	    
+		List<Object> punishInfo = new ArrayList<>();
+		punishInfo.add(offender);
+		punishInfo.add(inf);
+		punishInfo.add(severity);
+		punishInfo.add(notes);
+		
+		punishmentBuilder.put(staff, punishInfo);
 		
 		
         return inv;
+	}
+	
+	public static void finishPunishment(String staff){
+		if(punishmentBuilder.containsKey(staff)){
+			InfringementType type = null;
+			InfringementSeverity severity = null;
+			String notes = "";
+			UUID uid = null;
+			
+			for(Object data : punishmentBuilder.get(staff)){
+				if(data instanceof InfringementType){
+					type = (InfringementType) data;
+				}
+				if(data instanceof InfringementSeverity){
+					severity = (InfringementSeverity) data;
+				}
+				if(data instanceof String){
+					notes = "" + data;
+				}
+				if(data instanceof UUID){
+					uid = (UUID) data;
+				}
+				
+			}
+			punish(staff,uid,type,severity,notes);
+		}
 	}
 	
 }

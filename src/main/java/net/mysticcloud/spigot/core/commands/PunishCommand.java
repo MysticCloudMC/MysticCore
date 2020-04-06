@@ -30,8 +30,15 @@ public class PunishCommand implements CommandExecutor {
 			return true;
 		}
 		if (args.length == 1) {
+			
 			if (sender instanceof Player) {
-				if (Bukkit.getPlayer(args[0]) != null){
+				UUID uid = null;
+				if (Bukkit.getPlayer(args[0]) == null) {
+					uid = CoreUtils.LookupUUID(args[0]);
+				} else {
+					uid = Bukkit.getPlayer(args[0]).getUniqueId();
+				}
+				if (uid != null){
 					((Player) sender).setMetadata("punish", new FixedMetadataValue(Main.getPlugin(), args[0]));
 					GUIManager.openInventory(((Player) sender),
 				

@@ -203,7 +203,7 @@ public class PlayerListener implements Listener {
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
 			if(GUIManager.getOpenInventory((Player) e.getPlayer()) == "PunishmentNotes"){
-				
+				PunishmentUtils.finishPunishment(e.getPlayer().getName());
 			}
 			GUIManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
@@ -238,6 +238,10 @@ public class PlayerListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "PunishmentNotes") {
 			e.setCancelled(true);
+			if(e.getCurrentItem().getType().equals(Material.PAPER)){
+				e.getWhoClicked().closeInventory();
+				
+			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
 			e.setCancelled(true);

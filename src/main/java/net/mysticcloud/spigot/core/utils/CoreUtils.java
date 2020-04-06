@@ -218,13 +218,13 @@ public class CoreUtils {
 		WarpUtils.registerWarps();
 
 	}
-	
-	public static UUID LookupUUID(String player){
+
+	public static UUID LookupUUID(String player) {
 		UUID uid = null;
 		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
 		try {
 			while (rs.next()) {
-				if(rs.getString("NAME").equalsIgnoreCase(player)){
+				if (rs.getString("NAME").equalsIgnoreCase(player)) {
 					uid = UUID.fromString(rs.getString("UUID"));
 				}
 			}
@@ -232,18 +232,18 @@ public class CoreUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return uid;
-	
+
 	}
-	
+
 	@Deprecated
-	public static long LookupLastSeen(String player){
+	public static long LookupLastSeen(String player) {
 		long date = 0;
 		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
 		try {
 			while (rs.next()) {
-				if(rs.getString("NAME").equalsIgnoreCase(player)){
+				if (rs.getString("NAME").equalsIgnoreCase(player)) {
 					date = Long.parseLong(rs.getString("DATE"));
 				}
 			}
@@ -251,16 +251,17 @@ public class CoreUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return date;
-	
+
 	}
-	public static long LookupLastSeen(UUID player){
+
+	public static long LookupLastSeen(UUID player) {
 		long date = 0;
 		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
 		try {
 			while (rs.next()) {
-				if(rs.getString("UUID").equalsIgnoreCase(player.toString())){
+				if (rs.getString("UUID").equalsIgnoreCase(player.toString())) {
 					date = Long.parseLong(rs.getString("DATE"));
 				}
 			}
@@ -268,9 +269,27 @@ public class CoreUtils {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return date;
-	
+
+	}
+
+	public static String lookupUsername(UUID uid) {
+		String user = "";
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats");
+		try {
+			while (rs.next()) {
+				if (rs.getString("NAME").equalsIgnoreCase(uid.toString())) {
+					user = (rs.getString("USERNAME"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return user;
+
 	}
 
 	public static Economy getEconomy() {
@@ -385,9 +404,9 @@ public class CoreUtils {
 			player.teleport(spawn);
 			player.sendMessage(fullPrefix + reason.message());
 		} catch (IllegalArgumentException ex) {
-//			spawn.getWorld().loadChunk(spawn.getChunk());
-//			player.teleport(spawn);
-//			player.sendMessage(fullPrefix + reason.message());
+			// spawn.getWorld().loadChunk(spawn.getChunk());
+			// player.teleport(spawn);
+			// player.sendMessage(fullPrefix + reason.message());
 		}
 
 	}
@@ -402,8 +421,8 @@ public class CoreUtils {
 	}
 
 	public static void sendPluginMessage(Player player, String channel, String... arguments) {
-		if(arguments == null | arguments.length == 0
-				) return;
+		if (arguments == null | arguments.length == 0)
+			return;
 		ByteArrayDataOutput out = ByteStreams.newDataOutput();
 		for (String s : arguments) {
 			out.writeUTF(s);
@@ -855,7 +874,7 @@ public class CoreUtils {
 
 			}
 
-//			Attribute.
+			// Attribute.
 			if (item.isSet(name + ".Attributes.Helmet.MovementSpeed")) {
 
 				AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "Helmet Movement Speed",
@@ -1116,9 +1135,9 @@ public class CoreUtils {
 		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
 	}
 
-	public static String getSimpleTimeFormat(long micro) {
+	public static String formatDate(long ms, String tcolor, String ncolor) {
 
-		int l = (int) (micro / 1000);
+		int l = (int) (ms / 1000);
 		int sec = l % 60;
 		int min = (l / 60) % 60;
 		int hours = ((l / 60) / 60) % 24;
@@ -1126,23 +1145,29 @@ public class CoreUtils {
 		int weeks = (((l / 60) / 60) / 24) / 7;
 
 		if (weeks > 0) {
-			return "&4" + weeks + " &cweeks, &4" + days + "&c days, &4" + hours + "&c hours, &4" + min + "&c minutes, and &4"
-					+ sec + " seconds";
+			return ncolor + weeks + tcolor + " weeks, " + ncolor + days + tcolor + " days, " + ncolor + hours + tcolor
+					+ " hours, " + ncolor + min + tcolor + " minutes, and " + ncolor + sec + tcolor + " seconds";
 		}
 		if (days > 0) {
-			return "&4" + days + "&c days, &4" + hours + "&c hours, &4" + min + "&c minutes, and &4" + sec + "&c seconds";
+			return ncolor + days + tcolor + " days, " + ncolor + hours + tcolor + " hours, " + ncolor + min + tcolor
+					+ " minutes, and " + ncolor + sec + tcolor + " seconds";
 		}
 		if (hours > 0) {
-			return "&4" + hours + "&c hours, &4" + min + "&c minutes, and &4" + sec + "&c seconds";
+			return ncolor + hours + tcolor + " hours, " + ncolor + min + tcolor + " minutes, and " + ncolor + sec
+					+ tcolor + " seconds";
 		}
 		if (min > 0) {
-			return "&4" + min + "&c minutes, and &4" + sec + "&c seconds";
+			return ncolor + min + tcolor + " minutes, and " + ncolor + sec + tcolor + " seconds";
 		}
 		if (sec > 0) {
-			return "&4" + sec + "&c seconds";
+			return ncolor + sec + tcolor + " seconds";
 		}
 
-		return "&4less than a second&c. Chill out.";
+		return ncolor + "less than a second" + tcolor + ". Chill out.";
+	}
+
+	public static String getSimpleTimeFormat(long ms) {
+		return formatDate(ms, "&c", "&4");
 	}
 
 }
