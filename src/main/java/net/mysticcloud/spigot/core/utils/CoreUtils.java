@@ -54,7 +54,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class CoreUtils {
 
 	private static IDatabase db;
-	private static IDatabase wbconn;
+	static IDatabase wbconn;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
 	private static Date date = new Date();
@@ -289,6 +289,25 @@ public class CoreUtils {
 		}
 
 		return user;
+
+	}
+	
+	public static String lookupWebname(UUID uid) {
+		String name = "";
+		wbconn.init();
+		ResultSet rs = wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
+		try {
+			while (rs.next()) {
+				if (rs.getString("MIENCRAFT_UUID").equalsIgnoreCase(uid.toString())) {
+					name = (rs.getString("USERNAME"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return name;
 
 	}
 
@@ -526,6 +545,21 @@ public class CoreUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isPlayerRegistered(UUID uid) throws SQLException {
+
+		wbconn.init();
+		ResultSet rs = wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
+		while (rs.next()) {
+			if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+	
+	
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
 		return db.query(query);
