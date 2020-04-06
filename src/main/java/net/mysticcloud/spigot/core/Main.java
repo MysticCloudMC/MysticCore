@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.mysticcloud.spigot.core.commands.DebugCommand;
 import net.mysticcloud.spigot.core.commands.EconomyCommand;
+import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
@@ -56,6 +57,7 @@ public class Main extends JavaPlugin {
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		new UUIDCommand(this, "uuid");
 		new SeenCommand(this, "seen");
+		new FriendCommand(this, "friends", "friend");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
