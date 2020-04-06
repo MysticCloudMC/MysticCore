@@ -1,6 +1,9 @@
 package net.mysticcloud.spigot.core.utils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
 import org.bukkit.Bukkit;
 
 public class MysticPlayer {
@@ -9,6 +12,7 @@ public class MysticPlayer {
 	private double balance = 0;
 	private int level = 1;
 	private int gems = 0;
+	private Map<String, Object> extraData = new HashMap<>();
 	
 	MysticPlayer(UUID uid){
 		this.uid = uid;
@@ -44,6 +48,13 @@ public class MysticPlayer {
 
 	public UUID getUUID() {
 		return uid;
+	}
+	
+	public Object getData(String key){
+		return extraData.get(key);
+	}
+	public Map<String, Object> getExtraData(){
+		return extraData;
 	}
 
 	public void addGems(int i) {

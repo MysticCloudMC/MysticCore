@@ -82,13 +82,15 @@ public class PlayerListener implements Listener {
 		}
 	}
 
-//	@EventHandler
-//	public void onPlayerInteract(PlayerInteractEvent e) {
-//		if(e.getAction().equals(Action.LEFT_CLICK_AIR) && e.getPlayer().isSneaking()) {
-//			CoreUtils.particletest = CoreUtils.particletest > Particle.values().length-1 ? 1 : CoreUtils.particletest+1;
-//		}
-//	}
-//	
+	// @EventHandler
+	// public void onPlayerInteract(PlayerInteractEvent e) {
+	// if(e.getAction().equals(Action.LEFT_CLICK_AIR) &&
+	// e.getPlayer().isSneaking()) {
+	// CoreUtils.particletest = CoreUtils.particletest >
+	// Particle.values().length-1 ? 1 : CoreUtils.particletest+1;
+	// }
+	// }
+	//
 
 	@EventHandler
 	public void onPlayerDeath(EntityDamageEvent e) {
@@ -102,15 +104,18 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
-	public void onPlayerLogin(PlayerLoginEvent e){
+	public void onPlayerLogin(PlayerLoginEvent e) {
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			if (punish.getUser().toString().equals("" + e.getPlayer().getUniqueId())) {
 				if (punish.getType().equals(PunishmentType.BAN)) {
-					e.disallow(Result.KICK_BANNED, CoreUtils.colorize("&cYou're are banned for " + CoreUtils
-							.getSimpleTimeFormat(punish.getDate() + punish.getDuration() - new Date().getTime()) + "\n&f[Reason] " + punish.getNotes()));
-					
+					e.disallow(Result.KICK_BANNED,
+							CoreUtils.colorize("&cYou're are banned for "
+									+ CoreUtils.getSimpleTimeFormat(
+											punish.getDate() + punish.getDuration() - new Date().getTime())
+									+ "\n&f[Reason] " + punish.getNotes()));
+
 				}
 			}
 		}
@@ -118,8 +123,6 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-
-		
 
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
@@ -202,7 +205,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
-			if(GUIManager.getOpenInventory((Player) e.getPlayer()) == "PunishmentNotes"){
+			if (GUIManager.getOpenInventory((Player) e.getPlayer()) == "PunishmentNotes") {
 				PunishmentUtils.finishPunishment(e.getPlayer().getName());
 			}
 			GUIManager.closeInventory((Player) e.getPlayer());
@@ -224,38 +227,53 @@ public class PlayerListener implements Listener {
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "OffenceTypes") {
 			e.setCancelled(true);
 			switch (e.getCurrentItem().getType()) {
-			default: break;
+			default:
+				break;
 			case ENCHANTED_GOLDEN_APPLE:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getHackingPunishmentGUI(), "HackingSeverity");
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getHackingPunishmentGUI(),
+						"HackingSeverity");
 				break;
 			case DIAMOND_SWORD:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getThreatsPunishmentGUI(), "ThreatsSeverity");
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getThreatsPunishmentGUI(),
+						"ThreatsSeverity");
 				break;
 			case PAPER:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getChatPunishmentGUI(), "ChatSeverity");
+				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getChatPunishmentGUI(),
+						"ChatSeverity");
 				break;
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "PunishmentNotes") {
 			e.setCancelled(true);
-			if(e.getCurrentItem().getType().equals(Material.PAPER)){
+			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
 				e.getWhoClicked().closeInventory();
-				
+
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
 			e.setCancelled(true);
 			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
 			switch (e.getCurrentItem().getType()) {
-			default: break;
+			default:
+				break;
 			case PINK_DYE:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. "), "PunishmentNotes");
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. "),
+						"PunishmentNotes");
 				break;
 			case ORANGE_DYE:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. "), "PunishmentNotes");
+				GUIManager.switchInventory((Player) e.getWhoClicked(),
+						PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+								InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. "),
+						"PunishmentNotes");
 				break;
 			case RED_DYE:
-				GUIManager.switchInventory((Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. "), "PunishmentNotes");
+				GUIManager
+						.switchInventory((Player) e.getWhoClicked(),
+								PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+										InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. "),
+								"PunishmentNotes");
 				break;
 			}
 		}

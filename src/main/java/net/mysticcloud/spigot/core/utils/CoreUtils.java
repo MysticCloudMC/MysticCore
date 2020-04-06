@@ -1104,9 +1104,15 @@ public class CoreUtils {
 	}
 
 	public static void saveMysticPlayer(MysticPlayer player) {
-		CoreUtils
-				.sendUpdate("UPDATE MysticPlayers SET BALANCE='" + player.getBalance() + "',LEVEL='" + player.getLevel()
-						+ "',GEMS='" + player.getGems() + "' WHERE UUID='" + player.getUUID().toString() + "';");
+		String sql = "UPDATE MysticPlayers SET ";
+		sql = sql + "BALANCE='" + player.getBalance() + "',";
+		sql = sql + "GEMS='" + player.getGems() + "',";
+		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
+			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
+		}
+		sql = sql + "LEVEL='" + player.getLevel() + "' ";
+		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
+		CoreUtils.sendUpdate(sql);
 	}
 
 	public static void updateMysticPlayer(Player player) {

@@ -340,7 +340,7 @@ public class PunishmentUtils {
 	}
 	
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
-		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Notes");
+		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Is there anything else you'd like to add?");
 		inv.setItem(1,new ItemStack(Material.PAPER));
 	    
 		
