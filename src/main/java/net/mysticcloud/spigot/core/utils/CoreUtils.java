@@ -1102,6 +1102,9 @@ public class CoreUtils {
 	public static void saveMysticPlayer(Player player) {
 		saveMysticPlayer(getMysticPlayer(player));
 	}
+	public static void saveMysticPlayer(UUID uid) {
+		saveMysticPlayer(getMysticPlayer(uid));
+	}
 
 	public static void saveMysticPlayer(MysticPlayer player) {
 		String sql = "UPDATE MysticPlayers SET ";
