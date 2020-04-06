@@ -36,7 +36,7 @@ public class PunishCommand implements CommandExecutor {
 					GUIManager.openInventory(((Player) sender),
 				
 							PunishmentUtils.getPunishmentGUI(""),
-							"Punishment Dashboard");
+							"OffenceTypes");
 				} else
 					sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
 			}
