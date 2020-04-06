@@ -341,8 +341,9 @@ public class PunishmentUtils {
 	
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
 		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Notes");
-		inv.setItem(0,new ItemStack(Material.PAPER));
+		inv.setItem(1,new ItemStack(Material.PAPER));
 	    
+		
 		List<Object> punishInfo = new ArrayList<>();
 		punishInfo.add(offender);
 		punishInfo.add(inf);
