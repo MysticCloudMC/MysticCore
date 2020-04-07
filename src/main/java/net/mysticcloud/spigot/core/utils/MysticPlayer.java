@@ -82,10 +82,7 @@ public class MysticPlayer {
 		ResultSet rs = CoreUtils.wbconn.query("SELECT * FROM Users");
 		try {
 			while (rs.next()) {
-				if (
-						rs.getString("MINECRAFT_UUID").
-						equalsIgnoreCase(
-								uid.toString()))
+				if (uid.toString().equalsIgnoreCase(rs.getString("MINECRAFT_UUID")))
 					sfriends = rs.getString("FRIENDS");
 			}
 		} catch (SQLException e) {
