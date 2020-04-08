@@ -1102,7 +1102,7 @@ public class CoreUtils {
 				a = a + 1;
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
-				mp.setGems(Integer.parseInt(rs.getString("COINS")));
+				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
