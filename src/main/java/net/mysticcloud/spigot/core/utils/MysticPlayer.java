@@ -69,6 +69,13 @@ public class MysticPlayer {
 	public void addGems(int i) {
 		gems = gems + i;
 	}
+	
+	public boolean isFriends(UUID uid){
+		for(MysticPlayer pl : getFriends()){
+			if(pl.getUUID().equals(uid)) return true;
+		}
+		return false;
+	}
 
 	public List<MysticPlayer> getFriends() {
 		try {
