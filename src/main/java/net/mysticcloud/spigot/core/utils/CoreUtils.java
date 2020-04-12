@@ -1084,6 +1084,15 @@ public class CoreUtils {
 		return particleToItemStack(p, true);
 
 	}
+	
+	public static List<Object> getPageResults(List<Object> objects, int page, int pageResult){
+		List<Object> rturn = new ArrayList<>();
+		for (int i = (page - 1) * pageResult; i < page * pageResult; i++) {
+			if (i < objects.size())
+				rturn.add(objects.get(i));
+		}
+		return rturn;
+	}
 
 	public static MysticPlayer getMysticPlayer(Player player) {
 		return getMysticPlayer(player.getUniqueId());
