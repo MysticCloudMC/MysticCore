@@ -115,7 +115,7 @@ public class MysticPlayer {
 
 				}
 			} catch (SQLException e) {
-				return null;
+				return friends;
 			}
 		}
 		return friends;
