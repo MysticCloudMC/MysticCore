@@ -59,7 +59,7 @@ public class InventoryCreator {
 				item,
 				name,
 				identifier,
-				(String[])lore.toArray(),
+				lore.toArray(new String[lore.size()]),
 				unbreakable,
 				showValues,
 				data);
