@@ -96,6 +96,7 @@ public class MysticPlayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		CoreUtils.debug("SFriends: " + sfriends);
 		if (sfriends != "") {
 			ResultSet rs2 = CoreUtils.wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
 			try {

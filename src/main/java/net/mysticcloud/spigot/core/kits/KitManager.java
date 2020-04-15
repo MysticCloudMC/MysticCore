@@ -233,9 +233,15 @@ public class KitManager {
 		for (int i = 0; i != (((int) (KitManager.getKits().size() / 9)) + 1) * 9; i++) {
 			if (i < KitManager.getKits().size()) {
 				if (player.hasPermission("mysticcloud.kit." + KitManager.getKits().get(i).getName())) {
-					inv.addItem(KitManager.getKits().get(i).getItem(), KitManager.getKits().get(i).getDisplayName(),
-							(char) i, KitManager.getKits().get(i).getDescription(),
-							 true, true, KitManager.getKits().get(i).getItem().getDurability());
+					inv.addItem(
+							KitManager.getKits().get(i).getItem(),
+							KitManager.getKits().get(i).getDisplayName(),
+							(char) i,
+							KitManager.getKits().get(i).getDescription(),
+							 true,
+							 true, 
+							 KitManager.getKits().get(i).getItem().getDurability()
+							 );
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
 							KitManager.getKits().get(i).getDisplayName(), (char) i, new String[] { "&cLocked..." },false);
