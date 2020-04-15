@@ -55,7 +55,14 @@ public class InventoryCreator {
 		addItem(item,name,identifier,lore,unbreakable,showValues,(short)0);
 	}
 	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable, boolean showValues, short data) {
-		addItem(item,name,identifier,(String[])lore.toArray(),unbreakable,showValues,data);
+		addItem(
+				item,
+				name,
+				identifier,
+				(String[])lore.toArray(),
+				unbreakable,
+				showValues,
+				data);
 	}
 	
 	@SuppressWarnings("deprecation")
