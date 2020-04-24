@@ -58,9 +58,8 @@ public class PlayerListener implements Listener {
 			String[] args = e.getMessage().split(" ");
 			if (args.length == 3) {
 
-				CoreUtils.particles.put(e.getPlayer().getUniqueId(), ParticleFormatEnum.valueOf(args[1].toUpperCase()));
-				CoreUtils.particles(e.getPlayer().getUniqueId()).formatter()
-						.particle(Particle.valueOf(args[2].toUpperCase()));
+				CoreUtils.particles.put(e.getPlayer().getUniqueId(), ParticleFormatEnum.valueOf(args[1].toUpperCase()).formatter());
+				CoreUtils.particles(e.getPlayer().getUniqueId()).particle(Particle.valueOf(args[2].toUpperCase()));
 
 			}
 		}
@@ -280,11 +279,10 @@ public class PlayerListener implements Listener {
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
 				return;
-			for (Particle particle : CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
-					.allowedParticles()) {
+			for (Particle particle : CoreUtils.particles(e.getWhoClicked().getUniqueId()).allowedParticles()) {
 				if (e.getCurrentItem().getItemMeta().getDisplayName()
 						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {
-					CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter().particle(particle);
+					CoreUtils.particles(e.getWhoClicked().getUniqueId()).particle(particle);
 					if (particle.getDataType() != Void.class) {
 						if (particle.getDataType() == DustOptions.class)
 							GUIManager.switchInventory(((Player) e.getWhoClicked()),
@@ -304,57 +302,57 @@ public class PlayerListener implements Listener {
 			e.setCancelled(true);
 			switch (e.getCurrentItem().getType()) {
 			case PINK_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.fromRGB(255, 124, 163), 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case RED_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.RED, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case ORANGE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.ORANGE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case YELLOW_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.YELLOW, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case LIME_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.LIME, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case GREEN_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.GREEN, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BLUE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.TEAL, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case PURPLE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.PURPLE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BROWN_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.fromRGB(84, 53, 0), 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BLACK_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.BLACK, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case WHITE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).formatter()
+				CoreUtils.particles(e.getWhoClicked().getUniqueId())
 						.setDustOptions(new DustOptions(Color.WHITE, 1));
 				e.getWhoClicked().closeInventory();
 				break;

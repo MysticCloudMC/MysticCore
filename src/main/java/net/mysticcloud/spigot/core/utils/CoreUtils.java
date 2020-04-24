@@ -44,6 +44,7 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
@@ -60,7 +61,7 @@ public class CoreUtils {
 	private static Date date = new Date();
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 
-	public static Map<UUID, ParticleFormatEnum> particles = new HashMap<>();
+	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
@@ -383,10 +384,10 @@ public class CoreUtils {
 	}
 
 	public static void particles(UUID uid, ParticleFormatEnum format) {
-		particles.put(uid, format);
+		particles.put(uid, format.formatter());
 	}
 
-	public static ParticleFormatEnum particles(UUID uid) throws NullPointerException {
+	public static ParticleFormat particles(UUID uid) throws NullPointerException {
 		return particles.containsKey(uid) ? particles.get(uid) : null;
 	}
 

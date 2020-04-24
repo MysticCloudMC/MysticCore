@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class ParticleTimer implements Runnable {
 	
@@ -23,9 +23,9 @@ public class ParticleTimer implements Runnable {
 		if(i>360)
 			i=1;
 		
-		for(Entry<UUID, ParticleFormatEnum> entry : CoreUtils.particles.entrySet()) {
+		for(Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
 				try{
-					entry.getValue().formatter().display(entry.getKey(), i);
+					entry.getValue().display(entry.getKey(), i);
 				} catch(IllegalArgumentException ex) {
 					
 				}
