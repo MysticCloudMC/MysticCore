@@ -60,7 +60,28 @@ public enum ParticleFormatEnum {
 	}
 
 	public ParticleFormat formatter() {
-		return formatter;
+		
+		switch(name) {
+		case "Circle Head":
+			return new CircleHeadFormat();
+		case "Circle Feet":
+			return new CircleFeetFormat();
+		case "Helix":
+			return new HelixFormat();
+		case "Halo":
+			return new HaloFormat();
+		case "Random":
+			return new RandomFormat();
+		case "Lily Pad":
+			return new LilyPadFormat();
+		case "Hat":
+			return new HatFormat();
+		case "Cape":
+			return new CapeFormat();
+		default:
+			return new CircleHeadFormat();
+			
+		}
 	}
 
 	
