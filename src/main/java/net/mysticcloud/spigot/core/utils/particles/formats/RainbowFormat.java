@@ -33,9 +33,9 @@ public class RainbowFormat extends ParticleFormat {
 
 		setDustOptions(new DustOptions(Color.RED, 1));
 		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a) * ((360) / (40))) * (1),
-					Math.sin(Math.toRadians(a) * ((360) / (40))) * (1));
-			v = rotateAroundAxisX(v,90);
+			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (1),
+					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1));
+//			v = rotateAroundAxisX(v,90);
 			v = rotateAroundAxisY(v, cloc.getYaw());
 			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
 
@@ -43,8 +43,8 @@ public class RainbowFormat extends ParticleFormat {
 
 		setDustOptions(new DustOptions(Color.ORANGE, 1));
 		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a) * ((360) / (40))) * (0.8),
-					Math.sin(Math.toRadians(a) * ((360) / (40))) * (0.8));
+			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.8),
+					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.8));
 			v = rotateAroundAxisY(v, cloc.getYaw());
 			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
 
