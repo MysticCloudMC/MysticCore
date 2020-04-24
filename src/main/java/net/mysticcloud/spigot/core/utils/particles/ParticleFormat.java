@@ -45,34 +45,37 @@ public class ParticleFormat {
 		this.materialdata = materialdata;
 	}
 	
-	
-	public void spawnParticle(UUID uid, Particle particle, Location loc) {
+	public void spawnParticle(UUID uid, Particle particle, Location loc, double offsetX, double offsetY, double offsetZ) {
 		if(particle.getDataType() == null) {
 			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-					loc, 0, 0, 0, 0, 2);
+					loc, 0, offsetX, offsetY, offsetZ, 2);
 			return;
 		}
 
 		if(particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class)
 				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-						loc, 0, 0, 0, 0, 2, dustoptions);
+						loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
 			if (particle.getDataType() == MaterialData.class)
 				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-						loc, 0, 0, 0, 0, 2, materialdata);
+						loc, 0, offsetX, offsetY, offsetZ, 2, materialdata);
 			if (particle.getDataType() == ItemStack.class)
 				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-						loc, 0, 0, 0, 0, 2, itemstack);
+						loc, 0, offsetX, offsetY, offsetZ, 2, itemstack);
 			if (particle.getDataType() == BlockData.class)
 				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-						loc, 0, 0, 0, 0, 2, blockdata);
+						loc, 0, offsetX, offsetY, offsetZ, 2, blockdata);
 		} else {
 			 Bukkit.getPlayer(uid).getWorld().spawnParticle(particle,
-				loc, 0, 0, 0, 0, 2);
+				loc, 0, offsetX, offsetY, offsetZ, 2);
 		}
 		
 
 	
+	}
+	
+	public void spawnParticle(UUID uid, Particle particle, Location loc) {
+		spawnParticle(uid,particle,loc,0,0,0);
 	}
 
 	public List<Particle> allowedParticles() {

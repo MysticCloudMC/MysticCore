@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.utils.particles;
 
+import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleHeadFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
@@ -16,6 +17,7 @@ public enum ParticleFormatEnum {
 	HAT("Hat"),
 	HELIX("Helix"),
 	RANDOM("Random"),
+	CAPE("Cape"),
 	LILY_PAD("Lily Pad");
 
 	String name;
@@ -46,6 +48,9 @@ public enum ParticleFormatEnum {
 			break;
 		case "Hat":
 			formatter = new HatFormat();
+			break;
+		case "Cape":
+			formatter = new CapeFormat();
 			break;
 		default:
 			formatter = new CircleHeadFormat();
