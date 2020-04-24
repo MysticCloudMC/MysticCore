@@ -36,7 +36,7 @@ public class RainbowFormat extends ParticleFormat {
 			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (1),
 					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1));
 //			v = rotateAroundAxisX(v,90);
-			v = rotateAroundAxisY(v, cloc.getYaw());
+			v = rotateAroundAxisY(v, cloc.getYaw()+90);
 			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
 
 		}
@@ -45,7 +45,7 @@ public class RainbowFormat extends ParticleFormat {
 		for (int a = 1; a != 21; a++) {
 			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.8),
 					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.8));
-			v = rotateAroundAxisY(v, cloc.getYaw());
+			v = rotateAroundAxisY(v, cloc.getYaw()+90);
 			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
 
 		}
