@@ -41,13 +41,13 @@ public class CapeFormat extends ParticleFormat {
 		//
 		// spawnParticle(uid, particle, loc, 0, -0.5, 0);
 
-		Location loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.5, 0, 0);
+		Location loc = Bukkit.getPlayer(uid).getLocation().clone();
 
 		// v = rotateAroundAxisY(v,
 		// Bukkit.getPlayer(uid).getEyeLocation().getYaw());
 		// loc.add(v.getX(), v.getY(), v.getZ());
 
-		for (int t = 1; t != 11; t++) {
+		for (int t = 1; t != 9; t++) {
 			double x = 0;
 			double y = 2;
 			double z = (-0.5)+Double.parseDouble("0." + t);
