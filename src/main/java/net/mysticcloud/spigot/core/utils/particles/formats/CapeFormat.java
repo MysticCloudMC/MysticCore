@@ -30,13 +30,13 @@ public class CapeFormat extends ParticleFormat {
 			return;
 
 		cloc = Bukkit.getPlayer(uid).getLocation().clone();
-		double x = 0;
+		double x = -0.5;
 		double y = 0;
 		double z = -0.5;
 
 		for (int t = 0; t != 5; t++) {
 			spawnParticle(uid,particle,cloc.add(x,y,z));
-			z = z+0.1;
+			x = x+0.1;
 		}
 
 		// v = rotateAroundAxisY(v,
