@@ -50,7 +50,7 @@ public class CapeFormat extends ParticleFormat {
 		for (int t = 1; t != 9; t++) {
 			double x = 0;
 			double y = 2;
-			double z = (-0.5)+Double.parseDouble("0." + t);
+			double z = (-0.25)+Double.parseDouble("0." + t);
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw()-90);
 			loc.add(v.getX(), 0, v.getZ());
