@@ -29,12 +29,12 @@ public class CapeFormat extends ParticleFormat {
 		if (particle == null || Bukkit.getPlayer(uid) == null)
 			return;
 
-		cloc = Bukkit.getPlayer(uid).getLocation().clone();
+		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
 		double x = -0.5;
 		double y = 0;
 		double z = -0.5;
 
-		for (int t = 0; t != 5; t++) {
+		for (int t = 0; t != 10; t++) {
 			spawnParticle(uid,particle,cloc.clone().add(x,y,z));
 			x = x+0.1;
 		}
