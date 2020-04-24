@@ -15,12 +15,11 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class CapeFormat extends ParticleFormat {
 
 	
-	double t = 0;
 	
 	public CapeFormat() {
 		name = "Cape";
 		guiItem = new ItemStack(Material.RED_BANNER);
-		particle = Particle.CRIT;
+		particle = Particle.ENCHANTMENT_TABLE;
 
 	}
 
@@ -46,25 +45,21 @@ public class CapeFormat extends ParticleFormat {
 //		spawnParticle(uid, particle, loc, 0, -0.5, 0);
 		
 		
-		Location loc = Bukkit.getPlayer(uid).getLocation().clone();
+		Location loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.5,0,0);
 
-            t = t + Math.PI / 16;
-            double x = 2;
-            double y = 1;
-            double z = 0;
+            double x = 0;
+            double y = 2;
+            double z = -0.5;
             Vector v = new Vector(x, y, z);
             v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw());
             loc.add(v.getX(), v.getY(), v.getZ());
             
-            spawnParticle(uid,particle, loc, 0, 0, 0);
-
-//            ParticleEffect.FIREWORKS_SPARK
-//                    .display(0, 0, 0, 0, 1, loc, 100D);
-            loc.subtract(v.getX(), v.getY(), v.getZ());
-            if (t > Math.PI * 8) {
-                t = 0;
-                CoreUtils.debug("particle reset");
+            for(int t = 1;t!=6;t++){
+            	spawnParticle(uid,particle, loc.add(Double.parseDouble("0." + t),0,0), 0, -0.5, -0.09);
             }
+            
+            
+
         
 
 	}
