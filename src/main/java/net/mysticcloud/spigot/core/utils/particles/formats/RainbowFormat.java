@@ -25,7 +25,7 @@ public class RainbowFormat extends ParticleFormat {
 					spawnParticle(uid, particle,
 							Bukkit.getPlayer(uid).getLocation().clone().add(
 									0, Math.cos(Math.toRadians(a) * ((360) / (40))) * (1),
-									0));
+									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
 
 		}
 
