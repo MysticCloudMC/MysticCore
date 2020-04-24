@@ -61,21 +61,6 @@ public class CapeFormat extends ParticleFormat {
 
 	}
 
-	private Vector rotateAroundAxisY(Vector v, double cos, double sin) {
-		double x = v.getX() * cos + v.getZ() * sin;
-		double z = v.getX() * -sin + v.getZ() * cos;
-		return v.setX(x).setZ(z);
-	}
-
-	private Vector rotateAroundAxisY(Vector v, double angle) {
-		angle = -angle;
-		angle = Math.toRadians(angle);
-		double x, z, cos, sin;
-		cos = Math.cos(angle);
-		sin = Math.sin(angle);
-		x = v.getX() * cos + v.getZ() * sin;
-		z = v.getX() * -sin + v.getZ() * cos;
-		return v.setX(x).setZ(z);
-	}
+	
 
 }
