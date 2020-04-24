@@ -35,7 +35,7 @@ public class CapeFormat extends ParticleFormat {
 		double z = -0.5;
 
 		for (int t = 0; t != 5; t++) {
-			spawnParticle(uid,particle,new Location(cloc.getWorld(),x,y,z));
+			spawnParticle(uid,particle,cloc.add(x,y,z));
 			z = z+0.1;
 		}
 
