@@ -19,6 +19,7 @@ public enum ParticleFormatEnum {
 	HELIX("Helix"),
 	RANDOM("Random"),
 	CAPE("Cape"),
+	RAINBOW("Rainbow"),
 	LILY_PAD("Lily Pad");
 
 	String name;
