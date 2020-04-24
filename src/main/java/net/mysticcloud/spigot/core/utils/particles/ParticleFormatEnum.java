@@ -7,6 +7,7 @@ import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HatFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HelixFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.LilyPadFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RainbowFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 
 public enum ParticleFormatEnum {
@@ -52,6 +53,9 @@ public enum ParticleFormatEnum {
 		case "Cape":
 			formatter = new CapeFormat();
 			break;
+		case "Rainbow":
+			formatter = new RainbowFormat();
+			break;
 		default:
 			formatter = new CircleHeadFormat();
 			break;
@@ -78,6 +82,8 @@ public enum ParticleFormatEnum {
 			return new HatFormat();
 		case "Cape":
 			return new CapeFormat();
+		case "Rainbow":
+			return new RainbowFormat();
 		default:
 			return new CircleHeadFormat();
 			
