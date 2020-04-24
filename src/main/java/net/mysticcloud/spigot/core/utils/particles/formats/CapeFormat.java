@@ -46,13 +46,13 @@ public class CapeFormat extends ParticleFormat {
 		// v = rotateAroundAxisY(v,
 		// Bukkit.getPlayer(uid).getEyeLocation().getYaw());
 		// loc.add(v.getX(), v.getY(), v.getZ());
-		double z = 0;
+//		double z = 0;
 
 		for (int t = 1; t != 11; t++) {
 			double x = 0;
 			double y = 2;
 			
-//			double z = -0.5 + (((double)t)/10);
+			double z = -0.5 + ((((double)1/10)*t));
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw()+90);
 			loc.add(v.getX(), 0, v.getZ());
