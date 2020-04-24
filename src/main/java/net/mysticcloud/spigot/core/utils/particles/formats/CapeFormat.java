@@ -14,8 +14,6 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class CapeFormat extends ParticleFormat {
 
-	
-	
 	public CapeFormat() {
 		name = "Cape";
 		guiItem = new ItemStack(Material.RED_BANNER);
@@ -28,41 +26,36 @@ public class CapeFormat extends ParticleFormat {
 		super.display(uid, i);
 		if (particle == null)
 			return;
-		
 
-//		double r = 2;
-//		double t = Bukkit.getPlayer(uid).getEyeLocation().getYaw();
-//		// double x = r * Math.cos(t);
-//		double y = Bukkit.getPlayer(uid).getEyeLocation().getY();
-//		// double z = r * Math.sin(t);
-//		double x = Bukkit.getPlayer(uid).getEyeLocation().getX()+2;
-//		double z = Bukkit.getPlayer(uid).getEyeLocation().getZ();
-//		Vector v = new Vector(x, y, z);
-//		v = rotateAroundAxisY(v, t);
-////		loc.add(2, 0, 0);
-//		loc.add(v.getX(), v.getY(), v.getZ());
-//
-//		spawnParticle(uid, particle, loc, 0, -0.5, 0);
-		
-		
-		Location loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.5,0,0);
+		// double r = 2;
+		// double t = Bukkit.getPlayer(uid).getEyeLocation().getYaw();
+		// // double x = r * Math.cos(t);
+		// double y = Bukkit.getPlayer(uid).getEyeLocation().getY();
+		// // double z = r * Math.sin(t);
+		// double x = Bukkit.getPlayer(uid).getEyeLocation().getX()+2;
+		// double z = Bukkit.getPlayer(uid).getEyeLocation().getZ();
+		// Vector v = new Vector(x, y, z);
+		// v = rotateAroundAxisY(v, t);
+		//// loc.add(2, 0, 0);
+		// loc.add(v.getX(), v.getY(), v.getZ());
+		//
+		// spawnParticle(uid, particle, loc, 0, -0.5, 0);
 
-            double x = 0;
-            double y = 2;
-            double z = -0.5;
-            Vector v = new Vector(x, y, z);
-//            v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw());
-//            loc.add(v.getX(), v.getY(), v.getZ());
-            
-            for(int t = 1;t!=6;t++){
-            	v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw());
-                loc.add(v.getX(), v.getY(), v.getZ());
-            	spawnParticle(uid,particle, loc.add(0.1,0,0), 0, -0.5, -0.09);
-            }
-            
-            
+		Location loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.5, 0, 0);
 
-        
+		// v = rotateAroundAxisY(v,
+		// Bukkit.getPlayer(uid).getEyeLocation().getYaw());
+		// loc.add(v.getX(), v.getY(), v.getZ());
+
+		for (int t = 1; t != 11; t++) {
+			double x = 0;
+			double y = 2;
+			double z = (-0.5)+Double.parseDouble("0." + t);
+			Vector v = new Vector(x, y, z);
+			v = rotateAroundAxisY(v, Bukkit.getPlayer(uid).getEyeLocation().getYaw());
+			loc.add(v.getX(), v.getY(), v.getZ());
+			spawnParticle(uid, particle, loc, 0, 0.5, -0.09);
+		}
 
 	}
 
