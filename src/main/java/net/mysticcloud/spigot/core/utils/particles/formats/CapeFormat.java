@@ -31,8 +31,8 @@ public class CapeFormat extends ParticleFormat {
 
 		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
 		double x = -0.5;
-		double y = 0;
-		double z = -0.5;
+		double y = -0.5;
+		double z = -0.1;
 
 		for (int t = 0; t != 10; t++) {
 			spawnParticle(uid,particle,cloc.clone().add(x,y,z));
