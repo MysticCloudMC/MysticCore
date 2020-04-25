@@ -29,21 +29,21 @@ public class RainCloudFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 		loc = Bukkit.getPlayer(uid).getLocation();
+		if (i % 2 == 0)
+			for (int a = 0; a != 11; a++) {
+				for (int t = 0; t != spots + 1; t++) {
+					if (t == (CoreUtils.getRandom().nextInt(spots-1) + 1))
+						spawnParticle(uid, Particle.FALLING_WATER,
+								loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
+										Math.sin(t * (360 / spots)) * (a * (r / 10))));
+					else {
 
-		for (int a = 0; a != 11; a++) {
-			for (int t = 0; t != spots + 1; t++) {
-				if (t % (CoreUtils.getRandom().nextInt(9)+1) == 0)
-					spawnParticle(uid, Particle.FALLING_WATER,
-							loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
-									Math.sin(t * (360 / spots)) * (a * (r / 10))));
-				else {
-					if (i % 2 == 0)
 						spawnParticle(uid, Particle.CLOUD, loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
 								3, Math.sin(t * (360 / spots)) * (a * (r / 10))));
+					}
 				}
-			}
 
-		}
+			}
 	}
 
 }
