@@ -29,15 +29,15 @@ public class CapeFormat extends ParticleFormat {
 		if (particle == null || Bukkit.getPlayer(uid) == null)
 			return;
 
-		cloc = Bukkit.getPlayer(uid).getLocation().clone();
+		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
 		double x = -0.5;
-		double y = 0.25;
+		double y = -1.25;
 		double z = -0.35;
 
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, cloc.getYaw());
-			spawnParticle(uid, particle, cloc.clone().add(v), 0, 1, 0);
+			spawnParticle(uid, particle, cloc.clone().add(v), 0, 2, 0);
 			x = x + 0.1;
 		}
 
