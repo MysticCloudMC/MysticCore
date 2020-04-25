@@ -17,7 +17,7 @@ public class RainbowFormat extends ParticleFormat {
 
 	Location cloc = null;
 	Color color = Color.WHITE;
-	double r = 1.2;
+	double r = 1;
 
 	public RainbowFormat() {
 		name = "Rainbow";
@@ -48,8 +48,8 @@ public class RainbowFormat extends ParticleFormat {
 				color = Color.PURPLE;
 			setDustOptions(new DustOptions(color, 1));
 			for (int a = 1; a != 21; a++) {
-				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.2 * b)),
-						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.2 * b)));
+				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)),
+						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)));
 				// v = rotateAroundAxisX(v,90);
 				v = rotateAroundAxisY(v, cloc.getYaw() + 90);
 				spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
