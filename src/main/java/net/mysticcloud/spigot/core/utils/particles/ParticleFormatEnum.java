@@ -1,14 +1,6 @@
 package net.mysticcloud.spigot.core.utils.particles;
 
-import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleHeadFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.HatFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.HelixFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.LilyPadFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.RainbowFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.*;
 
 public enum ParticleFormatEnum {
 
@@ -20,7 +12,8 @@ public enum ParticleFormatEnum {
 	RANDOM("Random"),
 	CAPE("Cape"),
 	RAINBOW("Rainbow"),
-	LILY_PAD("Lily Pad");
+	LILY_PAD("Lily Pad"),
+	RAIN_CLOUD("Rain Cloud");
 
 	String name;
 	
@@ -29,39 +22,7 @@ public enum ParticleFormatEnum {
 	ParticleFormatEnum(String name) {
 		this.name = name;
 		
-		switch(name) {
-		case "Circle Head":
-			formatter = new CircleHeadFormat();
-			break;
-		case "Circle Feet":
-			formatter = new CircleFeetFormat();
-			break;
-		case "Helix":
-			formatter = new HelixFormat();
-			break;
-		case "Halo":
-			formatter = new HaloFormat();
-			break;
-		case "Random":
-			formatter = new RandomFormat();
-			break;
-		case "Lily Pad":
-			formatter = new LilyPadFormat();
-			break;
-		case "Hat":
-			formatter = new HatFormat();
-			break;
-		case "Cape":
-			formatter = new CapeFormat();
-			break;
-		case "Rainbow":
-			formatter = new RainbowFormat();
-			break;
-		default:
-			formatter = new CircleHeadFormat();
-			break;
-			
-		}
+		formatter = formatter();
 	}
 
 	public ParticleFormat formatter() {
@@ -85,6 +46,8 @@ public enum ParticleFormatEnum {
 			return new CapeFormat();
 		case "Rainbow":
 			return new RainbowFormat();
+		case "Rain Cloud":
+			return new RainCloudFormat();
 		default:
 			return new CircleHeadFormat();
 			
