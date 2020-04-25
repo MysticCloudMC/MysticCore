@@ -26,10 +26,10 @@ public class RainCloudFormat extends ParticleFormat {
 		super.display(uid, i);
 		if (particle == null)
 			return;
-		loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.5 + CoreUtils.getRandom().nextDouble(), 2,
+		loc = Bukkit.getPlayer(uid).getLocation().clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*0.75), 3,
 				-0.5 + CoreUtils.getRandom().nextDouble());
 		
-		spawnParticle(uid, Particle.CLOUD, loc);
+		spawnParticle(uid, Particle.CAMPFIRE_COSY_SMOKE, loc);
 		spawnParticle(uid, Particle.FALLING_WATER, loc);
 		
 	}
