@@ -37,7 +37,7 @@ public class CapeFormat extends ParticleFormat {
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, cloc.getYaw());
-			spawnParticle(uid, particle, cloc.clone().add(v), 0, 4, 0);
+			spawnParticle(uid, particle, cloc.clone().add(v), 0, 0, 0);
 			x = x + 0.1;
 		}
 
