@@ -31,11 +31,11 @@ public class AtomicFormat extends ParticleFormat {
 		if(particle == null) return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
-						Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))), Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
+						1+Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))), Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
 		spawnParticle(uid, Particle.FLAME,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))), Math.sin(Math.toRadians(((i) * (360 / 20)) * (1))),
-						Math.cos(Math.toRadians(i + 10) * (360 / 20)) * (1)));
+						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))), 1+Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))),
+						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));
 
 	}
 
