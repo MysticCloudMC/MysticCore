@@ -38,7 +38,7 @@ public class RainCloudFormat extends ParticleFormat {
 										Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					else {
 
-						spawnParticle(uid, Particle.SMOKE_NORMAL, loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
+						spawnParticle(uid, Particle.SMOKE_LARGE, loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
 								3, Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					}
 				}
