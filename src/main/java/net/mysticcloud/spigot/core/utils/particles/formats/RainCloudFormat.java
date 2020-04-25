@@ -15,7 +15,7 @@ public class RainCloudFormat extends ParticleFormat {
 
 	private Location loc = null;
 	private int spots = 20;
-	private double r = 1;
+	private double r = 1.5;
 
 	public RainCloudFormat() {
 		name = "Rain Cloud";
@@ -31,7 +31,7 @@ public class RainCloudFormat extends ParticleFormat {
 		loc = Bukkit.getPlayer(uid).getLocation();
 
 		for (int a = 0; a != 11; a++) {
-			for (int t = 0; t != spots + 1; i++) {
+			for (int t = 0; t != spots + 1; t++) {
 				if (t % 2 == 0)
 					spawnParticle(uid, Particle.FALLING_WATER,
 							loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
