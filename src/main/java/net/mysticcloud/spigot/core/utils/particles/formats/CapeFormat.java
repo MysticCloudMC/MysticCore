@@ -31,7 +31,7 @@ public class CapeFormat extends ParticleFormat {
 
 		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
 		double x = -0.5;
-		double y = -2.25;
+		double y = 0;
 		double z = -0.35;
 
 		for (int t = 0; t != 10; t++) {
