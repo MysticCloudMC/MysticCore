@@ -14,8 +14,8 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class RainCloudFormat extends ParticleFormat {
 
 	private Location loc = null;
-	private int spots = 20;
-	private double r = 1.5;
+	private int spots = 30;
+	private double r = 0.75;
 
 	public RainCloudFormat() {
 		name = "Rain Cloud";
@@ -36,11 +36,11 @@ public class RainCloudFormat extends ParticleFormat {
 					spawnParticle(uid, Particle.FALLING_WATER,
 							loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
 									Math.sin(t * (360 / spots)) * (a * (r / 10))));
-				else
-					spawnParticle(uid, Particle.CAMPFIRE_COSY_SMOKE,
-							loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
-									Math.sin(t * (360 / spots)) * (a * (r / 10))));
-
+				else {
+					if (i % 2 == 0)
+						spawnParticle(uid, Particle.CLOUD, loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
+								3, Math.sin(t * (360 / spots)) * (a * (r / 10))));
+				}
 			}
 
 		}
