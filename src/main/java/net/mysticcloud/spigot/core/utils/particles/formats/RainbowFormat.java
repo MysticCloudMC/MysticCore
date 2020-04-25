@@ -16,6 +16,8 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class RainbowFormat extends ParticleFormat {
 
 	Location cloc = null;
+	Color color = Color.WHITE;
+	double r = 1.2;
 
 	public RainbowFormat() {
 		name = "Rainbow";
@@ -31,60 +33,96 @@ public class RainbowFormat extends ParticleFormat {
 
 		cloc = Bukkit.getPlayer(uid).getLocation();
 
-		setDustOptions(new DustOptions(Color.RED, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (1.2),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1.2));
-//			v = rotateAroundAxisX(v,90);
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		for (int b = 0; b != 6; b++) {
+			if (b == 0)
+				color = Color.RED;
+			if (b == 1)
+				color = Color.ORANGE;
+			if (b == 2)
+				color = Color.YELLOW;
+			if (b == 3)
+				color = Color.GREEN;
+			if (b == 4)
+				color = Color.BLUE;
+			if (b == 5)
+				color = Color.PURPLE;
+			setDustOptions(new DustOptions(color, 1));
+			for (int a = 1; a != 21; a++) {
+				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.2 * b)),
+						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.2 * b)));
+				// v = rotateAroundAxisX(v,90);
+				v = rotateAroundAxisY(v, cloc.getYaw() + 90);
+				spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
 
+			}
 		}
-
-		setDustOptions(new DustOptions(Color.ORANGE, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (1),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1));
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
-
-		}
-		
-		setDustOptions(new DustOptions(Color.YELLOW, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.8),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.8));
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
-
-		}
-		
-		setDustOptions(new DustOptions(Color.GREEN, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.6),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.6));
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
-
-		}
-		
-		setDustOptions(new DustOptions(Color.BLUE, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.4),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.4));
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
-
-		}
-		
-		setDustOptions(new DustOptions(Color.PURPLE, 1));
-		for (int a = 1; a != 21; a++) {
-			Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) / (40))) * (0.2),
-					Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.2));
-			v = rotateAroundAxisY(v, cloc.getYaw()+90);
-			spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
-
-		}
+		//
+		// setDustOptions(new DustOptions(Color.RED, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (1.2),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1.2));
+		//// v = rotateAroundAxisX(v,90);
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
+		//
+		// setDustOptions(new DustOptions(Color.ORANGE, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (1),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (1));
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
+		//
+		// setDustOptions(new DustOptions(Color.YELLOW, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (0.8),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.8));
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
+		//
+		// setDustOptions(new DustOptions(Color.GREEN, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (0.6),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.6));
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
+		//
+		// setDustOptions(new DustOptions(Color.BLUE, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (0.4),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.4));
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
+		//
+		// setDustOptions(new DustOptions(Color.PURPLE, 1));
+		// for (int a = 1; a != 21; a++) {
+		// Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a+30) * ((360) /
+		// (40))) * (0.2),
+		// Math.sin(Math.toRadians(a+30) * ((360) / (40))) * (0.2));
+		// v = rotateAroundAxisY(v, cloc.getYaw()+90);
+		// spawnParticle(uid, particle,
+		// Bukkit.getPlayer(uid).getLocation().clone().add(v));
+		//
+		// }
 
 	}
 
