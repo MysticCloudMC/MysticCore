@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ public class AtomicFormat extends ParticleFormat {
 
 	private double r = 1;
 	private int spots = 40;
+	private Location loc = null;
 
 	public AtomicFormat() {
 		changeParticle = true;
@@ -35,19 +37,19 @@ public class AtomicFormat extends ParticleFormat {
 			return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))),
-						1 + ((Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))) * -1)),
-						Math.sin(Math.toRadians(i) * (360 / spots)) * (r)));
+						Math.cos(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r))),
+						1 + ((Math.cos(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r))) * -1)),
+						Math.sin(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i + (spots / 3)) * (360 / spots)) * (r))),
-						1 + Math.cos(Math.toRadians(((i + 10) * (360 / spots)) * (r))),
-						Math.sin(Math.toRadians(i + (spots / 3)) * (360 / spots)) * (r)));
+						Math.cos(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r))),
+						1 + Math.cos(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r))),
+						Math.sin(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians(((i + ((spots / 3)*2)) * (360 / spots)) * (r + (0.25)))),
+						Math.cos(Math.toRadians((i + ((spots / 3)*3)) * (360 / spots) * (r+0.25))),
 						1,
-						Math.sin(Math.toRadians(i + ((spots / 3)*2)) * (360 / spots)) * (r + (0.25))));
+						Math.sin(Math.toRadians((i + ((spots / 3)*3)) * (360 / spots) * (r+0.25)))));
 
 	}
 

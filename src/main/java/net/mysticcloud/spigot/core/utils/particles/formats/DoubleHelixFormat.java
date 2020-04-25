@@ -3,23 +3,17 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
 
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
-
-public class DoubleHelixFormat extends ParticleFormat {
-	Location loc = null;
-	int spots = 40;
-	double r = 1;
-	int cols = 5;
-	int colspots = 180;
+public class DoubleHelixFormat extends HelixFormat {
 
 	public DoubleHelixFormat() {
 		changeParticle = true;
 
+		cols = 4;
+		
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);
@@ -33,14 +27,7 @@ public class DoubleHelixFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		if(particle == null) return;
-		for(int t=0;t!=cols;t++){
-			loc = Bukkit.getPlayer(uid).getLocation().add(
-					Math.cos(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots) * (r)),
-					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (r*2))),
-					Math.sin(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots)) * (r));
-			spawnParticle(uid,particle,loc);
-		}
+		super.display(uid, i);
 //		spawnParticle(uid, particle,
 //				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
 //						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),

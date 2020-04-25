@@ -15,6 +15,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class CapeFormat extends ParticleFormat {
 
 	private Location cloc = null;
+	double agl = 0;
 
 	public CapeFormat() {
 		name = "Cape";
@@ -33,10 +34,14 @@ public class CapeFormat extends ParticleFormat {
 		double x = -0.5;
 		double y = 0;
 		double z = -0.35;
+		
+		if(Math.abs(agl-cloc.getYaw()) > 5){
+			agl = cloc.getYaw();
+		}
 
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
-			v = rotateAroundAxisY(v, cloc.getYaw());
+			v = rotateAroundAxisY(v, agl);
 			spawnParticle(uid, particle, cloc.clone().add(v), 0, 0, 0);
 			x = x + 0.1;
 		}
