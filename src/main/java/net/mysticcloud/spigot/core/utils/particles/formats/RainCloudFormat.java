@@ -32,7 +32,7 @@ public class RainCloudFormat extends ParticleFormat {
 
 		for (int a = 0; a != 11; a++) {
 			for (int t = 0; t != spots + 1; t++) {
-				if (t % 2 == 0)
+				if (t % CoreUtils.getRandom().nextInt(10) == 0)
 					spawnParticle(uid, Particle.FALLING_WATER,
 							loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
 									Math.sin(t * (360 / spots)) * (a * (r / 10))));
