@@ -32,10 +32,10 @@ public class CapeFormat extends ParticleFormat {
 
 		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
 		double x = -0.5;
-		double y = 0;
+		double y = -0.25;
 		double z = -0.35;
 		
-		if(Math.abs(agl-cloc.getYaw()) > 5){
+		if(Math.abs(Math.toDegrees(agl)-Math.toDegrees(cloc.getYaw())) > 5){
 			agl = cloc.getYaw();
 		}
 

@@ -28,7 +28,7 @@ public class HelixFormat extends ParticleFormat {
 		allowedParticles.add(Particle.REDSTONE);
 
 		name = "&eHelix";
-		guiItem = new ItemStack(Material.REDSTONE_BLOCK);
+		guiItem = new ItemStack(Material.REDSTONE);
 	}
 
 	@Override
