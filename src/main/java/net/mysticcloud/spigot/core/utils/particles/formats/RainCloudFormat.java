@@ -15,7 +15,7 @@ public class RainCloudFormat extends ParticleFormat {
 
 	private Location loc = null;
 	private int spots = 20;
-	private double r = 0.75;
+	private double r = 1;
 
 	public RainCloudFormat() {
 		name = "Rain Cloud";
