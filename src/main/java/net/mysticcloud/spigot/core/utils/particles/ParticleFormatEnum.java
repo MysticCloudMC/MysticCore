@@ -4,9 +4,18 @@ import net.mysticcloud.spigot.core.utils.particles.formats.*;
 
 public enum ParticleFormatEnum {
 
-	CIRCLE_HEAD("Circle Head"), CIRCLE_FEET("Circle Feet"), HALO("Halo"), HAT("Hat"), HELIX("Helix"), RANDOM(
-			"Random"), CAPE(
-					"Cape"), RAINBOW("Rainbow"), LILY_PAD("Lily Pad"), RAIN_CLOUD("Rain Cloud"), ATOMIC("Atomic");
+	CIRCLE_HEAD("Circle Head"),
+	CIRCLE_FEET("Circle Feet"),
+	HALO("Halo"),
+	HAT("Hat"),
+	HELIX("Helix"),
+	DOUBLE_HELIX("Double Helix"),
+	RANDOM("Random"),
+	CAPE("Cape"), 
+	RAINBOW("Rainbow"), 
+	LILY_PAD("Lily Pad"),
+	RAIN_CLOUD("Rain Cloud"),
+	ATOMIC("Atomic");
 
 	String name;
 
@@ -43,6 +52,8 @@ public enum ParticleFormatEnum {
 			return new RainCloudFormat();
 		case "Atomic":
 			return new AtomicFormat();
+		case "Double Helix":
+			return new DoubleHelixFormat();
 		default:
 			return new CircleHeadFormat();
 
