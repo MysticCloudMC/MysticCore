@@ -20,7 +20,7 @@ public class HaloFormat extends ParticleFormat {
 		allowedParticles.add(Particle.FALLING_WATER);
 
 		name = "&cHalo";
-		guiItem = new ItemStack(Material.DIAMOND);
+		guiItem = new ItemStack(Material.GOLDEN_HELMET);
 		allowedParticles.add(Particle.REDSTONE);
 	}
 
