@@ -46,7 +46,7 @@ public class CapeFormat extends ParticleFormat {
 //			}
 			agl = cloc.getYaw();
 		}
-
+		agl = cloc.getYaw();
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, agl);
