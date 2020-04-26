@@ -91,6 +91,10 @@ public class CoreUtils {
 	public static double startingBalance = 100.00;
 	private static Economy economy = null;
 	private static Map<Integer, String> sidebar = new HashMap<>();
+	
+	
+	
+	public static Material testingblock = Material.DIAMOND;
 
 	public static float t = 0;
 

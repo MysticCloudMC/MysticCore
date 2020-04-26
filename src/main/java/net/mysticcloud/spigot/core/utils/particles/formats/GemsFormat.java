@@ -47,6 +47,8 @@ public class GemsFormat extends ParticleFormat {
 		Item item = loc.getWorld().dropItem(loc, itemstack);
 		item.setPickupDelay(Integer.MAX_VALUE);
 		item.setPortalCooldown(Integer.MAX_VALUE);
+		
+		
 		new BukkitRunnable(){
 			
 			@Override

@@ -26,6 +26,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -53,12 +54,22 @@ public class PlayerListener implements Listener {
 	}
 
 	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent e) {
+		if (CoreUtils.debugOn()) {
+			if (e.getPlayer().getItemInHand() != null || e.getPlayer().getItemInHand().getType() != Material.AIR) {
+				CoreUtils.testingblock = e.getPlayer().getItemInHand().getType();
+			}
+		}
+	}
+
+	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
 			if (args.length == 3) {
 
-				CoreUtils.particles.put(e.getPlayer().getUniqueId(), ParticleFormatEnum.valueOf(args[1].toUpperCase()).formatter());
+				CoreUtils.particles.put(e.getPlayer().getUniqueId(),
+						ParticleFormatEnum.valueOf(args[1].toUpperCase()).formatter());
 				CoreUtils.particles(e.getPlayer().getUniqueId()).particle(Particle.valueOf(args[2].toUpperCase()));
 
 			}
@@ -307,38 +318,31 @@ public class PlayerListener implements Listener {
 				e.getWhoClicked().closeInventory();
 				break;
 			case RED_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.RED, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.RED, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case ORANGE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.ORANGE, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.ORANGE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case YELLOW_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.YELLOW, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.YELLOW, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case LIME_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.LIME, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.LIME, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case GREEN_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.GREEN, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.GREEN, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BLUE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.TEAL, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.TEAL, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case PURPLE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.PURPLE, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.PURPLE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BROWN_DYE:
@@ -347,13 +351,11 @@ public class PlayerListener implements Listener {
 				e.getWhoClicked().closeInventory();
 				break;
 			case BLACK_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.BLACK, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.BLACK, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			case WHITE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.WHITE, 1));
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.WHITE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
 			}

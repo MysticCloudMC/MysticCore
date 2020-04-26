@@ -15,6 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
 
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+
 public class ParticleFormat {
 
 	protected boolean changeParticle = false;
@@ -57,6 +59,11 @@ public class ParticleFormat {
 			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
 			return;
 		}
+		
+		if(CoreUtils.testingblock != null){
+			materialdata = new MaterialData(CoreUtils.testingblock);
+		}
+		
 
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class)
