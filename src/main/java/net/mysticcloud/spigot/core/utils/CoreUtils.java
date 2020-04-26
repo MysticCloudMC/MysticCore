@@ -44,6 +44,7 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
@@ -221,6 +222,8 @@ public class CoreUtils {
 		}
 
 		WarpUtils.registerWarps();
+		
+		MysticEntityUtils.registerEntities();
 
 	}
 
