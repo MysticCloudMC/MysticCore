@@ -30,17 +30,17 @@ public class LilyPadFormat extends ParticleFormat {
 		if(particle == null) return;
 		loc = Bukkit.getPlayer(uid).getLocation();
 		
-		for(int t = 0; t != corners/2; t++){
+		for(int t = 0; t != 2; t++){
 			spawnParticle(uid,particle,loc.clone().add(
-				Math.cos(Math.toRadians(i+((spots/(corners)/2)*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r)))),
+				Math.cos(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r)))),
 				0.05,
-				Math.sin(Math.toRadians(i+((spots/(corners)/2)*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r))))));
+				Math.sin(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r))))));
 		}
-		for(int t = 0; t != corners/2; t++){
+		for(int t = 2; t != 4; t++){
 			spawnParticle(uid,particle,loc.clone().add(
-				Math.cos(Math.toRadians(i+((spots/(corners)/2)*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r)))),
+				Math.cos(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r)))),
 				0.05,
-				Math.sin(Math.toRadians(i+((spots/(corners)/2)*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r))))));
+				Math.sin(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r))))));
 		}
 	}
 
