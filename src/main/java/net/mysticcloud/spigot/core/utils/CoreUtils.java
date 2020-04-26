@@ -1027,6 +1027,8 @@ public class CoreUtils {
 			return "&bBlue Dots";
 		case REDSTONE:
 			return "&cColorful Dust";
+		case END_ROD:
+			return "&fWhite Dots";
 		default:
 			return "0";
 		}
@@ -1045,7 +1047,7 @@ public class CoreUtils {
 		case NOTE:
 			return new ItemStack(unlocked ? Material.MUSIC_DISC_BLOCKS : Material.GREEN_STAINED_GLASS_PANE);
 		case CRIT:
-			return new ItemStack(unlocked ? Material.GLOWSTONE_DUST : Material.YELLOW_STAINED_GLASS_PANE);
+			return new ItemStack(unlocked ? Material.SUNFLOWER : Material.YELLOW_STAINED_GLASS_PANE);
 		case CRIT_MAGIC:
 			return new ItemStack(unlocked ? Material.LIGHT_BLUE_DYE : Material.CYAN_STAINED_GLASS_PANE);
 		case ENCHANTMENT_TABLE:
@@ -1076,6 +1078,8 @@ public class CoreUtils {
 			return new ItemStack(unlocked ? Material.LIGHT_BLUE_DYE : Material.LIGHT_BLUE_STAINED_GLASS_PANE);
 		case REDSTONE:
 			return new ItemStack(unlocked ? Material.REDSTONE : Material.RED_STAINED_GLASS_PANE);
+		case END_ROD:
+			return new ItemStack(unlocked ? Material.SNOWBALL : Material.WHITE_STAINED_GLASS_PANE);
 		default:
 			return new ItemStack(Material.GRASS_BLOCK);
 		}

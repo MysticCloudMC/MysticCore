@@ -14,6 +14,8 @@ public class DoubleHelixFormat extends HelixFormat {
 
 		cols = 4;
 		
+		allowedParticles.clear();
+		
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);
