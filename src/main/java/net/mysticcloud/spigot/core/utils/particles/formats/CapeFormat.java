@@ -36,9 +36,9 @@ public class CapeFormat extends ParticleFormat {
 		double z = -0.35;
 		
 		
-		CoreUtils.debug(Math.abs(Math.toDegrees(agl)-Math.toDegrees(cloc.getYaw())));
+		CoreUtils.debug(Math.abs((agl)-(cloc.getYaw())));
 		
-		if(Math.abs(Math.toDegrees(agl)-Math.toDegrees(cloc.getYaw())) > 5){
+		if(Math.abs((agl)-(cloc.getYaw())) > 5){
 //			agl = cloc.getYaw();
 		}
 

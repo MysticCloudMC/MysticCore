@@ -47,9 +47,9 @@ public class AtomicFormat extends ParticleFormat {
 						Math.sin(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.25))),
+						Math.cos(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.5))),
 						1,
-						Math.sin(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.25)))));
+						Math.sin(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.5)))));
 		
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
@@ -63,9 +63,9 @@ public class AtomicFormat extends ParticleFormat {
 						Math.sin(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.25))),
+						Math.cos(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.5))),
 						1,
-						Math.sin(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.25)))));
+						Math.sin(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.5)))));
 
 	}
 
