@@ -6,7 +6,7 @@ public class MysticEntityUtils {
 
 	
 	public static void registerEntities(){
-		new MysticEntityType<TestChicken> ("TestChicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new).register();
+		new MysticEntityType<TestChicken> ("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new).register();
 	}
 	
 	
