@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 
@@ -59,6 +60,7 @@ public class MysticEntityType<T extends EntityLiving> {
         Entity entity = entityType.spawnCreature(((CraftWorld)loc.getWorld()).getHandle(),
                 null, null, null, new BlockPosition(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()),
                 EnumMobSpawn.EVENT, true, false);
+        Bukkit.broadcastMessage("A custom chicken has been spawned!");
         return entity == null ? null : entity.getBukkitEntity();
     }
  
