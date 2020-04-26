@@ -40,16 +40,16 @@ public class CapeFormat extends ParticleFormat {
 		
 		if(Math.abs((agl)-(cloc.getYaw())) > 45){
 			if(((agl)-(cloc.getYaw())) >= 0){
-				agl = cloc.getYaw()-40;
-			} else {
 				agl = cloc.getYaw()+40;
+			} else {
+				agl = cloc.getYaw()-40;
 			}
 		}
 
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, agl);
-			spawnParticle(uid, particle, cloc.clone().add(v), 0, 0, 0);
+			spawnParticle(uid, particle, cloc.clone().add(v), 0, 0.9, 0);
 			x = x + 0.1;
 		}
 
