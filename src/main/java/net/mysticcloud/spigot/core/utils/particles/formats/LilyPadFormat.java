@@ -19,7 +19,7 @@ public class LilyPadFormat extends ParticleFormat {
 	int corners = 4;
 
 	public LilyPadFormat() {
-		name = "Lily Pad";
+		name = "&2Lily Pad";
 		guiItem = new ItemStack(Material.LILY_PAD);
 		particle = Particle.COMPOSTER;
 	}

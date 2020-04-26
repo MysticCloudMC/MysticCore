@@ -25,7 +25,7 @@ public class HatFormat extends ParticleFormat {
 		allowedParticles.add(Particle.SNEEZE);
 		allowedParticles.add(Particle.CRIT_MAGIC);
 
-		name = "Hat";
+		name = "&eHat";
 		guiItem = new ItemStack(Material.LEATHER_HELMET);
 	}
 

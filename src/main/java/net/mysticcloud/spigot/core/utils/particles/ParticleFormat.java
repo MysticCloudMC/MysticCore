@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -18,10 +19,10 @@ public class ParticleFormat {
 
 	protected boolean changeParticle = false;
 	protected Particle particle = null;
-	protected DustOptions dustoptions = null;
-	protected ItemStack itemstack = null;
+	protected DustOptions dustoptions = new DustOptions(Color.RED, 1);
+	protected ItemStack itemstack = new ItemStack(Material.STONE);
 	protected BlockData blockdata = null;
-	protected MaterialData materialdata = null;
+	protected MaterialData materialdata = new MaterialData(Material.GOLD_BLOCK);
 	protected List<Particle> allowedParticles = new ArrayList<>();
 
 	protected String name = "Format Name";
