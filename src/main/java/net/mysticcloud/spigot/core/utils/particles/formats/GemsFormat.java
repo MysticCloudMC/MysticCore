@@ -26,6 +26,9 @@ public class GemsFormat extends ParticleFormat {
 		gems.add(Material.DIAMOND);
 		gems.add(Material.GOLD_INGOT);
 		gems.add(Material.EMERALD);
+		gems.add(Material.IRON_INGOT);
+		gems.add(Material.GOLD_NUGGET);
+		gems.add(Material.IRON_NUGGET);
 		
 		guiItem = new ItemStack(Material.EMERALD);
 		name = "&bGems";
@@ -50,7 +53,7 @@ public class GemsFormat extends ParticleFormat {
 			public void run(){
 				item.remove();
 			}
-		}.runTaskLater(Main.getPlugin(), 20);
+		}.runTaskLater(Main.getPlugin(), 13);
 		
 		
 		
