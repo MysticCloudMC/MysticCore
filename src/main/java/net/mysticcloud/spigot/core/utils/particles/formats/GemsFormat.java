@@ -40,7 +40,7 @@ public class GemsFormat extends ParticleFormat {
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
 						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5));
-		ItemStack itemstack = new ItemStack(gems.get(CoreUtils.getRandom().nextInt(gems.size()-1)));
+		ItemStack itemstack = new ItemStack(gems.get(CoreUtils.getRandom().nextInt(gems.size())));
 		Item item = loc.getWorld().dropItem(loc, itemstack);
 		item.setPickupDelay(Integer.MAX_VALUE);
 		item.setPortalCooldown(Integer.MAX_VALUE);
@@ -50,7 +50,7 @@ public class GemsFormat extends ParticleFormat {
 			public void run(){
 				item.remove();
 			}
-		}.runTaskLater(Main.getPlugin(), 40);
+		}.runTaskLater(Main.getPlugin(), 20);
 		
 		
 		
