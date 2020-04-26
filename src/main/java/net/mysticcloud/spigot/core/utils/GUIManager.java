@@ -86,7 +86,7 @@ public class GUIManager {
 		for (int i = 0; i != (((int) (ParticleFormatEnum.values().length / 9)) + 1) * 9; i++) {
 			if (i < ParticleFormatEnum.values().length) {
 				if (player.hasPermission("mysticcloud.particleformat." + ChatColor.stripColor(
-						ParticleFormatEnum.values()[i].formatter().name().toLowerCase().replaceAll(" ", "_")))) {
+						ParticleFormatEnum.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
 					inv.addItem(ParticleFormatEnum.values()[i].formatter().item(),
 							ParticleFormatEnum.values()[i].formatter().name(), (char) i, (String[]) null, false);
 				} else {
