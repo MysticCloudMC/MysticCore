@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
@@ -28,19 +29,19 @@ public class HaloFormat extends ParticleFormat {
 		if(particle == null) return;
 		for (int a = 1; a != 41; a++) {
 //			if (i % 0.009765625 == 0)
-			if (i % 2 == 0) {
-				if (a % 2 == 0)
+//			if (i % 2 == 0) {
+//				if (a % 2 == 0)
 					spawnParticle(uid, particle,
-							Bukkit.getPlayer(uid).getLocation().clone().add(
+							Bukkit.getPlayer(uid).getLocation().clone().add(rotateAroundAxisY(new Vector(
 									Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
-									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
-			} else {
-				if (a % 2 != 0)
-					spawnParticle(uid, particle,
-							Bukkit.getPlayer(uid).getLocation().clone().add(
-									Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
-									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
-			}
+									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)), i)));
+//			} else {
+//				if (a % 2 != 0)
+//					spawnParticle(uid, particle,
+//							Bukkit.getPlayer(uid).getLocation().clone().add(
+//									Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
+//									Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)));
+//			}
 
 		}
 

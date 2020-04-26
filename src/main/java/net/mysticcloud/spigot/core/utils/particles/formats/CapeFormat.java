@@ -38,8 +38,8 @@ public class CapeFormat extends ParticleFormat {
 		
 		CoreUtils.debug(Math.abs((agl)-(cloc.getYaw())));
 		
-		if(Math.abs((agl)-(cloc.getYaw())) > 5){
-//			agl = cloc.getYaw();
+		if(Math.abs((agl)-(cloc.getYaw())) > 300){
+			agl = cloc.getYaw();
 		}
 
 		for (int t = 0; t != 10; t++) {
