@@ -42,18 +42,9 @@ public class SelectorFormat extends ParticleFormat {
 			loc = Bukkit.getPlayer(uid).getLocation();
 			spawnParticle(uid,particle,loc.clone().add(rotateAroundAxisY(new Vector(
 					Math.cos(Math.toRadians(t) * (360 / cols) * (r)),
-					0,
+					0.05,
 					Math.sin(Math.toRadians(t) * (360 / cols)) * (r)),i*2)));
 		}
-//		spawnParticle(uid, particle,
-//				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
-//						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
-//						Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
-//		spawnParticle(uid, particle,
-//				Bukkit.getPlayer(uid).getLocation().clone().add(
-//						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))),
-//						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
-//						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));
 
 	}
 

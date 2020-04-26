@@ -24,7 +24,7 @@ public class RandomFormat extends ParticleFormat {
 		allowedParticles.add(Particle.REDSTONE);
 		
 		guiItem = new ItemStack(Material.IRON_SWORD);
-		name = "Random";
+		name = "&bRandom";
 
 
 	}

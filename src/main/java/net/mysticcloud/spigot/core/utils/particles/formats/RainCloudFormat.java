@@ -18,7 +18,7 @@ public class RainCloudFormat extends ParticleFormat {
 	private double r = 0.75;
 
 	public RainCloudFormat() {
-		name = "Rain Cloud";
+		name = "&7Rain Cloud";
 		guiItem = new ItemStack(Material.GRAY_DYE);
 		particle = Particle.COMPOSTER;
 	}

@@ -32,7 +32,7 @@ public class CircleHeadFormat extends ParticleFormat {
 		allowedParticles.add(Particle.REDSTONE);
 
 		guiItem = new ItemStack(Material.DIAMOND_HELMET);
-		name = "Circle Head";
+		name = "&aCircle Head";
 
 	}
 

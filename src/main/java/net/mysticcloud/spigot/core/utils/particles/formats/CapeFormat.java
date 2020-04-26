@@ -18,7 +18,7 @@ public class CapeFormat extends ParticleFormat {
 	double agl = 0;
 
 	public CapeFormat() {
-		name = "Cape";
+		name = "&cCape";
 		guiItem = new ItemStack(Material.RED_BANNER);
 		particle = Particle.ENCHANTMENT_TABLE;
 

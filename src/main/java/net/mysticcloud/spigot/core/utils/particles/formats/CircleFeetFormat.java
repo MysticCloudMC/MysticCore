@@ -23,7 +23,7 @@ public class CircleFeetFormat extends ParticleFormat {
 		allowedParticles.add(Particle.REDSTONE);
 
 		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
-		name = "Circle Feet";
+		name = "&7Circle Feet";
 
 	}
 

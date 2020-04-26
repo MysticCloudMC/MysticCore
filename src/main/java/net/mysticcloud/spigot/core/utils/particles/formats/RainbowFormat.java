@@ -20,7 +20,7 @@ public class RainbowFormat extends ParticleFormat {
 	double r = 1;
 
 	public RainbowFormat() {
-		name = "Rainbow";
+		name = "&cR&ea&ain&bb&2o&5w";
 		guiItem = new ItemStack(Material.COAL);
 		particle = Particle.REDSTONE;
 	}
