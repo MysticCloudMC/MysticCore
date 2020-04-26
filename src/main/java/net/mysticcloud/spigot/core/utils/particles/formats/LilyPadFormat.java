@@ -34,19 +34,19 @@ public class LilyPadFormat extends ParticleFormat {
 		for (int t = 0; t != corners; t++) {
 			spawnParticle(uid, particle, loc.clone().add(
 					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i) * (360 / rspots) * (r)))),
+							.cos(Math.toRadians(i) * (360 / rspots) * (r))),
 					0.05, 
 					Math.sin(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i) * (360 / rspots) * (r))))));
+							.cos(Math.toRadians(i) * (360 / rspots) * (r)))));
 		}
 		
 		for (int t = 0; t != corners; t++) {
 			spawnParticle(uid, particle, loc.clone().add(
 					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i+(rspots/2)) * (360 / rspots) * (r)))),
+							.cos(Math.toRadians((i + (rspots/2))) * (360 / rspots) * (r))),
 					0.05, 
 					Math.sin(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i+(rspots/4)) * (360 / rspots) * (r))))));
+							.cos(Math.toRadians((i + (rspots/2))) * (360 / rspots) * (r)))));
 		}
 	}
 
