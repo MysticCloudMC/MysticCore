@@ -33,10 +33,10 @@ public class RandomFormat extends ParticleFormat {
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
 		if(particle!=null)spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(-0.5 + CoreUtils.getRandom().nextDouble(),
+				Bukkit.getPlayer(uid).getLocation().clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
-						-0.5 + CoreUtils.getRandom().nextDouble()));
+						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5)));
 	}
 
 }
