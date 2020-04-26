@@ -37,19 +37,35 @@ public class AtomicFormat extends ParticleFormat {
 			return;
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r))),
-						1 + ((Math.cos(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r))) * -1)),
-						Math.sin(Math.toRadians((i + ((spots / 3)*1)) * (360 / spots) * (r)))));
+						Math.cos(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r))),
+						1 + ((Math.cos(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r))) * -1)),
+						Math.sin(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r))),
-						1 + Math.cos(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r))),
-						Math.sin(Math.toRadians((i + ((spots / 3)*2)) * (360 / spots) * (r)))));
+						Math.cos(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r))),
+						1 + Math.cos(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r))),
+						Math.sin(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r)))));
 		spawnParticle(uid, particle,
 				Bukkit.getPlayer(uid).getLocation().clone().add(
-						Math.cos(Math.toRadians((i + ((spots / 3)*3)) * (360 / spots) * (r+0.25))),
+						Math.cos(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.25))),
 						1,
-						Math.sin(Math.toRadians((i + ((spots / 3)*3)) * (360 / spots) * (r+0.25)))));
+						Math.sin(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (r+0.25)))));
+		
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getLocation().clone().add(
+						Math.cos(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r))),
+						1 + ((Math.cos(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r))) * -1)),
+						Math.sin(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r)))));
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getLocation().clone().add(
+						Math.cos(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r))),
+						1 + Math.cos(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r))),
+						Math.sin(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r)))));
+		spawnParticle(uid, particle,
+				Bukkit.getPlayer(uid).getLocation().clone().add(
+						Math.cos(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.25))),
+						1,
+						Math.sin(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (r+0.25)))));
 
 	}
 
