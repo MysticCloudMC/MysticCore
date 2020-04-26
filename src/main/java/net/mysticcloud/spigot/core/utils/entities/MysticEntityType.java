@@ -71,7 +71,13 @@ public class MysticEntityType<T extends EntityLiving> {
         Map<Object, Type<?>> dataTypes = (Map<Object, Type<?>>)DataConverterRegistry.a()
                 .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getWorldVersion()))
                 .findChoiceType(DataConverterTypes.ENTITY).types(); // DataConverterTypes.ENTITY in < 1.15.2
-        dataTypes.put(key.toString(), dataTypes.get(parentType.h().toString().replace("entity/", "")));
+        dataTypes.put(
+        		key.toString(),
+        		dataTypes.get(
+        				parentType.
+        				h()
+        				.toString()
+        				.replace("entity/", "")));
         // Add our custom entity to the entity registry map
         EntityTypes.a<T> a = EntityTypes.a.a(maker, EnumCreatureType.CREATURE);
         entityType = a.a(key.getKey());
