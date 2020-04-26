@@ -15,7 +15,8 @@ public enum ParticleFormatEnum {
 	RAINBOW("Rainbow"), 
 	LILY_PAD("Lily Pad"),
 	RAIN_CLOUD("Rain Cloud"),
-	ATOMIC("Atomic");
+	ATOMIC("Atomic"),
+	SELECTOR("Selector");
 
 	String name;
 
@@ -54,6 +55,8 @@ public enum ParticleFormatEnum {
 			return new AtomicFormat();
 		case "Double Helix":
 			return new DoubleHelixFormat();
+		case "Selector":
+			return new SelectorFormat();
 		default:
 			return new CircleHeadFormat();
 

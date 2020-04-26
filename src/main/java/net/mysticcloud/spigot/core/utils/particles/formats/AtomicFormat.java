@@ -37,6 +37,7 @@ public class AtomicFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 		
+		
 		loc = Bukkit.getPlayer(uid).getLocation();
 		
 		spawnParticle(uid, particle,
