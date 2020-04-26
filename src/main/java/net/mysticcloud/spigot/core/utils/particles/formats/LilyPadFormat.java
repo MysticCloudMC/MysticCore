@@ -16,7 +16,7 @@ public class LilyPadFormat extends ParticleFormat {
 	double r = 1.3;
 	int spots = 40;
 	int rspots = 260;
-	int corners = 5;
+	int corners = 4;
 
 	public LilyPadFormat() {
 		name = "Lily Pad";
@@ -36,17 +36,6 @@ public class LilyPadFormat extends ParticleFormat {
 				0.1,
 				Math.sin(Math.toRadians(i+((spots/corners)*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r))))));
 		}
-		
-		spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(
-				Math.cos(Math.toRadians(((i) * (360 / 20)))) * (Math.cos(Math.toRadians(((i) * (360 / 260)) * (1.3)))),
-				0.2,
-				Math.sin(Math.toRadians(i) * (360 / 20)) * (Math.cos(Math.toRadians(((i) * (360 / 260)) * (1.3))))));
-		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getLocation().clone()
-						.add(Math.cos(Math.toRadians(((i + 10) * (360 / 20))))
-								* (Math.cos(Math.toRadians(((i) * (360 / 260)) * (1.3)))), 0.2,
-								Math.sin(Math.toRadians(i + 10) * (360 / 20))
-										* (Math.cos(Math.toRadians(((i) * (360 / 260)) * (1.3))))));
 	}
 
 }
