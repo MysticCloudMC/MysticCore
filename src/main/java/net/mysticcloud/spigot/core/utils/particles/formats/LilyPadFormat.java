@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class LilyPadFormat extends ParticleFormat {
-	
+
 	Location loc = null;
 	double r = 1.3;
 	int spots = 40;
@@ -27,20 +27,17 @@ public class LilyPadFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		super.display(uid, i);
-		if(particle == null) return;
+		if (particle == null)
+			return;
 		loc = Bukkit.getPlayer(uid).getLocation();
-		
-		for(int t = 0; t != 2; t++){
-			spawnParticle(uid,particle,loc.clone().add(
-				Math.cos(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r)))),
-				0.05,
-				Math.sin(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i)) * (360 / rspots) * (r))))));
-		}
-		for(int t = 2; t != 4; t++){
-			spawnParticle(uid,particle,loc.clone().add(
-				Math.cos(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r)))),
-				0.05,
-				Math.sin(Math.toRadians(i+((spots/(corners))*t)) * (360 / spots)) * (Math.cos(Math.toRadians(((i+(rspots/2))) * (360 / rspots) * (r))))));
+
+		for (int t = 0; t != 2; t++) {
+			spawnParticle(uid, particle, loc.clone().add(
+					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
+							.cos(Math.toRadians(((t % 2 == 0) ? (i) : (i + (rspots / 2))) * (360 / rspots) * (r)))),
+					0.05, 
+					Math.sin(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
+							.cos(Math.toRadians(((t % 2 == 0) ? (i) : (i + (rspots / 2))) * (360 / rspots) * (r))))));
 		}
 	}
 
