@@ -13,9 +13,11 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class SelectorFormat extends ParticleFormat {
 	Location loc = null;
-	int spots = 40;
 	double r = 1;
 	int cols = 5;
+	
+	RandomFormat random = new RandomFormat();
+	
 
 	public SelectorFormat() {
 		changeParticle = true;
@@ -34,6 +36,8 @@ public class SelectorFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid, int i) {
 		if(particle == null) return;
+		random.particle(particle);
+		random.display(uid, i);
 		for(int t=0;t!=cols;t++){
 			loc = Bukkit.getPlayer(uid).getLocation();
 			spawnParticle(uid,particle,loc.clone().add(rotateAroundAxisY(new Vector(
