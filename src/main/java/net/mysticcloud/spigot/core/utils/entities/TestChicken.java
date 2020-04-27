@@ -74,14 +74,14 @@ public class TestChicken extends EntityChicken {
 
 	@Override
 	protected void initPathfinder() {
-		this.goalSelector.a(0, new PathfinderGoalFloat(this));
-		this.goalSelector.a(1, new PathfinderGoalPanic(this, 1.4D));
-		this.goalSelector.a(2, new PathfinderGoalBreed(this, 1.0D));
-		this.goalSelector.a(3, new PathfinderGoalTempt(this, 1.0D, false, bD));
-		this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 1.1D));
-		this.goalSelector.a(5, new PathfinderGoalRandomStrollLand(this, 1.0D));
-		this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
-		this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
+//		this.goalSelector.a(0, new PathfinderGoalFloat(this));
+//		this.goalSelector.a(1, new PathfinderGoalPanic(this, 1.4D));
+//		this.goalSelector.a(2, new PathfinderGoalBreed(this, 1.0D));
+//		this.goalSelector.a(3, new PathfinderGoalTempt(this, 1.0D, false, bD));
+//		this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 1.1D));
+//		this.goalSelector.a(5, new PathfinderGoalRandomStrollLand(this, 1.0D));
+//		this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
+//		this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
 	}
 
 	@Override
@@ -98,25 +98,28 @@ public class TestChicken extends EntityChicken {
 
 	@Override
 	public void movementTick() {
-		if (isChickenJockey())
-			this.persistent = !isTypeNotPersistent(0.0D);
-		super.movementTick();
-		this.bz = this.bw;
-		this.by = this.bx;
-		this.bx = (float) (this.bx + (this.onGround ? -1 : 4) * 0.3D);
-		this.bx = MathHelper.a(this.bx, 0.0F, 1.0F);
-		if (!this.onGround && this.bA < 1.0F)
-			this.bA = 1.0F;
-		this.bA = (float) (this.bA * 0.9D);
-		Vec3D vec3d = getMot();
-		if (!this.onGround && vec3d.y < 0.0D)
-			setMot(vec3d.d(1.0D, 0.6D, 1.0D));
-		this.bw += this.bA * 2.0F;
+//		if (isChickenJockey())
+//			this.persistent = !isTypeNotPersistent(0.0D);
+//		super.movementTick();
+//		this.bz = this.bw;
+//		this.by = this.bx;
+//		this.bx = (float) (this.bx + (this.onGround ? -1 : 4) * 0.3D);
+//		this.bx = MathHelper.a(this.bx, 0.0F, 1.0F);
+//		if (!this.onGround && this.bA < 1.0F)
+//			this.bA = 1.0F;
+//		this.bA = (float) (this.bA * 0.9D);
+//		Vec3D vec3d = getMot();
+//		if (!this.onGround && vec3d.y < 0.0D)
+//			setMot(vec3d.d(1.0D, 0.6D, 1.0D));
+//		this.bw += this.bA * 2.0F;
+		a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 		if (!this.world.isClientSide && isAlive() && !isBaby() && !isChickenJockey() && --this.eggLayTime <= 0) {
-			a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+//			a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 			a(Items.EGG);
-			this.eggLayTime = this.random.nextInt(6000) + 6000;
+			this.eggLayTime = this.random.nextInt(100) + 1;
 		}
+		
+		setMot(0,0,0);
 	}
 
 	@Override
