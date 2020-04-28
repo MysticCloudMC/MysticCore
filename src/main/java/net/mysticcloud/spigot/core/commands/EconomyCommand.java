@@ -40,7 +40,7 @@ public class EconomyCommand implements CommandExecutor {
 			if (CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]))) {
 
 				Economy eco = CoreUtils.getEconomy();
-				eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
+				if(sender instanceof Player)eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
 				eco.depositPlayer(uid.toString(), Double.parseDouble(args[1]));
 				sender.sendMessage(CoreUtils.prefixes("eco")
 						+ CoreUtils.colorize("You paid &6$" + args[1] + "&f to &7" + args[0] + "&f."));
