@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -93,6 +94,8 @@ public class CoreUtils {
 	private static Economy economy = null;
 	private static Map<Integer, String> sidebar = new HashMap<>();
 	
+	private static DecimalFormat df = new DecimalFormat("0.00");
+	
 	
 	
 	public static Material testingblock = Material.DIAMOND;
@@ -100,7 +103,9 @@ public class CoreUtils {
 	public static float t = 0;
 
 	public static void start() {
-
+		
+		df.setRoundingMode(RoundingMode.DOWN);
+		
 		setupEconomy();
 
 		prefixes.put("root", fullPrefix);
@@ -1197,7 +1202,7 @@ public class CoreUtils {
 	}
 
 	public static double getMoneyFormat(double amount) {
-		return (Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(amount))));
+		return (Double.parseDouble(df.format(Double.valueOf(amount))));
 	}
 
 	public static String formatDate(long ms, String tcolor, String ncolor) {

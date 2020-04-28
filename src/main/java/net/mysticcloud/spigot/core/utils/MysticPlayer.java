@@ -29,16 +29,16 @@ public class MysticPlayer {
 		}
 	}
 
-	public void setBalance(double balance) {
+	void setBalance(double balance) {
 		setBalance(balance, false);
 
 	}
 
-	public void setLevel(int level) {
+	void setLevel(int level) {
 		this.level = level;
 	}
 
-	public void setGems(int gems) {
+	void setGems(int gems) {
 		this.gems = gems;
 	}
 

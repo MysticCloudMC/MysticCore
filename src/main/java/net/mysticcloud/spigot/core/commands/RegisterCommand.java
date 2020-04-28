@@ -32,7 +32,7 @@ public class RegisterCommand implements CommandExecutor {
 				case 1:
 					sender.sendMessage(CoreUtils.colorize("&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process. Here's $55 for registering!"));
 					MysticPlayer pl = CoreUtils.getMysticPlayer(((Player)sender));
-					pl.setBalance(pl.getBalance()+100);
+					CoreUtils.getEconomy().depositPlayer(pl.getUUID().toString(), 55);
 					break;
 				case 0:
 					sender.sendMessage(CoreUtils.colorize("&cError 0"));
