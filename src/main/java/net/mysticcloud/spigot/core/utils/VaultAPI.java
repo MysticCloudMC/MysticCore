@@ -39,7 +39,7 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, balance, EconomyResponse.ResponseType.FAILURE,
 					"The value is more than the player's balance!");
 		}
-		balance -= CoreUtils.getMoneyFormat(amount);
+		balance = CoreUtils.getMoneyFormat(balance-amount);
 
 		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(balance);
 
@@ -56,7 +56,7 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(getBalance(uid) + amount,true);
+		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(CoreUtils.getMoneyFormat(getBalance(uid) + amount),true);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
@@ -78,7 +78,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public double getBalance(String uid, String world) {
-		return getBalance(uid);
+		return CoreUtils.getMoneyFormat(getBalance(uid));
 	}
 
 	public EconomyResponse withdrawPlayer(String uid, String world, double amount) {

@@ -6,7 +6,11 @@ public class MysticEntityUtils {
 
 	
 	public static void registerEntities(){
+		try{
 		new MysticEntityType<TestChicken> ("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new).register();
+		} catch(IllegalStateException ex){
+			
+		}
 	}
 	
 	

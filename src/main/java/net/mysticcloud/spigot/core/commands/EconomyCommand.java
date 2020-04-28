@@ -37,7 +37,7 @@ public class EconomyCommand implements CommandExecutor {
 				sender.sendMessage(CoreUtils.prefixes("eco") + "Value must be above 0.");
 				return true;
 			}
-			if (CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1])) || !(sender instanceof Player)) {
+			if (!(sender instanceof Player) || CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]))) {
 
 				Economy eco = CoreUtils.getEconomy();
 				if(sender instanceof Player)eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
