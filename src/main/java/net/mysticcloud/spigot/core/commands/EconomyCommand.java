@@ -9,8 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.milkbowl.vault.economy.Economy;
+import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.entities.MysticEntityType;
+import net.mysticcloud.spigot.core.utils.entities.TestChicken;
 
 public class EconomyCommand implements CommandExecutor {
 
@@ -51,6 +54,8 @@ public class EconomyCommand implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("balance")) {
 			if (sender instanceof Player) {
+				MysticEntityType<TestChicken> chick = new MysticEntityType<TestChicken>("testchicken",TestChicken.class, EntityTypes.CHICKEN,TestChicken::new);
+				chick.spawn(((Player)sender).getLocation());
 				if (args.length == 1 && sender.hasPermission("mysticcloud.admin.setbalance")) {
 					CoreUtils.getEconomy().withdrawPlayer(((Player) sender).getUniqueId().toString(),CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()));
 					CoreUtils.getEconomy().depositPlayer(((Player) sender).getUniqueId().toString(),
