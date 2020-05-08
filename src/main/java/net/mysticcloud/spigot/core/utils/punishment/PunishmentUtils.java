@@ -23,7 +23,7 @@ public class PunishmentUtils {
 
 	static List<Punishment> punishments = new ArrayList<>();
 	static List<Punishment> finished = new ArrayList<>();
-	private static Map<String, List<Object>> punishmentBuilder = new HashMap<>();
+	public static Map<String, List<Object>> punishmentBuilder = new HashMap<>();
 
 	public static void registerPunishments() {
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments;");
@@ -340,8 +340,6 @@ public class PunishmentUtils {
 	}
 	
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
-		Inventory inv = Bukkit.createInventory(null, InventoryType.ANVIL, "Is there anything else you'd like to add?");
-		inv.setItem(1,new ItemStack(Material.PAPER));
 	    
 		
 		List<Object> punishInfo = new ArrayList<>();
@@ -353,7 +351,7 @@ public class PunishmentUtils {
 		punishmentBuilder.put(staff, punishInfo);
 		
 		
-        return inv;
+        return null;
 	}
 	
 	public static void finishPunishment(String staff){

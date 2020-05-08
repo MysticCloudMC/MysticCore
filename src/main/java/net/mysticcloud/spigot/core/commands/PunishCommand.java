@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -29,8 +30,26 @@ public class PunishCommand implements CommandExecutor {
 						InfringementType.HACKING, "x-raying");
 			return true;
 		}
-		if (args.length == 1) {
-			
+		if (args.length >= 1) {
+
+			if (args[0].equalsIgnoreCase("complete")) {
+				List<Object> info = PunishmentUtils.punishmentBuilder.get((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE");
+				
+				String x = "";
+				for(int a=1;a!=args.length;a++){
+					x = x == "" ? args[1] : x + " " + args[a];
+				}
+				
+				for(Object o : info){
+					if(o instanceof String)
+						o = ((String)o)+x;
+				}
+				
+				PunishmentUtils.finishPunishment((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE");
+				
+				return true;
+			}
+
 			if (sender instanceof Player) {
 				UUID uid = null;
 				if (Bukkit.getPlayer(args[0]) == null) {
@@ -38,12 +57,11 @@ public class PunishCommand implements CommandExecutor {
 				} else {
 					uid = Bukkit.getPlayer(args[0]).getUniqueId();
 				}
-				if (uid != null){
+				if (uid != null) {
 					((Player) sender).setMetadata("punish", new FixedMetadataValue(Main.getPlugin(), args[0]));
 					GUIManager.openInventory(((Player) sender),
-				
-							PunishmentUtils.getPunishmentGUI(""),
-							"OffenceTypes");
+
+							PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");
 				} else
 					sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
 			}
@@ -70,12 +88,12 @@ public class PunishCommand implements CommandExecutor {
 
 				for (int a = 3; a != args.length; a++)
 					notes = notes == "" ? args[a] : notes + " " + args[a];
-				String staff = (sender instanceof Player)  ? ((Player)sender).getName() : "CONSOLE";
+				String staff = (sender instanceof Player) ? ((Player) sender).getName() : "CONSOLE";
 
-				PunishmentUtils.punish(staff, uid,
-						inf, sev, notes);
+				PunishmentUtils.punish(staff, uid, inf, sev, notes);
 			} else
-				sender.sendMessage(CoreUtils.prefixes("punishments") + "Couldn't find that player online, or in the MysticCloud UUID database.");
+				sender.sendMessage(CoreUtils.prefixes("punishments")
+						+ "Couldn't find that player online, or in the MysticCloud UUID database.");
 		}
 
 		return true;

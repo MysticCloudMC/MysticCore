@@ -215,9 +215,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
-			if (GUIManager.getOpenInventory((Player) e.getPlayer()) == "PunishmentNotes") {
-				PunishmentUtils.finishPunishment(e.getPlayer().getName());
-			}
+
 			GUIManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
 			// this is stupid.
@@ -266,28 +264,20 @@ public class PlayerListener implements Listener {
 			default:
 				break;
 			case CYAN_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MINIMAL, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MINIMAL, "");
 				break;
 			case LIME_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.LOW, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.LOW, "");
 				break;
 			case YELLOW_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MEDIUM, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MEDIUM, "");
 				break;
 			case ORANGE_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.HIGH, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.HIGH, "");
 				break;
 			case RED_DYE:
 				GUIManager.switchInventory(
@@ -304,34 +294,23 @@ public class PlayerListener implements Listener {
 			default:
 				break;
 			case CYAN_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MINIMAL, ""),
-						"PunishmentNotes");
-				break;
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MINIMAL, "");
 			case LIME_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.LOW, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.LOW, "");
 				break;
 			case YELLOW_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MEDIUM, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MEDIUM, "");
 				break;
 			case ORANGE_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.HIGH, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.HIGH, "");
 				break;
 			case RED_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.EXTREME, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.EXTREME, "");
 				break;
 			}
 			
@@ -343,23 +322,16 @@ public class PlayerListener implements Listener {
 			default:
 				break;
 			case PINK_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. "),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. ");
 				break;
 			case ORANGE_DYE:
-				GUIManager.switchInventory((Player) e.getWhoClicked(),
-						PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
-								InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. "),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+								InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. ");
 				break;
 			case RED_DYE:
-				GUIManager
-						.switchInventory((Player) e.getWhoClicked(),
-								PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
-										InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. "),
-								"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+										InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. ");
 				break;
 			}
 		}
