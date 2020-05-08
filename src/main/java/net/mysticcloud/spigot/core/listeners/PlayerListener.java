@@ -260,6 +260,82 @@ public class PlayerListener implements Listener {
 
 			}
 		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "HackingSeverity") {
+			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			switch(e.getCurrentItem().getType()){
+			default:
+				break;
+			case CYAN_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MINIMAL, ""),
+						"PunishmentNotes");
+				break;
+			case LIME_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.LOW, ""),
+						"PunishmentNotes");
+				break;
+			case YELLOW_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MEDIUM, ""),
+						"PunishmentNotes");
+				break;
+			case ORANGE_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.HIGH, ""),
+						"PunishmentNotes");
+				break;
+			case RED_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.EXTREME, ""),
+						"PunishmentNotes");
+				break;
+			}
+			
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ThreatSeverity") {
+			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			switch(e.getCurrentItem().getType()){
+			default:
+				break;
+			case CYAN_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MINIMAL, ""),
+						"PunishmentNotes");
+				break;
+			case LIME_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.LOW, ""),
+						"PunishmentNotes");
+				break;
+			case YELLOW_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MEDIUM, ""),
+						"PunishmentNotes");
+				break;
+			case ORANGE_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.HIGH, ""),
+						"PunishmentNotes");
+				break;
+			case RED_DYE:
+				GUIManager.switchInventory(
+						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
+								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.EXTREME, ""),
+						"PunishmentNotes");
+				break;
+			}
+			
+		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
 			e.setCancelled(true);
 			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";

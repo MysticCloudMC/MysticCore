@@ -4,6 +4,7 @@ public enum InfringementType {
 	
 	CHAT,
 	HACKING,
-	GREIF;
+	GREIF, THREAT;
 
 }
+
