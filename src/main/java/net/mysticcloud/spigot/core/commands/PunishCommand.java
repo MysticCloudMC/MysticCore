@@ -39,11 +39,19 @@ public class PunishCommand implements CommandExecutor {
 				for(int a=1;a!=args.length;a++){
 					x = x == "" ? args[1] : x + " " + args[a];
 				}
-				
+				Object rm = null;
 				for(Object o : info){
-					if(o instanceof String)
-						o = ((String)o)+x;
+					if(o instanceof String){
+						info.add(((String)o)+x);
+						rm = o;
+					}
+					
 				}
+				
+				info.remove(rm);
+				
+				 PunishmentUtils.punishmentBuilder.put((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE",info);
+				
 				
 				PunishmentUtils.finishPunishment((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE");
 				
