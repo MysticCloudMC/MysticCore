@@ -342,6 +342,13 @@ public class PunishmentUtils {
 	public static Inventory getNotesGUI(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes) {
 	    
 		
+		enterNotesEditor(staff,offender,inf,severity,notes);
+		
+		
+        return null;
+	}
+	
+	public static void enterNotesEditor(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes){
 		List<Object> punishInfo = new ArrayList<>();
 		punishInfo.add(offender);
 		punishInfo.add(inf);
@@ -349,9 +356,6 @@ public class PunishmentUtils {
 		punishInfo.add(notes);
 		
 		punishmentBuilder.put(staff, punishInfo);
-		
-		
-        return null;
 	}
 	
 	public static void finishPunishment(String staff){
