@@ -46,6 +46,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
@@ -94,6 +95,7 @@ public class CoreUtils {
 	private static Economy economy = null;
 	private static Map<Integer, String> sidebar = new HashMap<>();
 	
+	
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	
 	
@@ -107,6 +109,8 @@ public class CoreUtils {
 		df.setRoundingMode(RoundingMode.DOWN);
 		
 		setupEconomy();
+		
+		LevelUtils.start();
 
 		prefixes.put("root", fullPrefix);
 

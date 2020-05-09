@@ -11,14 +11,18 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
+import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
+
 public class MysticPlayer {
 
 	public UUID uid;
 	private double balance = 0;
-	private int level = 1;
+	private long level = 1;
 	private int gems = 0;
 	private double xp = 0.0;
 	private Map<String, Object> extraData = new HashMap<>();
+	
+	long needed = 0;
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
@@ -49,7 +53,7 @@ public class MysticPlayer {
 	}
 
 	public int getLevel() {
-		return level;
+		return (int)level;
 	}
 
 	public int getGems() {
@@ -73,25 +77,27 @@ public class MysticPlayer {
 	}
 	
 	public void gainXP(double xp) {
-		this.xp = this.xp + xp;
+		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
+		needed = LevelUtils.getMainWorker().untilNextLevel((long) (xp*100));
 		sendMessage(
-				(xp < 1) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + ((1 - this.xp) * 100)
+				(xp < needed) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
 						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fXP points.");
-		if (this.xp >= 1) {
-
-			for (int a = 0; a < (int) this.xp; a++) {
-				levelUp();
-				this.xp = Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(this.xp - 1.0)));
-			}
+		if (this.xp >= needed) {
+			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
 
 	public void levelUp() {
 		level = level + 1;
-		CoreUtils.getMysticPlayer(uid).getExtraData().put("SKYBLOCK_LEVEL", this.level);
 		sendMessage("You leveled up to level &7" + level + "&f!");
 	}
+	
+	public void levelUp(long level) {
+		this.level = level;
+		sendMessage("You leveled up to level &7" + level + "&f!");
+	}
+	
 	public void sendMessage(String message) {
 		sendMessage("root", message);
 	}
