@@ -797,16 +797,16 @@ public class CoreUtils {
 	private static void registerSidebarList() {
 		sidebar.clear();
 		sidebar.put(15, "&c");
-		sidebar.put(14, "&cRank");
+		sidebar.put(14, "&eRank");
 		sidebar.put(13, "%r");
 		sidebar.put(12, "&c&c");
-		sidebar.put(11, "&cGems");
-		sidebar.put(10, "&c\u2B50 &f%g");
+		sidebar.put(11, "&aGems");
+		sidebar.put(10, "&a\u2B50 &f%g");
 		sidebar.put(9, "&c&f&c");
 		sidebar.put(8, "&6Balance");
 		sidebar.put(7, "&6$&f %balance");
 		sidebar.put(6, "&c&c&c");
-		sidebar.put(5, "&aLevel");
+		sidebar.put(5, "&cLevel");
 		sidebar.put(4, "&f%level");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday");

@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ public class MysticPlayer {
 	private double balance = 0;
 	private int level = 1;
 	private int gems = 0;
+	private double xp = 0.0;
 	private Map<String, Object> extraData = new HashMap<>();
 
 	MysticPlayer(UUID uid) {
@@ -68,6 +70,36 @@ public class MysticPlayer {
 
 	public void addGems(int i) {
 		gems = gems + i;
+	}
+	
+	public void gainXP(double xp) {
+		this.xp = this.xp + xp;
+		sendMessage(
+				(xp < 1) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + ((1 - this.xp) * 100)
+						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fXP points.");
+		if (this.xp >= 1) {
+
+			for (int a = 0; a < (int) this.xp; a++) {
+				levelUp();
+				this.xp = Double.parseDouble(new DecimalFormat("#0.00").format(Double.valueOf(this.xp - 1.0)));
+			}
+		}
+		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
+	}
+
+	public void levelUp() {
+		level = level + 1;
+		CoreUtils.getMysticPlayer(uid).getExtraData().put("SKYBLOCK_LEVEL", this.level);
+		sendMessage("You leveled up to level &7" + level + "&f!");
+	}
+	public void sendMessage(String message) {
+		sendMessage("root", message);
+	}
+
+	public void sendMessage(String prefix, String message) {
+		if (Bukkit.getPlayer(uid) != null) {
+			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes(prefix) + CoreUtils.colorize(message));
+		}
 	}
 	
 	public boolean isFriends(UUID uid){
