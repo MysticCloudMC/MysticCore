@@ -66,6 +66,10 @@ public class MysticPlayer {
 	public Map<String, Object> getExtraData() {
 		return extraData;
 	}
+	
+	void setExtraData(Map<String,Object> extraData){
+		this.extraData = extraData;
+	}
 
 	public void addGems(int i) {
 		gems = gems + i;

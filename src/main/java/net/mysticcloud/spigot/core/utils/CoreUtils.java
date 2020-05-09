@@ -94,22 +94,19 @@ public class CoreUtils {
 	public static double startingBalance = 100.00;
 	private static Economy economy = null;
 	private static Map<Integer, String> sidebar = new HashMap<>();
-	
-	
+
 	private static DecimalFormat df = new DecimalFormat("0.00");
-	
-	
-	
+
 	public static Material testingblock = Material.DIAMOND;
 
 	public static float t = 0;
 
 	public static void start() {
-		
+
 		df.setRoundingMode(RoundingMode.DOWN);
-		
+
 		setupEconomy();
-		
+
 		LevelUtils.start();
 
 		prefixes.put("root", fullPrefix);
@@ -232,7 +229,7 @@ public class CoreUtils {
 		}
 
 		WarpUtils.registerWarps();
-		
+
 		MysticEntityUtils.registerEntities();
 
 	}
@@ -309,7 +306,7 @@ public class CoreUtils {
 		return user;
 
 	}
-	
+
 	public static String lookupWebname(UUID uid) {
 		String name = "";
 		wbconn.init();
@@ -449,8 +446,9 @@ public class CoreUtils {
 	}
 
 	public static String prefixes(String key) {
-		if(prefixes.get(key) == null)
-			prefixes.put(key, colorize("&e&l" + key.toUpperCase().substring(0,1) + key.toLowerCase().substring(1,key.length()) + " &7>&f "));
+		if (prefixes.get(key) == null)
+			prefixes.put(key, colorize("&e&l" + key.toUpperCase().substring(0, 1)
+					+ key.toLowerCase().substring(1, key.length()) + " &7>&f "));
 		return prefixes.get(key);
 	}
 
@@ -565,7 +563,7 @@ public class CoreUtils {
 		}
 		return false;
 	}
-	
+
 	public static boolean isPlayerRegistered(UUID uid) throws SQLException {
 
 		wbconn.init();
@@ -578,8 +576,6 @@ public class CoreUtils {
 		}
 		return false;
 	}
-	
-	
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
 		return db.query(query);
@@ -1108,8 +1104,8 @@ public class CoreUtils {
 		return particleToItemStack(p, true);
 
 	}
-	
-	public static List<Object> getPageResults(List<Object> objects, int page, int pageResult){
+
+	public static List<Object> getPageResults(List<Object> objects, int page, int pageResult) {
 		List<Object> rturn = new ArrayList<>();
 		for (int i = (page - 1) * pageResult; i < page * pageResult; i++) {
 			if (i < objects.size())
@@ -1137,6 +1133,22 @@ public class CoreUtils {
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
+
+				Map<String, Object> data = new HashMap<>();
+
+				for (int i = 1; i != rs.getMetaData().getColumnCount() + 1; i++) {
+					if (!rs.getMetaData().getColumnName(i).equalsIgnoreCase("BALANCE")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("UUID")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("GEMS")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("LEVEL")) {
+						data.put(rs.getMetaData().getColumnName(i), rs.getObject(rs.getMetaData().getColumnName(i)));
+
+					}
+					// sender.sendMessage(Utils.colorize("&6" +
+					// rs.getMetaData().getColumnName(i) + ": " +
+					// rs.getString(i)));
+				}
+				mp.setExtraData(data);
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 				return mp;
@@ -1169,6 +1181,7 @@ public class CoreUtils {
 	public static void saveMysticPlayer(Player player) {
 		saveMysticPlayer(getMysticPlayer(player));
 	}
+
 	public static void saveMysticPlayer(UUID uid) {
 		saveMysticPlayer(getMysticPlayer(uid));
 	}
