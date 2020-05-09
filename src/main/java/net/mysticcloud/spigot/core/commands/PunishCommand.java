@@ -25,9 +25,9 @@ public class PunishCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
-			sender.sendMessage(CoreUtils.prefixes("punishments")
+			sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("punishments")
 					+ ((sender instanceof Player) ? "Try \"/punish <player>\" &7OR&f t" : "T")
-					+ "ry \"/punish <player> <severity-MINIMAL|LOW|MEDIUM|HIGH|EXTREME> [notes]\"");
+					+ "ry \"/punish <player> <severity-MINIMAL|LOW|MEDIUM|HIGH|EXTREME> [notes]\""));
 			return true;
 		}
 		if (args.length >= 1) {
@@ -35,6 +35,11 @@ public class PunishCommand implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("complete")) {
 				List<Object> info = PunishmentUtils.punishmentBuilder
 						.get((sender instanceof Player) ? ((Player) sender).getName() : "CONSOLE");
+				if(info == null){
+					sender.sendMessage(
+							CoreUtils.prefixes("error") + "You aren't in a punishment editor. Try /punish <player>");
+					return true;
+				}
 
 				String x = "";
 				for (int a = 1; a != args.length; a++) {
