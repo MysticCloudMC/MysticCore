@@ -77,7 +77,7 @@ public class MysticPlayer {
 	}
 	
 	public void gainXP(double xp) {
-		this.xp = this.xp + xp;
+		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
 		xp = this.xp;
 		needed = LevelUtils.getMainWorker().untilNextLevel((long) (xp*100));
 		Bukkit.broadcastMessage("XP: " + xp);
@@ -86,21 +86,22 @@ public class MysticPlayer {
 		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		
 		sendMessage(
-				(LevelUtils.getMainWorker().getLevel((long) (xp*100))>level) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
+				(LevelUtils.getMainWorker().getLevel((long) (xp*100))<level) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
 						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fXP points.");
 		if (LevelUtils.getMainWorker().getLevel((long) (xp*100))>level) {
 			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		}
+		level = LevelUtils.getMainWorker().getLevel((long) xp*100);
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
 
 	public void levelUp() {
-		level = level + 1;
+//		level = level + 1;
 		sendMessage("You leveled up to level &7" + level + "&f!");
 	}
 	
 	public void levelUp(long level) {
-		this.level = level;
+//		this.level = level;
 		sendMessage("You leveled up to level &7" + level + "&f!");
 	}
 	
@@ -112,6 +113,14 @@ public class MysticPlayer {
 		if (Bukkit.getPlayer(uid) != null) {
 			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes(prefix) + CoreUtils.colorize(message));
 		}
+	}
+	
+	public double getXP(){
+		return xp;
+	}
+	public void setXP(double xp){
+		this.xp = xp;
+		level = LevelUtils.getMainWorker().getLevel((long) xp*100);
 	}
 	
 	public boolean isFriends(UUID uid){

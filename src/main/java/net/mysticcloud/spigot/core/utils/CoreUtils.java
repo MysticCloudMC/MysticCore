@@ -1136,7 +1136,7 @@ public class CoreUtils {
 				MysticPlayer mp = new MysticPlayer(uid);
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
-				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
+				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 				return mp;
@@ -1180,7 +1180,7 @@ public class CoreUtils {
 		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
 			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
 		}
-		sql = sql + "LEVEL='" + player.getLevel() + "' ";
+		sql = sql + "LEVEL='" + player.getXP() + "' ";
 		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
 		debug(sql);
 		CoreUtils.sendUpdate(sql);
@@ -1199,7 +1199,7 @@ public class CoreUtils {
 				MysticPlayer mp = getMysticPlayer(uid);
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
-				mp.setLevel(Integer.parseInt(rs.getString("LEVEL")));
+				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
