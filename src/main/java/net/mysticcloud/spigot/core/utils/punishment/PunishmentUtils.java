@@ -349,6 +349,17 @@ public class PunishmentUtils {
 	}
 	
 	public static void enterNotesEditor(String staff, UUID offender, InfringementType inf, InfringementSeverity severity, String notes){
+		
+		if(!staff.equalsIgnoreCase("CONSOLE")){
+			Bukkit.getPlayer(staff).closeInventory();
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.prefixes("punishments") + "Use the command \"/punish complete [extra notes]\" to file the punishment.");
+		} else {
+			Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("punishments") + "Use the command \"/punish complete [extra notes]\" to file the punishment.");
+		}
+		
+		
+		
+		
 		List<Object> punishInfo = new ArrayList<>();
 		punishInfo.add(offender);
 		punishInfo.add(inf);
