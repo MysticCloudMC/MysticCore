@@ -77,7 +77,7 @@ public class MysticPlayer {
 	}
 	
 	public void gainXP(double xp) {
-		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
+		this.xp = this.xp + xp;
 		needed = LevelUtils.getMainWorker().untilNextLevel((long) (xp*100));
 		Bukkit.broadcastMessage("XP: " + xp);
 		Bukkit.broadcastMessage("NEEDED: " + needed);
