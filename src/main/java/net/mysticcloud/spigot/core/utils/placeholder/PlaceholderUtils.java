@@ -24,24 +24,24 @@ public class PlaceholderUtils {
 		if(!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			switch(CoreUtils.getHoliday()) {
 			case CHRISTMAS:
-				string = string.replaceAll("%holidayline", "&c&lMerry &a&lChristmas&f");
+				string = string.replaceAll("%hdayline", "&c&lMerry &a&lChristmas&f");
 				break;
 			case TEST:
-				string = string.replaceAll("%holidayline", "&fHappy &a&lSt. Patrick's day&f");
+				string = string.replaceAll("%hdayline", "&fHappy &a&lSt. Patrick's day&f");
 				break;
 			case AVACADO_DAY:
-				string = string.replaceAll("%holidayline", "&2&lAVACADO DAY!");
+				string = string.replaceAll("%hdayline", "&2&lAVACADO DAY!");
 				break;
 			case BIRTHDAY:
-				string = string.replaceAll("%holidayline", "&bHappy Birthday!");
+				string = string.replaceAll("%hdayline", "&bHappy Birthday!");
 				break;
 			case HALLOWEEN:
-				string = string.replaceAll("%holidayline", "&6&lHappy &5&lHolloween&f");
+				string = string.replaceAll("%hdayline", "&6&lHappy &5&lHolloween&f");
 			case CINCO_DE_MAYO:
-				string = string.replaceAll("%holidayline", "&6&lHappy &5&lHolloween&f");
+				string = string.replaceAll("%hdayline", "&6&lHappy &5&lHolloween&f");
 				break;
 			case MAY_THE_FORTH:
-				string = string.replaceAll("%holidayline", "&eMay The Forth Be With You");
+				string = string.replaceAll("%hdayline", "&eMay The Forth Be With You");
 				break;
 			default:
 				break;
@@ -50,7 +50,7 @@ public class PlaceholderUtils {
 			
 		} else {
 			string = string.replaceAll("%holiday", "");
-			string = string.replaceAll("%holidayline", "");
+			string = string.replaceAll("%hdayline", "");
 		}
 		
 		return string;

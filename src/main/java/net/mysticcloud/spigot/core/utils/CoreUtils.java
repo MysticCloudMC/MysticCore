@@ -810,7 +810,7 @@ public class CoreUtils {
 		sidebar.put(4, "&f%level");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday");
-		sidebar.put(1, "&c%holidayline");
+		sidebar.put(1, "&c%hdayline");
 	}
 
 	public static ItemStack getItem(String name) {
