@@ -25,38 +25,43 @@ public class PunishCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (args.length == 0) {
-			if (sender instanceof Player)
-				PunishmentUtils.punish(((Player) sender).getName(), ((Player) sender).getUniqueId(),
-						InfringementType.HACKING, "x-raying");
+			sender.sendMessage(CoreUtils.prefixes("punishments")
+					+ ((sender instanceof Player) ? "Try \"/punish <player>\" &7OR&f t" : "T")
+					+ "ry \"/punish <player> <severity-MINIMAL|LOW|MEDIUM|HIGH|EXTREME> [notes]\"");
 			return true;
 		}
 		if (args.length >= 1) {
 
 			if (args[0].equalsIgnoreCase("complete")) {
-				List<Object> info = PunishmentUtils.punishmentBuilder.get((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE");
-				
+				List<Object> info = PunishmentUtils.punishmentBuilder
+						.get((sender instanceof Player) ? ((Player) sender).getName() : "CONSOLE");
+
 				String x = "";
-				for(int a=1;a!=args.length;a++){
+				for (int a = 1; a != args.length; a++) {
 					x = x == "" ? args[1] : x + " " + args[a];
 				}
 				Object rm = null;
 				Object ad = null;
-				for(Object o : info){
-					if(o instanceof String){
-						ad = (((String)o)+x);
+				for (Object o : info) {
+					if (o instanceof String) {
+						ad = (((String) o) + x);
 						rm = o;
 					}
-					
+
 				}
-				
+
 				info.remove(rm);
 				info.add(ad);
-				
-				 PunishmentUtils.punishmentBuilder.put((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE",info);
-				
-				
-				PunishmentUtils.finishPunishment((sender instanceof Player) ? ((Player)sender).getName() : "CONSOLE");
-				
+
+				PunishmentUtils.punishmentBuilder
+						.put((sender instanceof Player) ? ((Player) sender).getName() : "CONSOLE", info);
+
+				if (!PunishmentUtils
+						.finishPunishment((sender instanceof Player) ? ((Player) sender).getName() : "CONSOLE")) {
+					sender.sendMessage(
+							CoreUtils.prefixes("error") + "You aren't in a punishment editor. Try /punish <player>");
+				}
+
 				return true;
 			}
 

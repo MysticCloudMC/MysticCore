@@ -369,7 +369,7 @@ public class PunishmentUtils {
 		punishmentBuilder.put(staff, punishInfo);
 	}
 	
-	public static void finishPunishment(String staff){
+	public static boolean finishPunishment(String staff){
 		if(punishmentBuilder.containsKey(staff)){
 			InfringementType type = null;
 			InfringementSeverity severity = null;
@@ -392,7 +392,10 @@ public class PunishmentUtils {
 				
 			}
 			punish(staff,uid,type,severity,notes);
+			punishmentBuilder.remove(staff);
+			return true;
 		}
+		return false;
 	}
 	
 }
