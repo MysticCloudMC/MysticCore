@@ -80,9 +80,9 @@ public class MysticPlayer {
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
 		sendMessage(
-				((xp*100)<needed) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
+				((xp*100)<=needed) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
 						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fXP points.");
-		if ((xp*100)>needed) {
+		if ((xp*100)>=needed) {
 			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
