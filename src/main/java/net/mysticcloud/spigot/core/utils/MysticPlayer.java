@@ -78,17 +78,17 @@ public class MysticPlayer {
 	
 	public void gainXP(double xp) {
 		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
-		xp = this.xp;
-		needed = LevelUtils.getMainWorker().untilNextLevel((long) (xp*100));
-		Bukkit.broadcastMessage("XP: " + xp);
+		
+		needed = LevelUtils.getMainWorker().untilNextLevel((long) (this.xp*100));
+		Bukkit.broadcastMessage("XP: " + this.xp);
 		Bukkit.broadcastMessage("NEEDED: " + needed);
 		Bukkit.broadcastMessage("LEVEL: " + level);
 		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		
 		sendMessage(
-				(LevelUtils.getMainWorker().getLevel((long) (xp*100))<level) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
+				((xp*100)<needed) ? "You gained &7" + ((double) xp * 100.0) + " &fXP points. You need &7" + needed
 						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fXP points.");
-		if (LevelUtils.getMainWorker().getLevel((long) (xp*100))>level) {
+		if ((xp*100)>needed) {
 			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		}
 		level = LevelUtils.getMainWorker().getLevel((long) xp*100);
