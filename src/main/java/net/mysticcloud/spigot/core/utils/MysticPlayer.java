@@ -17,7 +17,6 @@ public class MysticPlayer {
 
 	public UUID uid;
 	private double balance = 0;
-	private long level = 1;
 	private int gems = 0;
 	private double xp = 0.0;
 	private Map<String, Object> extraData = new HashMap<>();
@@ -40,10 +39,6 @@ public class MysticPlayer {
 
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
 	void setGems(int gems) {
 		this.gems = gems;
 	}
@@ -53,7 +48,7 @@ public class MysticPlayer {
 	}
 
 	public int getLevel() {
-		return (int)level;
+		return (int) LevelUtils.getMainWorker().getLevel((long) (xp*100));
 	}
 
 	public int getGems() {
@@ -82,7 +77,6 @@ public class MysticPlayer {
 		needed = LevelUtils.getMainWorker().untilNextLevel((long) (this.xp*100));
 		Bukkit.broadcastMessage("XP: " + this.xp);
 		Bukkit.broadcastMessage("NEEDED: " + needed);
-		Bukkit.broadcastMessage("LEVEL: " + level);
 		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		
 		sendMessage(
@@ -91,18 +85,17 @@ public class MysticPlayer {
 		if ((xp*100)>needed) {
 			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
 		}
-		level = LevelUtils.getMainWorker().getLevel((long) xp*100);
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
 
 	public void levelUp() {
 //		level = level + 1;
-		sendMessage("You leveled up to level &7" + level + "&f!");
+		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
 	
 	public void levelUp(long level) {
 //		this.level = level;
-		sendMessage("You leveled up to level &7" + level + "&f!");
+		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
 	
 	public void sendMessage(String message) {
@@ -120,7 +113,6 @@ public class MysticPlayer {
 	}
 	public void setXP(double xp){
 		this.xp = xp;
-		level = LevelUtils.getMainWorker().getLevel((long) xp*100);
 	}
 	
 	public boolean isFriends(UUID uid){
