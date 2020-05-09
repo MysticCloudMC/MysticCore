@@ -11,7 +11,8 @@ public enum Holiday {
 	ST_PATRICKS("St. Patrick's Day"), 
 	CINCO_DE_MAYO("Cinco de Mayo"), 
 	AVACADO_DAY("(USA) National Avacado Day"), 
-	TEST("Test Holiday");
+	TEST("Test Holiday"),
+	MAY_THE_FORTH("May The Forth");
 	
 	String name;
 	

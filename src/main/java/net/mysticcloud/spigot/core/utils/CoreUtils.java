@@ -797,20 +797,20 @@ public class CoreUtils {
 	private static void registerSidebarList() {
 		sidebar.clear();
 		sidebar.put(15, "&c");
-		sidebar.put(14, "&eTime");
-		sidebar.put(13, "&f%time%");
+		sidebar.put(14, "&cRank");
+		sidebar.put(13, "%r");
 		sidebar.put(12, "&c&c");
-		sidebar.put(11, "&6Balance");
-		sidebar.put(10, "&6$&f %balance%");
-		sidebar.put(9, "&c&c&c");
-		sidebar.put(8, "&aLevel");
-		sidebar.put(7, "&f%level%");
-		sidebar.put(6, "&c&f&c");
-		sidebar.put(5, "&cGems");
-		sidebar.put(4, "&c\u2B50 &f%g%");
+		sidebar.put(11, "&cGems");
+		sidebar.put(10, "&c\u2B50 &f%g");
+		sidebar.put(9, "&c&f&c");
+		sidebar.put(8, "&6Balance");
+		sidebar.put(7, "&6$&f %balance");
+		sidebar.put(6, "&c&c&c");
+		sidebar.put(5, "&aLevel");
+		sidebar.put(4, "&f%level");
 		sidebar.put(3, "&b");
-		sidebar.put(2, "&b%holiday%");
-		sidebar.put(1, "&c%holidayline%");
+		sidebar.put(2, "&b%holiday");
+		sidebar.put(1, "&c%holidayline");
 	}
 
 	public static ItemStack getItem(String name) {
