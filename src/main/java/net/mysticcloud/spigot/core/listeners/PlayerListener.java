@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,6 +39,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.entities.TestZombie;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
@@ -64,6 +66,10 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
+		if (e.getMessage().toUpperCase().startsWith("!ZOMBIE") && e.getPlayer().hasPermission("mysticcloud.admin")) {
+			TestZombie zom = new TestZombie(((CraftWorld) e.getPlayer().getWorld()).getHandle());
+			zom.spawn(e.getPlayer().getLocation());
+		}
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
 			if (args.length == 3) {
@@ -260,24 +266,24 @@ public class PlayerListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "HackingSeverity") {
 			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
-			switch(e.getCurrentItem().getType()){
+			switch (e.getCurrentItem().getType()) {
 			default:
 				break;
 			case CYAN_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MINIMAL, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.HACKING, InfringementSeverity.MINIMAL, "");
 				break;
 			case LIME_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.LOW, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.HACKING, InfringementSeverity.LOW, "");
 				break;
 			case YELLOW_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.MEDIUM, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.HACKING, InfringementSeverity.MEDIUM, "");
 				break;
 			case ORANGE_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.HIGH, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.HACKING, InfringementSeverity.HIGH, "");
 				break;
 			case RED_DYE:
 				GUIManager.switchInventory(
@@ -286,34 +292,34 @@ public class PlayerListener implements Listener {
 						"PunishmentNotes");
 				break;
 			}
-			
+
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ThreatSeverity") {
 			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
-			switch(e.getCurrentItem().getType()){
+			switch (e.getCurrentItem().getType()) {
 			default:
 				break;
 			case CYAN_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MINIMAL, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.THREAT, InfringementSeverity.MINIMAL, "");
 			case LIME_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.LOW, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.THREAT, InfringementSeverity.LOW, "");
 				break;
 			case YELLOW_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.MEDIUM, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.THREAT, InfringementSeverity.MEDIUM, "");
 				break;
 			case ORANGE_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.HIGH, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.THREAT, InfringementSeverity.HIGH, "");
 				break;
 			case RED_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.THREAT, InfringementSeverity.EXTREME, "");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.THREAT, InfringementSeverity.EXTREME, "");
 				break;
 			}
-			
+
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
 			e.setCancelled(true);
@@ -322,16 +328,16 @@ public class PlayerListener implements Listener {
 			default:
 				break;
 			case PINK_DYE:
-				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.CHAT, InfringementSeverity.LOW, "Spam. ");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.CHAT, InfringementSeverity.LOW, "Spam. ");
 				break;
 			case ORANGE_DYE:
 				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
-								InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. ");
+						InfringementType.CHAT, InfringementSeverity.LOW, "Being disrespectful. ");
 				break;
 			case RED_DYE:
 				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
-										InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. ");
+						InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. ");
 				break;
 			}
 		}

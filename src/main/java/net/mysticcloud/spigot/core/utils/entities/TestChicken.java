@@ -119,7 +119,7 @@ public class TestChicken extends EntityChicken {
 			this.eggLayTime = this.random.nextInt(100) + 1;
 		}
 		
-		setMot(0,0,0);
+		setMot(0,getMot().getY(),0);
 	}
 
 	@Override
