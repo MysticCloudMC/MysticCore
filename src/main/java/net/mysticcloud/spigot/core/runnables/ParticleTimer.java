@@ -34,7 +34,7 @@ public class ParticleTimer implements Runnable {
 		}
 		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
 			try {
-				entry.getValue().display(entry.getKey(), i);
+				entry.getValue().display(Bukkit.getPlayer(entry.getKey()).getLocation(), i);
 			} catch (IllegalArgumentException ex) {
 				CoreUtils.debug("Player Particle error");
 			}
