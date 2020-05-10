@@ -20,6 +20,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%g", ""+mp.getGems());
 		string = string.replaceAll("%level", ""+mp.getLevel());
 		string = string.replaceAll("%rank", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
+		string = string.replaceAll("%prefix", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
 		string = string.replaceAll("%r", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
 		if(!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			switch(CoreUtils.getHoliday()) {

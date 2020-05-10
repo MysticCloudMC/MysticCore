@@ -12,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -39,11 +39,11 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
-import net.mysticcloud.spigot.core.utils.entities.TestChicken;
-import net.mysticcloud.spigot.core.utils.entities.TestZombie;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
@@ -166,18 +166,21 @@ public class PlayerListener implements Listener {
 
 		player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
 		String phs = CoreUtils.playerList("name");
-		if (phs.contains("%prefix%")) {
-			phs = phs.replaceAll("%prefix%", CoreUtils.getPlayerPrefix(player));
-		}
-		if (phs.contains("%player%")) {
-			phs = phs.replaceAll("%player%", player.getName());
-		}
+		phs = PlaceholderUtils.replace(player, phs);
 
 		player.setPlayerListName(CoreUtils.colorize(phs));
 
 		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
 		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), true);
+	}
+	
+	@EventHandler
+	public void onPlayerInteractEntity(PlayerInteractEntityEvent e){
+		if(CoreUtils.debugOn()){
+			CoreUtils.entityparticles.put(e.getRightClicked(), new CircleFeetFormat());
+			CoreUtils.debug("Added entity to particle list.");
+		}
 	}
 
 	@EventHandler
@@ -214,6 +217,7 @@ public class PlayerListener implements Listener {
 				return;
 			}
 		}
+		
 	}
 
 	@EventHandler
