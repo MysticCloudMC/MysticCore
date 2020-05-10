@@ -6,12 +6,12 @@ public class MysticEntityUtils {
 
 	
 	public static void registerEntities(){
-//		try{
+		try{
 			new MysticEntityType<TestChicken> ("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new).register();
 			new MysticEntityType<TestZombie> ("testzombie", TestZombie.class, EntityTypes.ZOMBIE, TestZombie::new).register();
-//		} catch(IllegalStateException ex){
-//			
-//		}
+		} catch(IllegalStateException ex){
+			
+		}
 	}
 	
 	
