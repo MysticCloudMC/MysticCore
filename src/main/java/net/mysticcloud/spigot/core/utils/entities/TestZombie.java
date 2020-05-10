@@ -68,6 +68,7 @@ import net.minecraft.server.v1_15_R1.SoundEffect;
 import net.minecraft.server.v1_15_R1.SoundEffects;
 import net.minecraft.server.v1_15_R1.TagsFluid;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class TestZombie extends EntityZombie {
@@ -288,6 +289,9 @@ public class TestZombie extends EntityZombie {
 			}
 		}
 		
+		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()),z);
+		
+		CoreUtils.debug(CoreUtils.encryptLocation(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ())));
 		
 		z = z+1;
 		

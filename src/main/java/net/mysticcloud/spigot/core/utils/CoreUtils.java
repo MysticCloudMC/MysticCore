@@ -119,7 +119,7 @@ public class CoreUtils {
 		prefixes.put("kits", colorize("&3&lKits &7>&f "));
 		prefixes.put("pets", colorize("&e&lPets &7>&f "));
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
-		prefixes.put("debug", colorize("&3&lDebug &7>&f "));
+		prefixes.put("debug", colorize("&c&lDebug &7>&f "));
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
 		prefixes.put("eco", colorize("&6&lEconomy &7>&f "));
 		prefixes.put("error", colorize("&c&lError &7>&f "));
