@@ -67,14 +67,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
-		if (e.getMessage().toUpperCase().startsWith("!ZOMBIE") && e.getPlayer().hasPermission("mysticcloud.admin")) {
-			TestZombie zom = new TestZombie(((CraftWorld) e.getPlayer().getWorld()).getHandle());
-			zom.spawn(e.getPlayer().getLocation());
-		}
-		if (e.getMessage().toUpperCase().startsWith("!CHICKEN") && e.getPlayer().hasPermission("mysticcloud.admin")) {
-			TestChicken chi = new TestChicken(((CraftWorld) e.getPlayer().getWorld()).getHandle());
-			chi.spawn(e.getPlayer().getLocation());
-		}
+		
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
 			if (args.length == 3) {
