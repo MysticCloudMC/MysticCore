@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
@@ -31,9 +32,19 @@ public class RandomFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
-		if(particle!=null)spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
+		display(Bukkit.getPlayer(uid).getLocation(), i);
+//		if(particle!=null)spawnParticle(uid, particle,
+//				Bukkit.getPlayer(uid).getLocation().clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
+//						(1.5 + CoreUtils.getRandom().nextDouble())
+//								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+//						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5)));
+	}
+	
+	@Override
+	public void display(Location loc, int i) {
+		if(particle!=null)
+			spawnParticle(particle,
+				loc.clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
 						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5)));

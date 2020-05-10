@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -69,6 +68,7 @@ import net.minecraft.server.v1_15_R1.SoundEffect;
 import net.minecraft.server.v1_15_R1.SoundEffects;
 import net.minecraft.server.v1_15_R1.TagsFluid;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class TestZombie extends EntityZombie {
 	protected static final IAttribute d = (new AttributeRanged(null, "zombie.spawnReinforcements", 0.0D, 0.0D, 1.0D))
@@ -95,6 +95,10 @@ public class TestZombie extends EntityZombie {
 	private int bC;
 
 	public int drownedConversionTime;
+	
+	private int z = 1;
+	
+	private SelectorFormat format = new SelectorFormat();
 
 	static {
 		bz = (enumdifficulty -> (enumdifficulty == EnumDifficulty.HARD));
@@ -119,6 +123,9 @@ public class TestZombie extends EntityZombie {
 		Bukkit.broadcastMessage("CustomZombie spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
+		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 	}
 
 	// public TestZombie(EntityTypes<? extends TestZombie> entitytypes, World
@@ -279,9 +286,10 @@ public class TestZombie extends EntityZombie {
 					setOnFire(8);
 			}
 		}
-		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
-		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
-		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		
+		format.display(getBukkitEntity().getLocation(), z);
+		z = z+1;
+		
 		super.movementTick();
 	}
 

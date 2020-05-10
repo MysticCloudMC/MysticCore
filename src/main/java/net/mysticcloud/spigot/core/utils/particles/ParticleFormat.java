@@ -36,6 +36,12 @@ public class ParticleFormat {
 			return;
 
 	}
+	
+	public void display(Location loc, int i) throws IllegalArgumentException {
+		if (particle == null)
+			return;
+
+	}
 
 	public void setDustOptions(DustOptions dustoptions) {
 		this.dustoptions = dustoptions;
@@ -52,11 +58,11 @@ public class ParticleFormat {
 	public void setMaterialData(MaterialData materialdata) {
 		this.materialdata = materialdata;
 	}
-
-	public void spawnParticle(UUID uid, Particle particle, Location loc, double offsetX, double offsetY,
+	
+	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY,
 			double offsetZ) {
 		if (particle.getDataType() == null) {
-			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
+			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
 			return;
 		}
 		
@@ -67,25 +73,36 @@ public class ParticleFormat {
 
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class)
-				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
 						dustoptions);
 			if (particle.getDataType() == MaterialData.class)
-				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
 						materialdata);
 			if (particle.getDataType() == ItemStack.class)
-				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
 						itemstack);
 			if (particle.getDataType() == BlockData.class)
-				Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
 						blockdata);
 		} else {
-			Bukkit.getPlayer(uid).getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
+			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
 		}
 
 	}
 
+	public void spawnParticle(UUID uid, Particle particle, Location loc, double offsetX, double offsetY,
+			double offsetZ) {
+		if(Bukkit.getPlayer(uid) == null) return;
+		spawnParticle(particle,loc,offsetX,offsetY,offsetZ);
+
+	}
+
 	public void spawnParticle(UUID uid, Particle particle, Location loc) {
-		spawnParticle(uid, particle, loc, 0, 0, 0);
+		if(Bukkit.getPlayer(uid) == null) return;
+		spawnParticle(particle, loc);
+	}
+	public void spawnParticle(Particle particle, Location loc) {
+		spawnParticle(particle, loc, 0, 0, 0);
 	}
 
 	public List<Particle> allowedParticles() {
