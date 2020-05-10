@@ -39,6 +39,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.entities.TestChicken;
 import net.mysticcloud.spigot.core.utils.entities.TestZombie;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
@@ -69,6 +70,10 @@ public class PlayerListener implements Listener {
 		if (e.getMessage().toUpperCase().startsWith("!ZOMBIE") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			TestZombie zom = new TestZombie(((CraftWorld) e.getPlayer().getWorld()).getHandle());
 			zom.spawn(e.getPlayer().getLocation());
+		}
+		if (e.getMessage().toUpperCase().startsWith("!CHICKEN") && e.getPlayer().hasPermission("mysticcloud.admin")) {
+			TestChicken chi = new TestChicken(((CraftWorld) e.getPlayer().getWorld()).getHandle());
+			chi.spawn(e.getPlayer().getLocation());
 		}
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
