@@ -80,101 +80,49 @@ public class Pet extends EntityArmorStand {
 		distance = Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - locX(), 2)
 				+ Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - locX(), 2));
 
-		if (distance > 4) {
-
-		}
-//		
-//		forMot = 0.8F;
-//	    
-////	    
-////	    
-////
-////	    
+		
 //////	    SOHCAHTOA
 //////	    
 //////	       /|
 //////	   H  / |
 //////	     /  | O
 //////	    /___|
-//////	      A
-////	    
-
-		// sin& = o/h
-////	    
-////	    tan& = o/a
-////		& = atan(o/a)
-////	    
-////		
-////		
-////		tan& = o/a
-////		
-////		a(tan&) = o
-////		    
-////		            
-////		1/(tan&) = a/o               
-////		
-////		o/(tan&) = a
-////		
-//////	    
-//////	    
-//////	    
-//////	    
-//////	    
-////	    
-//////	    forMot = (float) Math.sqrt(Math.pow(passenger.motX, 2) + Math.pow(passenger.motZ, 2));
-////	    
-////	    
-////	    
-////	    
-////	    
-////	 
-////	    
-////	       // Apply the speed
-//	   
-////	    
-////	    I=(float) 1.0;
-////	    
-////	    CoreUtils.debug("\nDX:" + dx + "\nDZ:" + dz + "\nDX2:" + dx2 + "\nDZ2:" + dz2);
-////		
-////		
-////		
-////		sin = y/r
-////		cos = x/r
-////		tan = y/x
-////		
-////	    
-////	    
-//		
-//	    
 
 		dx = 0;
 		dz = 0;
+		
+		
+		
+		
+		
+		
+		
 		float d1 = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - (locX()), 2)));
 		float d2 = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
 		CoreUtils.debug(Math.toDegrees(Math.tan(d2/d1)));
 		this.yaw = (float) Math.toDegrees(Math.tan(d2/d1));
-		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
-				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
-						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
-				|| (new Location(getWorld().getWorld(), locX() - 1, locY(), locZ()).getBlock()
-						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
-				|| new Location(getWorld().getWorld(), locX(), locY(), locZ() - 1).getBlock()
-						.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-			if (new Location(getWorld().getWorld(), locX(), locY() - 1, locZ()).getBlock().getRelative(BlockFace.DOWN)
-					.getType() != Material.AIR) {
-//				this.setLocation(locX(), locY()+1.1, locZ(), 0, 0);
-			}
-		}
-		if (distance > 2) {
-
-			dx = (distance * (Math.sin(yaw))) / 100;
-			dz = -(distance * (Math.cos(yaw))) / 100;
-
-//			dx = (Bukkit.getPlayer(owner).getLocation().getX() - locX > 0) ? 0.1 : -0.1;
-//			dy = (Bukkit.getPlayer(owner).getLocation().getZ() - locZ > 0) ? 0.1 : -0.1;
-
-			setMot(dx, 0, dz);
-		}
+//		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
+//				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
+//						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
+//				|| (new Location(getWorld().getWorld(), locX() - 1, locY(), locZ()).getBlock()
+//						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
+//				|| new Location(getWorld().getWorld(), locX(), locY(), locZ() - 1).getBlock()
+//						.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+//			if (new Location(getWorld().getWorld(), locX(), locY() - 1, locZ()).getBlock().getRelative(BlockFace.DOWN)
+//					.getType() != Material.AIR) {
+////				this.setLocation(locX(), locY()+1.1, locZ(), 0, 0);
+//			}
+//		}
+//		if (distance > 2) {
+//
+//			dx = (distance * (Math.sin(yaw))) / 100;
+//			dz = -(distance * (Math.cos(yaw))) / 100;
+//
+////			dx = (Bukkit.getPlayer(owner).getLocation().getX() - locX > 0) ? 0.1 : -0.1;
+////			dy = (Bukkit.getPlayer(owner).getLocation().getZ() - locZ > 0) ? 0.1 : -0.1;
+//
+//			setMot(dx, 0, dz);
+//		}
 
 		if (dx != 0 && dz != 0) {
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
