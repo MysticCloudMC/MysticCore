@@ -279,7 +279,9 @@ public class TestZombie extends EntityZombie {
 					setOnFire(8);
 			}
 		}
-		((Zombie)getBukkitEntity()).getEquipment().setHelmet(new org.bukkit.inventory.ItemStack(Material.LEATHER_HELMET));
+		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
+		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 		super.movementTick();
 	}
 
