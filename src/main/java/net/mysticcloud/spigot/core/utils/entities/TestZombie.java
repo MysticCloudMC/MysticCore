@@ -156,7 +156,6 @@ public class TestZombie extends EntityZombie {
 
 	@Override
 	protected void initAttributes() {
-		super.initAttributes();
 		getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(4.0D);
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(35.0D);
 		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.11500000417232513D);
