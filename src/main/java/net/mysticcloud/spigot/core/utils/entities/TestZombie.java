@@ -1,9 +1,5 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
-import java.awt.Event;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -11,10 +7,10 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityTransformEvent;
 
 import net.minecraft.server.v1_15_R1.AttributeInstance;
@@ -27,9 +23,7 @@ import net.minecraft.server.v1_15_R1.DataWatcher;
 import net.minecraft.server.v1_15_R1.DataWatcherObject;
 import net.minecraft.server.v1_15_R1.DataWatcherRegistry;
 import net.minecraft.server.v1_15_R1.DifficultyDamageScaler;
-import net.minecraft.server.v1_15_R1.DynamicOpsNBT;
 import net.minecraft.server.v1_15_R1.Entity;
-import net.minecraft.server.v1_15_R1.EntityChicken;
 import net.minecraft.server.v1_15_R1.EntityCreature;
 import net.minecraft.server.v1_15_R1.EntityCreeper;
 import net.minecraft.server.v1_15_R1.EntityHuman;
@@ -40,10 +34,8 @@ import net.minecraft.server.v1_15_R1.EntityPose;
 import net.minecraft.server.v1_15_R1.EntitySize;
 import net.minecraft.server.v1_15_R1.EntityTurtle;
 import net.minecraft.server.v1_15_R1.EntityTypes;
-import net.minecraft.server.v1_15_R1.EntityVillager;
 import net.minecraft.server.v1_15_R1.EntityVillagerAbstract;
 import net.minecraft.server.v1_15_R1.EntityZombie;
-import net.minecraft.server.v1_15_R1.EntityZombieVillager;
 import net.minecraft.server.v1_15_R1.EnumDifficulty;
 import net.minecraft.server.v1_15_R1.EnumHand;
 import net.minecraft.server.v1_15_R1.EnumItemSlot;
@@ -55,14 +47,12 @@ import net.minecraft.server.v1_15_R1.GenericAttributes;
 import net.minecraft.server.v1_15_R1.GroupDataEntity;
 import net.minecraft.server.v1_15_R1.IAttribute;
 import net.minecraft.server.v1_15_R1.IBlockData;
-import net.minecraft.server.v1_15_R1.IEntitySelector;
 import net.minecraft.server.v1_15_R1.Item;
 import net.minecraft.server.v1_15_R1.ItemMonsterEgg;
 import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.MathHelper;
 import net.minecraft.server.v1_15_R1.MinecraftServer;
-import net.minecraft.server.v1_15_R1.NBTBase;
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
 import net.minecraft.server.v1_15_R1.Navigation;
 import net.minecraft.server.v1_15_R1.PathfinderGoalBreakDoor;
@@ -291,6 +281,7 @@ public class TestZombie extends EntityZombie {
 					setOnFire(8);
 			}
 		}
+		((Zombie)getBukkitEntity()).getEquipment().setHelmet(new org.bukkit.inventory.ItemStack(Material.LEATHER_HELMET));
 		super.movementTick();
 	}
 
