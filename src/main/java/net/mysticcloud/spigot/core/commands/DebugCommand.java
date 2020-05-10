@@ -10,6 +10,8 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.entities.TestChicken;
 import net.mysticcloud.spigot.core.utils.entities.TestZombie;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class DebugCommand implements CommandExecutor {
 
@@ -24,9 +26,11 @@ public class DebugCommand implements CommandExecutor {
 				if(CoreUtils.debugOn()){
 					TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 					zom.spawn(((Player)sender).getLocation());
+					CoreUtils.entityparticles.put(zom.getBukkitEntity(),new SelectorFormat());
 				} else {
 					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 					chi.spawn(((Player)sender).getLocation());
+					CoreUtils.entityparticles.put(chi.getBukkitEntity(),new CircleFeetFormat());
 			}
 		}
 		return true;

@@ -26,6 +26,7 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
@@ -65,6 +66,7 @@ public class CoreUtils {
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
+	public static Map<Entity, ParticleFormat> entityparticles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
