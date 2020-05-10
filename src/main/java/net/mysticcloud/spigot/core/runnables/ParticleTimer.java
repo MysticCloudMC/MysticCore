@@ -23,26 +23,26 @@ public class ParticleTimer implements Runnable {
 
 		if (i > 360)
 			i = 1;
-
-		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
-			try {
-				entry.getValue().display(entry.getKey(), i);
-			} catch (IllegalArgumentException ex) {
-
-			}
-			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
-
-		}
-
 		for (Entry<Entity, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
 			try {
 				entry.getValue().display(entry.getKey().getLocation(), i);
 			} catch (IllegalArgumentException ex) {
-
+				CoreUtils.debug("Entity Particle error");
 			}
 			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 
 		}
+		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
+			try {
+				entry.getValue().display(entry.getKey(), i);
+			} catch (IllegalArgumentException ex) {
+				CoreUtils.debug("Player Particle error");
+			}
+			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
+
+		}
+
+		
 		i = i + 1;
 
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new ParticleTimer(i), 1);
