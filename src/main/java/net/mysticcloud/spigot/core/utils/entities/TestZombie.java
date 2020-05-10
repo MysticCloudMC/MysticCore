@@ -162,7 +162,6 @@ public class TestZombie extends EntityZombie {
 		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.11500000417232513D);
 		getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(10.0D);
 		getAttributeInstance(GenericAttributes.ARMOR).setValue(5.0D);
-		getAttributeMap().b(d).setValue(this.random.nextDouble() * 0.10000000149011612D);
 	}
 
 	@Override
