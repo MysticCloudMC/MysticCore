@@ -21,19 +21,11 @@ import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.MathHelper;
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.PathfinderGoalBreed;
-import net.minecraft.server.v1_15_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_15_R1.PathfinderGoalFollowParent;
-import net.minecraft.server.v1_15_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_15_R1.PathfinderGoalPanic;
-import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStrollLand;
-import net.minecraft.server.v1_15_R1.PathfinderGoalTempt;
 import net.minecraft.server.v1_15_R1.RecipeItemStack;
 import net.minecraft.server.v1_15_R1.SoundEffect;
 import net.minecraft.server.v1_15_R1.SoundEffects;
-import net.minecraft.server.v1_15_R1.Vec3D;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
 public class TestChicken extends EntityChicken {
 
@@ -53,6 +45,10 @@ public class TestChicken extends EntityChicken {
 	public int eggLayTime;
 
 	public boolean bC;
+	
+	private int z = 1;
+	
+	private CircleFeetFormat format = new CircleFeetFormat();
 
 	public TestChicken(World world, EntityTypes<? extends EntityChicken> entityType) {
 		this(world);
@@ -112,7 +108,12 @@ public class TestChicken extends EntityChicken {
 //		if (!this.onGround && vec3d.y < 0.0D)
 //			setMot(vec3d.d(1.0D, 0.6D, 1.0D));
 //		this.bw += this.bA * 2.0F;
-		a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+		
+		format.display(getBukkitEntity().getLocation(), z);
+		
+		z = z + 1;
+		
+//		a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 		if (!this.world.isClientSide && isAlive() && !isBaby() && !isChickenJockey() && --this.eggLayTime <= 0) {
 //			a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 			a(Items.EGG);

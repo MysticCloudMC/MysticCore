@@ -248,6 +248,7 @@ public class TestZombie extends EntityZombie {
 
 	@Override
 	public void tick() {
+		format.display(getBukkitEntity().getLocation(), z);
 		if (!this.world.isClientSide && isAlive())
 			if (isDrownConverting()) {
 				int elapsedTicks = MinecraftServer.currentTick - this.lastTick;
@@ -287,7 +288,7 @@ public class TestZombie extends EntityZombie {
 			}
 		}
 		
-		format.display(getBukkitEntity().getLocation(), z);
+		
 		z = z+1;
 		
 		super.movementTick();

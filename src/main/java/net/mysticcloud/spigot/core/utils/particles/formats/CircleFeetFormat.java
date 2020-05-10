@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.inventory.ItemStack;
@@ -29,12 +30,18 @@ public class CircleFeetFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		display(Bukkit.getPlayer(uid).getLocation(),i);
+
+	}
+	
+	@Override
+	public void display(Location loc, int i) {
 		if(particle == null) return;
-		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
+		spawnParticle(particle,
+				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
 						0.1, Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
-		spawnParticle(uid, particle,
-				Bukkit.getPlayer(uid).getLocation().clone().add(
+		spawnParticle(particle,
+				loc.clone().add(
 						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))), 0.1,
 						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));
 
