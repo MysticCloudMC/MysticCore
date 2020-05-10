@@ -66,7 +66,7 @@ public class CoreUtils {
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
-	public static Map<Entity, ParticleFormat> entityparticles = new HashMap<>();
+	public static Map<UUID, ParticleFormat> entityparticles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
 	public static String prefix = "MysticCloud";

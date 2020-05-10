@@ -26,11 +26,11 @@ public class DebugCommand implements CommandExecutor {
 				if(CoreUtils.debugOn()){
 					TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 					zom.spawn(((Player)sender).getLocation());
-					CoreUtils.entityparticles.put(zom.getBukkitEntity(),new SelectorFormat());
+					CoreUtils.entityparticles.put(zom.getBukkitEntity().getUniqueId(),new SelectorFormat());
 				} else {
 					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 					chi.spawn(((Player)sender).getLocation());
-					CoreUtils.entityparticles.put(chi.getBukkitEntity(),new CircleFeetFormat());
+					CoreUtils.entityparticles.put(chi.getBukkitEntity().getUniqueId(),new CircleFeetFormat());
 			}
 		}
 		return true;

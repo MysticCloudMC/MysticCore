@@ -178,7 +178,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e){
 		if(CoreUtils.debugOn()){
-			CoreUtils.entityparticles.put(e.getRightClicked(), new CircleFeetFormat());
+			CoreUtils.entityparticles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");
 		}
 	}

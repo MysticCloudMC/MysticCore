@@ -23,9 +23,9 @@ public class ParticleTimer implements Runnable {
 
 		if (i > 360)
 			i = 1;
-		for (Entry<Entity, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
+		for (Entry<UUID, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
 			try {
-				entry.getValue().display(entry.getKey().getLocation(), i);
+				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation(), i);
 			} catch (IllegalArgumentException ex) {
 				CoreUtils.debug("Entity Particle error");
 			}
