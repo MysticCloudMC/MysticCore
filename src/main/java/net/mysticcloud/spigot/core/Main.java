@@ -24,6 +24,7 @@ import net.mysticcloud.spigot.core.commands.UUIDCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
+import net.mysticcloud.spigot.core.listeners.PunishmentGUIListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -40,6 +41,7 @@ public class Main extends JavaPlugin {
 		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
 		new PlayerListener(this);
+		new PunishmentGUIListener(this);
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
 		new SettingsCommand("settings", this);
