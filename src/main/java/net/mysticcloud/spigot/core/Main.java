@@ -20,6 +20,7 @@ import net.mysticcloud.spigot.core.commands.SeenCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
 import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
+import net.mysticcloud.spigot.core.commands.TeleportCommand;
 import net.mysticcloud.spigot.core.commands.UUIDCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
@@ -60,6 +61,7 @@ public class Main extends JavaPlugin {
 		new UUIDCommand(this, "uuid");
 		new SeenCommand(this, "seen");
 		new FriendCommand(this, "friends", "friend");
+		new TeleportCommand(this,"tp","tpa","tpaccept","tpdeny","tphere","tpoff");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

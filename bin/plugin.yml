@@ -77,3 +77,8 @@ commands:
     description: Look up when a player was last seen.
   friends: 
   friend: 
+  tp:
+  tpaccept:
+  tpdeny:
+  tpa:
+  

@@ -52,6 +52,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
+import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -271,6 +272,18 @@ public class CoreUtils {
 
 		return date;
 
+	}
+	
+public static void teleportPlayer(String sender, Player player, Player other){
+		
+		TeleportUtils.teleportPlayer(sender, player,other);
+	}
+	public static void teleportPlayer(Player player, Player other){
+		TeleportUtils.teleportPlayer(player,other);
+	}
+	
+	public static void teleportPlayer(Player player, Player other, boolean sender){
+		TeleportUtils.teleportPlayer(player,other,sender);
 	}
 
 	public static long LookupLastSeen(UUID player) {
