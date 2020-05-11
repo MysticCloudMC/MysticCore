@@ -76,9 +76,16 @@ commands:
     usage: /seen <player>
     description: Look up when a player was last seen.
   friends: 
+    description: Get your friends list.
   friend: 
   tp:
+    aliases: ['tele','teleport']
+    description: Teleport yourself or a player to another player
+    
   tpaccept:
+    description: Accept teleport requests
   tpdeny:
+    description: Deny teleport requests
   tpa:
+    description: Request to teleport to another player.
   
