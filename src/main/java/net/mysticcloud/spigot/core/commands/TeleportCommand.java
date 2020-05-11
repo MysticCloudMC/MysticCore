@@ -18,10 +18,10 @@ import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 public class TeleportCommand implements CommandExecutor {
 
 	public TeleportCommand(Main plugin, String... cmds) {
-		for(String cmd : cmds){
+		for (String cmd : cmds) {
 			plugin.getCommand(cmd).setExecutor(this);
 		}
-		
+
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -65,50 +65,50 @@ public class TeleportCommand implements CommandExecutor {
 
 			}
 		}
-		
-		if(cmd.getName().equalsIgnoreCase("tpa")){
-			if(sender instanceof Player){
-				if(sender.hasPermission("mysticcloud.cmd.tpa")){
-					if(args.length == 0){
-						//Not enough args
-					}
-					if(args.length >= 1){
-						if(Bukkit.getPlayer(args[0]) != null){
-							TeleportUtils.requestTeleport(((Player)sender), Bukkit.getPlayer(args[0]));
-						} else {
-							//Offline player
-						}
-					}
-				} else {
-					//No permission.
-				}
-			} else {
-				//Console sender
-			}
+
+		if (cmd.getName().equalsIgnoreCase("tpa")) {
+			if (sender instanceof Player)
+				if (sender.hasPermission("mysticcloud.cmd.tpa")) {
+					if (args.length == 0)
+						sender.sendMessage(CoreUtils.prefixes("teleport") + "Try \"/tpa <player>\"");
+
+					if (args.length >= 1)
+						if (Bukkit.getPlayer(args[0]) != null)
+							TeleportUtils.requestTeleport(((Player) sender), Bukkit.getPlayer(args[0]));
+						else
+							sender.sendMessage(CoreUtils.prefixes("teleport") + "That player isn't online.");
+
+				} else
+					sender.sendMessage(
+							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
+
+			else
+				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
+
 		}
-		
-		if(cmd.getName().equalsIgnoreCase("tpaccept")){
-			if(sender instanceof Player){
-				 if(sender.hasPermission("mysticcloud.cmd.tpaccept")){
-					 TeleportUtils.acceptTeleport(((Player)sender));
-				 } else {
-					 //No perms
-				 }
-			} else {
-				//Console sender
-			}
-		}
-		if(cmd.getName().equalsIgnoreCase("tpdeny")){
-			if(sender instanceof Player){
-				 if(sender.hasPermission("mysticcloud.cmd.tpdeny")){
-					 TeleportUtils.denyTeleport(((Player)sender));
-				 } else {
-					 //No perms
-				 }
-			} else {
-				//Console sender
-			}
-		}
+
+		if (cmd.getName().equalsIgnoreCase("tpaccept"))
+			if (sender instanceof Player)
+				if (sender.hasPermission("mysticcloud.cmd.tpaccept"))
+					TeleportUtils.acceptTeleport(((Player) sender));
+				else
+					sender.sendMessage(
+							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
+
+			else
+				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
+
+		if (cmd.getName().equalsIgnoreCase("tpdeny"))
+			if (sender instanceof Player)
+				if (sender.hasPermission("mysticcloud.cmd.tpdeny"))
+					TeleportUtils.denyTeleport(((Player) sender));
+				else
+					sender.sendMessage(
+							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
+
+			else
+				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
+
 		return true;
 	}
 }

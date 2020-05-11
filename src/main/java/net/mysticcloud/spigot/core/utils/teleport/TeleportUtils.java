@@ -17,6 +17,7 @@ public class TeleportUtils {
 	public static TeleportResult requestTeleport(Player player, Player other) {
 		if (teleportRequests.containsKey(other.getUniqueId())) {
 			if (teleportRequests.get(other.getUniqueId()).equals(player.getUniqueId())) {
+				player.sendMessage(CoreUtils.prefixes("teleport") + "You've already requested to teleport to that player.");
 				return TeleportResult.ALREADY_REQUESTED;
 			}
 		}
