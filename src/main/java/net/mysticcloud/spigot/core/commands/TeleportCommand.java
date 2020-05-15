@@ -109,6 +109,6 @@ public class TeleportCommand implements CommandExecutor {
 			else
 				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
 
-		return true;
+		  return true;
 	}
 }
