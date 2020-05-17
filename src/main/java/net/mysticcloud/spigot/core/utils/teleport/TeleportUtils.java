@@ -37,7 +37,7 @@ public class TeleportUtils {
 		Bukkit.broadcastMessage("" + TimeUnit.MILLISECONDS.convert(requestTimeout, TimeUnit.SECONDS));
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
 				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
-				TimeUnit.MILLISECONDS.convert(requestTimeout, TimeUnit.SECONDS) * 20);
+				TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS) * 20);
 
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
