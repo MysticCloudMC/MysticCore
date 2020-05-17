@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.runnables.TimeoutTeleportationRequest;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class TeleportUtils {
@@ -31,6 +34,11 @@ public class TeleportUtils {
 		}
 		teleportRequests.put(other.getUniqueId(), player.getUniqueId());
 		// TODO put a timer here
+		Bukkit.broadcastMessage("" + TimeUnit.MILLISECONDS.convert(requestTimeout, TimeUnit.SECONDS));
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
+				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
+				TimeUnit.MILLISECONDS.convert(requestTimeout, TimeUnit.SECONDS) * 20);
+
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpaccept&f to &aaccept&f the request."));
@@ -38,6 +46,17 @@ public class TeleportUtils {
 		other.sendMessage(CoreUtils.colorize(
 				"You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
 		return TeleportResult.REQUESTED;
+	}
+
+	public static void timeoutRequest(UUID player, UUID other) {
+		if(teleportRequests.containsKey(other)) {
+			if(teleportRequests.get(other).equals(player)) {
+				teleportRequests.remove(other);
+				if(Bukkit.getPlayer(player) != null) {
+					Bukkit.getPlayer(player).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
+				}
+			}
+		}
 	}
 
 	public static TeleportResult acceptTeleport(Player player) {
