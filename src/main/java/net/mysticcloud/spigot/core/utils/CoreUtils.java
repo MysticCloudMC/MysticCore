@@ -273,17 +273,18 @@ public class CoreUtils {
 		return date;
 
 	}
-	
-public static void teleportPlayer(String sender, Player player, Player other){
-		
-		TeleportUtils.teleportPlayer(sender, player,other);
+
+	public static void teleportPlayer(String sender, Player player, Player other) {
+
+		TeleportUtils.teleportPlayer(sender, player, other);
 	}
-	public static void teleportPlayer(Player player, Player other){
-		TeleportUtils.teleportPlayer(player,other);
+
+	public static void teleportPlayer(Player player, Player other) {
+		TeleportUtils.teleportPlayer(player, other);
 	}
-	
-	public static void teleportPlayer(Player player, Player other, boolean sender){
-		TeleportUtils.teleportPlayer(player,other,sender);
+
+	public static void teleportPlayer(Player player, Player other, boolean sender) {
+		TeleportUtils.teleportPlayer(player, other, sender);
 	}
 
 	public static long LookupLastSeen(UUID player) {
@@ -1250,25 +1251,29 @@ public static void teleportPlayer(String sender, Player player, Player other){
 		int weeks = (((l / 60) / 60) / 24) / 7;
 
 		if (weeks > 0) {
-			return ncolor + weeks + tcolor + " weeks, " + ncolor + days + tcolor + " days, " + ncolor + hours + tcolor
-					+ " hours, " + ncolor + min + tcolor + " minutes, and " + ncolor + sec + tcolor + " seconds";
+			return ncolor + weeks + tcolor + " weeks" + (days > 0 ? ", " + ncolor + days + tcolor + " days" : "")
+					+ (hours > 0 ? ", " + ncolor + hours + tcolor + " hours" : "")
+					+ (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "")
+					+ (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
 		}
 		if (days > 0) {
-			return ncolor + days + tcolor + " days, " + ncolor + hours + tcolor + " hours, " + ncolor + min + tcolor
-					+ " minutes, and " + ncolor + sec + tcolor + " seconds";
+			return ncolor + days + tcolor + " days" + (hours > 0 ? ", " + ncolor + hours + tcolor + " hours" : "")
+					+ (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "")
+					+ (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
 		}
 		if (hours > 0) {
-			return ncolor + hours + tcolor + " hours, " + ncolor + min + tcolor + " minutes, and " + ncolor + sec
-					+ tcolor + " seconds";
+			return ncolor + hours + tcolor + " hours" + (min > 0 ? ", " + ncolor + min + tcolor + " minutes" : "")
+					+ (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
 		}
 		if (min > 0) {
-			return ncolor + min + tcolor + " minutes, and " + ncolor + sec + tcolor + " seconds";
+			return ncolor + min + tcolor + " minutes"
+					+ (sec > 0 ? ", and " + ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds") : "");
 		}
 		if (sec > 0) {
-			return ncolor + sec + tcolor + " seconds";
+			return ncolor + sec + tcolor + " " + (sec == 1 ? "second" : "seconds");
 		}
 
-		return ncolor + "less than a second" + tcolor + ". Chill out.";
+		return ncolor + "less than a second" + tcolor + "";
 	}
 
 	public static String getSimpleTimeFormat(long ms) {
