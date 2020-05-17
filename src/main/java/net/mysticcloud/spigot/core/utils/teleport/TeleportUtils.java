@@ -14,7 +14,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 public class TeleportUtils {
 
 	private static Map<UUID, UUID> teleportRequests = new HashMap<>();
-	private static long requestTimeout = 3000;
+	private static long requestTimeout = 120000;
 	private static List<UUID> disabledRequests = new ArrayList<>();
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
@@ -31,7 +31,7 @@ public class TeleportUtils {
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpaccept&f to &aaccept&f the request."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpdeny&f to &cdeny&f the request."));
-		other.sendMessage(CoreUtils.colorize("You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7")));
+		other.sendMessage(CoreUtils.colorize("You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
 		return TeleportResult.REQUESTED;
 	}
 

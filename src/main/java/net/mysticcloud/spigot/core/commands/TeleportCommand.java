@@ -135,7 +135,7 @@ public class TeleportCommand implements CommandExecutor {
 				if (sender.hasPermission("mysticcloud.admin.tpoff")) {
 					if (args.length == 0)
 						sender.sendMessage(CoreUtils.prefixes("teleport") + "Teleport requests "
-								+ (TeleportUtils.toggleTeleportRequests((Player) sender) ? "&cdisabled&f."
+								+ CoreUtils.colorize(TeleportUtils.toggleTeleportRequests((Player) sender) ? "&cdisabled&f."
 										: "&aenabled&f."));
 
 				} else
