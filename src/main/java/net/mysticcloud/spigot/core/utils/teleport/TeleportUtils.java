@@ -1,6 +1,8 @@
 package net.mysticcloud.spigot.core.utils.teleport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -13,11 +15,13 @@ public class TeleportUtils {
 
 	private static Map<UUID, UUID> teleportRequests = new HashMap<>();
 	private static long requestTimeout = 3000;
+	private static List<UUID> disabledRequests = new ArrayList<>();
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
 		if (teleportRequests.containsKey(other.getUniqueId())) {
 			if (teleportRequests.get(other.getUniqueId()).equals(player.getUniqueId())) {
-				player.sendMessage(CoreUtils.prefixes("teleport") + "You've already requested to teleport to that player.");
+				player.sendMessage(
+						CoreUtils.prefixes("teleport") + "You've already requested to teleport to that player.");
 				return TeleportResult.ALREADY_REQUESTED;
 			}
 		}
@@ -26,7 +30,7 @@ public class TeleportUtils {
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpaccept&f to &aaccept&f the request."));
-		other.sendMessage(CoreUtils.colorize("Type &7/tpdeny&f to &edeny&f the request."));
+		other.sendMessage(CoreUtils.colorize("Type &7/tpdeny&f to &cdeny&f the request."));
 		other.sendMessage(CoreUtils.colorize("You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7")));
 		return TeleportResult.REQUESTED;
 	}
@@ -78,6 +82,29 @@ public class TeleportUtils {
 		if (other.hasPermission("mysticcloud.admin"))
 			other.sendMessage(CoreUtils
 					.colorize(CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f has teleported to you"));
+	}
+
+	public static boolean disableTeleportRequests(Player player) {
+		if(disabledRequests.contains(player.getUniqueId())) {
+			disabledRequests.remove(player.getUniqueId());
+		}
+		return disabledRequests.contains(player.getUniqueId());
+	}
+
+	public static boolean enableTeleportRequests(Player player) {
+		if(!disabledRequests.contains(player.getUniqueId())) {
+			disabledRequests.add(player.getUniqueId());
+		}
+		return disabledRequests.contains(player.getUniqueId());
+	}
+
+	public static boolean toggleTeleportRequests(Player player) {
+		if(disabledRequests.contains(player.getUniqueId())) {
+			disabledRequests.remove(player.getUniqueId());
+		} else {
+			disabledRequests.add(player.getUniqueId());
+		}
+		return disabledRequests.contains(player.getUniqueId());
 	}
 
 }

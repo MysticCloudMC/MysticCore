@@ -109,6 +109,44 @@ public class TeleportCommand implements CommandExecutor {
 			else
 				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
 
-		  return true;
+		if (cmd.getName().equalsIgnoreCase("tphere")) {
+			if (sender instanceof Player)
+				if (sender.hasPermission("mysticcloud.admin.tphere")) {
+					if (args.length == 0)
+						sender.sendMessage(CoreUtils.prefixes("teleport") + "Try \"/tphere <player>\"");
+
+					if (args.length >= 1)
+						if (Bukkit.getPlayer(args[0]) != null)
+							TeleportUtils.teleportPlayer(Bukkit.getPlayer(args[0]), ((Player) sender));
+						else
+							sender.sendMessage(CoreUtils.prefixes("teleport") + "That player isn't online.");
+
+				} else
+					sender.sendMessage(
+							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
+
+			else
+				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
+
+		}
+
+		if (cmd.getName().equalsIgnoreCase("tpoff")) {
+			if (sender instanceof Player)
+				if (sender.hasPermission("mysticcloud.admin.tpoff")) {
+					if (args.length == 0)
+						sender.sendMessage(CoreUtils.prefixes("teleport") + "Teleport requests "
+								+ (TeleportUtils.toggleTeleportRequests((Player) sender) ? "&cdisabled&f."
+										: "&aenabled&f."));
+
+				} else
+					sender.sendMessage(
+							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
+
+			else
+				sender.sendMessage(CoreUtils.prefixes("teleport") + "Player only command.");
+
+		}
+
+		return true;
 	}
 }
