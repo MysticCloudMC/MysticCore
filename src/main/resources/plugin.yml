@@ -81,11 +81,14 @@ commands:
   tp:
     aliases: ['tele','teleport']
     description: Teleport yourself or a player to another player
-    
   tpaccept:
     description: Accept teleport requests
   tpdeny:
     description: Deny teleport requests
   tpa:
     description: Request to teleport to another player.
+  tphere:
+    description: Teleport someone to you.
+  tpoff:
+    description: Disable teleportation requests.
   
