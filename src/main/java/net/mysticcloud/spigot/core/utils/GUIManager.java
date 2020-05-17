@@ -129,8 +129,8 @@ public class GUIManager {
 
 		}
 		inv.setConfiguration(c);
-		c.clear();
-		c = null;
+//		c.clear();
+//		c = null;
 		return inv.getInventory();
 
 	}
