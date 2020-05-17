@@ -23,7 +23,7 @@ public class GUIManager {
 	private static Inventory waitingInv = null;
 	private static boolean init = false;
 
-	public static void init() {
+	public static boolean init() {
 		if (!init) {
 			InventoryCreator inv = new InventoryCreator(CoreUtils.colorize("&7Waiting..."), null, 9);
 
@@ -33,6 +33,7 @@ public class GUIManager {
 			waitingInv = inv.getInventory();
 			init = true;
 		}
+		return init;
 
 	}
 
@@ -47,6 +48,9 @@ public class GUIManager {
 	}
 
 	public static void switchInventory(Player player, Inventory inventory, String title) {
+		if(waitingInv == null) {
+			CoreUtils.debug("Waiting inv failed to init. Retrying. Result: " + init());
+		}
 		player.openInventory(waitingInv);
 		invTracker.put(player.getUniqueId(), "waiting");
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
