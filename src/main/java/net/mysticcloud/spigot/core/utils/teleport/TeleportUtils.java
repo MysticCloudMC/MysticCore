@@ -14,7 +14,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 public class TeleportUtils {
 
 	private static Map<UUID, UUID> teleportRequests = new HashMap<>();
-	private static long requestTimeout = 86301000;
+	private static long requestTimeout = 90000;
 	private static List<UUID> disabledRequests = new ArrayList<>();
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
