@@ -25,13 +25,18 @@ public class TeleportUtils {
 				return TeleportResult.ALREADY_REQUESTED;
 			}
 		}
+		if (disabledRequests.contains(other.getUniqueId())) {
+			player.sendMessage(CoreUtils.prefixes("teleport") + "That player has teleportation requests disabled.");
+			return TeleportResult.REQUESTS_DISABLED;
+		}
 		teleportRequests.put(other.getUniqueId(), player.getUniqueId());
 		// TODO put a timer here
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpaccept&f to &aaccept&f the request."));
 		other.sendMessage(CoreUtils.colorize("Type &7/tpdeny&f to &cdeny&f the request."));
-		other.sendMessage(CoreUtils.colorize("You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
+		other.sendMessage(CoreUtils.colorize(
+				"You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
 		return TeleportResult.REQUESTED;
 	}
 
@@ -85,21 +90,21 @@ public class TeleportUtils {
 	}
 
 	public static boolean disableTeleportRequests(Player player) {
-		if(disabledRequests.contains(player.getUniqueId())) {
+		if (disabledRequests.contains(player.getUniqueId())) {
 			disabledRequests.remove(player.getUniqueId());
 		}
 		return disabledRequests.contains(player.getUniqueId());
 	}
 
 	public static boolean enableTeleportRequests(Player player) {
-		if(!disabledRequests.contains(player.getUniqueId())) {
+		if (!disabledRequests.contains(player.getUniqueId())) {
 			disabledRequests.add(player.getUniqueId());
 		}
 		return disabledRequests.contains(player.getUniqueId());
 	}
 
 	public static boolean toggleTeleportRequests(Player player) {
-		if(disabledRequests.contains(player.getUniqueId())) {
+		if (disabledRequests.contains(player.getUniqueId())) {
 			disabledRequests.remove(player.getUniqueId());
 		} else {
 			disabledRequests.add(player.getUniqueId());

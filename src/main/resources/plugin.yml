@@ -90,5 +90,5 @@ commands:
   tphere:
     description: Teleport someone to you.
   tpoff:
-    description: Disable teleportation requests.
+    description: Toggle teleportation requests.
   
