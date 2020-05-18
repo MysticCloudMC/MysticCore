@@ -238,8 +238,6 @@ public class PlayerListener implements Listener {
 			return;
 		if (e.getClickedInventory() == null)
 			return;
-		if (e.getInventory().getHolder() == null)
-			e.setCancelled(true);
 		
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)

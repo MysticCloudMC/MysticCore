@@ -36,8 +36,6 @@ public class PunishmentGUIListener implements Listener {
 			return;
 		if (e.getClickedInventory() == null)
 			return;
-		if (e.getInventory().getHolder() == null)
-			e.setCancelled(true);
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "OffenceTypes") {
 			e.setCancelled(true);
 			switch (e.getCurrentItem().getType()) {
