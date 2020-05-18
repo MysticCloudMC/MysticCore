@@ -67,7 +67,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
-		
+
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
 			if (args.length == 3) {
@@ -174,10 +174,10 @@ public class PlayerListener implements Listener {
 
 		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), true);
 	}
-	
+
 	@EventHandler
-	public void onPlayerInteractEntity(PlayerInteractEntityEvent e){
-		if(CoreUtils.debugOn()){
+	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
+		if (CoreUtils.debugOn()) {
 			CoreUtils.entityparticles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");
 		}
@@ -217,7 +217,7 @@ public class PlayerListener implements Listener {
 				return;
 			}
 		}
-		
+
 	}
 
 	@EventHandler
@@ -238,7 +238,7 @@ public class PlayerListener implements Listener {
 			return;
 		if (e.getClickedInventory() == null)
 			return;
-		
+
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
 				return;
