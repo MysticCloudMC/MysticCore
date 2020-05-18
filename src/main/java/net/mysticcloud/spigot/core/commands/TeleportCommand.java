@@ -45,25 +45,37 @@ public class TeleportCommand implements CommandExecutor {
 					sender.sendMessage(
 							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
 
-			if (args.length == 2) {
+			if (args.length >= 2) 
 				if (sender.hasPermission("mysticcloud.admin.tpother")) {
 					String name = sender instanceof Player ? ((Player) sender).getName() : "CONSOLE";
-					if (Bukkit.getPlayer(args[0]) != null)
-						if (Bukkit.getPlayer(args[1]) != null)
-							CoreUtils.teleportPlayer(name, Bukkit.getPlayer(args[0]), Bukkit.getPlayer(args[1]));
-						else
-							sender.sendMessage(CoreUtils
-									.colorize(CoreUtils.prefixes("teleport") + "&7" + args[1] + "&f isn't online."));
-
-					else
+					if (Bukkit.getPlayer(args[1]) != null) 
+						if (args[0].contains(",")) 
+							for (String pn : args[0].split(",")) 
+								if (Bukkit.getPlayer(pn) != null) 
+									CoreUtils.teleportPlayer(name, Bukkit.getPlayer(pn), Bukkit.getPlayer(args[1]));
+								 else 
+									sender.sendMessage(CoreUtils
+											.colorize(CoreUtils.prefixes("teleport") + "&7" + pn + "&f isn't online."));
+								
+							
+						 else 
+							if (Bukkit.getPlayer(args[0]) != null) 
+								CoreUtils.teleportPlayer(name, Bukkit.getPlayer(args[0]), Bukkit.getPlayer(args[1]));
+							 else 
+								sender.sendMessage(CoreUtils.colorize(
+										CoreUtils.prefixes("teleport") + "&7" + args[0] + "&f isn't online."));
+							
+						
+					 else 
 						sender.sendMessage(CoreUtils
-								.colorize(CoreUtils.prefixes("teleport") + "&7" + args[0] + "&f isn't online."));
+								.colorize(CoreUtils.prefixes("teleport") + "&7" + args[1] + "&f isn't online."));
+					
 
-				} else
+				} else 
 					sender.sendMessage(CoreUtils.colorize(
 							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command."));
-
-			}
+				
+			
 		}
 
 		if (cmd.getName().equalsIgnoreCase("tpa")) {
@@ -135,8 +147,9 @@ public class TeleportCommand implements CommandExecutor {
 				if (sender.hasPermission("mysticcloud.admin.tpoff")) {
 					if (args.length == 0)
 						sender.sendMessage(CoreUtils.prefixes("teleport") + "Teleport requests "
-								+ CoreUtils.colorize(TeleportUtils.toggleTeleportRequests((Player) sender) ? "&cdisabled&f."
-										: "&aenabled&f."));
+								+ CoreUtils.colorize(
+										TeleportUtils.toggleTeleportRequests((Player) sender) ? "&cdisabled&f."
+												: "&aenabled&f."));
 
 				} else
 					sender.sendMessage(
