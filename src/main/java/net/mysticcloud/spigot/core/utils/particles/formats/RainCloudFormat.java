@@ -13,7 +13,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class RainCloudFormat extends ParticleFormat {
 
-	private Location loc = null;
+	private Location cloc = null;
 	private int spots = 30;
 	private double r = 0.75;
 
@@ -22,23 +22,28 @@ public class RainCloudFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.GRAY_DYE);
 		particle = Particle.COMPOSTER;
 	}
-
+	
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if (Bukkit.getPlayer(uid) != null) 
+			display(Bukkit.getPlayer(uid).getLocation(), i);
+	}
+
+	@Override
+	public void display(Location loc, int i) {
 		if (particle == null)
 			return;
-		loc = Bukkit.getPlayer(uid).getLocation();
+		cloc = loc.clone();
 		if (i % 2 == 0)
 			for (int a = 0; a != 11; a++) {
 				for (int t = 0; t != spots + 1; t++) {
 					if (t == (CoreUtils.getRandom().nextInt(spots-1) + 1))
-						spawnParticle(uid, Particle.FALLING_WATER,
-								loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
+						spawnParticle(Particle.FALLING_WATER,
+								cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
 										Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					else {
 
-						spawnParticle(uid, Particle.CLOUD, loc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
+						spawnParticle(Particle.CLOUD, cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
 								3, Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					}
 				}

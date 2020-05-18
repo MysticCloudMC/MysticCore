@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class HelixFormat extends ParticleFormat {
-	Location loc = null;
+	Location cloc = null;
 	int spots = 40;
 	double r = 1;
 	int cols = 2;
@@ -30,16 +30,22 @@ public class HelixFormat extends ParticleFormat {
 		name = "&eHelix";
 		guiItem = new ItemStack(Material.REDSTONE);
 	}
-
+	
 	@Override
 	public void display(UUID uid, int i) {
+		if (Bukkit.getPlayer(uid) != null) 
+			display(Bukkit.getPlayer(uid).getLocation(), i);
+	}
+
+	@Override
+	public void display(Location loc, int i) {
 		if(particle == null) return;
 		for(int t=0;t!=cols;t++){
-			loc = Bukkit.getPlayer(uid).getLocation().add(
+			cloc = loc.clone().add(
 					Math.cos(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots) * (r)),
 					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (r*2))),
 					Math.sin(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots)) * (r));
-			spawnParticle(uid,particle,loc);
+			spawnParticle(particle,cloc);
 		}
 //		spawnParticle(uid, particle,
 //				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),

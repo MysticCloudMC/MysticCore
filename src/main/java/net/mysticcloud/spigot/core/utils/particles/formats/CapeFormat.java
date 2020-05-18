@@ -26,11 +26,15 @@ public class CapeFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
-		if (particle == null || Bukkit.getPlayer(uid) == null)
-			return;
+		if(Bukkit.getPlayer(uid) != null)
+			display(Bukkit.getPlayer(uid).getEyeLocation(), i);
+	}
+	
+	
+	@Override
+	public void display(Location loc, int i) {
 
-		cloc = Bukkit.getPlayer(uid).getEyeLocation().clone();
+		cloc = loc.clone();
 		double x = -0.5;
 		double y = -4.25;
 		double z = -0.25;
@@ -50,7 +54,7 @@ public class CapeFormat extends ParticleFormat {
 		for (int t = 0; t != 10; t++) {
 			Vector v = new Vector(x, y, z);
 			v = rotateAroundAxisY(v, agl);
-			spawnParticle(uid, particle, cloc.clone().add(v), 0, 2, 0);
+			spawnParticle(particle, cloc.clone().add(v), 0, 2, 0);
 			x = x + 0.1;
 		}
 
@@ -72,6 +76,7 @@ public class CapeFormat extends ParticleFormat {
 		// z = z-0.1;
 		// }
 
+	
 	}
 
 	

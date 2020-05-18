@@ -34,43 +34,83 @@ public class AtomicFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
+		if (Bukkit.getPlayer(uid) != null)
+			display(Bukkit.getPlayer(uid).getLocation(), i);
+	}
+
+	@Override
+	public void display(Location loc, int i) {
+
 		if (particle == null)
 			return;
-		
-		
-		loc = Bukkit.getPlayer(uid).getLocation();
-		
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r))),
-						1 + ((Math.cos(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r))) * -1)),
-						Math.sin(Math.toRadians((i + ((spots / 6)*1)) * (360 / spots) * (r)))),loc.getYaw())));
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r))),
-						1 + Math.cos(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r))),
-						Math.sin(Math.toRadians((i + ((spots / 6)*2)) * (360 / spots) * (r)))),loc.getYaw())));
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (1.5))),
-						1,
-						Math.sin(Math.toRadians((i + ((spots / 6)*3)) * (360 / spots) * (1.5)))),loc.getYaw())));
-		
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r))),
-						1 + ((Math.cos(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r))) * -1)),
-						Math.sin(Math.toRadians((i + ((spots / 6)*4)) * (360 / spots) * (r)))), loc.getYaw())));
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r))),
-						1 + Math.cos(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r))),
-						Math.sin(Math.toRadians((i + ((spots / 6)*5)) * (360 / spots) * (r)))),loc.getYaw())));
-		spawnParticle(uid, particle,
-				loc.clone().add(rotateAroundAxisY(new Vector(
-						Math.cos(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (1.5))),
-						1,
-						Math.sin(Math.toRadians((i + ((spots / 6)*6)) * (360 / spots) * (1.5)))),loc.getYaw())));
+
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(
+												Math.cos(Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r))),
+												1 + ((Math.cos(
+														Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r)))
+														* -1)),
+												Math.sin(
+														Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r)))),
+										loc.getYaw())));
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(
+												Math.cos(Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r))),
+												1 + Math.cos(
+														Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r))),
+												Math.sin(
+														Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r)))),
+										loc.getYaw())));
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(Math
+												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (1.5))),
+												1,
+												Math.sin(Math
+														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (1.5)))),
+										loc.getYaw())));
+
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(
+												Math.cos(Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r))),
+												1 + ((Math.cos(
+														Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r)))
+														* -1)),
+												Math.sin(
+														Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r)))),
+										loc.getYaw())));
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(
+												Math.cos(Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r))),
+												1 + Math.cos(
+														Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r))),
+												Math.sin(
+														Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r)))),
+										loc.getYaw())));
+		spawnParticle(
+				particle, loc
+						.clone().add(
+								rotateAroundAxisY(
+										new Vector(Math
+												.cos(Math.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (1.5))),
+												1,
+												Math.sin(Math
+														.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (1.5)))),
+										loc.getYaw())));
 
 	}
 

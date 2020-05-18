@@ -24,14 +24,19 @@ public class RainbowFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.COAL);
 		particle = Particle.REDSTONE;
 	}
-
 	@Override
 	public void display(UUID uid, int i) {
+		if (Bukkit.getPlayer(uid) != null) 
+			display(Bukkit.getPlayer(uid).getEyeLocation(), i);
+	}
+
+	@Override
+	public void display(Location loc, int i) {
 
 		if (particle == null)
 			return;
 
-		cloc = Bukkit.getPlayer(uid).getLocation();
+		cloc = loc.clone();
 
 		for (int b = 0; b != 6; b++) {
 			if (b == 0)
@@ -52,7 +57,7 @@ public class RainbowFormat extends ParticleFormat {
 						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)));
 				// v = rotateAroundAxisX(v,90);
 				v = rotateAroundAxisY(v, cloc.getYaw() + 90);
-				spawnParticle(uid, particle, Bukkit.getPlayer(uid).getLocation().clone().add(v));
+				spawnParticle(particle, loc.clone().add(v));
 
 			}
 		}

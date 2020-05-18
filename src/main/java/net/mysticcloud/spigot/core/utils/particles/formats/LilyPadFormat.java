@@ -12,7 +12,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class LilyPadFormat extends ParticleFormat {
 
-	Location loc = null;
+	Location cloc = null;
 	double r = 1;
 	int spots = 40;
 	int rspots = 130;
@@ -26,13 +26,18 @@ public class LilyPadFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid, int i) {
-		super.display(uid, i);
+		if (Bukkit.getPlayer(uid) != null) 
+			display(Bukkit.getPlayer(uid).getLocation(), i);
+	}
+	
+	@Override
+	public void display(Location loc, int i) {
 		if (particle == null)
 			return;
-		loc = Bukkit.getPlayer(uid).getLocation();
+		cloc = loc.clone();
 
 		for (int t = 0; t != corners; t++) {
-			spawnParticle(uid, particle, loc.clone().add(
+			spawnParticle(particle, cloc.clone().add(
 					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
 							.cos(Math.toRadians(i) * (360 / rspots) * (r))),
 					0.05, 
@@ -41,7 +46,7 @@ public class LilyPadFormat extends ParticleFormat {
 		}
 		
 		for (int t = 0; t != corners; t++) {
-			spawnParticle(uid, particle, loc.clone().add(
+			spawnParticle(particle, cloc.clone().add(
 					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
 							.cos(Math.toRadians((i + (rspots/4))) * (360 / rspots) * (r))),
 					0.05, 

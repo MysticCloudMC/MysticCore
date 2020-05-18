@@ -28,15 +28,20 @@ public class HatFormat extends ParticleFormat {
 		name = "&eHat";
 		guiItem = new ItemStack(Material.LEATHER_HELMET);
 	}
-
+	
 	@Override
 	public void display(UUID uid, int i) {
+		if (Bukkit.getPlayer(uid) != null) 
+			display(Bukkit.getPlayer(uid).getLocation(), i);
+	}
+
+	@Override
+	public void display(Location loc, int i) {
 		if (particle == null)
 			return;
-		cloc = Bukkit.getPlayer(uid).getEyeLocation();
-		v = rotateAroundAxisX(new Vector(0, 1, 0), cloc.getPitch());
+		v = rotateAroundAxisX(new Vector(0, 1, 0), loc.getPitch());
 		v = rotateAroundAxisY(v, cloc.getYaw());
-		spawnParticle(uid, particle, cloc.add(v));
+		spawnParticle(particle, cloc.add(v));
 	}
 
 }
