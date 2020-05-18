@@ -26,6 +26,8 @@ public class DoubleHelixFormat extends HelixFormat {
 
 		name = "&e&lDouble &eHelix";
 		guiItem = new ItemStack(Material.REDSTONE_BLOCK);
+		
+		particle = Particle.COMPOSTER;
 	}
 
 	@Override
