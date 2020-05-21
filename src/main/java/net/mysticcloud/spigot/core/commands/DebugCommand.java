@@ -21,17 +21,28 @@ public class DebugCommand implements CommandExecutor {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(sender.hasPermission("mysticcloud.admin.cmd.debug")){
-			sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.toggleDebug()));
-//			if(sender instanceof Player)
-//				if(CoreUtils.debugOn()){
-//					TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
-//					zom.spawn(((Player)sender).getLocation());
-//					CoreUtils.entityparticles.put(zom.getBukkitEntity().getUniqueId(),new SelectorFormat());
-//				} else {
-//					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
-//					chi.spawn(((Player)sender).getLocation());
-//					CoreUtils.entityparticles.put(chi.getBukkitEntity().getUniqueId(),new CircleFeetFormat());
-//			}
+			
+			if(args.length == 0)
+				sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.toggleDebug()));
+			
+			if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("zombie")) {
+					if(sender instanceof Player) {
+							TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
+							zom.spawn(((Player)sender).getLocation());
+							CoreUtils.entityparticles.put(zom.getBukkitEntity().getUniqueId(),new SelectorFormat());
+						
+							
+					}
+				}
+				if(args[0].equalsIgnoreCase("chicken")) {
+					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
+					chi.spawn(((Player)sender).getLocation());
+					CoreUtils.entityparticles.put(chi.getBukkitEntity().getUniqueId(),new CircleFeetFormat());
+				}
+			}
+			
+//			
 		}
 		return true;
 	}
