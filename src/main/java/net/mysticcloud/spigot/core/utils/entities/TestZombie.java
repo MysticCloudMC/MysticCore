@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -23,6 +25,7 @@ import net.minecraft.server.v1_15_R1.DataWatcherObject;
 import net.minecraft.server.v1_15_R1.DataWatcherRegistry;
 import net.minecraft.server.v1_15_R1.DifficultyDamageScaler;
 import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityChicken;
 import net.minecraft.server.v1_15_R1.EntityCreature;
 import net.minecraft.server.v1_15_R1.EntityCreeper;
 import net.minecraft.server.v1_15_R1.EntityHuman;
@@ -71,7 +74,15 @@ import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
-public class TestZombie extends EntityZombie {
+public class TestZombie extends EntityZombie implements Boss{
+	
+	
+	
+	
+	
+	Map<UUID,Double> damages = new HashMap<UUID,Double>();
+	
+	
 	protected static final IAttribute d = (new AttributeRanged(null, "zombie.spawnReinforcements", 0.0D, 0.0D, 1.0D))
 			.a("Spawn Reinforcements Chance");
 
@@ -153,7 +164,7 @@ public class TestZombie extends EntityZombie {
 		this.goalSelector.a(7, new PathfinderGoalRandomStrollLand(this, 1.0D));
 		this.targetSelector.a(1,
 				(new PathfinderGoalHurtByTarget(this, new Class[0])).a(new Class[] { EntityPigZombie.class }));
-		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<>(this, EntityHuman.class, true));
+		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<>(this, EntityChicken.class, true));
 		if (this.world.spigotConfig.zombieAggressiveTowardsVillager)
 			this.targetSelector.a(3,
 					new PathfinderGoalNearestAttackableTarget<>(this, EntityVillagerAbstract.class, false));
@@ -389,12 +400,12 @@ public class TestZombie extends EntityZombie {
 				int i = MathHelper.floor(locX());
 				int j = MathHelper.floor(locY());
 				int k = MathHelper.floor(locZ());
-				TestZombie entityzombie = new TestZombie(this.world);
+//				TestZombie entityzombie = new TestZombie(this.world);
 				for (int l = 0; l < 50; l++) {
 					int i1 = i + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
 					int j1 = j + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
 					int k1 = k + MathHelper.nextInt(this.random, 7, 40) * MathHelper.nextInt(this.random, -1, 1);
-					BlockPosition blockposition = new BlockPosition(i1, j1 - 1, k1);
+//					BlockPosition blockposition = new BlockPosition(i1, j1 - 1, k1);
 					// if (this.world.getType(blockposition).a(this.world,
 					// blockposition, entityzombie) &&
 					// this.world.getLightLevel(new BlockPosition(i1, j1, k1)) <

@@ -13,11 +13,13 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Boss;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -44,8 +46,6 @@ import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
-import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
-import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -116,6 +116,13 @@ public class PlayerListener implements Listener {
 				((Player) e.getEntity()).setFoodLevel(20);
 
 			}
+		}
+	}
+	
+	@EventHandler
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Player && e.getEntity() instanceof Boss) {
+			Bukkit.broadcastMessage("Damaged a boss!");
 		}
 	}
 
