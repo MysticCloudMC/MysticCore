@@ -12,10 +12,17 @@ import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class GoblinBoss extends EntityZombie {
-	
+
 	private int z = 0;
+
+	private org.bukkit.inventory.ItemStack[] damageDrops = new org.bukkit.inventory.ItemStack[] {
+			new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT),
+			new org.bukkit.inventory.ItemStack(Material.IRON_INGOT),
+			new org.bukkit.inventory.ItemStack(Material.GOLD_NUGGET),
+			new org.bukkit.inventory.ItemStack(Material.IRON_NUGGET)};
 
 	public GoblinBoss(World world, EntityTypes<? extends EntityZombie> entityType) {
 		this(world);
@@ -38,28 +45,29 @@ public class GoblinBoss extends EntityZombie {
 		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
 		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 	}
-	
+
 	@Override
 	public boolean isBaby() {
 		return true;
 	}
-	
+
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		if(z % 100 == 0) {
-			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT));
+		if (z % 100 == 0) {
+			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
+					damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
 		}
-	}
-	
-	@Override
-	public boolean damageEntity(DamageSource damagesource, float f) {
-		
-		getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT));
-		
-		return super.damageEntity(damagesource, f);
+		z = z + 1;
 	}
 
-	
+	@Override
+	public boolean damageEntity(DamageSource damagesource, float f) {
+
+		getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
+				damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
+
+		return super.damageEntity(damagesource, f);
+	}
 
 }
