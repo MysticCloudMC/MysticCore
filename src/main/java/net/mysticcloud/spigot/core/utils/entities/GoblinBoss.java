@@ -14,6 +14,8 @@ import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.World;
 
 public class GoblinBoss extends EntityZombie {
+	
+	private int z = 0;
 
 	public GoblinBoss(World world, EntityTypes<? extends EntityZombie> entityType) {
 		this(world);
@@ -32,14 +34,22 @@ public class GoblinBoss extends EntityZombie {
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		setBaby(true);
-		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
-		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
-		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
+		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 	}
 	
 	@Override
 	public boolean isBaby() {
 		return true;
+	}
+	
+	@Override
+	public void movementTick() {
+		super.movementTick();
+		if(z % 100 == 0) {
+			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(), new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT));
+		}
 	}
 	
 	@Override
