@@ -18,6 +18,13 @@ public class DebugCommand implements CommandExecutor {
 			
 			if(args.length == 0)
 				sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.toggleDebug()));
+			
+			if(args.length == 1) {
+				if(args[0].equalsIgnoreCase("time")) {
+					sender.sendMessage(CoreUtils.prefixes("date") + "Today is: " + CoreUtils.getMonth() + " " + CoreUtils.getDay() + " - " + CoreUtils.getTime());
+					
+				}
+			}
 		}
 		return true;
 	}
