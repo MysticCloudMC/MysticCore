@@ -51,9 +51,9 @@ public class SelectorFormat extends ParticleFormat {
 		random.display(loc, i);
 		for(int t=0;t!=cols;t++){
 			spawnParticle(particle,loc.clone().add(rotateAroundAxisY(new Vector(
-					Math.cos(Math.toRadians(t) * (360 / cols) * (r)),
+					Math.cos(Math.toRadians(t) * (360 / cols)) * (r),
 					0.05,
-					Math.sin(Math.toRadians(t) * (360 / cols) * (r))),i*2)));
+					Math.sin(Math.toRadians(t) * (360 / cols)) * (r)),i*2)));
 		}
 
 	}
