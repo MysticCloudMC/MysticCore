@@ -20,6 +20,8 @@ public class SelectorFormat extends ParticleFormat {
 	public SelectorFormat() {
 		changeParticle = true;
 		cols = 5;
+		l = 2;
+		h = 2.5;
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);
@@ -40,6 +42,11 @@ public class SelectorFormat extends ParticleFormat {
 	public void display(Location loc, int i) {
 		if(particle == null) return;
 		random.particle(particle);
+		random.setBlockData(blockdata);
+		random.setDustOptions(dustoptions);
+		random.setMaterialData(materialdata);
+		random.setLength(l);
+		random.setHeight(h);
 		this.loc = loc;
 		random.display(loc, i);
 		for(int t=0;t!=cols;t++){
