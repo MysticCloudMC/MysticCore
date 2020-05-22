@@ -10,11 +10,13 @@ import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.EnumItemSlot;
 import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class IronBoss extends EntityIronGolem {
 
 	private int z = 1;
+	
 
 	private SelectorFormat format = new SelectorFormat();
 
@@ -31,14 +33,14 @@ public class IronBoss extends EntityIronGolem {
 	}
 
 	public void spawn(Location loc) {
-		Bukkit.broadcastMessage("IronBoss spawned!");
+		
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.particle(Particle.FLAME);
-		format.setHeight(2.5);
+		format.setHeight(3);
 		format.setColumns(4);
 		format.setLength(1);
-		format.setRadius(1.5);
+		format.setRadius(1.25);
 
 	}
 	

@@ -1,19 +1,27 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
 
-import net.minecraft.server.v1_15_R1.EntityZombie;
+import net.minecraft.server.v1_15_R1.Entity;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
+import net.mysticcloud.spigot.core.utils.entities.IronBoss;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.events.Event;
+import net.mysticcloud.spigot.core.utils.events.EventCheck;
+import net.mysticcloud.spigot.core.utils.events.EventType;
+import net.mysticcloud.spigot.core.utils.events.EventUtils;
 
 public class BossCommand implements CommandExecutor {
 
@@ -37,8 +45,27 @@ public class BossCommand implements CommandExecutor {
 						}
 					}
 					if(args[0].equalsIgnoreCase("test")) {
-						EntityZombie entity = new EntityZombie(((CraftWorld)((Player)sender).getWorld()).getHandle());
-						MysticEntityUtils.spawnBoss(entity, ((Player)sender).getLocation());
+						Event e = EventUtils.createEvent("Boss Test", EventType.COMPLETION);
+						IronBoss boss = new IronBoss(((CraftWorld)((Player)sender).getWorld()).getHandle());
+						e.setMetadata("UUID", boss.getUniqueID());
+						e.setMetadata("LOCATION", ((Player)sender).getLocation());
+						e.setMetadata("ENTITY", boss);
+						EventCheck check = new EventCheck() {
+
+							@Override
+							public boolean check() {
+								return Bukkit.getEntity((UUID)e.getMetadata("UUID")) == null;
+							}
+
+							@Override
+							public void start() {
+								MysticEntityUtils.spawnBoss((Entity)e.getMetadata("BOSS"), (Location) e.getMetadata("LOCATION"));
+							}
+							
+						};
+						
+						e.setEventCheck(check);
+						e.start();
 					}
 				}
 			} else {
