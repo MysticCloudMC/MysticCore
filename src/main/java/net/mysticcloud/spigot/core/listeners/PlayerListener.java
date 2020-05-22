@@ -40,6 +40,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.entities.TestZombie;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
@@ -120,7 +121,7 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Boss) {
+		if (e.getEntity() instanceof TestZombie) {
 			Bukkit.broadcastMessage("Damaged a boss!");
 		}
 	}
