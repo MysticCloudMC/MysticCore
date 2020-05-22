@@ -13,8 +13,6 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class LilyPadFormat extends ParticleFormat {
 
 	Location cloc = null;
-	double r = 1;
-	int spots = 40;
 	int rspots = 130;
 	int corners = 4;
 

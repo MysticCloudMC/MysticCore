@@ -46,10 +46,10 @@ public class GemsFormat extends ParticleFormat {
 	@Override
 	public void display(Location loc, int i) {
 		super.display(loc, i);
-		cloc = loc.add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
+		cloc = loc.add(-(l/2) + (CoreUtils.getRandom().nextDouble()*l),
 						(1.5 + CoreUtils.getRandom().nextDouble())
-								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
-						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5));
+								- (CoreUtils.getRandom().nextInt((int)h) + CoreUtils.getRandom().nextDouble()),
+						-(l/2) + (CoreUtils.getRandom().nextDouble()*l));
 		ItemStack itemstack = new ItemStack(gems.get(CoreUtils.getRandom().nextInt(gems.size())));
 		Item item = cloc.getWorld().dropItem(cloc, itemstack);
 		item.setPickupDelay(Integer.MAX_VALUE);

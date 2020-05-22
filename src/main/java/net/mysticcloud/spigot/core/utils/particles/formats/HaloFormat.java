@@ -36,10 +36,10 @@ public class HaloFormat extends ParticleFormat {
 	public void display(Location loc, int i) {
 		if (particle == null)
 			return;
-		for (int a = 1; a != 41; a++) {
+		for (int a = 1; a != spots+1; a++) {
 			spawnParticle(particle,
-					loc.clone().add(rotateAroundAxisY(new Vector(Math.cos(Math.toRadians(a) * ((360) / (40))) * (1), 2,
-							Math.sin(Math.toRadians(a) * ((360) / (40))) * (1)), i)));
+					loc.clone().add(rotateAroundAxisY(new Vector(Math.cos(Math.toRadians(a) * ((360) / (spots))) * (r), h,
+							Math.sin(Math.toRadians(a) * ((360) / (spots))) * (r)), i)));
 
 		}
 

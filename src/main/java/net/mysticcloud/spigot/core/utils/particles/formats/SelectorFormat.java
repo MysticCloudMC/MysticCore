@@ -13,21 +13,19 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class SelectorFormat extends ParticleFormat {
 	Location loc = null;
-	double r = 1;
-	int cols = 5;
 	
 	RandomFormat random = new RandomFormat();
 	
 
 	public SelectorFormat() {
 		changeParticle = true;
-
+		cols = 5;
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);
 		allowedParticles.add(Particle.NOTE);
 		allowedParticles.add(Particle.END_ROD);
-		allowedParticles.add(Particle.REDSTONE);
+		allowedParticles.add(Particle.FLAME);
 
 		name = "&6Selector";
 		guiItem = new ItemStack(Material.BLAZE_POWDER);

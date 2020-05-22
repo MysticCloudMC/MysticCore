@@ -12,11 +12,10 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class CircleHeadFormat extends ParticleFormat {
 
-	double delta = 20;
-	double radius = 1;
 
 	public CircleHeadFormat() {
 		changeParticle = true;
+		spots = 20;
 		allowedParticles.add(Particle.FALLING_LAVA);
 		allowedParticles.add(Particle.FALLING_WATER);
 		allowedParticles.add(Particle.TOTEM);
@@ -50,12 +49,12 @@ public class CircleHeadFormat extends ParticleFormat {
 		if(particle == null) return;
 		spawnParticle(particle,
 				loc.clone().add(
-						Math.cos(Math.toRadians(((i) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i) * (360 / delta)) * (radius)));
+						Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))), 2,
+						Math.sin(Math.toRadians(i) * (360 / spots)) * (r)));
 		spawnParticle(particle,
 				loc.clone().add(
-						Math.cos(Math.toRadians(((i + (delta / 2)) * (360 / delta)) * (radius))), 2,
-						Math.sin(Math.toRadians(i + (delta / 2)) * (360 / delta)) * (radius)));
+						Math.cos(Math.toRadians(((i + (spots / 2)) * (360 / spots)) * (r))), 2,
+						Math.sin(Math.toRadians(i + (spots / 2)) * (360 / spots)) * (r)));
 
 	
 	}

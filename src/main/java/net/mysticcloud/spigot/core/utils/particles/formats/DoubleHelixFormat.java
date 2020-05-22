@@ -15,6 +15,8 @@ public class DoubleHelixFormat extends HelixFormat {
 
 		cols = 4;
 		
+		spots = 20;
+		
 		allowedParticles.clear();
 		
 		allowedParticles.add(Particle.COMPOSTER);
@@ -42,14 +44,14 @@ public class DoubleHelixFormat extends HelixFormat {
 
 		super.display(loc, i);
 		spawnParticle(particle,
-				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),
-						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
-						Math.sin(Math.toRadians(i) * (360 / 20)) * (1)));
+				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))),
+						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (h))),
+						Math.sin(Math.toRadians(i) * (360 / spots)) * (r)));
 		spawnParticle(particle,
 				loc.clone().add(
-						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (1))),
-						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (2))),
-						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (1)));
+						Math.cos(Math.toRadians(((i + (spots/2)) * (360 / spots)) * (r))),
+						1 + Math.cos(Math.toRadians(((i) * (360 / 180)) * (h))),
+						Math.sin(Math.toRadians(i + (spots/2)) * (360 / spots)) * (r)));
 
 	
 	}

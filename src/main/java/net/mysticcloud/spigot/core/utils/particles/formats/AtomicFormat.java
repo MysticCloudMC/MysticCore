@@ -13,11 +13,11 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class AtomicFormat extends ParticleFormat {
 
-	private double r = 1;
-	private int spots = 40;
-	private Location loc = null;
+	
+	
 
 	public AtomicFormat() {
+		spots = 40;
 		changeParticle = true;
 		allowedParticles.add(Particle.SPELL_INSTANT);
 		allowedParticles.add(Particle.SPELL_MOB);
@@ -72,10 +72,10 @@ public class AtomicFormat extends ParticleFormat {
 						.clone().add(
 								rotateAroundAxisY(
 										new Vector(Math
-												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (1.5))),
+												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r*1.25))),
 												1,
 												Math.sin(Math
-														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (1.5)))),
+														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r*1.25)))),
 										loc.getYaw())));
 
 		spawnParticle(
@@ -106,10 +106,10 @@ public class AtomicFormat extends ParticleFormat {
 						.clone().add(
 								rotateAroundAxisY(
 										new Vector(Math
-												.cos(Math.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (1.5))),
+												.cos(Math.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (r*1.25))),
 												1,
 												Math.sin(Math
-														.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (1.5)))),
+														.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (r*1.25)))),
 										loc.getYaw())));
 
 	}

@@ -26,6 +26,11 @@ public class ParticleFormat {
 	protected BlockData blockdata = null;
 	protected MaterialData materialdata = new MaterialData(Material.GOLD_BLOCK);
 	protected List<Particle> allowedParticles = new ArrayList<>();
+	protected double r = 1;
+	protected int cols = 2;
+	protected int spots = 40;
+	protected double h = 2;
+	protected double l = 1.5;
 
 	protected String name = "Format Name";
 

@@ -45,9 +45,9 @@ public class RandomFormat extends ParticleFormat {
 		if(particle!=null)
 			spawnParticle(particle,
 				loc.clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
-						(1.5 + CoreUtils.getRandom().nextDouble())
-								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
-						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5)));
+						(l + CoreUtils.getRandom().nextDouble())
+								- (CoreUtils.getRandom().nextInt((int)h) + CoreUtils.getRandom().nextDouble()),
+						-(l/2) + (CoreUtils.getRandom().nextDouble()*l)));
 	}
 
 }

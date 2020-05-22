@@ -12,9 +12,6 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class HelixFormat extends ParticleFormat {
 	Location cloc = null;
-	int spots = 40;
-	double r = 1;
-	int cols = 2;
 	int colspots = 180;
 
 	public HelixFormat() {

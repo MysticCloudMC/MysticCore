@@ -14,10 +14,10 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class RainCloudFormat extends ParticleFormat {
 
 	private Location cloc = null;
-	private int spots = 30;
-	private double r = 0.75;
 
 	public RainCloudFormat() {
+		
+		spots = 30;
 		name = "&7Rain Cloud";
 		guiItem = new ItemStack(Material.GRAY_DYE);
 		particle = Particle.COMPOSTER;
@@ -39,12 +39,12 @@ public class RainCloudFormat extends ParticleFormat {
 				for (int t = 0; t != spots + 1; t++) {
 					if (t == (CoreUtils.getRandom().nextInt(spots-1) + 1))
 						spawnParticle(Particle.FALLING_WATER,
-								cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), 3,
+								cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)), h+1,
 										Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					else {
 
 						spawnParticle(Particle.CLOUD, cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
-								3, Math.sin(t * (360 / spots)) * (a * (r / 10))));
+								h+1, Math.sin(t * (360 / spots)) * (a * (r / 10))));
 					}
 				}
 
