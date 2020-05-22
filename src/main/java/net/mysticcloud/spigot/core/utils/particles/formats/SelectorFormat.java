@@ -20,8 +20,7 @@ public class SelectorFormat extends ParticleFormat {
 	public SelectorFormat() {
 		changeParticle = true;
 		cols = 5;
-		l = 2;
-		h = 2.5;
+		
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);

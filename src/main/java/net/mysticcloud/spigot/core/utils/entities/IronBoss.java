@@ -35,6 +35,10 @@ public class IronBoss extends EntityIronGolem {
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.particle(Particle.FLAME);
+		format.setHeight(2.5);
+		format.setColumns(4);
+		format.setLength(1);
+		format.setRadius(1.5);
 
 	}
 	
