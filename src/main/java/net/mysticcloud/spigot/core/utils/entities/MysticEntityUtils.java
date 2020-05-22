@@ -20,7 +20,7 @@ public class MysticEntityUtils {
 					.register();
 			new MysticEntityType<TestChicken>("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new)
 					.register();
-			new MysticEntityType<TestZombie>("testzombie", TestZombie.class, EntityTypes.ZOMBIE, TestZombie::new)
+			new MysticEntityType<IronBoss>("ironboss", IronBoss.class, EntityTypes.IRON_GOLEM, IronBoss::new)
 					.register();
 
 		} catch (IllegalStateException ex) {
@@ -30,25 +30,28 @@ public class MysticEntityUtils {
 
 	public static Entity spawnBoss(Bosses boss, Location loc) {
 		switch (boss) {
-		case TEST_ZOMBIE:
-			return spawnBoss(new TestZombie(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+		case IRON_BOSS:
+			return spawnBoss(new IronBoss(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		case TEST_CHICKEN:
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		case GOBLIN_BOSS:
 			return spawnBoss(new GoblinBoss(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		default:
-			return spawnBoss(new TestZombie(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
 	}
 
 	public static Entity spawnBoss(Entity entity, Location loc) {
 
-		if (entity instanceof TestZombie) {
-			((TestZombie) entity).spawn(loc);
+		if (entity instanceof IronBoss) {
+			((IronBoss) entity).spawn(loc);
 
 		}
 		if (entity instanceof TestChicken) {
 			((TestChicken) entity).spawn(loc);
+		}
+		if (entity instanceof GoblinBoss) {
+			((GoblinBoss) entity).spawn(loc);
 		}
 		damages.put(entity.getUniqueID(), new HashMap<UUID, Double>());
 		return entity;

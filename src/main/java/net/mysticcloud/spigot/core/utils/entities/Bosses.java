@@ -2,9 +2,8 @@ package net.mysticcloud.spigot.core.utils.entities;
 
 public enum Bosses {
 	
-	TEST_ZOMBIE("zombie"),
 	TEST_CHICKEN("chicken"),
-	GOBLIN_BOSS("goblin");
+	GOBLIN_BOSS("goblin"), IRON_BOSS("tinman");
 	
 	String callname;
 	
