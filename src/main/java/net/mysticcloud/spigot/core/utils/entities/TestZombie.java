@@ -80,7 +80,7 @@ public class TestZombie extends EntityZombie implements Boss{
 	
 	
 	
-	Map<UUID,Double> damages = new HashMap<UUID,Double>();
+//	Map<UUID,Double> damages = new HashMap<UUID,Double>();
 	
 	
 	protected static final IAttribute d = (new AttributeRanged(null, "zombie.spawnReinforcements", 0.0D, 0.0D, 1.0D))

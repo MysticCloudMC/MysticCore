@@ -19,7 +19,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -120,8 +119,8 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-		if (e.getDamager() instanceof Player && e.getEntity() instanceof Boss) {
+	public void onEntityDamageByEntity(EntityDamageEvent e) {
+		if (e.getEntity() instanceof Boss) {
 			Bukkit.broadcastMessage("Damaged a boss!");
 		}
 	}
