@@ -74,7 +74,7 @@ import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
-public class TestZombie extends EntityZombie implements Boss{
+public class TestZombie extends EntityZombie{
 	
 	
 	
