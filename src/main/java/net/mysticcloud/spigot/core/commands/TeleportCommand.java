@@ -4,15 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.entities.TestChicken;
-import net.mysticcloud.spigot.core.utils.entities.TestZombie;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class TeleportCommand implements CommandExecutor {
