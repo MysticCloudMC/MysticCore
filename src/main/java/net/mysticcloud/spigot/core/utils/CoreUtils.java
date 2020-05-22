@@ -91,7 +91,6 @@ public class CoreUtils {
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
 
 	private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-	private static Objective objective = null;
 
 	public static List<String> ecoaccounts = new ArrayList<>();
 	public static double startingBalance = 100.00;
@@ -126,7 +125,6 @@ public class CoreUtils {
 		prefixes.put("error", colorize("&c&lError &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
 
-		registerScoreboard("sidebar", colorize("        &3&lMystic&f&lCloud        "));
 
 		registerSidebarList();
 
@@ -784,13 +782,11 @@ public class CoreUtils {
 
 	}
 
-	public static void registerScoreboard(String name, String title) {
-		objective = scoreboard.registerNewObjective(name, "dummy", title);
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-	}
 
 	public static void enableScoreboard(Player player) {
+		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective objective = scoreboard.registerNewObjective("sidebar", "dummy", colorize("        &3&lMystic&f&lCloud        "));
+		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		registerSidebarList();
 		for (Entry<Integer, String> entry : sidebar.entrySet()) {
 
