@@ -49,7 +49,7 @@ public class BossCommand implements CommandExecutor {
 						IronBoss boss = new IronBoss(((CraftWorld)((Player)sender).getWorld()).getHandle());
 						e.setMetadata("UUID", boss.getUniqueID());
 						e.setMetadata("LOCATION", ((Player)sender).getLocation());
-						e.setMetadata("ENTITY", boss);
+						e.setMetadata("BOSS", boss);
 						EventCheck check = new EventCheck() {
 
 							@Override
