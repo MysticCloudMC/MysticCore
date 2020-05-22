@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.Entity;
 import net.minecraft.server.v1_15_R1.EntityTypes;
@@ -42,16 +43,23 @@ public class MysticEntityUtils {
 	}
 
 	public static Entity spawnBoss(Entity entity, Location loc) {
+		boolean spawned = false;
 
 		if (entity instanceof IronBoss) {
 			((IronBoss) entity).spawn(loc);
-
+			spawned = true;
 		}
 		if (entity instanceof TestChicken) {
 			((TestChicken) entity).spawn(loc);
+			spawned = true;
 		}
 		if (entity instanceof GoblinBoss) {
 			((GoblinBoss) entity).spawn(loc);
+			spawned = true;
+		}
+		if(!spawned) {
+			entity.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+			entity.world.addEntity(entity, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		}
 		damages.put(entity.getUniqueID(), new HashMap<UUID, Double>());
 		return entity;

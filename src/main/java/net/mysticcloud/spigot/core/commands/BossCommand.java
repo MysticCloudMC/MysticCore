@@ -4,8 +4,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 
+import net.minecraft.server.v1_15_R1.EntityZombie;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -32,6 +35,10 @@ public class BossCommand implements CommandExecutor {
 							MysticEntityUtils.spawnBoss(boss, ((Player) sender).getLocation());
 							return true;
 						}
+					}
+					if(args[0].equalsIgnoreCase("test")) {
+						EntityZombie entity = new EntityZombie(((CraftWorld)((Player)sender).getWorld()).getHandle());
+						MysticEntityUtils.spawnBoss(entity, ((Player)sender).getLocation());
 					}
 				}
 			} else {
