@@ -22,6 +22,8 @@ public class CircleFeetFormat extends ParticleFormat {
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FLAME);
 		allowedParticles.add(Particle.REDSTONE);
+		
+		spots = 20;
 
 		guiItem = new ItemStack(Material.DIAMOND_BOOTS);
 		name = "&7Circle Feet";
@@ -38,12 +40,12 @@ public class CircleFeetFormat extends ParticleFormat {
 	public void display(Location loc, int i) {
 		if(particle == null) return;
 		spawnParticle(particle,
-				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (r))),
-						0.1, Math.sin(Math.toRadians(i) * (360 / 20)) * (r)));
+				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))),
+						0.1, Math.sin(Math.toRadians(i) * (360 / spots)) * (r)));
 		spawnParticle(particle,
 				loc.clone().add(
-						Math.cos(Math.toRadians(((i + 10) * (360 / 20)) * (r))), 0.1,
-						Math.sin(Math.toRadians(i + 10) * (360 / 20)) * (r)));
+						Math.cos(Math.toRadians(((i + 10) * (360 / spots)) * (r))), 0.1,
+						Math.sin(Math.toRadians(i + 10) * (360 / spots)) * (r)));
 
 	}
 
