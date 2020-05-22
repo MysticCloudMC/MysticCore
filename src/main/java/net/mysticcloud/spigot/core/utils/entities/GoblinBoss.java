@@ -24,6 +24,7 @@ import net.minecraft.server.v1_15_R1.DataWatcherObject;
 import net.minecraft.server.v1_15_R1.DataWatcherRegistry;
 import net.minecraft.server.v1_15_R1.DifficultyDamageScaler;
 import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityChicken;
 import net.minecraft.server.v1_15_R1.EntityCreature;
 import net.minecraft.server.v1_15_R1.EntityCreeper;
 import net.minecraft.server.v1_15_R1.EntityHuman;
@@ -130,11 +131,12 @@ public class GoblinBoss extends EntityZombie implements Boss{
 	}
 
 	public void spawn(Location loc) {
+		Bukkit.broadcastMessage("Goblin spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-//		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
-//		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
-//		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
+		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.IRON_SWORD));
+		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
 	}
 
 	// public TestZombie(EntityTypes<? extends TestZombie> entitytypes, World
@@ -161,7 +163,7 @@ public class GoblinBoss extends EntityZombie implements Boss{
 		this.goalSelector.a(7, new PathfinderGoalRandomStrollLand(this, 1.0D));
 		this.targetSelector.a(1,
 				(new PathfinderGoalHurtByTarget(this, new Class[0])).a(new Class[] { EntityPigZombie.class }));
-		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<>(this, EntityHuman.class, true));
+		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget<>(this, EntityChicken.class, true));
 		if (this.world.spigotConfig.zombieAggressiveTowardsVillager)
 			this.targetSelector.a(3,
 					new PathfinderGoalNearestAttackableTarget<>(this, EntityVillagerAbstract.class, false));
@@ -174,9 +176,9 @@ public class GoblinBoss extends EntityZombie implements Boss{
 	protected void initAttributes() {
 		super.initAttributes();
 		getAttributeInstance(GenericAttributes.FOLLOW_RANGE).setValue(35.0D);
-		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(2.11500000417232513D);
+		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.11500000417232513D);
 		getAttributeInstance(GenericAttributes.ATTACK_DAMAGE).setValue(12.0D);
-		getAttributeInstance(GenericAttributes.ARMOR).setValue(1.0D);
+		getAttributeInstance(GenericAttributes.ARMOR).setValue(5.0D);
 	}
 
 	@Override
@@ -222,7 +224,7 @@ public class GoblinBoss extends EntityZombie implements Boss{
 
 	@Override
 	public boolean isBaby() {
-		return true;
+		return ((Boolean) getDataWatcher().<Boolean>get(bw)).booleanValue();
 	}
 
 	@Override
