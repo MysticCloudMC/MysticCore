@@ -136,13 +136,17 @@ public class PlayerListener implements Listener {
 		if (e.getDamager() instanceof Player)
 			if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
 				Bukkit.broadcastMessage("Damaged a boss.");
-				if (MysticEntityUtils.damages.get(e.getEntity().getUniqueId()) == null) {
+				if (!MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
+						.containsKey(e.getDamager().getUniqueId())) {
+					Bukkit.broadcastMessage("Adding user. Damage: " + e.getDamage());
 					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
 							e.getDamage());
 				} else {
+					double predamage = MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
+							.get(e.getDamager().getUniqueId());
+					Bukkit.broadcastMessage("Modifying user. Damage: " + (predamage + e.getDamage()));
 					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
-							MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).get(e.getDamager().getUniqueId())
-									+ e.getDamage());
+							(predamage + e.getDamage()));
 				}
 			}
 	}
