@@ -31,6 +31,10 @@ public class MysticEntityUtils {
 		switch (boss) {
 		case TEST_ZOMBIE:
 			return spawnBoss(new TestZombie(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+		case TEST_CHICKEN:
+			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+		case GOBLIN_BOSS:
+			return spawnBoss(new GoblinBoss(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		default:
 			return spawnBoss(new TestZombie(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
