@@ -13,10 +13,13 @@ import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.particles.formats.DoubleHelixFormat;
 
 public class GoblinBoss extends EntityZombie {
 
 	private int z = 0;
+	
+	private DoubleHelixFormat format = new DoubleHelixFormat();
 
 	private org.bukkit.inventory.ItemStack[] damageDrops = new org.bukkit.inventory.ItemStack[] {
 			new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT),
@@ -40,6 +43,10 @@ public class GoblinBoss extends EntityZombie {
 		Bukkit.broadcastMessage("CustomZombie spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		format.setHeight(1);
+		format.setRadius(0.5);
+		format.setSpots(20);
+		CoreUtils.entityparticles.put(getBukkitEntity().getUniqueId(), format);
 		setBaby(true);
 		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
 		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
@@ -54,6 +61,7 @@ public class GoblinBoss extends EntityZombie {
 	@Override
 	public void movementTick() {
 		super.movementTick();
+		
 		if (z % 100 == 0) {
 			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
 					damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);

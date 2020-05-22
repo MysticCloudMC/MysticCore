@@ -42,6 +42,36 @@ public class ParticleFormat {
 
 	}
 	
+	public void setHeight(double h) {
+		this.h = h;
+	}
+	public void setRadius(double r) {
+		this.r = r;
+	}
+	public void setLength(double l) {
+		this.l = l;
+	}
+	public void setSpots(int spots) {
+		this.spots = spots;
+	}
+	public void setColumns(int cols) {
+		this.cols = cols;
+	}
+	
+	public double getHeight() {
+		return h;
+	}
+	public double getCoumns() {
+		return cols;
+	}
+	public double getLength() {
+		return l;
+	}
+	public int getSpots() {
+		return spots;
+	}
+	
+	
 	public void display(Location loc, int i) throws IllegalArgumentException {
 		if (particle == null)
 			return;
