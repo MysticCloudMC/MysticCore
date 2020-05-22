@@ -120,12 +120,12 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e) {
-		if(MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+		if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
 			Bukkit.broadcastMessage("Boss death.");
-			for(Entry<UUID,Double> entry : MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).entrySet()) {
+			for (Entry<UUID, Double> entry : MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).entrySet()) {
 				Bukkit.broadcastMessage("UID: " + entry.getKey() + " Damage: " + entry.getValue());
 			}
 		}
@@ -139,6 +139,10 @@ public class PlayerListener implements Listener {
 				if (MysticEntityUtils.damages.get(e.getEntity().getUniqueId()) == null) {
 					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
 							e.getDamage());
+				} else {
+					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
+							MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).get(e.getDamager().getUniqueId())
+									+ e.getDamage());
 				}
 			}
 	}
