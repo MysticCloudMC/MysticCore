@@ -12,7 +12,7 @@ public enum Holiday {
 	CINCO_DE_MAYO("Cinco de Mayo"), 
 	AVACADO_DAY("(USA) National Avacado Day"), 
 	TEST("Test Holiday"),
-	MAY_THE_FORTH("May The Forth");
+	MAY_THE_FORTH("May The Forth"), MEMORIAL_DAY("Memorial Day (USA)");
 	
 	String name;
 	

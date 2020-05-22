@@ -76,6 +76,9 @@ public class DateChecker implements Runnable {
 		if(CoreUtils.getMonth() == Calendar.MAY) {
 			if(CoreUtils.getDay() == 5) 
 				CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
+			if(CoreUtils.getDay() >= 22 && CoreUtils.getDay() <= 24) {
+				CoreUtils.setHoliday(Holiday.MEMORIAL_DAY);
+			}
 			
 		}
 		if(CoreUtils.getMonth() == Calendar.JULY) {

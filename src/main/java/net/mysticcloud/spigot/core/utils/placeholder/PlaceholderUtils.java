@@ -22,6 +22,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%rank", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
 		string = string.replaceAll("%prefix", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
 		string = string.replaceAll("%r", CoreUtils.colorize(""+CoreUtils.getPlayerPrefix(player)));
+		
 		if(!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			switch(CoreUtils.getHoliday()) {
 			case CHRISTMAS:
@@ -43,6 +44,9 @@ public class PlaceholderUtils {
 				break;
 			case MAY_THE_FORTH:
 				string = string.replaceAll("%hdayline", "&eMay The Forth Be With You");
+				break;
+			case MEMORIAL_DAY:
+				string = string.replaceAll("%hdayline", "&cThank &fYour &bVeterans");
 				break;
 			default:
 				break;
