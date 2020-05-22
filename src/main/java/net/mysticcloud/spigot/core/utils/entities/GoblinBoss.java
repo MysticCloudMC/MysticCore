@@ -13,19 +13,19 @@ import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.particles.formats.DoubleHelixFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
 public class GoblinBoss extends EntityZombie {
 
 	private int z = 0;
-	
-	private DoubleHelixFormat format = new DoubleHelixFormat();
+
+	private CircleFeetFormat format = new CircleFeetFormat();
 
 	private org.bukkit.inventory.ItemStack[] damageDrops = new org.bukkit.inventory.ItemStack[] {
 			new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT),
 			new org.bukkit.inventory.ItemStack(Material.IRON_INGOT),
 			new org.bukkit.inventory.ItemStack(Material.GOLD_NUGGET),
-			new org.bukkit.inventory.ItemStack(Material.IRON_NUGGET)};
+			new org.bukkit.inventory.ItemStack(Material.IRON_NUGGET) };
 
 	public GoblinBoss(World world, EntityTypes<? extends EntityZombie> entityType) {
 		this(world);
@@ -61,7 +61,7 @@ public class GoblinBoss extends EntityZombie {
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		
+
 		if (z % 100 == 0) {
 			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
 					damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
