@@ -682,6 +682,7 @@ public class CoreUtils {
 		} else {
 			player.sendMessage(prefixes.get("settings") + "Sidebar turned on");
 			sidebars.put(player.getUniqueId(), true);
+			enableScoreboard(player);
 		}
 	}
 
