@@ -28,6 +28,7 @@ public class SelectorFormat extends ParticleFormat {
 		allowedParticles.add(Particle.NOTE);
 		allowedParticles.add(Particle.END_ROD);
 		allowedParticles.add(Particle.FLAME);
+		allowedParticles.add(Particle.REDSTONE);
 
 		name = "&6Selector";
 		guiItem = new ItemStack(Material.BLAZE_POWDER);
