@@ -205,6 +205,7 @@ public class PlayerListener implements Listener {
 		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
 		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), true);
+		CoreUtils.sidebars.put(e.getPlayer().getUniqueId(), true);
 	}
 
 	@EventHandler
@@ -378,6 +379,10 @@ public class PlayerListener implements Listener {
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings") {
 			if (e.getCurrentItem().getType().equals(Material.DIAMOND)) {
 				CoreUtils.toggleParticles((Player) e.getWhoClicked());
+				e.getWhoClicked().closeInventory();
+			}
+			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
+				CoreUtils.toggleSidebar((Player) e.getWhoClicked());
 				e.getWhoClicked().closeInventory();
 			}
 		}

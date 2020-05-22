@@ -65,6 +65,7 @@ public class CoreUtils {
 	private static Holiday holiday = Holiday.NONE;
 	private static Date date = new Date();
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
+	public static Map<UUID, Boolean> sidebars = new HashMap<>();
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 	public static Map<UUID, ParticleFormat> entityparticles = new HashMap<>();
@@ -114,7 +115,7 @@ public class CoreUtils {
 		prefixes.put("root", fullPrefix);
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
-		prefixes.put("settings", colorize("&3&lSettings &7>&f "));
+		prefixes.put("settings", colorize("&a&lSettings &7>&f "));
 		prefixes.put("items", colorize("&3&lItems &7>&f "));
 		prefixes.put("kits", colorize("&3&lKits &7>&f "));
 		prefixes.put("pets", colorize("&e&lPets &7>&f "));
@@ -667,6 +668,20 @@ public class CoreUtils {
 			holidayparticles.put(player.getUniqueId(), true);
 		}
 	}
+	public static void toggleSidebar(Player player) {
+		if (!sidebars.containsKey(player.getUniqueId())) {
+			sidebars.put(player.getUniqueId(), true);
+			return;
+		}
+		if (sidebars.get(player.getUniqueId())) {
+			player.sendMessage(prefixes.get("settings") + "Sidebar turned off");
+			sidebars.put(player.getUniqueId(), false);
+			player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+		} else {
+			player.sendMessage(prefixes.get("settings") + "Sidebar turned on");
+			sidebars.put(player.getUniqueId(), true);
+		}
+	}
 
 	public static void addPermission(Player player, String permission) {
 		PermissionsEx.getUser(player).addPermission(permission);
@@ -784,6 +799,9 @@ public class CoreUtils {
 
 
 	public static void enableScoreboard(Player player) {
+		if(!sidebars.get(player.getUniqueId())) {
+			return;
+		}
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		Objective objective = scoreboard.registerNewObjective("sidebar", "dummy", colorize("        &3&lMystic&f&lCloud        "));
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);

@@ -142,7 +142,8 @@ public class GUIManager {
 	public static Inventory createSettingsMenu() {
 		InventoryCreator inv = new InventoryCreator("&6Settings", null, 9);
 		inv.addItem(new ItemStack(Material.DIAMOND), "&eParticles", 'A', new String[] {});
-		inv.setConfiguration(new char[] { 'A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+		inv.addItem(new ItemStack(Material.PAPER), "&cSidebar", 'B', new String[] {});
+		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
 
