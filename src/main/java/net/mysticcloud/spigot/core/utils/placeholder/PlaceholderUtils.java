@@ -39,7 +39,7 @@ public class PlaceholderUtils {
 			case HALLOWEEN:
 				string = string.replaceAll("%hdayline", "&6&lHappy &5&lHolloween&f");
 			case CINCO_DE_MAYO:
-				string = string.replaceAll("%hdayline", "&6&lHappy &5&lHolloween&f");
+				string = string.replaceAll("%hdayline", "&c&lCinco &f&lDe &a&lMayo");
 				break;
 			case MAY_THE_FORTH:
 				string = string.replaceAll("%hdayline", "&eMay The Forth Be With You");
