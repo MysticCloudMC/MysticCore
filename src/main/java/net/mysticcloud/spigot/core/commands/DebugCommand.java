@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.commands;
 
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +32,7 @@ public class DebugCommand implements CommandExecutor {
 							TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 							zom.spawn(((Player)sender).getLocation());
 							CoreUtils.entityparticles.put(zom.getBukkitEntity().getUniqueId(),new SelectorFormat());
+							CoreUtils.entityparticles.get(zom.getBukkitEntity().getUniqueId()).particle(Particle.COMPOSTER);
 						
 							
 					}
@@ -39,6 +41,7 @@ public class DebugCommand implements CommandExecutor {
 					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
 					chi.spawn(((Player)sender).getLocation());
 					CoreUtils.entityparticles.put(chi.getBukkitEntity().getUniqueId(),new CircleFeetFormat());
+					CoreUtils.entityparticles.get(chi.getBukkitEntity().getUniqueId()).particle(Particle.COMPOSTER);
 				}
 			}
 			
