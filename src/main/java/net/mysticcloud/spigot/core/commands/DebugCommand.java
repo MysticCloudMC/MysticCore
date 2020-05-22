@@ -1,19 +1,11 @@
 package net.mysticcloud.spigot.core.commands;
 
-import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
-import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
-import net.mysticcloud.spigot.core.utils.entities.TestChicken;
-import net.mysticcloud.spigot.core.utils.entities.TestZombie;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class DebugCommand implements CommandExecutor {
 
@@ -26,27 +18,6 @@ public class DebugCommand implements CommandExecutor {
 			
 			if(args.length == 0)
 				sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.toggleDebug()));
-			
-			if(args.length == 1) {
-				if(args[0].equalsIgnoreCase("zombie")) {
-					if(sender instanceof Player) {
-							TestZombie zom = new TestZombie(((CraftWorld) ((Player)sender).getWorld()).getHandle());
-							MysticEntityUtils.spawnBoss(zom, ((Player)sender).getLocation());
-							CoreUtils.entityparticles.put(zom.getBukkitEntity().getUniqueId(),new SelectorFormat());
-							CoreUtils.entityparticles.get(zom.getBukkitEntity().getUniqueId()).particle(Particle.COMPOSTER);
-						
-							
-					}
-				}
-				if(args[0].equalsIgnoreCase("chicken")) {
-					TestChicken chi = new TestChicken(((CraftWorld) ((Player)sender).getWorld()).getHandle());
-					MysticEntityUtils.spawnBoss(chi, ((Player)sender).getLocation());
-					CoreUtils.entityparticles.put(chi.getBukkitEntity().getUniqueId(),new CircleFeetFormat());
-					CoreUtils.entityparticles.get(chi.getBukkitEntity().getUniqueId()).particle(Particle.COMPOSTER);
-				}
-			}
-			
-//			
 		}
 		return true;
 	}

@@ -91,4 +91,6 @@ commands:
     description: Teleport someone to you.
   tpoff:
     description: Toggle teleportation requests.
+  boss:
+    description: spawn a boss.
   
