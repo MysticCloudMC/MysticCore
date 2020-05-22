@@ -1,15 +1,24 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.Entity;
 import net.minecraft.server.v1_15_R1.EntityTypes;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class MysticEntityUtils {
 
@@ -41,6 +50,26 @@ public class MysticEntityUtils {
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
 	}
+	
+	public static LinkedHashMap<UUID,Double> sortScores(UUID entity){
+		List<Entry<UUID,Double>> list = new LinkedList<Entry<UUID,Double>>(damages.get(entity).entrySet());
+		Collections.sort(list, new Comparator<Entry<UUID,Double>>() {
+
+			@Override
+			public int compare(Entry<UUID, Double> o1, Entry<UUID, Double> o2) {
+				// TODO Auto-generated method stub
+				return (o1.getValue()).compareTo(o2.getValue());
+			}
+		});
+		
+		LinkedHashMap<UUID,Double> temp = new LinkedHashMap<>();
+		for(Entry<UUID,Double> aa : list) {
+			temp.put(aa.getKey(),aa.getValue());
+		}
+		
+		return temp;
+		
+	}
 
 	public static Entity spawnBoss(Entity entity, Location loc) {
 		boolean spawned = false;
@@ -64,6 +93,14 @@ public class MysticEntityUtils {
 		damages.put(entity.getUniqueID(), new HashMap<UUID, Double>());
 		return entity;
 
+	}
+
+	public static void killBoss(LivingEntity entity) {
+		int z = MysticEntityUtils.damages.get(entity.getUniqueId()).size();
+		for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(entity.getUniqueId()).entrySet()) {
+			Bukkit.broadcastMessage(z + ": " + CoreUtils.lookupUsername(entry.getKey()));
+			z = z-1;
+		}
 	}
 
 }
