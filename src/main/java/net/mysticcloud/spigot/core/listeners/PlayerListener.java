@@ -13,6 +13,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,6 +21,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -115,6 +117,15 @@ public class PlayerListener implements Listener {
 				((Player) e.getEntity()).setHealth(((Player) e.getEntity()).getMaxHealth());
 				((Player) e.getEntity()).setFoodLevel(20);
 
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onEntityDeath(EntityDeathEvent e) {
+		if(MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+			for(Entry<UUID,Double> entry : MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).entrySet()) {
+				Bukkit.broadcastMessage("UID: " + entry.getKey() + " Damage: " + entry.getValue());
 			}
 		}
 	}
