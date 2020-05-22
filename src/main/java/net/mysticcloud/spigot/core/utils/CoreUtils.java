@@ -670,7 +670,9 @@ public class CoreUtils {
 	}
 	public static void toggleSidebar(Player player) {
 		if (!sidebars.containsKey(player.getUniqueId())) {
-			sidebars.put(player.getUniqueId(), true);
+			player.sendMessage(prefixes.get("settings") + "Sidebar turned off");
+			sidebars.put(player.getUniqueId(), false);
+			player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
 			return;
 		}
 		if (sidebars.get(player.getUniqueId())) {
