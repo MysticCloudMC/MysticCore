@@ -32,7 +32,7 @@ public class DateChecker implements Runnable {
 		counter = counter+1;
 		if(counter%40 == 0) {
 			counter = 0;
-			
+			CoreUtils.updateDate();
 			for(Punishment punishment : PunishmentUtils.getPunishments()) {
 				if(punishment.getDate() + punishment.getDuration() - new Date().getTime() <= 1) {
 					PunishmentUtils.finishPunishment(punishment);

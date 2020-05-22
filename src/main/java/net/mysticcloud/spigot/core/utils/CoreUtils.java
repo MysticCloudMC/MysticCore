@@ -637,7 +637,7 @@ public class CoreUtils {
 	}
 
 	public static Date getDate() {
-		return new Date();
+		return date;
 	}
 
 	public static List<String> colorizeStringList(List<String> stringList) {
