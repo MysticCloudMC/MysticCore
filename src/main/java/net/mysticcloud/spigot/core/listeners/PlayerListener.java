@@ -13,12 +13,12 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Boss;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -40,7 +40,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
-import net.mysticcloud.spigot.core.utils.entities.TestZombie;
+import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
@@ -118,12 +118,17 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
-	public void onEntityDamageByEntity(EntityDamageEvent e) {
-		if (e.getEntity() instanceof TestZombie) {
-			Bukkit.broadcastMessage("Damaged a boss!");
-		}
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Player)
+			if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+				Bukkit.broadcastMessage("Damaged a boss.");
+				if (MysticEntityUtils.damages.get(e.getEntity().getUniqueId()) == null) {
+					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
+							e.getDamage());
+				}
+			}
 	}
 
 	@EventHandler
