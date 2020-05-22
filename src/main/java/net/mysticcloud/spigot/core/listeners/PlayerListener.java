@@ -124,6 +124,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e) {
 		if(MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+			Bukkit.broadcastMessage("Boss death.");
 			for(Entry<UUID,Double> entry : MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).entrySet()) {
 				Bukkit.broadcastMessage("UID: " + entry.getKey() + " Damage: " + entry.getValue());
 			}
