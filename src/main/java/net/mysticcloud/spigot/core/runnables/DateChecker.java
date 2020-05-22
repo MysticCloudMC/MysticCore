@@ -28,10 +28,11 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
+		CoreUtils.updateDate();
 		counter = counter+1;
 		if(counter%40 == 0) {
 			counter = 0;
-			CoreUtils.updateDate();
+			
 			for(Punishment punishment : PunishmentUtils.getPunishments()) {
 				if(punishment.getDate() + punishment.getDuration() - new Date().getTime() <= 1) {
 					PunishmentUtils.finishPunishment(punishment);
