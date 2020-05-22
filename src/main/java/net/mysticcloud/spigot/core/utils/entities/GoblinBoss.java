@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -7,7 +9,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_15_R1.event.CraftEventFactory;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -73,7 +74,7 @@ import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
-public class GoblinBoss extends EntityZombie {
+public class GoblinBoss extends EntityZombie{
 	
 	
 	
@@ -131,7 +132,7 @@ public class GoblinBoss extends EntityZombie {
 	}
 
 	public void spawn(Location loc) {
-		Bukkit.broadcastMessage("Goblin spawned!");
+		Bukkit.broadcastMessage("CustomZombie spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.LEATHER_HELMET));
@@ -299,9 +300,7 @@ public class GoblinBoss extends EntityZombie {
 			}
 		}
 		
-		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()),z);
 		
-		CoreUtils.debug(CoreUtils.encryptLocation(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ())));
 		
 		z = z+1;
 		
@@ -389,9 +388,6 @@ public class GoblinBoss extends EntityZombie {
 
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
-		
-		getBukkitEntity().getLocation().getWorld().dropItem(getBukkitEntity().getLocation(), new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT));
-		
 		if (super.damageEntity(damagesource, f)) {
 			EntityLiving entityliving = getGoalTarget();
 			if (entityliving == null && damagesource.getEntity() instanceof EntityLiving)
