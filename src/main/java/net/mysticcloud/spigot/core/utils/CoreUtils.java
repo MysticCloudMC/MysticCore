@@ -802,6 +802,9 @@ public class CoreUtils {
 
 
 	public static void enableScoreboard(Player player) {
+		if(!sidebars.containsKey(player.getUniqueId())) {
+			sidebars.put(player.getUniqueId(), false);
+		}
 		if(!sidebars.get(player.getUniqueId())) {
 			return;
 		}
