@@ -89,11 +89,6 @@ public class GoblinBoss extends EntityZombie {
 		getAttributeInstance(GenericAttributes.ARMOR).setValue(5.0D);
 	}
 
-	@Override
-	protected void initDatawatcher() {
-		super.initDatawatcher();
-		getDataWatcher().register(DROWN_CONVERTING, Boolean.valueOf(false));
-	}
 
 	@Override
 	public boolean isDrownConverting() {
