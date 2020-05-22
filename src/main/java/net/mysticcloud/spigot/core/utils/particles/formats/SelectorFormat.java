@@ -53,7 +53,7 @@ public class SelectorFormat extends ParticleFormat {
 			spawnParticle(particle,loc.clone().add(rotateAroundAxisY(new Vector(
 					Math.cos(Math.toRadians(t) * (360 / cols) * (r)),
 					0.05,
-					Math.sin(Math.toRadians(t) * (360 / cols)) * (r)),i*2)));
+					Math.sin(Math.toRadians(t) * (360 / cols) * (r))),i*2)));
 		}
 
 	}
