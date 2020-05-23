@@ -124,6 +124,8 @@ public class EventUtils {
 
 			@Override
 			public void end() {
+				if (e.getEventType().equals(EventType.TIMED))
+					((Entity) e.getMetadata("BOSS")).killEntity();
 				int z = MysticEntityUtils.damages.get(((Entity) e.getMetadata("BOSS")).getBukkitEntity().getUniqueId())
 						.size();
 				for (Entry<UUID, Double> entry : MysticEntityUtils
