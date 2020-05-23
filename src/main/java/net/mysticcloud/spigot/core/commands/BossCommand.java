@@ -1,17 +1,19 @@
 package net.mysticcloud.spigot.core.commands;
 
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_15_R1.Entity;
 import net.mysticcloud.spigot.core.Main;
@@ -52,7 +54,7 @@ public class BossCommand implements CommandExecutor {
 						e.setMetadata("UUID", boss.getUniqueID());
 						e.setMetadata("LOCATION", ((Player)sender).getLocation());
 						e.setMetadata("BOSS", boss);
-						e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES) * 20);
+						e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES));
 						EventCheck check = new EventCheck() {
 
 							@Override
@@ -69,8 +71,15 @@ public class BossCommand implements CommandExecutor {
 							public void end() {
 								int z = MysticEntityUtils.damages.get(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).size();
 								for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).entrySet()) {
-									if(z == 1) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage!");
-									if(z == 2) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place.");
+									if(z == 1) {
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.5);
+										Bukkit.getPlayer(entry.getKey()).getInventory().addItem(new ItemStack(Material.DIAMOND,3));
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage! You earned 50xp, and 3 diamonds!");
+									}
+									if(z == 2) {
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.35);
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned 35xp.");
+									}
 									if(z == 3) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place.");
 								}
 							}
