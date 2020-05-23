@@ -94,7 +94,7 @@ public class Pet extends EntityArmorStand {
 					.getType().equals(Material.AIR)) {
 				v = rotateAroundAxisY(new Vector(0, 1, 0.19), yaw);
 			} else {
-				if (!getBukkitEntity().getLocation().add(new Vector(0, -0.5, 0)).getBlock().getType()
+				if (getBukkitEntity().getLocation().add(new Vector(0, -0.5, 0)).getBlock().getType()
 						.equals(Material.AIR))
 					v = rotateAroundAxisY(new Vector(0, -1, 0.19), yaw);
 				else
