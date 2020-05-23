@@ -15,7 +15,7 @@ import net.mysticcloud.spigot.core.utils.pets.PetType;
 
 public class Pet extends EntityArmorStand {
 
-	double speed = 2;
+	double speed = 0.15;
 	double dx = 0;
 	double dz = 0;
 
@@ -90,15 +90,15 @@ public class Pet extends EntityArmorStand {
 		if (Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
 			Vector v;
 			if (!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock()
-					.getType().equals(Material.AIR) && getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 1, 0.19), yaw)).getBlock()
+					.getType().equals(Material.AIR) && getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 1, speed), yaw)).getBlock()
 					.getType().equals(Material.AIR)) {
-				v = rotateAroundAxisY(new Vector(0, 1, 0.19), yaw);
+				v = rotateAroundAxisY(new Vector(0, 1, speed), yaw);
 			} else {
 				if (getBukkitEntity().getLocation().add(new Vector(0, -0.5, 0)).getBlock().getType()
 						.equals(Material.AIR))
-					v = rotateAroundAxisY(new Vector(0, -1, 0.19), yaw);
+					v = rotateAroundAxisY(new Vector(0, -1, speed), yaw);
 				else
-					v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
+					v = rotateAroundAxisY(new Vector(0, 0, speed), yaw);
 			}
 			setMot(v.getX(), v.getY(), v.getZ());
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
