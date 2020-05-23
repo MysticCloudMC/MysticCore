@@ -45,6 +45,9 @@ public class Event {
 
 	public void start() {
 		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=[&4"+ name + " Event&c]=-=-=-"));
+		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
+		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
+		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"));
 		check.start();
 	}
 
