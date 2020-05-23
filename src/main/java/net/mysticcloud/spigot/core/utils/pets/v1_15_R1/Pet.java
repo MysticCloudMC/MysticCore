@@ -37,7 +37,7 @@ public class Pet extends EntityArmorStand {
 	public Pet(World world) {
 		super(world, 0.0, 0.0, 0.0);
 
-		go(0, 0);
+		go();
 	}
 
 	public void setType(PetType type) {
@@ -45,19 +45,14 @@ public class Pet extends EntityArmorStand {
 	}
 
 	public void turnOnVehicle() {
-		go(0, 0);
+		go();
 	}
 
 	@SuppressWarnings("deprecation")
-	public void go(float sideMot, float forMot) {
+	public void go() {
 
-//		setMot(0, 0, 0.1);
-
-//		
-//		
-//		
 		if (type == null) {
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this), 1);
 			return;
 		}
 
@@ -65,27 +60,18 @@ public class Pet extends EntityArmorStand {
 			for (org.bukkit.entity.Entity e : getBukkitEntity().getNearbyEntities(5, 5, 5)) {
 				if (e instanceof Player) {
 					setOwner(((Player) e).getUniqueId());
-					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
+					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this), 1);
 					return;
 				}
 			}
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this), 1);
 			return;
 		}
 		if (Bukkit.getPlayer(owner) == null) {
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this), 1);
 			return;
 		}
-		distance = Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - locX(), 2)
-				+ Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - locX(), 2));
 
-//////	    SOHCAHTOA
-//////	    
-//////	       /|
-//////	   H  / |
-//////	     /  | A
-//////	    /___|
-//            O
 
 		float X = (float) ((locX()) - (Bukkit.getPlayer(owner).getLocation().getX()));
 		float Y = (float) ((locZ()) - (Bukkit.getPlayer(owner).getLocation().getZ()));
@@ -104,96 +90,15 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
-			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.3), yaw);
+			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.25), yaw);
 			setMot(v.getX(), v.getY(), v.getZ());
-		}
-//		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
-//				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
-//						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
-//				|| (new Location(getWorld().getWorld(), locX() - 1, locY(), locZ()).getBlock()
-//						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
-//				|| new Location(getWorld().getWorld(), locX(), locY(), locZ() - 1).getBlock()
-//						.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
-//			if (new Location(getWorld().getWorld(), locX(), locY() - 1, locZ()).getBlock().getRelative(BlockFace.DOWN)
-//					.getType() != Material.AIR) {
-////				this.setLocation(locX(), locY()+1.1, locZ(), 0, 0);
-//			}
-//		}
-//		if (distance > 2) {
-//
-//			dx = (distance * (Math.sin(yaw))) / 100;
-//			dz = -(distance * (Math.cos(yaw))) / 100;
-//
-////			dx = (Bukkit.getPlayer(owner).getLocation().getX() - locX > 0) ? 0.1 : -0.1;
-////			dy = (Bukkit.getPlayer(owner).getLocation().getZ() - locZ > 0) ? 0.1 : -0.1;
-//
-//			setMot(dx, 0, dz);
-//		}
-
-		if (dx != 0 && dz != 0) {
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
 				getEntity().setHelmet(type.getMovingItem());
 		} else {
 			if (!getEntity().getHelmet().equals(type.getIdleItem()))
 				getEntity().setHelmet(type.getIdleItem());
 		}
-//	    
-//		
-//		
-//		
-//		
-//		
-//		if(distance > 30){
-//			
-//			setLocation(Bukkit.getPlayer(owner).getLocation().getX(), Bukkit.getPlayer(owner).getLocation().getY(), Bukkit.getPlayer(owner).getLocation().getZ(), 0, 0);
-//			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
-//			return;
-//		}
-//		
-//		
-//		
-//	    dx = -forMot * Math.cos(Math.toRadians(yaw-180))*(speed*speedmod);
-//	    dz = -forMot * Math.sin(Math.toRadians(yaw-180))*(speed*speedmod);
-//	    
-//	    
-//	    
-////	    
-////	    motX = dx;
-////	    motZ = dz;
-////	    
-//	    if(distance < 2.5){
-////			motX = 0;
-////			motZ = 0;
-//		}
-////	    if(motX != 0 && motZ != 0){
-////	    	if(!getEntity().getHelmet().equals(type.getMovingItem()))getEntity().setHelmet(type.getMovingItem());
-////	    } else {
-////	    	if(!getEntity().getHelmet().equals(type.getIdleItem()))getEntity().setHelmet(type.getIdleItem());
-////	    }
-// 
-//	    
-////	    
-////	                 vvvvvvvvvvvvvvvvv,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,l
-////	     From the cat /\
-////	    
-////	    
-////	    
-////	             
-////	    motX = (dx*(speed*0.097)) + (dx2*(speed));
-////	    motZ = (dz*(speed*0.097)) + (dx2*(speed));
-////	    
-//	    
-//	    
-//	   
-//	    
-//	    if(getBukkitEntity().getLocation().add(dx, 0, dz).getBlock().getType().isSolid() && !getBukkitEntity().getLocation().add(dx, 1, dz).getBlock().getType().isSolid()){
-////	    	motY=0.4;
-//	    }
-//	    
-//	    try{
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this, sideMot, forMot), 1);
-//    	} catch (IllegalPluginAccessException ex){}
-//	 
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new MovePet(this), 1);
 	}
 
 	public void setOwner(UUID uid) {
