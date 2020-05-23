@@ -15,4 +15,18 @@ public enum Bosses {
 		return callname;
 	}
 
+	public String getFormattedCallName() {
+		String name = "";
+		if (getCallName().contains("_")) {
+			for (String g :getCallName().split("_")) {
+				name = name + g.substring(0, 1).toUpperCase() + g.substring(1, g.length()).toLowerCase() + " ";
+			}
+			name = name + "Boss";
+		} else {
+			name = getCallName().substring(0, 1).toUpperCase()
+					+ getCallName().substring(1, getCallName().length()).toLowerCase()  + " Boss";
+		}
+		return name;
+	}
+
 }

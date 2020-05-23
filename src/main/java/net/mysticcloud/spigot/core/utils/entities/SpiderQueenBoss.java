@@ -10,6 +10,7 @@ import net.minecraft.server.v1_15_R1.DamageSource;
 import net.minecraft.server.v1_15_R1.EntitySpider;
 import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
 public class SpiderQueenBoss extends EntitySpider {
@@ -33,6 +34,7 @@ public class SpiderQueenBoss extends EntitySpider {
 	public void spawn(Location loc) {
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.SPIDER_QUEEN_BOSS.getFormattedCallName()));
 		format.setHeight(1);
 		format.setRadius(1.25);
 		format.setSpots(20);

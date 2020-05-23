@@ -53,7 +53,6 @@ public class MysticEntityUtils {
 		case SPIDER_QUEEN_MINION:
 			return spawnBoss(new SpiderQueenMinion(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		default:
-			Bukkit.broadcastMessage("ERROR");
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
 	}
