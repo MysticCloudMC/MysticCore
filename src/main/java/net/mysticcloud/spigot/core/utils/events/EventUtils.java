@@ -127,6 +127,8 @@ public class EventUtils {
 
 			@Override
 			public boolean check() {
+				if(Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null)
+					e.setMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
 				if (e.getEventType().equals(EventType.TIMED))
 					return CoreUtils.getDate().getTime()
 							- ((long) e.getMetadata("DURATION")) >= ((long) e.getMetadata("STARTED"))
