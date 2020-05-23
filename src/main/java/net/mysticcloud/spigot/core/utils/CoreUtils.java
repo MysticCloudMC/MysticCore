@@ -119,6 +119,8 @@ public class CoreUtils {
 		prefixes.put("warps", colorize("&b&lWarps &7>&f "));
 		prefixes.put("eco", colorize("&6&lEconomy &7>&f "));
 		prefixes.put("error", colorize("&c&lError &7>&f "));
+		prefixes.put("account", colorize("&a&lAccount &7>&f "));
+		prefixes.put("account", colorize("&3&lTeleport &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
 
 		registerSidebarList();
