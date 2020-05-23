@@ -111,15 +111,17 @@ public class BossCommand implements CommandExecutor {
 								int z = e.getScores().size();
 								for (Entry<UUID, Double> entry : e.sortScores().entrySet()) {
 									if(z == 1) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.5);
-										Bukkit.getPlayer(entry.getKey()).getInventory().addItem(new ItemStack(Material.DIAMOND,3));
-										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage! You earned 50xp, and 3 diamonds!");
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage! You earned &7" + entry.getValue() + "&fxp!");
 									}
 									if(z == 2) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.35);
-										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned 35xp.");
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned &7" + entry.getValue() + "&fxp!");
 									}
-									if(z == 3) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place.");
+									if(z == 3) {
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place. You earned &" + entry.getValue() + "&fxp!");
+									}
 								}
 							}
 							
