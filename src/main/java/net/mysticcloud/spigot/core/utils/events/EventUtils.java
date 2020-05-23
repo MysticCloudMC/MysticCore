@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class EventUtils {
 
@@ -23,14 +24,24 @@ public class EventUtils {
 		
 		return event;
 	}
-
-	public static boolean checkEvent(int id) {
-		if (events.containsKey(id))
-			return events.get(id).getEventCheck().check();
-		else
-			return false;
-
+	
+	public static int getEventID(String name) {
+		for(Entry<Integer,Event> e : events.entrySet()) {
+			if(e.getValue().getName().equalsIgnoreCase(name)) {
+				return e.getKey();
+			}
+		}
+		return -1;
 	}
+	
+	public static Event getEvent(String name) {
+		return getEvent(getEventID(name));
+	}
+	
+	public static Event getEvent(int id) {
+		return events.get(id);
+	}
+
 
 	public static Map<Integer, Event> getEvents() {
 		return events;

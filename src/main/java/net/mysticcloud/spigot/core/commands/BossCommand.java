@@ -89,6 +89,45 @@ public class BossCommand implements CommandExecutor {
 						e.setEventCheck(check);
 						e.start();
 					}
+					if(args[0].equalsIgnoreCase("test2")) {
+						Event e = EventUtils.createEvent("Timed Test", EventType.TIMED);
+						e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(60, TimeUnit.SECONDS));
+						e.setMetadata("DESCRIPTION", CoreUtils.colorize("Pick up as many gold nuggets as you can!"));
+						e.setMetadata("STARTED", CoreUtils.getDate().getTime());
+						EventCheck check = new EventCheck() {
+
+							@Override
+							public boolean check() {
+								return CoreUtils.getDate().getTime() - ((long)e.getMetadata("DURATION")) >= ((long)e.getMetadata("STARTED"));
+							}
+
+							@Override
+							public void start() {
+//								MysticEntityUtils.spawnBoss((Entity)e.getMetadata("BOSS"), (Location) e.getMetadata("LOCATION"));
+							}
+
+							@Override
+							public void end() {
+								int z = e.getScores().size();
+								for (Entry<UUID, Double> entry : e.sortScores().entrySet()) {
+									if(z == 1) {
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.5);
+										Bukkit.getPlayer(entry.getKey()).getInventory().addItem(new ItemStack(Material.DIAMOND,3));
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage! You earned 50xp, and 3 diamonds!");
+									}
+									if(z == 2) {
+										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.35);
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned 35xp.");
+									}
+									if(z == 3) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place.");
+								}
+							}
+							
+						};
+						
+						e.setEventCheck(check);
+						e.start();
+					}
 				}
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("bosses") + "Player only command.");

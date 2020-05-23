@@ -13,7 +13,6 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,7 +20,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -43,6 +42,7 @@ import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.events.EventUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
@@ -56,6 +56,14 @@ public class PlayerListener implements Listener {
 
 	public PlayerListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	@EventHandler
+	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
+		if(EventUtils.getEventID("Timed Test") != -1) {
+			if(e.getEntity() instanceof Player) {
+				EventUtils.getEvent("Timed Test").score(((Player)e.getEntity()),1);
+			}
+		}
 	}
 
 	@EventHandler
