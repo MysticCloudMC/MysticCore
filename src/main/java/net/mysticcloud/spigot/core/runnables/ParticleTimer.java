@@ -25,15 +25,15 @@ public class ParticleTimer implements Runnable {
 		try {
 			
 		
-		for (Entry<UUID, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
-			try {
-				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation(), i);
-			} catch (IllegalArgumentException ex) {
-				CoreUtils.debug("Entity Particle error");
-			}
-			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
-
-		}
+//		for (Entry<UUID, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
+//			try {
+//				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation(), i);
+//			} catch (IllegalArgumentException ex) {
+//				CoreUtils.debug("Entity Particle error");
+//			}
+//			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
+//
+//		}
 		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
 			try {
 				entry.getValue().display(Bukkit.getPlayer(entry.getKey()).getLocation(), i);
