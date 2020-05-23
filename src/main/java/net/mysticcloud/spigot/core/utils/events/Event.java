@@ -53,7 +53,7 @@ public class Event {
 		}
 		
 		String s = "&c";
-		for(int a=1;!(a<=f.length()/2);a++)
+		for(int a=1;!(a>=f.length()/2);a++)
 			s = s +"-=";
 		Bukkit.broadcastMessage(CoreUtils.colorize(s));
 		check.start();
