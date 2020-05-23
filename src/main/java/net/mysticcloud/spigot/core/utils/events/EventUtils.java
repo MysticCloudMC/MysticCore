@@ -143,7 +143,7 @@ public class EventUtils {
 					}
 					CoreUtils.debug(((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() ) );
 					((BossBar)e.getMetadata("BOSSBAR")).setProgress((double) (((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() )/100));
-					e.setMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
+					e.overrideMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
 				}
 				if (e.getEventType().equals(EventType.TIMED))
 					return CoreUtils.getDate().getTime()
