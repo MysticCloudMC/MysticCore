@@ -75,12 +75,12 @@ public class SpiderQueenBoss extends EntitySpider {
 	public void movementTick() {
 		super.movementTick();
 
-		if(z%100==0) {
+		if(z%CoreUtils.getRandom().nextInt(100)==0) {
 			webs.add(getBukkitEntity().getLocation());
 			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
 			
 		}
-		if(z%250 == 0) {
+		if(z%CoreUtils.getRandom().nextInt(300) == 0) {
 			SpiderQueenMinion minion = new SpiderQueenMinion(world);
 			minion.spawn(getBukkitEntity().getLocation());
 			minions.add(minion);
