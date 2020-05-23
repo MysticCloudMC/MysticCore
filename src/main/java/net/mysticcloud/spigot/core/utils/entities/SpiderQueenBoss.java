@@ -1,9 +1,7 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Color;
@@ -27,7 +25,7 @@ public class SpiderQueenBoss extends EntitySpider {
 	private CircleFeetFormat format = new CircleFeetFormat();
 	
 	public List<SpiderQueenMinion> minions = new ArrayList<>();
-	public Map<Location, Block> webs = new HashMap<>();
+	public List<Location> webs = new ArrayList<>();
 
 
 	public SpiderQueenBoss(World world, EntityTypes<? extends EntitySpider> entityType) {
@@ -57,9 +55,8 @@ public class SpiderQueenBoss extends EntitySpider {
 	@Override
 	public void die() {
 		
-		for(Entry<Location,Block> entry : webs.entrySet()) {
-			entry.getKey().getBlock().setType(entry.getValue().getType());
-			entry.getKey().getBlock().setBlockData(entry.getValue().getBlockData());
+		for(Location loc : webs) {
+			loc.getBlock().setType(Material.AIR);
 		}
 		
 		for(SpiderQueenMinion minion : minions) {
@@ -79,7 +76,7 @@ public class SpiderQueenBoss extends EntitySpider {
 		super.movementTick();
 
 		if(z%100==0) {
-			webs.put(getBukkitEntity().getLocation(),getBukkitEntity().getLocation().getBlock());
+			webs.add(getBukkitEntity().getLocation());
 			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
 			if(z%500 == 0) {
 				SpiderQueenMinion minion = new SpiderQueenMinion(world);

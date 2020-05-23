@@ -1,5 +1,8 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -13,6 +16,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 public class SpiderQueenMinion extends EntityCaveSpider {
 
 	int z = 0;
+	public List<Location> webs = new ArrayList<>();
 
 
 	public SpiderQueenMinion(World world, EntityTypes<? extends EntityCaveSpider> entityType) {
@@ -45,11 +49,20 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 		
 		
 		if(z%100==0) {
+			webs.add(getBukkitEntity().getLocation());
 			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
 		}
 		
 		z = z + 1;
 		
+	}
+	
+	@Override
+	public void die() {
+		for(Location loc : webs) {
+			loc.getBlock().setType(Material.AIR);
+		}
+		super.die();
 	}
 
 	@Override
