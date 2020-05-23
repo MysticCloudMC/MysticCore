@@ -11,7 +11,12 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_15_R1.Entity;
@@ -122,13 +127,23 @@ public class EventUtils {
 		e.setMetadata("LOCATION", loc);
 		e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(30, TimeUnit.SECONDS));
 		e.setMetadata("STARTED", CoreUtils.getDate().getTime());
+		BossBar bossbar = Bukkit.createBossBar("Health", BarColor.PINK, BarStyle.SEGMENTED_10);
+		e.setMetadata("BOSSBAR", bossbar);
 
 		EventCheck check = new EventCheck() {
 
 			@Override
 			public boolean check() {
-				if(Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null)
+				if(Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null) {
+					org.bukkit.entity.Entity bos = Bukkit.getEntity((UUID) e.getMetadata("UUID"));
+					for(org.bukkit.entity.Entity en : bos.getNearbyEntities(40, 40, 40)) {
+						if(en instanceof Player) {
+							((BossBar)e.getMetadata("BOSSBAR")).addPlayer((Player)en);
+						}
+					}
+					((BossBar)e.getMetadata("BOSSBAR")).setProgress(((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() ) );
 					e.setMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
+				}
 				if (e.getEventType().equals(EventType.TIMED))
 					return CoreUtils.getDate().getTime()
 							- ((long) e.getMetadata("DURATION")) >= ((long) e.getMetadata("STARTED"))
