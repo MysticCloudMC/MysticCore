@@ -161,6 +161,8 @@ public class EventUtils {
 			@Override
 			public void end() {
 				
+				((BossBar)e.getMetadata("BOSSBAR")).removeAll();
+				
 				CoreUtils.spawnGem((Location) e.getMetadata("LOCATION"));
 				
 				if (e.getEventType().equals(EventType.TIMED) && Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null)
