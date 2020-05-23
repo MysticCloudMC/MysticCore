@@ -4,8 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_15_R1.EntityCreeper;
 import net.minecraft.server.v1_15_R1.EntityHuman;
@@ -87,8 +90,31 @@ public class IronBoss extends EntityIronGolem {
 		super.movementTick();
 		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()), z);
 
-		if (z % CoreUtils.getRandom().nextInt(500) == 0) {
-			Bukkit.broadcastMessage("Target: " + getTarget().getName());
+		if (z % CoreUtils.getRandom().nextInt(600)+100 == 0) {
+			
+			Player target = getTarget();
+			
+			
+			float X = (float) ((locX()) - (target.getLocation().getX()));
+			float Y = (float) ((locZ()) - (target.getLocation().getZ()));
+			float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
+			float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
+			if (X < 0 && Y < 0) {
+				this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) - 90);
+			}
+			if (X < 0 && Y > 0) {
+				this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 270);
+			}
+			if (X > 0 && Y > 0) {
+				this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) + 90);
+			}
+			if (X > 0 && Y < 0) {
+				this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
+			}
+			
+			Fireball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Fireball.class);
+			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaw));
+			
 		}
 
 		z = z + 1;
@@ -97,14 +123,22 @@ public class IronBoss extends EntityIronGolem {
 
 	private Player getTarget() {
 		while (true) {
-			Bukkit.broadcastMessage("Targeting...");
 			for (org.bukkit.entity.Entity en : getBukkitEntity().getNearbyEntities(40, 40, 40)) {
-				if (en instanceof Player && CoreUtils.getRandom().nextBoolean()) {
+				if (en instanceof Player /*&& CoreUtils.getRandom().nextBoolean()*/) {
 					return (Player)en;
 				}
 			}
 		}
 
+	}
+	protected Vector rotateAroundAxisX(Vector v, double angle) {
+		angle = Math.toRadians(angle);
+		double y, z, cos, sin;
+		cos = Math.cos(angle);
+		sin = Math.sin(angle);
+		y = v.getY() * cos - v.getZ() * sin;
+		z = v.getY() * sin + v.getZ() * cos;
+		return v.setY(y).setZ(z);
 	}
 
 }
