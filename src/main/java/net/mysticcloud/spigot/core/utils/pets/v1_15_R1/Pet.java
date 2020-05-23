@@ -71,29 +71,33 @@ public class Pet extends EntityArmorStand {
 			return;
 		}
 
-
 		float X = (float) ((locX()) - (Bukkit.getPlayer(owner).getLocation().getX()));
 		float Y = (float) ((locZ()) - (Bukkit.getPlayer(owner).getLocation().getZ()));
 		float A = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - (locX()), 2)));
 		float O = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
-		if(X < 0 && Y < 0) {
-			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-90);
+		if (X < 0 && Y < 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) - 90);
 		}
-		if(X < 0 && Y > 0) {
-			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-270);
+		if (X < 0 && Y > 0) {
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 270);
 		}
-		if(X > 0 && Y > 0) {
-			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))+90);
+		if (X > 0 && Y > 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) + 90);
 		}
-		if(X > 0 && Y < 0) {
-			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
+		if (X > 0 && Y < 0) {
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
 		}
-		if(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
+		if (Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
 			Vector v;
-			if(!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock().getType().equals(Material.AIR)) {
+			if (!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock()
+					.getType().equals(Material.AIR)) {
 				v = rotateAroundAxisY(new Vector(0, 1, 0.19), yaw);
 			} else {
-				v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
+				if (!getBukkitEntity().getLocation().add(new Vector(0, -1, 0)).getBlock().getType()
+						.equals(Material.AIR))
+					v = rotateAroundAxisY(new Vector(0, -1, 0.19), yaw);
+				else
+					v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
 			}
 			setMot(v.getX(), v.getY(), v.getZ());
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
@@ -128,7 +132,7 @@ public class Pet extends EntityArmorStand {
 	private ArmorStand getEntity() {
 		return ((ArmorStand) getBukkitEntity());
 	}
-	
+
 	protected Vector rotateAroundAxisX(Vector v, double angle) {
 		angle = Math.toRadians(angle);
 		double y, z, cos, sin;
