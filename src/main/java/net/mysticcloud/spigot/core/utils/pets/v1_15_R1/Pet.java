@@ -93,6 +93,18 @@ public class Pet extends EntityArmorStand {
 		float O = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
 		CoreUtils.debug("X:" + X);
 		CoreUtils.debug("Y: " + Y);
+		if(X < 0 && Y < 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-90);
+		}
+		if(X < 0 && Y > 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-270);
+		}
+		if(X > 0 && Y > 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))+90);
+		}
+		if(X > 0 && Y < 0) {
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))+90);
+		}
 		if ((X < 0 && Y > 0) || (Y < 0 && X > 0))
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-270);
 		else
