@@ -47,8 +47,9 @@ public class BossCommand implements CommandExecutor {
 							EventUtils.startBossEvent(boss,((Player)sender).getLocation());
 							return true;
 						}
-						sender.sendMessage(CoreUtils.prefixes("boss") + "Unknown boss.");
+						
 					}
+					sender.sendMessage(CoreUtils.prefixes("boss") + "Unknown boss.");
 					if(args[0].equalsIgnoreCase("test")) {
 						Event e = EventUtils.createEvent("Boss Test", EventType.TIMED);
 						IronBoss boss = new IronBoss(((CraftWorld)((Player)sender).getWorld()).getHandle());
@@ -113,15 +114,15 @@ public class BossCommand implements CommandExecutor {
 								for (Entry<UUID, Double> entry : e.sortScores().entrySet()) {
 									if(z == 1) {
 										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
-										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You did the most damage! You earned &7" + entry.getValue() + "&fxp!"));
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You did the most damage! You earned &7" + entry.getValue()*100 + "&fxp!"));
 									}
 									if(z == 2) {
 										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
-										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in second place. You earned &7" + entry.getValue() + "&fxp!"));
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in second place. You earned &7" + entry.getValue()*100 + "&fxp!"));
 									}
 									if(z == 3) {
 										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
-										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in 3rd place. You earned &" + entry.getValue() + "&fxp!"));
+										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in 3rd place. You earned &" + entry.getValue()*100 + "&fxp!"));
 									}
 								}
 							}

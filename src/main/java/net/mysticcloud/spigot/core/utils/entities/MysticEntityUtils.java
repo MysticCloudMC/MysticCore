@@ -29,6 +29,10 @@ public class MysticEntityUtils {
 					.register();
 			new MysticEntityType<IronBoss>("ironboss", IronBoss.class, EntityTypes.IRON_GOLEM, IronBoss::new)
 					.register();
+			new MysticEntityType<SpiderQueenBoss>("spiderqueen", SpiderQueenBoss.class, EntityTypes.SPIDER,
+					SpiderQueenBoss::new).register();
+			new MysticEntityType<SpiderQueenMinion>("spiderqueenminion", SpiderQueenMinion.class,
+					EntityTypes.CAVE_SPIDER, SpiderQueenMinion::new).register();
 
 		} catch (IllegalStateException ex) {
 
@@ -43,14 +47,18 @@ public class MysticEntityUtils {
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		case GOBLIN_BOSS:
 			return spawnBoss(new GoblinBoss(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+		case SPIDER_QUEEN_BOSS:
+			return spawnBoss(new SpiderQueenBoss(((CraftWorld) (loc).getWorld()).getHandle()), loc);
+		case SPIDER_QUEEN_MINION:
+			return spawnBoss(new SpiderQueenMinion(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		default:
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
 	}
-	
-	public static LinkedHashMap<UUID,Double> sortScores(UUID entity){
-		List<Entry<UUID,Double>> list = new LinkedList<Entry<UUID,Double>>(damages.get(entity).entrySet());
-		Collections.sort(list, new Comparator<Entry<UUID,Double>>() {
+
+	public static LinkedHashMap<UUID, Double> sortScores(UUID entity) {
+		List<Entry<UUID, Double>> list = new LinkedList<Entry<UUID, Double>>(damages.get(entity).entrySet());
+		Collections.sort(list, new Comparator<Entry<UUID, Double>>() {
 
 			@Override
 			public int compare(Entry<UUID, Double> o1, Entry<UUID, Double> o2) {
@@ -58,14 +66,14 @@ public class MysticEntityUtils {
 				return (o1.getValue()).compareTo(o2.getValue());
 			}
 		});
-		
-		LinkedHashMap<UUID,Double> temp = new LinkedHashMap<>();
-		for(Entry<UUID,Double> aa : list) {
-			temp.put(aa.getKey(),aa.getValue());
+
+		LinkedHashMap<UUID, Double> temp = new LinkedHashMap<>();
+		for (Entry<UUID, Double> aa : list) {
+			temp.put(aa.getKey(), aa.getValue());
 		}
-		
+
 		return temp;
-		
+
 	}
 
 	public static Entity spawnBoss(Entity entity, Location loc) {
@@ -83,7 +91,15 @@ public class MysticEntityUtils {
 			((GoblinBoss) entity).spawn(loc);
 			spawned = true;
 		}
-		if(!spawned) {
+		if (entity instanceof SpiderQueenBoss) {
+			((SpiderQueenBoss) entity).spawn(loc);
+			spawned = true;
+		}
+		if (entity instanceof SpiderQueenMinion) {
+			((SpiderQueenMinion) entity).spawn(loc);
+			spawned = true;
+		}
+		if (!spawned) {
 			entity.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 			entity.world.addEntity(entity, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		}
@@ -91,6 +107,5 @@ public class MysticEntityUtils {
 		return entity;
 
 	}
-
 
 }
