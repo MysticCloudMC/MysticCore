@@ -88,21 +88,27 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
 		}
 		if (Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
-			Vector v;
-			if (!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock()
-					.getType().equals(Material.AIR) && getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 1, speed), yaw)).getBlock()
-					.getType().equals(Material.AIR)) {
-				v = rotateAroundAxisY(new Vector(0, 1, speed), yaw);
+			if (Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) < 20) {
+
+				Vector v;
+				if (!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock()
+						.getType().equals(Material.AIR)
+						&& getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 1, speed), yaw))
+								.getBlock().getType().equals(Material.AIR)) {
+					v = rotateAroundAxisY(new Vector(0, 1, speed), yaw);
+				} else {
+					if (getBukkitEntity().getLocation().add(new Vector(0, -0.5, 0)).getBlock().getType()
+							.equals(Material.AIR))
+						v = rotateAroundAxisY(new Vector(0, -1, speed), yaw);
+					else
+						v = rotateAroundAxisY(new Vector(0, 0, speed), yaw);
+				}
+				setMot(v.getX(), v.getY(), v.getZ());
+				if (!getEntity().getHelmet().equals(type.getMovingItem()))
+					getEntity().setHelmet(type.getMovingItem());
 			} else {
-				if (getBukkitEntity().getLocation().add(new Vector(0, -0.5, 0)).getBlock().getType()
-						.equals(Material.AIR))
-					v = rotateAroundAxisY(new Vector(0, -1, speed), yaw);
-				else
-					v = rotateAroundAxisY(new Vector(0, 0, speed), yaw);
+				getBukkitEntity().teleport(Bukkit.getPlayer(owner));
 			}
-			setMot(v.getX(), v.getY(), v.getZ());
-			if (!getEntity().getHelmet().equals(type.getMovingItem()))
-				getEntity().setHelmet(type.getMovingItem());
 		} else {
 			if (!getEntity().getHelmet().equals(type.getIdleItem()))
 				getEntity().setHelmet(type.getIdleItem());
