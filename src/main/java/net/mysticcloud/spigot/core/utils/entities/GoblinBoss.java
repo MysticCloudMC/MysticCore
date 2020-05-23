@@ -1,8 +1,11 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.DamageSource;
@@ -46,6 +49,8 @@ public class GoblinBoss extends EntityZombie {
 		format.setHeight(1);
 		format.setRadius(0.5);
 		format.setSpots(20);
+		format.particle(Particle.REDSTONE);
+		format.setDustOptions(new DustOptions(Color.YELLOW, 1));
 		setBaby(true);
 		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
 		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
