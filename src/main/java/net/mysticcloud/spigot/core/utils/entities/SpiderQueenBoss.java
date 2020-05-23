@@ -1,5 +1,8 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -17,6 +20,8 @@ public class SpiderQueenBoss extends EntitySpider {
 
 	int z = 0;
 	private CircleFeetFormat format = new CircleFeetFormat();
+	
+	public List<SpiderQueenMinion> minions = new ArrayList<>();
 
 
 	public SpiderQueenBoss(World world, EntityTypes<? extends EntitySpider> entityType) {
@@ -35,11 +40,22 @@ public class SpiderQueenBoss extends EntitySpider {
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.SPIDER_QUEEN_BOSS.getFormattedCallName()));
+		setCustomNameVisible(true);
 		format.setHeight(1);
 		format.setRadius(1.25);
 		format.setSpots(20);
 		format.particle(Particle.REDSTONE);
 		format.setDustOptions(new DustOptions(Color.WHITE, 1));
+	}
+	
+	@Override
+	public void killEntity() {
+		
+		for(SpiderQueenMinion minion : minions) {
+			minion.killEntity();
+		}
+		
+		super.killEntity();
 	}
 
 	@Override
@@ -53,7 +69,9 @@ public class SpiderQueenBoss extends EntitySpider {
 		
 		
 		if(z%500 == 0) {
-			new SpiderQueenMinion(world).spawn(getBukkitEntity().getLocation());
+			SpiderQueenMinion minion = new SpiderQueenMinion(world);
+			minion.spawn(getBukkitEntity().getLocation());
+			minions.add(minion);
 		}
 		format.display(getBukkitEntity().getLocation(), z);
 		z = z + 1;

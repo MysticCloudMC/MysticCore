@@ -7,6 +7,7 @@ import net.minecraft.server.v1_15_R1.DamageSource;
 import net.minecraft.server.v1_15_R1.EntityCaveSpider;
 import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class SpiderQueenMinion extends EntityCaveSpider {
 
@@ -28,6 +29,8 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 	public void spawn(Location loc) {
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
+		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.SPIDER_QUEEN_MINION.getFormattedCallName()));
+		setCustomNameVisible(true);
 	}
 
 	@Override

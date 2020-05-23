@@ -51,6 +51,8 @@ public class GoblinBoss extends EntityZombie {
 		format.particle(Particle.REDSTONE);
 		format.setDustOptions(new DustOptions(Color.YELLOW, 1));
 		setBaby(true);
+		getBukkitEntity().setCustomName(CoreUtils.colorize("&6&l" + Bosses.GOBLIN_BOSS.getFormattedCallName()));
+		setCustomNameVisible(true);
 		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
 		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
 		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));

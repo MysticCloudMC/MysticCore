@@ -23,6 +23,7 @@ import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStrollLand;
 import net.minecraft.server.v1_15_R1.PathfinderGoalStrollVillage;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
 public class IronBoss extends EntityIronGolem {
@@ -53,6 +54,8 @@ public class IronBoss extends EntityIronGolem {
 		format.setColumns(4);
 		format.setLength(1);
 		format.setRadius(1.25);
+		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.IRON_BOSS.getFormattedCallName()));
+		setCustomNameVisible(true);
 
 	}
 	@Override
