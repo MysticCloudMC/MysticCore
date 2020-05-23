@@ -131,7 +131,7 @@ public class DateChecker implements Runnable {
 			Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
 		} catch(Exception ex) {
 			CoreUtils.debug("There was an error!");
-			Bukkit.getConsoleSender().sendMessage(ex.getMessage());
+			ex.printStackTrace();
 		}
 
 		if (!CoreUtils.debugOn())
