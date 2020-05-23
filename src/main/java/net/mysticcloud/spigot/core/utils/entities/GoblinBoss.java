@@ -46,7 +46,6 @@ public class GoblinBoss extends EntityZombie {
 		format.setHeight(1);
 		format.setRadius(0.5);
 		format.setSpots(20);
-		CoreUtils.entityparticles.put(getBukkitEntity().getUniqueId(), format);
 		setBaby(true);
 		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
 		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
