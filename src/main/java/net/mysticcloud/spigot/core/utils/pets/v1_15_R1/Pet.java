@@ -77,7 +77,6 @@ public class Pet extends EntityArmorStand {
 		distance = Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - locX(), 2)
 				+ Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - locX(), 2));
 
-		
 //////	    SOHCAHTOA
 //////	    
 //////	       /|
@@ -87,19 +86,17 @@ public class Pet extends EntityArmorStand {
 //            O
 		dx = 0;
 		dz = 0;
-		
-		
-		
-		
-		
-		
+
 		float X = (float) ((locX()) - (Bukkit.getPlayer(owner).getLocation().getX()));
 		float Y = (float) ((locZ()) - (Bukkit.getPlayer(owner).getLocation().getZ()));
 		float A = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - (locX()), 2)));
 		float O = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
 		CoreUtils.debug("X:" + X);
 		CoreUtils.debug("Y: " + Y);
-		this.yaw =  (float) (Math.toDegrees(Math.atan(O/A)));
+		if ((X > 0 && Y > 0) || (Y < 0 && X > 0))
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)));
+		else
+			this.yaw = (float) (Math.toDegrees(Math.atan(O / A)));
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
 //				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
 //						.getRelative(BlockFace.DOWN).getType() != Material.AIR)
