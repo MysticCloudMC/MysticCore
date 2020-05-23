@@ -5,8 +5,10 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_15_R1.EntityArmorStand;
+import net.minecraft.server.v1_15_R1.Vec3D;
 import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -104,7 +106,8 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(Math.sqrt(Math.pow(A-O, 2)) > 5) {
-			setMot(1, 0, 0);
+			Vector v = rotateAroundAxisY(new Vector(0.5, 0, 0), yaw);
+			setMot(new Vec3D(v.getX(), v.getY(), v.getZ()));
 		}
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
 //				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
@@ -217,6 +220,37 @@ public class Pet extends EntityArmorStand {
 
 	private ArmorStand getEntity() {
 		return ((ArmorStand) getBukkitEntity());
+	}
+	
+	protected Vector rotateAroundAxisX(Vector v, double angle) {
+		angle = Math.toRadians(angle);
+		double y, z, cos, sin;
+		cos = Math.cos(angle);
+		sin = Math.sin(angle);
+		y = v.getY() * cos - v.getZ() * sin;
+		z = v.getY() * sin + v.getZ() * cos;
+		return v.setY(y).setZ(z);
+	}
+
+	protected Vector rotateAroundAxisY(Vector v, double angle) {
+		angle = -angle;
+		angle = Math.toRadians(angle);
+		double x, z, cos, sin;
+		cos = Math.cos(angle);
+		sin = Math.sin(angle);
+		x = v.getX() * cos + v.getZ() * sin;
+		z = v.getX() * -sin + v.getZ() * cos;
+		return v.setX(x).setZ(z);
+	}
+
+	protected Vector rotateAroundAxisZ(Vector v, double angle) {
+		angle = Math.toRadians(angle);
+		double x, y, cos, sin;
+		cos = Math.cos(angle);
+		sin = Math.sin(angle);
+		x = v.getX() * cos - v.getY() * sin;
+		y = v.getX() * sin + v.getY() * cos;
+		return v.setX(x).setY(y);
 	}
 
 }
