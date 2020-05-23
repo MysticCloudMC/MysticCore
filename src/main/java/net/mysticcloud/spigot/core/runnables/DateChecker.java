@@ -31,7 +31,7 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
-		CoreUtils.updateDate();
+		try {
 		for(Entry<Integer,Event> entry : EventUtils.getEvents().entrySet()) {
 			if(entry.getValue().getEventCheck().check()) {
 				entry.getValue().end();
@@ -129,6 +129,10 @@ public class DateChecker implements Runnable {
 
 		if (CoreUtils.getHoliday() != Holiday.NONE)
 			Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
+		} catch(Exception ex) {
+			CoreUtils.debug("There was an error!");
+			Bukkit.getConsoleSender().sendMessage(ex.getMessage());
+		}
 
 		if (!CoreUtils.debugOn())
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
