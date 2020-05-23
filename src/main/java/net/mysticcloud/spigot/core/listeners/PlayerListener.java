@@ -121,13 +121,13 @@ public class PlayerListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onEntityDeath(EntityDeathEvent e) {
-		if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
-			MysticEntityUtils.killBoss(e.getEntity());
-			
-		}
-	}
+//	@EventHandler
+//	public void onEntityDeath(EntityDeathEvent e) {
+//		if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+//			MysticEntityUtils.killBoss(e.getEntity());
+//			
+//		}
+//	}
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {

@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.runnables;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,6 +12,8 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.utils.events.Event;
+import net.mysticcloud.spigot.core.utils.events.EventUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
@@ -29,6 +32,16 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		CoreUtils.updateDate();
+		for(Entry<Integer,Event> entry : EventUtils.getEvents().entrySet()) {
+			if(entry.getValue().getEventCheck().check()) {
+				entry.getValue().getEventCheck().end();
+				EventUtils.addRemoveEvent(entry.getKey());
+			}
+		}
+		for(Integer id : EventUtils.removeEvents()) {
+			EventUtils.removeEvent(id);
+		}
+		EventUtils.clearRemoveEvents();
 		counter = counter+1;
 		if(counter%40 == 0) {
 			counter = 0;

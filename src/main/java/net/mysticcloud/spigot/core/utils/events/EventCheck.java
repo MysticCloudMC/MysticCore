@@ -6,4 +6,6 @@ public interface EventCheck {
 
 	public void start();
 
+	public void end();
+
 }

@@ -95,12 +95,5 @@ public class MysticEntityUtils {
 
 	}
 
-	public static void killBoss(LivingEntity entity) {
-		int z = MysticEntityUtils.damages.get(entity.getUniqueId()).size();
-		for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(entity.getUniqueId()).entrySet()) {
-			Bukkit.broadcastMessage(z + ": " + CoreUtils.lookupUsername(entry.getKey()));
-			z = z-1;
-		}
-	}
 
 }

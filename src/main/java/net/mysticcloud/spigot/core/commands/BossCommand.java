@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.commands;
 
 import java.util.UUID;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -60,6 +61,15 @@ public class BossCommand implements CommandExecutor {
 							@Override
 							public void start() {
 								MysticEntityUtils.spawnBoss((Entity)e.getMetadata("BOSS"), (Location) e.getMetadata("LOCATION"));
+							}
+
+							@Override
+							public void end() {
+								int z = MysticEntityUtils.damages.get(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).size();
+								for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).entrySet()) {
+									Bukkit.broadcastMessage(z + ": " + CoreUtils.lookupUsername(entry.getKey()));
+									z = z-1;
+								}
 							}
 							
 						};
