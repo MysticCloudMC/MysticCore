@@ -40,11 +40,11 @@ public class CircleFeetFormat extends ParticleFormat {
 	public void display(Location loc, int i) {
 		if(particle == null) return;
 		spawnParticle(particle,
-				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / spots)) * (r))),
+				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / spots))) * (r)),
 						0.1, Math.sin(Math.toRadians(i) * (360 / spots)) * (r)));
 		spawnParticle(particle,
 				loc.clone().add(
-						Math.cos(Math.toRadians(((i + 10) * (360 / spots)) * (r))), 0.1,
+						Math.cos(Math.toRadians(((i + 10) * (360 / spots))) * (r)), 0.1,
 						Math.sin(Math.toRadians(i + 10) * (360 / spots)) * (r)));
 
 	}
