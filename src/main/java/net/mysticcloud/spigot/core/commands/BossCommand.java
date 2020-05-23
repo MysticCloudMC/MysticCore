@@ -47,7 +47,7 @@ public class BossCommand implements CommandExecutor {
 						}
 					}
 					if(args[0].equalsIgnoreCase("test")) {
-						Event e = EventUtils.createEvent("Boss Test", EventType.COMPLETION);
+						Event e = EventUtils.createEvent("Boss Test", EventType.TIMED);
 						IronBoss boss = new IronBoss(((CraftWorld)((Player)sender).getWorld()).getHandle());
 						e.setMetadata("UUID", boss.getUniqueID());
 						e.setMetadata("LOCATION", ((Player)sender).getLocation());
