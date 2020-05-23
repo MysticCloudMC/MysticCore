@@ -49,13 +49,13 @@ public class SpiderQueenBoss extends EntitySpider {
 	}
 	
 	@Override
-	public void killEntity() {
+	public void die() {
 		
 		for(SpiderQueenMinion minion : minions) {
 			minion.killEntity();
 		}
 		
-		super.killEntity();
+		super.die();
 	}
 
 	@Override
