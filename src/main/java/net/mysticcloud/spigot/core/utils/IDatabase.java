@@ -20,8 +20,6 @@ public class IDatabase {
 
 	public Connection connection;
 	private Properties properties;
-	private String user;
-	private String pass;
 	private String url;
 	private SQLDriver driver;
 
@@ -32,8 +30,6 @@ public class IDatabase {
 
 	public IDatabase(SQLDriver driver, String host, String database, Integer port, String username, String password) {
 		this.properties = new Properties();
-		this.user = username;
-		this.pass = password;
 		this.properties.setProperty("user", username);
 		this.properties.setProperty("password", password);
 		this.url = "jdbc:mysql://" + host + ":" + port + "/" + database;

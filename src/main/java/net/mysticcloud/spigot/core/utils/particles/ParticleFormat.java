@@ -17,6 +17,7 @@ import org.bukkit.util.Vector;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
+@SuppressWarnings("deprecation")
 public class ParticleFormat {
 
 	protected boolean changeParticle = false;

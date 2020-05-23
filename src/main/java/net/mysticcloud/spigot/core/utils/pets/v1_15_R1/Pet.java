@@ -3,17 +3,14 @@ package net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
+import net.minecraft.server.v1_15_R1.EntityArmorStand;
+import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pets.PetType;
-import net.minecraft.server.v1_15_R1.EntityArmorStand;
-import net.minecraft.server.v1_15_R1.World;
 
 public class Pet extends EntityArmorStand {
 
@@ -199,8 +196,8 @@ public class Pet extends EntityArmorStand {
 			else
 				name = owner + "'s Pet";
 
-//			setCustomName(name);
-//			setCustomNameVisible(true);
+			getBukkitEntity().setCustomName(name);
+			setCustomNameVisible(true);
 
 		}
 		owner = uid;

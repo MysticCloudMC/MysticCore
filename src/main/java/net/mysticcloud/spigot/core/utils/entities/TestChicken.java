@@ -188,8 +188,6 @@ public class TestChicken extends EntityChicken {
 		super.k(entity);
 		float f = MathHelper.sin(this.aI * 0.017453292F);
 		float f1 = MathHelper.cos(this.aI * 0.017453292F);
-		float f2 = 0.1F;
-		float f3 = 0.0F;
 		entity.setPosition(locX() + (0.1F * f), e(0.5D) + entity.aR() + 0.0D, locZ() - (0.1F * f1));
 		if (entity instanceof EntityLiving)
 			((EntityLiving) entity).aI = this.aI;

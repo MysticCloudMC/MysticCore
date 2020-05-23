@@ -2,7 +2,6 @@ package net.mysticcloud.spigot.core.utils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

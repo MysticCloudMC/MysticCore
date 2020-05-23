@@ -2,8 +2,6 @@ package net.mysticcloud.spigot.core.utils.punishment;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
-
 public class Punishment {
 	
 	long duration;

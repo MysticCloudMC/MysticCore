@@ -9,10 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.milkbowl.vault.economy.Economy;
-import net.minecraft.server.v1_15_R1.EntityChicken;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.entities.TestChicken;
 
 public class EconomyCommand implements CommandExecutor {
 

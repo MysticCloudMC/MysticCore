@@ -22,7 +22,7 @@ public class Event {
 	EventCheck check;
 	String name;
 	Map<String, Object> metadata = new HashMap<>();
-	Map<UUID, Double> scores = new HashMap();
+	Map<UUID, Double> scores = new HashMap<>();
 
 	public Event(String name, EventType type) {
 		this.name = CoreUtils.colorize(name);

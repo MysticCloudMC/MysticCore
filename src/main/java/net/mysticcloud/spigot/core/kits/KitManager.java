@@ -225,6 +225,7 @@ public class KitManager {
 		return ((long)(micro/1000)) + "&f seconds";
 	}
 
+	@SuppressWarnings("deprecation")
 	public static Inventory getGUI(Player player) {
 
 		InventoryCreator inv = new InventoryCreator(name, (player), ((KitManager.getKits().size() / 9) + 1) * 9);
@@ -267,6 +268,7 @@ public class KitManager {
 		cooldown.remove(uid);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public static void unloadCooldowns() {
 		FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
 		Map<String, List<String>> uids = new HashMap<>();

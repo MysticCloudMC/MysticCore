@@ -66,6 +66,7 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e) {
 		if (CoreUtils.debugOn()) {
@@ -116,6 +117,7 @@ public class PlayerListener implements Listener {
 	// }
 	//
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerDeath(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -219,6 +221,7 @@ public class PlayerListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
@@ -345,6 +348,8 @@ public class PlayerListener implements Listener {
 			case WHITE_DYE:
 				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.WHITE, 1));
 				e.getWhoClicked().closeInventory();
+				break;
+			default:
 				break;
 			}
 

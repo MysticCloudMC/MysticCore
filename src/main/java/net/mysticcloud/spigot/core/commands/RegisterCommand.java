@@ -17,6 +17,7 @@ public class RegisterCommand implements CommandExecutor {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(!CoreUtils.connected()) {
 			sender.sendMessage(CoreUtils.colorize("&eSQL&7 >&f SQL is disabled."));

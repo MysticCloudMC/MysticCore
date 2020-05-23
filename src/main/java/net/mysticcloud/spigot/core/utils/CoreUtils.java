@@ -26,7 +26,6 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
@@ -86,12 +85,8 @@ public class CoreUtils {
 	private static Map<String, ItemStack> items = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
 	private static Map<String, String> variables = new HashMap<>();
-	private static Map<UUID, MysticPlayer> mps = new HashMap<>();
-
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
-
-	private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
 	public static List<String> ecoaccounts = new ArrayList<>();
 	public static double startingBalance = 100.00;
@@ -125,7 +120,6 @@ public class CoreUtils {
 		prefixes.put("eco", colorize("&6&lEconomy &7>&f "));
 		prefixes.put("error", colorize("&c&lError &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
-
 
 		registerSidebarList();
 
@@ -170,7 +164,6 @@ public class CoreUtils {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
@@ -182,7 +175,6 @@ public class CoreUtils {
 			try {
 				fc.save(file);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -196,7 +188,6 @@ public class CoreUtils {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
@@ -208,7 +199,6 @@ public class CoreUtils {
 			try {
 				fc.save(file);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -246,7 +236,6 @@ public class CoreUtils {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -265,7 +254,6 @@ public class CoreUtils {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -273,15 +261,18 @@ public class CoreUtils {
 
 	}
 
+	@Deprecated
 	public static void teleportPlayer(String sender, Player player, Player other) {
 
 		TeleportUtils.teleportPlayer(sender, player, other);
 	}
 
+	@Deprecated
 	public static void teleportPlayer(Player player, Player other) {
 		TeleportUtils.teleportPlayer(player, other);
 	}
 
+	@Deprecated
 	public static void teleportPlayer(Player player, Player other, boolean sender) {
 		TeleportUtils.teleportPlayer(player, other, sender);
 	}
@@ -296,7 +287,6 @@ public class CoreUtils {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -314,7 +304,6 @@ public class CoreUtils {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -333,7 +322,6 @@ public class CoreUtils {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -358,7 +346,6 @@ public class CoreUtils {
 				variables.put(rs.getString("SETTING"), rs.getString("VALUE"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -482,6 +469,7 @@ public class CoreUtils {
 		player.sendPluginMessage(Main.getPlugin(), channel, out.toByteArray());
 	}
 
+	@SuppressWarnings("unused")
 	private static boolean testSQLConnection() {
 		return new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW").init();
 
@@ -668,6 +656,7 @@ public class CoreUtils {
 			holidayparticles.put(player.getUniqueId(), true);
 		}
 	}
+
 	public static void toggleSidebar(Player player) {
 		if (!sidebars.containsKey(player.getUniqueId())) {
 			player.sendMessage(prefixes.get("settings") + "Sidebar turned off");
@@ -773,6 +762,7 @@ public class CoreUtils {
 		Bukkit.getConsoleSender().sendMessage(colorize(prefixes("debug") + message));
 	}
 
+	@SuppressWarnings("deprecation")
 	public static String encryptItemStack(ItemStack i) {
 		try {
 			return i.getType() + ":" + i.getAmount() + ":" + i.getDurability();
@@ -800,16 +790,16 @@ public class CoreUtils {
 
 	}
 
-
 	public static void enableScoreboard(Player player) {
-		if(!sidebars.containsKey(player.getUniqueId())) {
+		if (!sidebars.containsKey(player.getUniqueId())) {
 			sidebars.put(player.getUniqueId(), false);
 		}
-		if(!sidebars.get(player.getUniqueId())) {
+		if (!sidebars.get(player.getUniqueId())) {
 			return;
 		}
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective objective = scoreboard.registerNewObjective("sidebar", "dummy", colorize("        &3&lMystic&f&lCloud        "));
+		Objective objective = scoreboard.registerNewObjective("sidebar", "dummy",
+				colorize("        &3&lMystic&f&lCloud        "));
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		registerSidebarList();
 		for (Entry<Integer, String> entry : sidebar.entrySet()) {
@@ -849,6 +839,7 @@ public class CoreUtils {
 		sidebar.put(1, "&c%hdayline");
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ItemStack getItem(String name) {
 		debug("Loading Item " + name);
 

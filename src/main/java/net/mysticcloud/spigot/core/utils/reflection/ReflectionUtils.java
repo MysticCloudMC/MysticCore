@@ -7,8 +7,6 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-
 public final class ReflectionUtils {
 	// Prevent accidental construction
 	private ReflectionUtils() {}
@@ -35,7 +33,7 @@ public final class ReflectionUtils {
 		throw new NoSuchMethodException("There is no such constructor in this class with the specified parameter types");
 	}
 	
-	public static Object getPrivateField(String fieldName, Class clazz, Object object) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public static Object getPrivateField(String fieldName, @SuppressWarnings("rawtypes") Class clazz, Object object) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		Field field;
 		Object o = null;
 		field = clazz.getDeclaredField(fieldName);
@@ -47,6 +45,7 @@ public final class ReflectionUtils {
 	public static Object getPrivateField(String fieldName, String className, PackageType packageType, Object instance) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		Field field;
 		Object o = null;
+		@SuppressWarnings("rawtypes")
 		Class clazz = packageType.getClass(className);
 		field = clazz.getDeclaredField(fieldName);
 		field.setAccessible(true);

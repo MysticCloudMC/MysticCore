@@ -33,6 +33,7 @@ public class PetManager {
 	static List<Pet> pets = new ArrayList<>();
 	static List<Pet> rpets = new ArrayList<>();
 
+	@SuppressWarnings("deprecation")
 	public static void registerPets() {
 		try {
 

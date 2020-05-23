@@ -17,7 +17,6 @@ import net.minecraft.server.v1_15_R1.BlockPosition;
 import net.minecraft.server.v1_15_R1.DataConverterRegistry;
 import net.minecraft.server.v1_15_R1.DataConverterTypes;
 import net.minecraft.server.v1_15_R1.Entity;
-import net.minecraft.server.v1_15_R1.EntityChicken;
 import net.minecraft.server.v1_15_R1.EntityLiving;
 import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.EnumCreatureType;
@@ -42,7 +41,8 @@ public class MysticEntityType<T extends EntityLiving> {
     }
  
     private final MinecraftKey key;
-    private final Class<T> clazz;
+    @SuppressWarnings("unused")
+	private final Class<T> clazz;
     private final EntityTypes.b<T> maker;
     private EntityTypes<? super T> parentType;
     private EntityTypes<T> entityType;
@@ -64,7 +64,8 @@ public class MysticEntityType<T extends EntityLiving> {
         return entity == null ? null : entity.getBukkitEntity();
     }
  
-    public void register() throws IllegalStateException {
+    @SuppressWarnings("unchecked")
+	public void register() throws IllegalStateException {
         if (registered || IRegistry.ENTITY_TYPE.getOptional(key).isPresent()) {
             throw new IllegalStateException(String.format
                     ("Unable to register entity with key '%s' as it is already registered.", key));
