@@ -44,9 +44,10 @@ public class BossCommand implements CommandExecutor {
 				if (args.length == 1) {
 					for (Bosses boss : Bosses.values()) {
 						if (boss.getCallName().equalsIgnoreCase(args[0])) {
-							MysticEntityUtils.spawnBoss(boss, ((Player) sender).getLocation());
+							EventUtils.startBossEvent(boss,((Player)sender).getLocation());
 							return true;
 						}
+						sender.sendMessage(CoreUtils.prefixes("boss") + "Unknown boss.");
 					}
 					if(args[0].equalsIgnoreCase("test")) {
 						Event e = EventUtils.createEvent("Boss Test", EventType.TIMED);
