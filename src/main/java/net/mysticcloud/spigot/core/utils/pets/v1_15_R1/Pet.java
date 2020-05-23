@@ -91,8 +91,6 @@ public class Pet extends EntityArmorStand {
 		float Y = (float) ((locZ()) - (Bukkit.getPlayer(owner).getLocation().getZ()));
 		float A = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getX() - (locX()), 2)));
 		float O = (float) (Math.sqrt(Math.pow(Bukkit.getPlayer(owner).getLocation().getZ() - (locZ()), 2)));
-		CoreUtils.debug("X:" + X);
-		CoreUtils.debug("Y: " + Y);
 		if(X < 0 && Y < 0) {
 			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-90);
 		}
@@ -104,6 +102,9 @@ public class Pet extends EntityArmorStand {
 		}
 		if(X > 0 && Y < 0) {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
+		}
+		if(Math.sqrt(Math.pow(A-O, 2)) > 5) {
+			setMot(1, 0, 0);
 		}
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
 //				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
