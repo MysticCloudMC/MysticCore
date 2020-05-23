@@ -97,13 +97,13 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(X < 0 && Y > 0) {
-			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-270);
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-270);
 		}
 		if(X > 0 && Y > 0) {
 			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))+90);
 		}
 		if(X > 0 && Y < 0) {
-			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))+90);
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))+90);
 		}
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
 //				|| (new Location(getWorld().getWorld(), locX(), locY(), locZ() + 1).getBlock()
