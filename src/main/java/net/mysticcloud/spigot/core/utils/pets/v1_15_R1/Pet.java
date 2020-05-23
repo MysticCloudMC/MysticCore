@@ -3,15 +3,14 @@ package net.mysticcloud.spigot.core.utils.pets.v1_15_R1;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_15_R1.EntityArmorStand;
-import net.minecraft.server.v1_15_R1.Vec3D;
 import net.minecraft.server.v1_15_R1.World;
 import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pets.PetType;
 
 public class Pet extends EntityArmorStand {
@@ -90,7 +89,12 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
-			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
+			Vector v;
+			if(!getBukkitEntity().getLocation().add(rotateAroundAxisY(new Vector(0, 0, 0.19), yaw)).getBlock().getType().equals(Material.AIR)) {
+				v = rotateAroundAxisY(new Vector(0, 1, 0.19), yaw);
+			} else {
+				v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
+			}
 			setMot(v.getX(), v.getY(), v.getZ());
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
 				getEntity().setHelmet(type.getMovingItem());
