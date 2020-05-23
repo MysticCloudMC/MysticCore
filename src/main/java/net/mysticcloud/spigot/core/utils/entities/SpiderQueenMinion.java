@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.DamageSource;
@@ -43,7 +44,9 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 		super.movementTick();
 		
 		
-		
+		if(z%100==0) {
+			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
+		}
 		
 		z = z + 1;
 		

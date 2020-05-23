@@ -1,12 +1,17 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.block.Block;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.DamageSource;
@@ -22,6 +27,7 @@ public class SpiderQueenBoss extends EntitySpider {
 	private CircleFeetFormat format = new CircleFeetFormat();
 	
 	public List<SpiderQueenMinion> minions = new ArrayList<>();
+	public Map<Location, Block> webs = new HashMap<>();
 
 
 	public SpiderQueenBoss(World world, EntityTypes<? extends EntitySpider> entityType) {
@@ -51,6 +57,11 @@ public class SpiderQueenBoss extends EntitySpider {
 	@Override
 	public void die() {
 		
+		for(Entry<Location,Block> entry : webs.entrySet()) {
+			entry.getKey().getBlock().setType(entry.getValue().getType());
+			entry.getKey().getBlock().setBlockData(entry.getValue().getBlockData());
+		}
+		
 		for(SpiderQueenMinion minion : minions) {
 			minion.killEntity();
 		}
@@ -66,13 +77,18 @@ public class SpiderQueenBoss extends EntitySpider {
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		
-		
-		if(z%500 == 0) {
-			SpiderQueenMinion minion = new SpiderQueenMinion(world);
-			minion.spawn(getBukkitEntity().getLocation());
-			minions.add(minion);
+
+		if(z%100==0) {
+			webs.put(getBukkitEntity().getLocation(),getBukkitEntity().getLocation().getBlock());
+			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
+			if(z%500 == 0) {
+				SpiderQueenMinion minion = new SpiderQueenMinion(world);
+				minion.spawn(getBukkitEntity().getLocation());
+				minions.add(minion);
+			}
 		}
+		
+		
 		format.display(getBukkitEntity().getLocation(), z);
 		z = z + 1;
 		
