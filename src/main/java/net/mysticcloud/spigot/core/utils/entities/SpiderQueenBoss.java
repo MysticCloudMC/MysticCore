@@ -78,11 +78,12 @@ public class SpiderQueenBoss extends EntitySpider {
 		if(z%100==0) {
 			webs.add(getBukkitEntity().getLocation());
 			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
-			if(z%500 == 0) {
-				SpiderQueenMinion minion = new SpiderQueenMinion(world);
-				minion.spawn(getBukkitEntity().getLocation());
-				minions.add(minion);
-			}
+			
+		}
+		if(z%250 == 0) {
+			SpiderQueenMinion minion = new SpiderQueenMinion(world);
+			minion.spawn(getBukkitEntity().getLocation());
+			minions.add(minion);
 		}
 		
 		
