@@ -104,6 +104,7 @@ public class EventUtils {
 		e.setMetadata("UUID", boss.getUniqueID());
 		e.setMetadata("LOCATION", loc);
 		e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(30, TimeUnit.SECONDS));
+		e.setMetadata("STARTED", CoreUtils.getDate().getTime());
 
 		EventCheck check = new EventCheck() {
 
