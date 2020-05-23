@@ -119,7 +119,9 @@ public class IronBoss extends EntityIronGolem {
 			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaw));
 			
 		}
-		} catch(ArithmeticException ex) {}
+		} catch(ArithmeticException ex) {
+			Bukkit.broadcastMessage("ERROR");
+		}
 
 		z = z + 1;
 
