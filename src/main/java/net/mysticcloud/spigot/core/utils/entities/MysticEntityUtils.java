@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -52,6 +53,7 @@ public class MysticEntityUtils {
 		case SPIDER_QUEEN_MINION:
 			return spawnBoss(new SpiderQueenMinion(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		default:
+			Bukkit.broadcastMessage("ERROR");
 			return spawnBoss(new TestChicken(((CraftWorld) (loc).getWorld()).getHandle()), loc);
 		}
 	}
