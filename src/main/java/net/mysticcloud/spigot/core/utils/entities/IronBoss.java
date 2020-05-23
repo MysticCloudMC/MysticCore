@@ -89,11 +89,14 @@ public class IronBoss extends EntityIronGolem {
 	public void movementTick() {
 		super.movementTick();
 		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()), z);
-
+		
+		try {
+		
 		if (z % CoreUtils.getRandom().nextInt(600)+100 == 0) {
 			
 			Player target = getTarget();
 			
+			Bukkit.broadcastMessage(target.getName());
 			
 			float X = (float) ((locX()) - (target.getLocation().getX()));
 			float Y = (float) ((locZ()) - (target.getLocation().getZ()));
@@ -116,13 +119,16 @@ public class IronBoss extends EntityIronGolem {
 			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaw));
 			
 		}
+		} catch(ArithmeticException ex) {}
 
 		z = z + 1;
 
 	}
 
 	private Player getTarget() {
+		
 		while (true) {
+			Bukkit.broadcastMessage("Targeting...");
 			for (org.bukkit.entity.Entity en : getBukkitEntity().getNearbyEntities(40, 40, 40)) {
 				if (en instanceof Player /*&& CoreUtils.getRandom().nextBoolean()*/) {
 					return (Player)en;
