@@ -94,11 +94,11 @@ public class Event {
 	}
 
 	public void setMetadata(String key, Object value) {
-		while (true) {
-			if (metadata.containsKey(key))
-				key = key + "_1";
-			break;
-		}
+//		while (true) {
+//			if (metadata.containsKey(key))
+//				key = key + "_1";
+//			break;
+//		}
 
 		metadata.put(key, value);
 	}
