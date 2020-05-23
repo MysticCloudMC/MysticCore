@@ -67,8 +67,9 @@ public class BossCommand implements CommandExecutor {
 							public void end() {
 								int z = MysticEntityUtils.damages.get(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).size();
 								for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).entrySet()) {
-									Bukkit.broadcastMessage(z + ": " + CoreUtils.lookupUsername(entry.getKey()));
-									z = z-1;
+									if(z == 1) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage!");
+									if(z == 2) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place.");
+									if(z == 3) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place.");
 								}
 							}
 							
