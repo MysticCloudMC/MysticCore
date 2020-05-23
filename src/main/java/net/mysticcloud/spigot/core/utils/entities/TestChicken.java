@@ -56,7 +56,6 @@ public class TestChicken extends EntityChicken {
 	
 	private int z = 1;
 	
-	private CircleFeetFormat format = new CircleFeetFormat();
 
 	public TestChicken(World world, EntityTypes<? extends EntityChicken> entityType) {
 		this(world);
@@ -98,37 +97,6 @@ public class TestChicken extends EntityChicken {
 		super.initAttributes();
 		getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(4.0D);
 		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.25D);
-	}
-
-	@Override
-	public void movementTick() {
-//		if (isChickenJockey())
-//			this.persistent = !isTypeNotPersistent(0.0D);
-//		super.movementTick();
-//		this.bz = this.bw;
-//		this.by = this.bx;
-//		this.bx = (float) (this.bx + (this.onGround ? -1 : 4) * 0.3D);
-//		this.bx = MathHelper.a(this.bx, 0.0F, 1.0F);
-//		if (!this.onGround && this.bA < 1.0F)
-//			this.bA = 1.0F;
-//		this.bA = (float) (this.bA * 0.9D);
-//		Vec3D vec3d = getMot();
-//		if (!this.onGround && vec3d.y < 0.0D)
-//			setMot(vec3d.d(1.0D, 0.6D, 1.0D));
-//		this.bw += this.bA * 2.0F;
-		
-		format.display(getBukkitEntity().getLocation(), z);
-		
-		z = z + 1;
-		
-//		a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-		if (!this.world.isClientSide && isAlive() && !isBaby() && !isChickenJockey() && --this.eggLayTime <= 0) {
-//			a(SoundEffects.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-			a(Items.EGG);
-			this.eggLayTime = this.random.nextInt(100) + 1;
-		}
-		
-		setMot(0,getMot().getY(),0);
 	}
 
 	@Override
