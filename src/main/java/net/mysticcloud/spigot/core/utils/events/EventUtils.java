@@ -142,7 +142,10 @@ public class EventUtils {
 
 			@Override
 			public void end() {
-				if (e.getEventType().equals(EventType.TIMED))
+				
+				CoreUtils.spawnGem((Location) e.getMetadata("LOCATION"));
+				
+				if (e.getEventType().equals(EventType.TIMED) && Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null)
 					((Entity) e.getMetadata("BOSS")).killEntity();
 				int z = MysticEntityUtils.damages.get(((Entity) e.getMetadata("BOSS")).getBukkitEntity().getUniqueId())
 						.size();

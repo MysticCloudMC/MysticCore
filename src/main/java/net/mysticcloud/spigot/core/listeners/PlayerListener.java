@@ -59,6 +59,13 @@ public class PlayerListener implements Listener {
 	}
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
+		if(e.getEntity() instanceof Player) {
+			if(e.getItem().getItemStack().getType().equals(Material.NETHER_STAR)) {
+				if(e.getItem().isGlowing()) {
+					CoreUtils.getMysticPlayer(((Player)e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+				}
+			}
+		}
 		if(EventUtils.getEventID("Timed Test") != -1) {
 			if(e.getEntity() instanceof Player) {
 				EventUtils.getEvent("Timed Test").score(((Player)e.getEntity()),1);

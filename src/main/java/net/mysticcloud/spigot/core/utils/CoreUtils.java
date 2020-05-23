@@ -26,6 +26,7 @@ import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
@@ -96,11 +97,12 @@ public class CoreUtils {
 	private static DecimalFormat df = new DecimalFormat("0.00");
 
 	public static Material testingblock = Material.DIAMOND;
+	
 
 	public static float t = 0;
 
 	public static void start() {
-
+		
 		df.setRoundingMode(RoundingMode.DOWN);
 
 		setupEconomy();
@@ -226,6 +228,14 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+	
+	public static void spawnGem(Location loc) {
+		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
+		item.setGlowing(true);
+		item.setCustomName(colorize("&aGem"));
+		item.setCustomNameVisible(true);
+		
 	}
 
 	public static UUID LookupUUID(String player) {
