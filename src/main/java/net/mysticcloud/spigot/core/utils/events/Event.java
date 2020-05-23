@@ -76,6 +76,9 @@ public class Event {
 		String f = CoreUtils.colorize("&c-=-=-=[&4" + name + " Event&c]=-=-=-");
 		Bukkit.broadcastMessage(CoreUtils.colorize(f));
 		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
+		if(metadata.get("DESCRIPTION") != null) {
+			Bukkit.broadcastMessage(CoreUtils.colorize("Description: " + metadata.get("DESCRIPTION")));
+		}
 		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
 		if (type.equals(EventType.TIMED)) {
 			Bukkit.broadcastMessage(CoreUtils
