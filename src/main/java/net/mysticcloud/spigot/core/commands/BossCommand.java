@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.commands;
 
 import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -51,6 +52,7 @@ public class BossCommand implements CommandExecutor {
 						e.setMetadata("UUID", boss.getUniqueID());
 						e.setMetadata("LOCATION", ((Player)sender).getLocation());
 						e.setMetadata("BOSS", boss);
+						e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES) * 20);
 						EventCheck check = new EventCheck() {
 
 							@Override

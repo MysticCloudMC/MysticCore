@@ -48,8 +48,12 @@ public class Event {
 		Bukkit.broadcastMessage(CoreUtils.colorize(f));
 		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
 		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
+		if(type.equals(EventType.TIMED)) {
+			Bukkit.broadcastMessage(CoreUtils.colorize("Duration: " + CoreUtils.formatDate((long)metadata.get("DURATION"), "&f", "&c")));
+		}
+		
 		String s = "&c";
-		for(int a=0;a!=f.length()/2;a++)
+		for(int a=1;!(a<=f.length()/2);a++)
 			s = s +"-=";
 		Bukkit.broadcastMessage(CoreUtils.colorize(s));
 		check.start();
