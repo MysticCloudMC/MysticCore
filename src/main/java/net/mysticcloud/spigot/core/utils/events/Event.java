@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -77,7 +78,7 @@ public class Event {
 		Bukkit.broadcastMessage(CoreUtils.colorize(f));
 		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
 		if(metadata.get("DESCRIPTION") != null) {
-			Bukkit.broadcastMessage(CoreUtils.colorize("Description: " + metadata.get("DESCRIPTION")));
+			Bukkit.broadcastMessage(CoreUtils.colorize(""+ metadata.get("DESCRIPTION")));
 		}
 		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
 		if (type.equals(EventType.TIMED)) {
@@ -86,7 +87,7 @@ public class Event {
 		}
 
 		String s = "&c";
-		for (int a = 1; !(a >= f.length() / 2); a++)
+		for (int a = 1; !(a >= ChatColor.stripColor(f).length() / 2); a++)
 			s = s + "-=";
 		Bukkit.broadcastMessage(CoreUtils.colorize(s));
 		check.start();
@@ -116,7 +117,7 @@ public class Event {
 	}
 
 	public void end() {
-		Bukkit.broadcastMessage("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-");
+		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-"));
 		check.end();
 	}
 
