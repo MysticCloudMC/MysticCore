@@ -21,10 +21,10 @@ public enum Bosses {
 			for (String g :getCallName().split("_")) {
 				name = name + g.substring(0, 1).toUpperCase() + g.substring(1, g.length()).toLowerCase() + " ";
 			}
-			name = name + "Boss";
+			name = name.substring(0,name.length()-1);
 		} else {
 			name = getCallName().substring(0, 1).toUpperCase()
-					+ getCallName().substring(1, getCallName().length()).toLowerCase()  + " Boss";
+					+ getCallName().substring(1, getCallName().length()).toLowerCase();
 		}
 		return name;
 	}
