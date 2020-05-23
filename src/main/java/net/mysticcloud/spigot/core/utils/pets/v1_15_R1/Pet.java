@@ -94,7 +94,7 @@ public class Pet extends EntityArmorStand {
 		CoreUtils.debug("X:" + X);
 		CoreUtils.debug("Y: " + Y);
 		if ((X < 0 && Y > 0) || (Y < 0 && X > 0))
-			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))+90);
+			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		else
 			this.yaw = (float) (Math.toDegrees(Math.atan(O / A))-90);
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
