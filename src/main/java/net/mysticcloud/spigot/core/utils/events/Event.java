@@ -44,10 +44,14 @@ public class Event {
 	}
 
 	public void start() {
-		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=[&4"+ name + " Event&c]=-=-=-"));
+		String f = CoreUtils.colorize("&c-=-=-=[&4"+ name + " Event&c]=-=-=-");
+		Bukkit.broadcastMessage(CoreUtils.colorize(f));
 		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
 		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
-		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"));
+		String s = "&c";
+		for(int a=0;a!=f.length()/2;a++)
+			s = s +"-=";
+		Bukkit.broadcastMessage(CoreUtils.colorize(s));
 		check.start();
 	}
 
