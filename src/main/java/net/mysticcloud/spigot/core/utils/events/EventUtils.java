@@ -20,6 +20,8 @@ import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.entities.GoblinBoss;
 import net.mysticcloud.spigot.core.utils.entities.IronBoss;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.entities.SpiderQueenBoss;
+import net.mysticcloud.spigot.core.utils.entities.SpiderQueenMinion;
 import net.mysticcloud.spigot.core.utils.entities.TestChicken;
 
 public class EventUtils {
@@ -79,15 +81,30 @@ public class EventUtils {
 	}
 
 	public static void startBossEvent(Bosses bosstype, Location loc) {
-		Event e = EventUtils.createEvent(
-				bosstype.getCallName().substring(0, 1).toUpperCase()
-						+ bosstype.getCallName().substring(1, bosstype.getCallName().length()).toLowerCase() + " Boss",
+		String name = "";
+		if (bosstype.getCallName().contains("_")) {
+			for (String g : bosstype.getCallName().split("_")) {
+				name = name + g.substring(0, 1).toUpperCase() + g.substring(1, g.length()).toLowerCase() + " ";
+			}
+			name = name + "Boss";
+		} else {
+			name = bosstype.getCallName().substring(0, 1).toUpperCase()
+					+ bosstype.getCallName().substring(1, bosstype.getCallName().length()).toLowerCase() + " Boss";
+		}
+		Event e = EventUtils.createEvent(name,
 				bosstype.equals(Bosses.GOBLIN_BOSS) ? EventType.TIMED : EventType.COMPLETION);
 		Entity boss;
 		switch (bosstype) {
 		case GOBLIN_BOSS:
 			boss = new GoblinBoss(((CraftWorld) (loc).getWorld()).getHandle());
 			e.setMetadata("DESCRIPTION", "The longer he lives the more loot he drops!");
+			break;
+		case SPIDER_QUEEN_BOSS:
+			boss = new SpiderQueenBoss(((CraftWorld) (loc).getWorld()).getHandle());
+			e.setMetadata("DESCRIPTION", "She spawns minions!");
+			break;
+		case SPIDER_QUEEN_MINION:
+			boss = new SpiderQueenMinion(((CraftWorld) (loc).getWorld()).getHandle());
 			break;
 		case IRON_BOSS:
 			boss = new IronBoss(((CraftWorld) (loc).getWorld()).getHandle());
