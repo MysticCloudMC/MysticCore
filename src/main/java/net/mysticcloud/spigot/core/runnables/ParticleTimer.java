@@ -22,6 +22,9 @@ public class ParticleTimer implements Runnable {
 
 		if (i > 360)
 			i = 1;
+		try {
+			
+		
 		for (Entry<UUID, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
 			try {
 				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation(), i);
@@ -39,6 +42,10 @@ public class ParticleTimer implements Runnable {
 			}
 			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 
+		}
+		} catch(Exception ex) {
+			CoreUtils.debug("There was an error!");
+			Bukkit.getConsoleSender().sendMessage(ex.getMessage());
 		}
 
 		
