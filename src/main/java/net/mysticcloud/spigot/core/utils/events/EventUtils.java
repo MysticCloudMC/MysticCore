@@ -127,7 +127,7 @@ public class EventUtils {
 		e.setMetadata("LOCATION", loc);
 		e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(30, TimeUnit.SECONDS));
 		e.setMetadata("STARTED", CoreUtils.getDate().getTime());
-		BossBar bossbar = Bukkit.createBossBar("Health", BarColor.PINK, BarStyle.SEGMENTED_10);
+		BossBar bossbar = Bukkit.createBossBar("Health", BarColor.PINK, BarStyle.SEGMENTED_20);
 		e.setMetadata("BOSSBAR", bossbar);
 
 		EventCheck check = new EventCheck() {
@@ -141,6 +141,7 @@ public class EventUtils {
 							((BossBar)e.getMetadata("BOSSBAR")).addPlayer((Player)en);
 						}
 					}
+					CoreUtils.debug(((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() ) );
 					((BossBar)e.getMetadata("BOSSBAR")).setProgress(((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() ) );
 					e.setMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
 				}
