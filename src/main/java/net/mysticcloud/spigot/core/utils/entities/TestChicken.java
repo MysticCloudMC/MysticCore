@@ -1,6 +1,5 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
@@ -21,6 +20,15 @@ import net.minecraft.server.v1_15_R1.ItemStack;
 import net.minecraft.server.v1_15_R1.Items;
 import net.minecraft.server.v1_15_R1.MathHelper;
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.PathfinderGoalBreed;
+import net.minecraft.server.v1_15_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_15_R1.PathfinderGoalFollowParent;
+import net.minecraft.server.v1_15_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_15_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_15_R1.PathfinderGoalPanic;
+import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStrollLand;
+import net.minecraft.server.v1_15_R1.PathfinderGoalTempt;
 import net.minecraft.server.v1_15_R1.RecipeItemStack;
 import net.minecraft.server.v1_15_R1.SoundEffect;
 import net.minecraft.server.v1_15_R1.SoundEffects;
@@ -63,21 +71,21 @@ public class TestChicken extends EntityChicken {
 	}
 
 	public void spawn(Location loc) {
-		Bukkit.broadcastMessage("CustomChicken spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 	}
 
 	@Override
 	protected void initPathfinder() {
-//		this.goalSelector.a(0, new PathfinderGoalFloat(this));
-//		this.goalSelector.a(1, new PathfinderGoalPanic(this, 1.4D));
-//		this.goalSelector.a(2, new PathfinderGoalBreed(this, 1.0D));
-//		this.goalSelector.a(3, new PathfinderGoalTempt(this, 1.0D, false, bD));
-//		this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 1.1D));
-//		this.goalSelector.a(5, new PathfinderGoalRandomStrollLand(this, 1.0D));
-//		this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
-//		this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
+		this.goalSelector.a(0, new PathfinderGoalFloat(this));
+		this.goalSelector.a(1, new PathfinderGoalPanic(this, 1.4D));
+		this.goalSelector.a(2, new PathfinderGoalBreed(this, 1.0D));
+		this.goalSelector.a(3, new PathfinderGoalTempt(this, 1.0D, false, bD));
+		this.goalSelector.a(4, new PathfinderGoalFollowParent(this, 1.1D));
+		this.goalSelector.a(5, new PathfinderGoalRandomStrollLand(this, 1.0D));
+		this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
+		this.goalSelector.a(7, new PathfinderGoalRandomLookaround(this));
+		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityHuman.class, true));
 	}
 
 	@Override

@@ -43,7 +43,6 @@ public class GoblinBoss extends EntityZombie {
 	}
 
 	public void spawn(Location loc) {
-		Bukkit.broadcastMessage("CustomZombie spawned!");
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.setHeight(1);
