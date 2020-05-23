@@ -86,9 +86,9 @@ public class Event {
 					.colorize("Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), "&f", "&c")));
 		}
 
-		String s = "&c";
+		String s = "&c-";
 		for (int a = 1; !(a >= ChatColor.stripColor(f).length() / 2); a++)
-			s = s + "-=";
+			s = s + "=-";
 		Bukkit.broadcastMessage(CoreUtils.colorize(s));
 		check.start();
 	}
