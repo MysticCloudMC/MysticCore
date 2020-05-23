@@ -106,7 +106,7 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(Math.sqrt(Math.pow(A-O, 2)) > 5) {
-			Vector v = rotateAroundAxisY(new Vector(0.5, 0, 0), yaw);
+			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.09), yaw);
 			setMot(v.getX(), v.getY(), v.getZ());
 		}
 //		if ((new Location(getWorld().getWorld(), locX() + 1, locY(), locZ()).getBlock().getType() != Material.AIR)
