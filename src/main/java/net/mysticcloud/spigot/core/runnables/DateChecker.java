@@ -34,7 +34,7 @@ public class DateChecker implements Runnable {
 		CoreUtils.updateDate();
 		for(Entry<Integer,Event> entry : EventUtils.getEvents().entrySet()) {
 			if(entry.getValue().getEventCheck().check()) {
-				entry.getValue().getEventCheck().end();
+				entry.getValue().end();
 				EventUtils.addRemoveEvent(entry.getKey());
 			}
 		}

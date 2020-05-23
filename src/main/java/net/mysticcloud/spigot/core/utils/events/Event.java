@@ -115,4 +115,9 @@ public class Event {
 				(scores.containsKey(player.getUniqueId()) ? scores.get(player.getUniqueId()) + score : score));
 	}
 
+	public void end() {
+		Bukkit.broadcastMessage("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-");
+		check.end();
+	}
+
 }
