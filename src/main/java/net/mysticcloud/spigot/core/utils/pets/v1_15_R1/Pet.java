@@ -90,7 +90,7 @@ public class Pet extends EntityArmorStand {
 			this.yaw = (float) -(Math.toDegrees(Math.atan(O / A))-90);
 		}
 		if(Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2)) > 2) {
-			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.25), yaw);
+			Vector v = rotateAroundAxisY(new Vector(0, 0, 0.19), yaw);
 			setMot(v.getX(), v.getY(), v.getZ());
 			if (!getEntity().getHelmet().equals(type.getMovingItem()))
 				getEntity().setHelmet(type.getMovingItem());

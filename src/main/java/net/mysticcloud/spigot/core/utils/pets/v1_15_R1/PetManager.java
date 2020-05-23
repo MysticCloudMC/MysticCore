@@ -160,7 +160,7 @@ public class PetManager {
 				ArmorStand pb = (ArmorStand) p.getBukkitEntity();
 				pb.setBasePlate(false);
 				pb.setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), "true"));
-
+				pb.setVisible(false);
 				pb.setSmall(true);
 				pb.setInvulnerable(true);
 				pets.add(p);
