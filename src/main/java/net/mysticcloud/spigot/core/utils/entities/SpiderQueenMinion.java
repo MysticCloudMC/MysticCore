@@ -48,7 +48,7 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 		super.movementTick();
 		
 		
-		if(z%100==0) {
+		if(z % ((CoreUtils.getRandom().nextInt(1)+1)*100) == 0) {
 			webs.add(getBukkitEntity().getLocation());
 			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
 		}

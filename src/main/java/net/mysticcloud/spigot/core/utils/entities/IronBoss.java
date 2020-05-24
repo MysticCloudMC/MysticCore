@@ -89,11 +89,10 @@ public class IronBoss extends EntityIronGolem {
 
 		try {
 
-			if (z % ((CoreUtils.getRandom().nextInt(4)*100)+50) == 0) {
+			if (z % ((CoreUtils.getRandom().nextInt(4)*100)+100) == 0) {
 
 				Player target = getTarget();
 
-				Bukkit.broadcastMessage(target.getName());
 
 				float X = (float) ((locX()) - (target.getLocation().getX()));
 				float Y = (float) ((locZ()) - (target.getLocation().getZ()));
@@ -128,9 +127,8 @@ public class IronBoss extends EntityIronGolem {
 	private Player getTarget() {
 
 		while (true) {
-			Bukkit.broadcastMessage("Targeting...");
 			for (org.bukkit.entity.Entity en : getBukkitEntity().getNearbyEntities(40, 40, 40)) {
-				if (en instanceof Player /* && CoreUtils.getRandom().nextBoolean() */) {
+				if (en instanceof Player && CoreUtils.getRandom().nextBoolean()) {
 					return (Player) en;
 				}
 			}
