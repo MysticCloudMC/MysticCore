@@ -100,20 +100,20 @@ public class IronBoss extends EntityIronGolem {
 			double yaww = 0;
 			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
 			if (X < 0 && Y < 0) {
-				yaww = (float) (Math.toDegrees(Math.atan(O / A)) - 90);
+				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) - 90)));
 			}
 			if (X < 0 && Y > 0) {
-				yaww = (float) -(Math.toDegrees(Math.atan(O / A)) - 270);
+				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 270)));
 			}
 			if (X > 0 && Y > 0) {
-				yaww = (float) (Math.toDegrees(Math.atan(O / A)) + 90);
+				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) + 90)));
 			}
 			if (X > 0 && Y < 0) {
-				yaww = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
+				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 90)));
 			}
 			
 			
-			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaww));
+			
 			
 		}
 		} catch(ArithmeticException ex) {
