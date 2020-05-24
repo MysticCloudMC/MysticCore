@@ -100,16 +100,16 @@ public class IronBoss extends EntityIronGolem {
 			double yaww = 0;
 			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
 			if (X < 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) - 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) - 90)));
 			}
 			if (X < 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 270)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 270)));
 			}
 			if (X > 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) + 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) + 90)));
 			}
 			if (X > 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 90)));
 			}
 			
 			
@@ -145,6 +145,16 @@ public class IronBoss extends EntityIronGolem {
 		y = v.getY() * cos - v.getZ() * sin;
 		z = v.getY() * sin + v.getZ() * cos;
 		return v.setY(y).setZ(z);
+	}
+	protected Vector rotateAroundAxisY(Vector v, double angle) {
+		angle = -angle;
+		angle = Math.toRadians(angle);
+		double x, z, cos, sin;
+		cos = Math.cos(angle);
+		sin = Math.sin(angle);
+		x = v.getX() * cos + v.getZ() * sin;
+		z = v.getX() * -sin + v.getZ() * cos;
+		return v.setX(x).setZ(z);
 	}
 
 }
