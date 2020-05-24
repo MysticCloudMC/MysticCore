@@ -115,25 +115,28 @@ public class Event {
 	}
 
 	public void start() {
-		String f = CoreUtils.colorize("&c-=-=-=[&4" + name + " Event&c]=-=-=-");
+		start("&c", "&4", "&f");
+	}
+
+	public void start(String color1, String color2, String color3) {
+		String f = CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " Event" + color1 + "]=-=-=-");
 		broadcast(CoreUtils.colorize(f));
-		broadcast(CoreUtils.colorize(name + "&f is starting."));
+		broadcast(CoreUtils.colorize(name + color3 + " is starting."));
 		if (metadata.get("DESCRIPTION") != null) {
 			broadcast(CoreUtils.colorize("" + metadata.get("DESCRIPTION")));
 		}
-		broadcast(CoreUtils.colorize("Event Type: &c" + type.name()));
+		broadcast(CoreUtils.colorize("Event Type: " + color1 + type.name()));
 		if (type.equals(EventType.TIMED)) {
 			try {
-			broadcast(CoreUtils
-					.colorize("Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), "&f", "&c")));
-			} catch(NullPointerException ex) {
+				broadcast(CoreUtils.colorize(
+						"Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), color3, color1)));
+			} catch (NullPointerException ex) {
 				CoreUtils.alert(AlertType.FATAL, "Event DURATION was not specified in the metadata");
-				
-						 
-					 }
+
+			}
 		}
 
-		String s = "&c-";
+		String s = color1 + "-";
 		for (int a = 1; !(a >= ChatColor.stripColor(f).length() / 2); a++)
 			s = s + "=-";
 		broadcast(CoreUtils.colorize(s));
