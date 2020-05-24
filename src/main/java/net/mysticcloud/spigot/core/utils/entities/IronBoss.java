@@ -121,6 +121,7 @@ public class IronBoss extends EntityIronGolem {
 		}
 		} catch(ArithmeticException ex) {
 			Bukkit.broadcastMessage("ERROR");
+			ex.printStackTrace();
 		}
 
 		z = z + 1;
