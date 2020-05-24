@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.utils.events;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -7,8 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,8 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 public class Event {
 
 	EventType type;
+	boolean global = true;
+	List<UUID> players = new ArrayList<>();
 	EventCheck check;
 	String name;
 	Map<String, Object> metadata = new HashMap<>();
@@ -27,6 +30,32 @@ public class Event {
 	public Event(String name, EventType type) {
 		this.name = CoreUtils.colorize(name);
 		this.type = type;
+	}
+
+	public boolean isGlobal() {
+		return global;
+	}
+
+	public void setGlobal(boolean global) {
+		this.global = global;
+	}
+
+	public void addPlayer(UUID uid) {
+		if (!players.contains(uid))
+			players.add(uid);
+	}
+
+	public void setPlayers(List<UUID> player) {
+		this.players = player;
+	}
+
+	public List<UUID> getPlayers() {
+		return players;
+	}
+
+	public void removePlayer(UUID uid) {
+		if (players.contains(uid))
+			players.remove(uid);
 	}
 
 	public void setEventCheck(EventCheck check) {
@@ -73,23 +102,34 @@ public class Event {
 
 	}
 
+	public void broadcast(String message) {
+		if (isGlobal()) {
+			Bukkit.broadcastMessage(CoreUtils.colorize(message));
+		} else {
+			for (UUID uid : players) {
+				if (Bukkit.getPlayer(uid) != null)
+					Bukkit.getPlayer(uid).sendMessage(CoreUtils.colorize(message));
+			}
+		}
+	}
+
 	public void start() {
 		String f = CoreUtils.colorize("&c-=-=-=[&4" + name + " Event&c]=-=-=-");
-		Bukkit.broadcastMessage(CoreUtils.colorize(f));
-		Bukkit.broadcastMessage(CoreUtils.colorize(name + "&f is starting."));
-		if(metadata.get("DESCRIPTION") != null) {
-			Bukkit.broadcastMessage(CoreUtils.colorize(""+ metadata.get("DESCRIPTION")));
+		broadcast(CoreUtils.colorize(f));
+		broadcast(CoreUtils.colorize(name + "&f is starting."));
+		if (metadata.get("DESCRIPTION") != null) {
+			broadcast(CoreUtils.colorize("" + metadata.get("DESCRIPTION")));
 		}
-		Bukkit.broadcastMessage(CoreUtils.colorize("Event Type: &c" + type.name()));
+		broadcast(CoreUtils.colorize("Event Type: &c" + type.name()));
 		if (type.equals(EventType.TIMED)) {
-			Bukkit.broadcastMessage(CoreUtils
+			broadcast(CoreUtils
 					.colorize("Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), "&f", "&c")));
 		}
 
 		String s = "&c-";
 		for (int a = 1; !(a >= ChatColor.stripColor(f).length() / 2); a++)
 			s = s + "=-";
-		Bukkit.broadcastMessage(CoreUtils.colorize(s));
+		broadcast(CoreUtils.colorize(s));
 		check.start();
 	}
 
@@ -102,8 +142,8 @@ public class Event {
 
 		metadata.put(key, value);
 	}
+
 	public void overrideMetadata(String key, Object value) {
-		
 
 		metadata.put(key, value);
 	}
@@ -122,7 +162,7 @@ public class Event {
 	}
 
 	public void end() {
-		Bukkit.broadcastMessage(CoreUtils.colorize("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-"));
+		broadcast(CoreUtils.colorize("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-"));
 		check.end();
 	}
 
