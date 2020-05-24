@@ -3,19 +3,14 @@ package net.mysticcloud.spigot.core.utils.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.boss.BossBar;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.util.Vector;
 
-import net.minecraft.server.v1_15_R1.EntityCreeper;
 import net.minecraft.server.v1_15_R1.EntityHuman;
-import net.minecraft.server.v1_15_R1.EntityInsentient;
 import net.minecraft.server.v1_15_R1.EntityIronGolem;
 import net.minecraft.server.v1_15_R1.EntityTypes;
-import net.minecraft.server.v1_15_R1.IMonster;
 import net.minecraft.server.v1_15_R1.PathfinderGoalDefendVillage;
 import net.minecraft.server.v1_15_R1.PathfinderGoalHurtByTarget;
 import net.minecraft.server.v1_15_R1.PathfinderGoalLookAtPlayer;
@@ -102,21 +97,23 @@ public class IronBoss extends EntityIronGolem {
 			float Y = (float) ((locZ()) - (target.getLocation().getZ()));
 			float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
 			float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
+			double yaww = 0;
+			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
 			if (X < 0 && Y < 0) {
-				this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) - 90);
+				yaww = (float) (Math.toDegrees(Math.atan(O / A)) - 90);
 			}
 			if (X < 0 && Y > 0) {
-				this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 270);
+				yaww = (float) -(Math.toDegrees(Math.atan(O / A)) - 270);
 			}
 			if (X > 0 && Y > 0) {
-				this.yaw = (float) (Math.toDegrees(Math.atan(O / A)) + 90);
+				yaww = (float) (Math.toDegrees(Math.atan(O / A)) + 90);
 			}
 			if (X > 0 && Y < 0) {
-				this.yaw = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
+				yaww = (float) -(Math.toDegrees(Math.atan(O / A)) - 90);
 			}
 			
-			Fireball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Fireball.class);
-			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaw));
+			
+			fb.setVelocity(rotateAroundAxisX(new Vector(1,0,0), yaww));
 			
 		}
 		} catch(ArithmeticException ex) {
