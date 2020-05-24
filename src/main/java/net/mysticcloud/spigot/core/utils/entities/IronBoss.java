@@ -87,7 +87,7 @@ public class IronBoss extends EntityIronGolem {
 		
 		try {
 		
-		if (z % 400 == 0) {
+		if (z % 50 == 0) {
 			
 			Player target = getTarget();
 			
@@ -97,7 +97,6 @@ public class IronBoss extends EntityIronGolem {
 			float Y = (float) ((locZ()) - (target.getLocation().getZ()));
 			float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
 			float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
-			double yaww = 0;
 			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
 			if (X < 0 && Y < 0) {
 				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) - 90)));
