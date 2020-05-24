@@ -14,6 +14,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -148,6 +149,11 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+		if(e.getDamager() instanceof Snowball && e.getEntity() instanceof Player) {
+			if(e.getDamager().hasMetadata("doesDamage")) {
+				e.setDamage(2);
+			}
+		}
 		if (e.getDamager() instanceof Player)
 			if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
 				if (!MysticEntityUtils.damages.get(e.getEntity().getUniqueId())

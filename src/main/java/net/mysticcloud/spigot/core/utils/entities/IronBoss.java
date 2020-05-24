@@ -6,6 +6,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_15_R1.EntityHuman;
@@ -23,6 +24,7 @@ import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
 import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStrollLand;
 import net.minecraft.server.v1_15_R1.PathfinderGoalStrollVillage;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 
@@ -84,41 +86,37 @@ public class IronBoss extends EntityIronGolem {
 	public void movementTick() {
 		super.movementTick();
 		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()), z);
-		
+
 		try {
-		
-		if (z % 50 == 0) {
-			
-			Player target = getTarget();
-			
-			Bukkit.broadcastMessage(target.getName());
-			
-			float X = (float) ((locX()) - (target.getLocation().getX()));
-			float Y = (float) ((locZ()) - (target.getLocation().getZ()));
-			float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
-			float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
-			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
-			if (X < 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)))));
+
+			if (z % 50 == 0) {
+
+				Player target = getTarget();
+
+				Bukkit.broadcastMessage(target.getName());
+
+				float X = (float) ((locX()) - (target.getLocation().getX()));
+				float Y = (float) ((locZ()) - (target.getLocation().getZ()));
+				float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
+				float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
+				Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0, 2, 0),
+						Snowball.class);
+				fb.setMetadata("doesDamage", new FixedMetadataValue(Main.getPlugin(), "true"));
+				if (X < 0 && Y < 0) {
+					fb.setVelocity(rotateAroundAxisY(new Vector(1, 0, 0), (Math.toDegrees(Math.atan(O / A)))));
+				}
+				if (X < 0 && Y > 0) {
+					fb.setVelocity(rotateAroundAxisY(new Vector(1, 0, 0), -(Math.toDegrees(Math.atan(O / A)) - 360)));
+				}
+				if (X > 0 && Y > 0) {
+					fb.setVelocity(rotateAroundAxisY(new Vector(1, 0, 0), (Math.toDegrees(Math.atan(O / A)) + 180)));
+				}
+				if (X > 0 && Y < 0) {
+					fb.setVelocity(rotateAroundAxisY(new Vector(1, 0, 0), -(Math.toDegrees(Math.atan(O / A)) - 180)));
+				}
+
 			}
-			if (X < 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 360)));
-			}
-			if (X > 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) + 180)));
-			}
-			if (X > 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 180)));
-			}
-			
-			CoreUtils.debug("X: " + X);
-			CoreUtils.debug("Y: " + Y);
-			
-			
-			
-			
-		}
-		} catch(ArithmeticException ex) {
+		} catch (ArithmeticException ex) {
 			Bukkit.broadcastMessage("ERROR");
 			ex.printStackTrace();
 		}
@@ -128,17 +126,18 @@ public class IronBoss extends EntityIronGolem {
 	}
 
 	private Player getTarget() {
-		
+
 		while (true) {
 			Bukkit.broadcastMessage("Targeting...");
 			for (org.bukkit.entity.Entity en : getBukkitEntity().getNearbyEntities(40, 40, 40)) {
-				if (en instanceof Player /*&& CoreUtils.getRandom().nextBoolean()*/) {
-					return (Player)en;
+				if (en instanceof Player /* && CoreUtils.getRandom().nextBoolean() */) {
+					return (Player) en;
 				}
 			}
 		}
 
 	}
+
 	protected Vector rotateAroundAxisX(Vector v, double angle) {
 		angle = Math.toRadians(angle);
 		double y, z, cos, sin;
@@ -148,6 +147,7 @@ public class IronBoss extends EntityIronGolem {
 		z = v.getY() * sin + v.getZ() * cos;
 		return v.setY(y).setZ(z);
 	}
+
 	protected Vector rotateAroundAxisY(Vector v, double angle) {
 		angle = -angle;
 		angle = Math.toRadians(angle);
