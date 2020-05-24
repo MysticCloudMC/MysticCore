@@ -111,6 +111,9 @@ public class IronBoss extends EntityIronGolem {
 				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 180)));
 			}
 			
+			CoreUtils.debug("X: " + X);
+			CoreUtils.debug("Y: " + Y);
+			
 			
 			
 			
