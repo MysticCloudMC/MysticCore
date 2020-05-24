@@ -15,6 +15,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import net.mysticcloud.spigot.core.utils.AlertType;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class Event {
@@ -122,8 +123,14 @@ public class Event {
 		}
 		broadcast(CoreUtils.colorize("Event Type: &c" + type.name()));
 		if (type.equals(EventType.TIMED)) {
+			try {
 			broadcast(CoreUtils
 					.colorize("Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), "&f", "&c")));
+			} catch(NullPointerException ex) {
+				CoreUtils.alert(AlertType.FATAL, "Event DURATION was not specified in the metadata");
+				
+						 
+					 }
 		}
 
 		String s = "&c-";

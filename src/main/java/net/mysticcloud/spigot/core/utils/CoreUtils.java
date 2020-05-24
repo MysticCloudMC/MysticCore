@@ -1303,4 +1303,8 @@ public class CoreUtils {
 		return formatDate(ms, "&c", "&4");
 	}
 
+	public static void alert(AlertType type, String message) {
+		Bukkit.broadcastMessage(colorize("&4&l" + type.name() + " ALERT &f> &c" + message));
+	}
+
 }
