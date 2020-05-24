@@ -92,7 +92,7 @@ public class IronBoss extends EntityIronGolem {
 		
 		try {
 		
-		if (z % CoreUtils.getRandom().nextInt(400)+100 == 0) {
+		if (z % 400 == 0) {
 			
 			Player target = getTarget();
 			
