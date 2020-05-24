@@ -89,7 +89,7 @@ public class IronBoss extends EntityIronGolem {
 
 		try {
 
-			if (z % 50 == 0) {
+			if (z % ((CoreUtils.getRandom().nextInt(4)*100)+50) == 0) {
 
 				Player target = getTarget();
 

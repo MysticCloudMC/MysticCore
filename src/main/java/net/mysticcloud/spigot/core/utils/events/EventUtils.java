@@ -113,7 +113,7 @@ public class EventUtils {
 			break;
 		case IRON_BOSS:
 			boss = new IronBoss(((CraftWorld) (loc).getWorld()).getHandle());
-			e.setMetadata("DESCRIPTION", "Do the most damage to get the best rewards!");
+			e.setMetadata("DESCRIPTION", "Do the most damage to get the best rewards! Watch out for his rocks!");
 			break;
 		case TEST_CHICKEN:
 			boss = new TestChicken(((CraftWorld) (loc).getWorld()).getHandle());
