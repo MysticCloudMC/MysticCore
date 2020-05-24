@@ -99,16 +99,16 @@ public class IronBoss extends EntityIronGolem {
 			float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
 			Snowball fb = getBukkitEntity().getWorld().spawn(getBukkitEntity().getLocation().add(0,2,0), Snowball.class);
 			if (X < 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) - 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)))));
 			}
 			if (X < 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 270)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 180)));
 			}
 			if (X > 0 && Y > 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)) + 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), (Math.toDegrees(Math.atan(O / A)))));
 			}
 			if (X > 0 && Y < 0) {
-				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)) - 90)));
+				fb.setVelocity(rotateAroundAxisY(new Vector(1,0,0), -(Math.toDegrees(Math.atan(O / A)))));
 			}
 			
 			
