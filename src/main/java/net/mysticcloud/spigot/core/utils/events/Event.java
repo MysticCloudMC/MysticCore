@@ -170,6 +170,11 @@ public class Event {
 	}
 
 	public void score(Player player, double score) {
+		if(score > 0) {
+			player.sendMessage(CoreUtils.colorize("&a+" + score));
+		} else {
+			player.sendMessage(CoreUtils.colorize("&c" + score));
+		}
 		scores.put(player.getUniqueId(),
 				(scores.containsKey(player.getUniqueId()) ? scores.get(player.getUniqueId()) + score : score));
 	}
