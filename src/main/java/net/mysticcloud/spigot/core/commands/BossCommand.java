@@ -51,7 +51,7 @@ public class BossCommand implements CommandExecutor {
 					}
 					sender.sendMessage(CoreUtils.prefixes("boss") + "Unknown boss.");
 					if(args[0].equalsIgnoreCase("test")) {
-						Event e = EventUtils.createEvent("Boss Test", EventType.TIMED);
+						Event e = EventUtils.createEvent("Boss Test", EventType.TIMED).getValue();
 						IronBoss boss = new IronBoss(((CraftWorld)((Player)sender).getWorld()).getHandle());
 						e.setMetadata("UUID", boss.getUniqueID());
 						e.setMetadata("LOCATION", ((Player)sender).getLocation());
@@ -92,7 +92,7 @@ public class BossCommand implements CommandExecutor {
 						e.start();
 					}
 					if(args[0].equalsIgnoreCase("test2")) {
-						Event e = EventUtils.createEvent("Timed Test", EventType.TIMED);
+						Event e = EventUtils.createEvent("Timed Test", EventType.TIMED).getValue();
 						e.setMetadata("DURATION", TimeUnit.MILLISECONDS.convert(60, TimeUnit.SECONDS));
 						e.setMetadata("DESCRIPTION", CoreUtils.colorize("Pick up as many gold nuggets as you can!"));
 						e.setMetadata("STARTED", CoreUtils.getDate().getTime());

@@ -35,7 +35,7 @@ public class EventUtils {
 
 	static List<Integer> events__remove = new ArrayList<>();
 
-	public static Event createEvent(String name, EventType type) {
+	public static Entry<Integer,Event> createEvent(String name, EventType type) {
 		Event event = new Event(name, type);
 		int id = 0;
 		while (true) {
@@ -44,8 +44,39 @@ public class EventUtils {
 			id = id + 1;
 		}
 		events.put(id, event);
+		Entry<Integer,Event> entry = null;
+		while(entry == null) {
+			for(Entry<Integer,Event> e : events.entrySet()) {
+				if(e.getKey().equals(id) && e.getValue().equals(event)) {
+					entry = e;
+					break;
+				}
+			}
+		}
 
-		return event;
+		return entry;
+	}
+	
+	public static Entry<Integer,Event> registerExturnalEvent(Event event) {
+		int id = 0;
+		while (true) {
+			if (!events.containsKey(id))
+				break;
+			id = id + 1;
+		}
+		events.put(id, event);
+		Entry<Integer,Event> entry = null;
+		while(entry == null) {
+			for(Entry<Integer,Event> e : events.entrySet()) {
+				if(e.getKey().equals(id) && e.getValue().equals(event)) {
+					entry = e;
+					break;
+				}
+			}
+		}
+
+		return entry;
+		
 	}
 
 	public static int getEventID(String name) {
@@ -97,7 +128,7 @@ public class EventUtils {
 					+ bosstype.getCallName().substring(1, bosstype.getCallName().length()).toLowerCase() + " Boss";
 		}
 		Event e = EventUtils.createEvent(name,
-				bosstype.equals(Bosses.GOBLIN_BOSS) ? EventType.TIMED : EventType.COMPLETION);
+				bosstype.equals(Bosses.GOBLIN_BOSS) ? EventType.TIMED : EventType.COMPLETION).getValue();
 		Entity boss;
 		switch (bosstype) {
 		case GOBLIN_BOSS:
