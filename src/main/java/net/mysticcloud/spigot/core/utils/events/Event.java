@@ -66,6 +66,9 @@ public class Event {
 	void setEventType(EventType type) {
 		this.type = type;
 	}
+	public boolean hasMetadata(String key) {
+		return metadata.containsKey(key);
+	}
 
 	void setName(String name) {
 		this.name = CoreUtils.colorize(name);
