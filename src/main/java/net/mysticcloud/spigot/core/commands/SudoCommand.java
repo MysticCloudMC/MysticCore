@@ -30,8 +30,8 @@ public class SudoCommand implements CommandExecutor {
 					Bukkit.getPlayer(args[0]).performCommand(command);
 					return true;
 				}
-				if (args[1].startsWith("*walk")) {
-					command = command.replaceFirst("*walk", "");
+				if (args[1].startsWith("-walk")) {
+					command = command.replaceFirst("-walk", "");
 					String[] loc = command.split(" ");
 					Bukkit.getPlayer(args[0]).teleport(Bukkit.getPlayer(args[0]).getLocation()
 							.add(Integer.parseInt(loc[0]), Integer.parseInt(loc[1]), Integer.parseInt(loc[2])));
