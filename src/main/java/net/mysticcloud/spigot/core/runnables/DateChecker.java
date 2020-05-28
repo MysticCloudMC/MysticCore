@@ -33,7 +33,6 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		try {
-			CoreUtils.debug("Events: " +  EventUtils.getEvents().size());
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
 				if (entry.getValue().getEventCheck().check()) {
 					entry.getValue().end();
