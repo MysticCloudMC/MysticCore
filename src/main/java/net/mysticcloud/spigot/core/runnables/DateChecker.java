@@ -34,6 +34,7 @@ public class DateChecker implements Runnable {
 	public void run() {
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
+				if(!entry.getValue().populated()) continue;
 				if (entry.getValue().getEventCheck().check()) {
 					entry.getValue().end();
 					EventUtils.addRemoveEvent(entry.getKey());
