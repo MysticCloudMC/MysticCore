@@ -182,7 +182,11 @@ public class Event {
 	}
 
 	public void end() {
-		broadcast(CoreUtils.colorize("&c-=-=-=[&4" + name + " Event &4&lCompleted&c]=-=-=-"));
+		end("&c","&4","&4&l");
+	}
+	
+	public void end(String color1, String color2, String color3) {
+		broadcast(CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " Event " + color3 + "Completed" + color1 + "]=-=-=-"));
 		check.end();
 	}
 
