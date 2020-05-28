@@ -39,6 +39,7 @@ public class SudoCommand implements CommandExecutor {
 							break;
 						}
 					}
+					return true;
 					
 				}
 				if (args[1].startsWith("-walk")) {
