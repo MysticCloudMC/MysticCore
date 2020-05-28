@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -34,8 +35,8 @@ public class SudoCommand implements CommandExecutor {
 				if (args[1].startsWith("-punch")) {
 					for(Entity e : Bukkit.getPlayer(args[0]).getNearbyEntities(5, 5, 5)) {
 						if(e.equals(Bukkit.getPlayer(args[0]))) continue;
-						if(Bukkit.getPlayer(args[0]).hasLineOfSight(e)) {
-							Bukkit.getPlayer(args[0]).damage(0.1, e);
+						if(Bukkit.getPlayer(args[0]).hasLineOfSight(e) && e instanceof LivingEntity) {
+							((LivingEntity)e).damage(0.1, Bukkit.getPlayer(args[0]));
 							break;
 						}
 					}
