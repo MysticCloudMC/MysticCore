@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -29,6 +30,14 @@ public class SudoCommand implements CommandExecutor {
 					command = command.replaceFirst("/", "");
 					Bukkit.getPlayer(args[0]).performCommand(command);
 					return true;
+				}
+				if (args[1].startsWith("-punch")) {
+					for(Entity e : Bukkit.getPlayer(args[0]).getNearbyEntities(5, 5, 5)) {
+						if(Bukkit.getPlayer(args[0]).hasLineOfSight(e)) {
+							Bukkit.getPlayer(args[0]).damage(0.1, e);
+						}
+					}
+					
 				}
 				if (args[1].startsWith("-walk")) {
 					command = command.replaceFirst("-walk ", "");
