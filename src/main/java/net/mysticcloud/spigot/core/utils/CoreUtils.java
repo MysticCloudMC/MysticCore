@@ -423,8 +423,7 @@ public class CoreUtils {
 		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
 		+ ":" + loc.getYaw();
 		r = r.replaceAll(".",",");
-		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
-				+ ":" + loc.getYaw();
+		return r;
 	}
 
 	public static Location decryptLocation(String s) {
