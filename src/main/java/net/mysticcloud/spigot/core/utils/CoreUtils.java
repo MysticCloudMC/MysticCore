@@ -420,12 +420,17 @@ public class CoreUtils {
 	}
 
 	public static String encryptLocation(Location loc) {
+		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
+		+ ":" + loc.getYaw();
+		r = r.replaceAll(".",",");
 		return loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
 				+ ":" + loc.getYaw();
 	}
 
 	public static Location decryptLocation(String s) {
 		debug("Decrypting Location: " + s);
+		if(s.contains(","))
+			s = s.replaceAll(",",".");
 		String[] args = s.split(":");
 		return new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
 				Double.parseDouble(args[3]));
