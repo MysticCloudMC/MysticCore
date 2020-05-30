@@ -422,7 +422,7 @@ public class CoreUtils {
 	public static String encryptLocation(Location loc) {
 		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
 		+ ":" + loc.getYaw();
-		r = r.replaceAll("/.",",");
+		r = r.replaceAll("\\.",",");
 		return r;
 	}
 
