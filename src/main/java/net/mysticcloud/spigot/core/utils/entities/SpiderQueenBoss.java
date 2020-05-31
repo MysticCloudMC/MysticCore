@@ -59,6 +59,7 @@ public class SpiderQueenBoss extends EntitySpider {
 		}
 
 		for (SpiderQueenMinion minion : minions) {
+			minion.getBukkitEntity().removeMetadata("queen", Main.getPlugin());
 			minion.killEntity();
 		}
 
@@ -75,9 +76,11 @@ public class SpiderQueenBoss extends EntitySpider {
 		super.movementTick();
 
 		if (z % ((CoreUtils.getRandom().nextInt(1) + 1) * 100) == 0) {
-			webs.add(getBukkitEntity().getLocation());
-			if (getBukkitEntity().getLocation().getBlock().getType().equals(Material.AIR))
+			
+			if (getBukkitEntity().getLocation().getBlock().getType().equals(Material.AIR)) {
+				webs.add(getBukkitEntity().getLocation());
 				getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
+			}
 
 		}
 		if (z % ((CoreUtils.getRandom().nextInt(2) + 1) * 100) == 0) {
