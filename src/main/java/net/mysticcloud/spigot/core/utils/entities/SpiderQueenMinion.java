@@ -2,9 +2,12 @@ package net.mysticcloud.spigot.core.utils.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_15_R1.DamageSource;
@@ -50,7 +53,8 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 		
 		if(z % ((CoreUtils.getRandom().nextInt(1)+1)*100) == 0) {
 			webs.add(getBukkitEntity().getLocation());
-			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
+			if (getBukkitEntity().getLocation().getBlock().getType().equals(Material.AIR))
+				getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
 		}
 		
 		z = z + 1;
@@ -62,6 +66,11 @@ public class SpiderQueenMinion extends EntityCaveSpider {
 		for(Location loc : webs) {
 			loc.getBlock().setType(Material.AIR);
 		}
+		
+		if(getBukkitEntity().hasMetadata("queen")) {
+			((LivingEntity)Bukkit.getEntity((UUID) getBukkitEntity().getMetadata("queen").get(0).value())).damage(1);
+		}
+		
 		super.die();
 	}
 

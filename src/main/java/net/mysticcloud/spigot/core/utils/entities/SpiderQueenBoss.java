@@ -2,20 +2,20 @@ package net.mysticcloud.spigot.core.utils.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.block.Block;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import net.minecraft.server.v1_15_R1.DamageSource;
 import net.minecraft.server.v1_15_R1.EntitySpider;
 import net.minecraft.server.v1_15_R1.EntityTypes;
 import net.minecraft.server.v1_15_R1.World;
+import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
@@ -23,10 +23,9 @@ public class SpiderQueenBoss extends EntitySpider {
 
 	int z = 0;
 	private CircleFeetFormat format = new CircleFeetFormat();
-	
+
 	public List<SpiderQueenMinion> minions = new ArrayList<>();
 	public List<Location> webs = new ArrayList<>();
-
 
 	public SpiderQueenBoss(World world, EntityTypes<? extends EntitySpider> entityType) {
 		this(world);
@@ -51,18 +50,18 @@ public class SpiderQueenBoss extends EntitySpider {
 		format.particle(Particle.REDSTONE);
 		format.setDustOptions(new DustOptions(Color.WHITE, 1));
 	}
-	
+
 	@Override
 	public void die() {
-		
-		for(Location loc : webs) {
+
+		for (Location loc : webs) {
 			loc.getBlock().setType(Material.AIR);
 		}
-		
-		for(SpiderQueenMinion minion : minions) {
+
+		for (SpiderQueenMinion minion : minions) {
 			minion.killEntity();
 		}
-		
+
 		super.die();
 	}
 
@@ -74,23 +73,23 @@ public class SpiderQueenBoss extends EntitySpider {
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		
 
-		if(z % ((CoreUtils.getRandom().nextInt(1)+1)*100) == 0) {
+		if (z % ((CoreUtils.getRandom().nextInt(1) + 1) * 100) == 0) {
 			webs.add(getBukkitEntity().getLocation());
-			getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
-			
+			if (getBukkitEntity().getLocation().getBlock().getType().equals(Material.AIR))
+				getBukkitEntity().getLocation().getBlock().setType(Material.COBWEB);
+
 		}
-		if(z % ((CoreUtils.getRandom().nextInt(2)+1)*100) == 0) {
+		if (z % ((CoreUtils.getRandom().nextInt(2) + 1) * 100) == 0) {
 			SpiderQueenMinion minion = new SpiderQueenMinion(world);
 			minion.spawn(getBukkitEntity().getLocation());
+			minion.getBukkitEntity().setMetadata("queen", new FixedMetadataValue(Main.getPlugin(), getBukkitEntity().getUniqueId()));
 			minions.add(minion);
 		}
-		
-		
+
 		format.display(getBukkitEntity().getLocation(), z);
 		z = z + 1;
-		
+
 	}
 
 	@Override
