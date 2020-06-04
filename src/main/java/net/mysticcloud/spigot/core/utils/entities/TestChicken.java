@@ -40,7 +40,7 @@ public class TestChicken extends EntityChicken {
 	private static final RecipeItemStack bD = RecipeItemStack
 			.a(new IMaterial[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 
-	public float bw;
+	public float bw; 
 
 	public float bx;
 
