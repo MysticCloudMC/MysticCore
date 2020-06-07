@@ -95,6 +95,8 @@ public class CoreUtils {
 	private static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
+	
+	private static Scoreboard gemscore = Bukkit.getScoreboardManager().getNewScoreboard();
 
 	public static Material testingblock = Material.DIAMOND;
 	
@@ -126,6 +128,9 @@ public class CoreUtils {
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
 
 		registerSidebarList();
+		
+		gemscore.registerNewTeam("GemTeam");
+		gemscore.getTeam("GemTeam").setColor(ChatColor.GREEN);
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -232,6 +237,7 @@ public class CoreUtils {
 	
 	public static void spawnGem(Location loc) {
 		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
+		gemscore.getTeam("GemTeam").addEntry(item.getUniqueId().toString());
 		item.setGlowing(true);
 		item.setCustomName(colorize("&aGem"));
 		item.setCustomNameVisible(true);
@@ -370,6 +376,7 @@ public class CoreUtils {
 		KitManager.unloadCooldowns();
 		WarpUtils.save();
 		saveConfig();
+		gemscore.getTeam("GemTeam").unregister();
 	}
 
 	public static void saveConfig() {
