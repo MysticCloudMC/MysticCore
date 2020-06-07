@@ -96,7 +96,7 @@ public class CoreUtils {
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	
-	private static Scoreboard gemscore = Bukkit.getScoreboardManager().getNewScoreboard();
+	private static Scoreboard gemscore = Bukkit.getScoreboardManager().getMainScoreboard();
 
 	public static Material testingblock = Material.DIAMOND;
 	
@@ -237,6 +237,7 @@ public class CoreUtils {
 	
 	public static void spawnGem(Location loc) {
 		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
+		
 		gemscore.getTeam("GemTeam").addEntry(item.getUniqueId().toString());
 		item.setGlowing(true);
 		item.setCustomName(colorize("&aGem"));
