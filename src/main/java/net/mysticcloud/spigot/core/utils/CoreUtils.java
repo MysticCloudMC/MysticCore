@@ -605,14 +605,17 @@ public class CoreUtils {
 	}
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
+		wbconn.init();
 		return db.query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
+		wbconn.init();
 		return db.update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
+		wbconn.init();
 		return db.input(query);
 	}
 
