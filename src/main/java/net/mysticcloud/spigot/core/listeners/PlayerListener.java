@@ -33,6 +33,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -126,19 +127,25 @@ public class PlayerListener implements Listener {
 	// }
 	//
 
-	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerDeath(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Player) {
-			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
-				e.setCancelled(true);
-				CoreUtils.teleportToSpawn((Player) e.getEntity(), SpawnReason.DEATH);
-				((Player) e.getEntity()).setHealth(((Player) e.getEntity()).getMaxHealth());
-				((Player) e.getEntity()).setFoodLevel(20);
-
-			}
-		}
+	
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent e) {
+		CoreUtils.teleportToSpawn((Player) e.getPlayer(), SpawnReason.DEATH);
 	}
+	
+//	@SuppressWarnings("deprecation")
+//	@EventHandler(priority = EventPriority.LOWEST)
+//	public void onPlayerDeath(EntityDamageEvent e) {
+//		if (e.getEntity() instanceof Player) {
+//			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
+//				e.setCancelled(true);
+//				CoreUtils.teleportToSpawn((Player) e.getEntity(), SpawnReason.DEATH);
+//				((Player) e.getEntity()).setHealth(((Player) e.getEntity()).getMaxHealth());
+//				((Player) e.getEntity()).setFoodLevel(20);
+//
+//			}
+//		}
+//	}
 
 //	@EventHandler
 //	public void onEntityDeath(EntityDeathEvent e) {
