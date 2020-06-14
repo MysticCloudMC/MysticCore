@@ -16,6 +16,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
@@ -126,7 +127,7 @@ public class PlayerListener implements Listener {
 	//
 
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
 			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
