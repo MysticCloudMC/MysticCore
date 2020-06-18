@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
@@ -85,6 +86,13 @@ public class TeleportUtils {
 			return TeleportResult.NO_REQUESTS;
 		}
 	}
+	
+	public static void teleportLocation(Player player, Location loc) {
+		player.sendMessage(CoreUtils
+				.colorize(CoreUtils.prefixes("teleport") + "You've teleported to &7" + CoreUtils.encryptLocation(loc).replaceAll(",", "&f, &7") + "&f."));
+		player.teleport(loc);
+	}
+	
 
 	public static void teleportPlayer(String sender, Player player, Player other) {
 
@@ -96,6 +104,8 @@ public class TeleportUtils {
 	public static void teleportPlayer(Player player, Player other) {
 		teleportPlayer(player, other, false);
 	}
+	
+	
 
 	public static void teleportPlayer(Player player, Player other, boolean sender) {
 

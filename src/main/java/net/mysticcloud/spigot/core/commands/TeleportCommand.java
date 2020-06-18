@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,30 +43,89 @@ public class TeleportCommand implements CommandExecutor {
 							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command.");
 
 			if (args.length >= 2)
-				if (sender.hasPermission("mysticcloud.admin.tpother")) {
-					String name = sender instanceof Player ? ((Player) sender).getName() : "CONSOLE";
-					if (Bukkit.getPlayer(args[1]) != null)
-						if (args[0].contains(","))
-							for (String pn : args[0].split(","))
-								if (Bukkit.getPlayer(pn) != null)
-									CoreUtils.teleportPlayer(name, Bukkit.getPlayer(pn), Bukkit.getPlayer(args[1]));
-								else
-									sender.sendMessage(CoreUtils
-											.colorize(CoreUtils.prefixes("teleport") + "&7" + pn + "&f isn't online."));
+				if (args.length == 2) {
+					if (sender.hasPermission("mysticcloud.admin.tpother")) {
+						String name = sender instanceof Player ? ((Player) sender).getName() : "CONSOLE";
+						if (Bukkit.getPlayer(args[1]) != null)
+							if (args[0].contains(","))
+								for (String pn : args[0].split(","))
+									if (Bukkit.getPlayer(pn) != null)
+										CoreUtils.teleportPlayer(name, Bukkit.getPlayer(pn), Bukkit.getPlayer(args[1]));
+									else
+										sender.sendMessage(CoreUtils.colorize(
+												CoreUtils.prefixes("teleport") + "&7" + pn + "&f isn't online."));
 
-						else if (Bukkit.getPlayer(args[0]) != null)
-							CoreUtils.teleportPlayer(name, Bukkit.getPlayer(args[0]), Bukkit.getPlayer(args[1]));
+							else if (Bukkit.getPlayer(args[0]) != null)
+								CoreUtils.teleportPlayer(name, Bukkit.getPlayer(args[0]), Bukkit.getPlayer(args[1]));
+							else
+								sender.sendMessage(CoreUtils.colorize(
+										CoreUtils.prefixes("teleport") + "&7" + args[0] + "&f isn't online."));
+
 						else
 							sender.sendMessage(CoreUtils
-									.colorize(CoreUtils.prefixes("teleport") + "&7" + args[0] + "&f isn't online."));
+									.colorize(CoreUtils.prefixes("teleport") + "&7" + args[1] + "&f isn't online."));
 
-					else
-						sender.sendMessage(CoreUtils
-								.colorize(CoreUtils.prefixes("teleport") + "&7" + args[1] + "&f isn't online."));
-
-				} else
-					sender.sendMessage(CoreUtils.colorize(
-							CoreUtils.prefixes("teleport") + "Sorry, you don't have permission to use that command."));
+					} else
+						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport")
+								+ "Sorry, you don't have permission to use that command."));
+				} else {
+					if(args.length == 3 || args.length == 5) {
+						Location loc = ((Player)sender).getLocation().clone();
+						if(args[0].contains("~")) 
+							loc = loc.add(Double.parseDouble(args[0]), 0, 0);
+						 else 
+							loc.setX(Double.parseDouble(args[0]));
+						
+						if(args[1].contains("~")) 
+							loc = loc.add(0, Double.parseDouble(args[1]), 0);
+						 else 
+							loc.setY(Double.parseDouble(args[1]));
+						
+						if(args[2].contains("~")) 
+							loc = loc.add(0, 0, Double.parseDouble(args[2]));
+						 else 
+							loc.setZ(Double.parseDouble(args[2]));
+						
+						if(args.length == 5) {
+							loc.setYaw(Float.parseFloat(args[3]));
+							loc.setPitch(Float.parseFloat(args[4]));
+						}
+						
+						TeleportUtils.teleportLocation(((Player)sender), loc);
+						
+					}
+					
+					if(args.length == 4 || args.length == 6) {
+						if(Bukkit.getPlayer(args[0]) != null) {
+							Location loc = Bukkit.getPlayer(args[0]).getLocation().clone();
+							if(args[1].contains("~")) 
+								loc = loc.add(Double.parseDouble(args[1]), 0, 0);
+							 else 
+								loc.setX(Double.parseDouble(args[1]));
+							
+							if(args[2].contains("~")) 
+								loc = loc.add(0, Double.parseDouble(args[2]), 0);
+							 else 
+								loc.setY(Double.parseDouble(args[2]));
+							
+							if(args[3].contains("~")) 
+								loc = loc.add(0, 0, Double.parseDouble(args[3]));
+							 else 
+								loc.setZ(Double.parseDouble(args[3]));
+							
+							if(args.length == 6) {
+								loc.setYaw(Float.parseFloat(args[4]));
+								loc.setPitch(Float.parseFloat(args[5]));
+							}
+							
+							TeleportUtils.teleportLocation(Bukkit.getPlayer(args[0]), loc);
+							
+							
+						} else {
+							sender.sendMessage(CoreUtils.prefixes("teleport") + "That player isn't online.");
+						}
+					}
+				}
 
 		}
 
