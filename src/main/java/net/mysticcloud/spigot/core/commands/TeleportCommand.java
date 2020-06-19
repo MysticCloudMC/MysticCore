@@ -1,10 +1,14 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.util.function.Predicate;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
@@ -72,17 +76,17 @@ public class TeleportCommand implements CommandExecutor {
 					if(args.length == 3 || args.length == 5) {
 						Location loc = ((Player)sender).getLocation().clone();
 						if(args[0].contains("~")) 
-							loc = loc.add(Double.parseDouble(args[0].replaceAll("~", "")), 0, 0);
+							loc = loc.add(Double.parseDouble(args[0] == "~" ? "0" : args[0].replaceAll("~", "")), 0, 0);
 						 else 
 							loc.setX(Double.parseDouble(args[0]));
 						
 						if(args[1].contains("~")) 
-							loc = loc.add(0, Double.parseDouble(args[1].replaceAll("~", "")), 0);
+							loc = loc.add(0, Double.parseDouble(args[1] == "~" ? "0" : args[1].replaceAll("~", "")), 0);
 						 else 
 							loc.setY(Double.parseDouble(args[1]));
 						
 						if(args[2].contains("~")) 
-							loc = loc.add(0, 0, Double.parseDouble(args[2].replaceAll("~", "")));
+							loc = loc.add(0, 0, Double.parseDouble(args[2] == "~" ? "0" : args[2].replaceAll("~", "")));
 						 else 
 							loc.setZ(Double.parseDouble(args[2]));
 						
@@ -96,8 +100,19 @@ public class TeleportCommand implements CommandExecutor {
 					}
 					
 					if(args.length == 4 || args.length == 6) {
-						if(Bukkit.getPlayer(args[0]) != null) {
-							Location loc = Bukkit.getPlayer(args[0]).getLocation().clone();
+						if(Bukkit.getPlayer(args[0]) != null || args[0].contains("@p")) {
+							Player pl = null;
+							if(args[0].contains("@p")) {
+								for(Entity e : ((BlockCommandSender)sender).getBlock().getWorld().getNearbyEntities(((BlockCommandSender)sender).getBlock().getLocation(), 50, 50, 50)) {
+									if(e instanceof Player) {
+										pl = (Player) e;
+										break;
+									}
+								}
+							} else {
+								pl = Bukkit.getPlayer(args[0]);
+							}
+							Location loc = pl.getLocation().clone();
 							if(args[1].contains("~")) 
 								loc = loc.add(Double.parseDouble(args[1]), 0, 0);
 							 else 
@@ -118,7 +133,7 @@ public class TeleportCommand implements CommandExecutor {
 								loc.setPitch(Float.parseFloat(args[5]));
 							}
 							
-							TeleportUtils.teleportLocation(Bukkit.getPlayer(args[0]), loc);
+							TeleportUtils.teleportLocation(pl, loc);
 							
 							
 						} else {
