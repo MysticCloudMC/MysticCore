@@ -72,17 +72,17 @@ public class TeleportCommand implements CommandExecutor {
 					if(args.length == 3 || args.length == 5) {
 						Location loc = ((Player)sender).getLocation().clone();
 						if(args[0].contains("~")) 
-							loc = loc.add(Double.parseDouble(args[0]), 0, 0);
+							loc = loc.add(Double.parseDouble(args[0].replaceAll("~", "")), 0, 0);
 						 else 
 							loc.setX(Double.parseDouble(args[0]));
 						
 						if(args[1].contains("~")) 
-							loc = loc.add(0, Double.parseDouble(args[1]), 0);
+							loc = loc.add(0, Double.parseDouble(args[1].replaceAll("~", "")), 0);
 						 else 
 							loc.setY(Double.parseDouble(args[1]));
 						
 						if(args[2].contains("~")) 
-							loc = loc.add(0, 0, Double.parseDouble(args[2]));
+							loc = loc.add(0, 0, Double.parseDouble(args[2].replaceAll("~", "")));
 						 else 
 							loc.setZ(Double.parseDouble(args[2]));
 						
