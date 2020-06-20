@@ -29,6 +29,7 @@ public class SeenCommand implements CommandExecutor {
 					String server = "NaN";
 					String ip = "NaN";
 					long date = 0;
+					String seen = "";
 					
 					ResultSet iprs = CoreUtils.sendQuery("SELECT IP,UUID FROM PlayerStats");
 					try {
@@ -36,6 +37,7 @@ public class SeenCommand implements CommandExecutor {
 							if (iprs.getString("UUID").equalsIgnoreCase(uid.toString())) {
 								ip = iprs.getString("IP");
 								date = Long.parseLong(iprs.getString("DATE"));
+								seen = sdf.format(new Date(date));
 								break;
 							}
 						}
@@ -55,7 +57,7 @@ public class SeenCommand implements CommandExecutor {
 						e.printStackTrace();
 					}
 
-					String seen = sdf.format(new Date(date));
+					
 					
 					
 					sender.sendMessage(CoreUtils.colorize("&3&lMysticCore &7>&f " + args[0] + " was last seen &7" + (seen) + "&f, on &7" + server + "&f, with &7" + ip + "&f."));
