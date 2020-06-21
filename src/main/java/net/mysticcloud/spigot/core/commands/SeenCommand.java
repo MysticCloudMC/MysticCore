@@ -35,13 +35,15 @@ public class SeenCommand implements CommandExecutor {
 						while (iprs.next()) {
 							if (iprs.getString("UUID").equalsIgnoreCase(uid.toString())) {
 								ip = iprs.getString("IP");
-								seen = sdf.format(new Date(Long.parseLong(iprs.getString("DATE"))));
+								
 								break;
 							}
 						}
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+					
+					seen = sdf.format(new Date(CoreUtils.LookupLastSeen(uid)));
 					
 					ResultSet srvrs = CoreUtils.sendQuery("SELECT SERVER FROM ServerStats WHERE UUID='" + uid + "' ORDER BY DATE DESC");
 					try {
