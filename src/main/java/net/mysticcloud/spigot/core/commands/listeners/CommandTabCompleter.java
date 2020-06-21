@@ -15,6 +15,8 @@ import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
+import net.mysticcloud.spigot.core.utils.warps.Warp;
+import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
 public class CommandTabCompleter implements TabCompleter {
 
@@ -28,6 +30,14 @@ public class CommandTabCompleter implements TabCompleter {
 		if (cmd.getName().equalsIgnoreCase("boss")) {
 			if (args.length == 1) {
 				StringUtil.copyPartialMatches(args[0], getBosses(), completions);
+			}
+		}
+		if (cmd.getName().equalsIgnoreCase("warp")) {
+			if (args.length == 1) {
+				StringUtil.copyPartialMatches(args[0], getWarps(), completions);
+			}
+			if (args.length == 2) {
+				StringUtil.copyPartialMatches(args[1], getWarps(args[0]), completions);
 			}
 		}
 
@@ -73,6 +83,21 @@ public class CommandTabCompleter implements TabCompleter {
 
 		return completions;
 
+	}
+
+	private List<String> getWarps() {
+		List<String> warps = new ArrayList<>();
+		for (Warp warp : WarpUtils.getWarps("warp")) {
+			warps.add(warp.name());
+		}
+		return warps;
+	}
+	private List<String> getWarps(String type) {
+		List<String> warps = new ArrayList<>();
+		for (Warp warp : WarpUtils.getWarps(type)) {
+			warps.add(warp.name());
+		}
+		return warps;
 	}
 
 	public List<String> getOnlinePlayers() {

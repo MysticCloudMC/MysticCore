@@ -28,16 +28,14 @@ public class SeenCommand implements CommandExecutor {
 					
 					String server = "NaN";
 					String ip = "NaN";
-					long date = 0;
-					String seen = "";
+					String seen = "NaN";
 					
 					ResultSet iprs = CoreUtils.sendQuery("SELECT IP,UUID FROM PlayerStats");
 					try {
 						while (iprs.next()) {
 							if (iprs.getString("UUID").equalsIgnoreCase(uid.toString())) {
 								ip = iprs.getString("IP");
-								date = Long.parseLong(iprs.getString("DATE"));
-								seen = sdf.format(new Date(date));
+								seen = sdf.format(new Date(Long.parseLong(iprs.getString("DATE"))));
 								break;
 							}
 						}
