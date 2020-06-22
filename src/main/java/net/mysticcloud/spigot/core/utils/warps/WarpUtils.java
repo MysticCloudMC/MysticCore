@@ -24,6 +24,7 @@ public class WarpUtils {
 	static void addWarp(String type, Warp warp) {
 		checkWarps(type);
 		warps.get(type).add(warp);
+		save(type);
 	}
 
 	public static void registerWarps() {
