@@ -36,23 +36,27 @@ public class WarpUtils {
 		for (File file : warps_dir.listFiles()) {
 			FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 			String type = file.getName().replace(".yml", "");
-			for (String idstr : config.getConfigurationSection("Warps").getKeys(false)) {
-				Warp warp = new Warp(Integer.parseInt(idstr));
-				for(String data : config.getConfigurationSection("Warps." + idstr).getKeys(false)) {
-					if(data.equalsIgnoreCase("Location")){
-						warp.location(CoreUtils.decryptLocation(config.getString("Warps." + idstr + "." + data)));
-						continue;
+			try {
+				for (String idstr : config.getConfigurationSection("Warps").getKeys(false)) {
+					Warp warp = new Warp(Integer.parseInt(idstr));
+					for(String data : config.getConfigurationSection("Warps." + idstr).getKeys(false)) {
+						if(data.equalsIgnoreCase("Location")){
+							warp.location(CoreUtils.decryptLocation(config.getString("Warps." + idstr + "." + data)));
+							continue;
+						}
+						if(data.equalsIgnoreCase("Name")){
+							warp.name(config.getString("Warps." + idstr + "." + data));
+							continue;
+						}
+						warp.metadata(data, config.getString("Warps." + idstr + "." + data));
+						
 					}
-					if(data.equalsIgnoreCase("Name")){
-						warp.name(config.getString("Warps." + idstr + "." + data));
-						continue;
-					}
-					warp.metadata(data, config.getString("Warps." + idstr + "." + data));
+					addWarp(type,warp);
+					Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("warps") + "Registered Warp " + type + ":" + warp.name());
 					
 				}
-				addWarp(type,warp);
-				Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("warps") + "Registered Warp " + type + ":" + warp.name());
-				
+			} catch(NullPointerException ex) {
+				//skip
 			}
 		}
 
