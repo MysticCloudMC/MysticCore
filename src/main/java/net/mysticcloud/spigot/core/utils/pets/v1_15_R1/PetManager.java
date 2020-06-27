@@ -11,7 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -206,7 +206,7 @@ public class PetManager {
 		return inv.getInventory();
 
 	}
-	public static net.minecraft.server.v1_15_R1.Entity spawnEntity(net.minecraft.server.v1_15_R1.Entity entity,
+	public static net.minecraft.server.v1_16_R1.Entity spawnEntity(net.minecraft.server.v1_16_R1.Entity entity,
 			Location loc) {
 
 		try {

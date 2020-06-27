@@ -7,24 +7,24 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R1.CraftWorld;
 
 import com.google.common.collect.BiMap;
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.datafixers.types.Type;
 
-import net.minecraft.server.v1_15_R1.BlockPosition;
-import net.minecraft.server.v1_15_R1.DataConverterRegistry;
-import net.minecraft.server.v1_15_R1.DataConverterTypes;
-import net.minecraft.server.v1_15_R1.Entity;
-import net.minecraft.server.v1_15_R1.EntityLiving;
-import net.minecraft.server.v1_15_R1.EntityTypes;
-import net.minecraft.server.v1_15_R1.EnumCreatureType;
-import net.minecraft.server.v1_15_R1.EnumMobSpawn;
-import net.minecraft.server.v1_15_R1.IRegistry;
-import net.minecraft.server.v1_15_R1.MinecraftKey;
-import net.minecraft.server.v1_15_R1.RegistryMaterials;
-import net.minecraft.server.v1_15_R1.SharedConstants;
+import net.minecraft.server.v1_16_R1.BlockPosition;
+import net.minecraft.server.v1_16_R1.DataConverterRegistry;
+import net.minecraft.server.v1_16_R1.DataConverterTypes;
+import net.minecraft.server.v1_16_R1.Entity;
+import net.minecraft.server.v1_16_R1.EntityLiving;
+import net.minecraft.server.v1_16_R1.EntityTypes;
+import net.minecraft.server.v1_16_R1.EnumCreatureType;
+import net.minecraft.server.v1_16_R1.EnumMobSpawn;
+import net.minecraft.server.v1_16_R1.IRegistry;
+import net.minecraft.server.v1_16_R1.MinecraftKey;
+import net.minecraft.server.v1_16_R1.RegistryMaterials;
+import net.minecraft.server.v1_16_R1.SharedConstants;
 
 public class MysticEntityType<T extends EntityLiving> {
  
@@ -71,20 +71,20 @@ public class MysticEntityType<T extends EntityLiving> {
                     ("Unable to register entity with key '%s' as it is already registered.", key));
         }
         // Add custom entity to data fixers map with parent entity's data fixer
-        Map<Object, Type<?>> dataTypes = (Map<Object, Type<?>>)DataConverterRegistry.a()
-                .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getWorldVersion()))
-                .findChoiceType(DataConverterTypes.ENTITY).types(); // DataConverterTypes.ENTITY in < 1.15.2
-        dataTypes.put(
-        		key.toString(),
-        		dataTypes.get(
-        				parentType.
-        				h()
-        				.toString()
-        				.replace("entity/", "")));
-        // Add our custom entity to the entity registry map
-        EntityTypes.a<T> a = EntityTypes.a.a(maker, EnumCreatureType.CREATURE);
-        entityType = a.a(key.getKey());
-        IRegistry.a(IRegistry.ENTITY_TYPE, key.getKey(), entityType);
+//        Map<Object, Type<?>> dataTypes = (Map<Object, Type<?>>)DataConverterRegistry.a()
+//                .getSchema(DataFixUtils.makeKey(SharedConstants.getGameVersion().getWorldVersion()))
+//                .findChoiceType(DataConverterTypes.ENTITY).types(); // DataConverterTypes.ENTITY in < 1.15.2
+//        dataTypes.put(
+//        		key.toString(),
+//        		dataTypes.get(
+//        				parentType.
+//        				h()
+//        				.toString()
+//        				.replace("entity/", "")));
+//        // Add our custom entity to the entity registry map
+//        EntityTypes.a<T> a = EntityTypes.a.a(maker, EnumCreatureType.CREATURE);
+//        entityType = a.a(key.getKey());
+//        IRegistry.a(IRegistry.ENTITY_TYPE, key.getKey(), entityType);
         registered = true;
     }
  

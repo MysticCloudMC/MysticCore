@@ -3,44 +3,43 @@ package net.mysticcloud.spigot.core.utils.entities;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import net.minecraft.server.v1_15_R1.BlockPosition;
-import net.minecraft.server.v1_15_R1.DamageSource;
-import net.minecraft.server.v1_15_R1.Entity;
-import net.minecraft.server.v1_15_R1.EntityAgeable;
-import net.minecraft.server.v1_15_R1.EntityChicken;
-import net.minecraft.server.v1_15_R1.EntityHuman;
-import net.minecraft.server.v1_15_R1.EntityLiving;
-import net.minecraft.server.v1_15_R1.EntityPose;
-import net.minecraft.server.v1_15_R1.EntitySize;
-import net.minecraft.server.v1_15_R1.EntityTypes;
-import net.minecraft.server.v1_15_R1.GenericAttributes;
-import net.minecraft.server.v1_15_R1.IBlockData;
-import net.minecraft.server.v1_15_R1.IMaterial;
-import net.minecraft.server.v1_15_R1.ItemStack;
-import net.minecraft.server.v1_15_R1.Items;
-import net.minecraft.server.v1_15_R1.MathHelper;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.PathfinderGoalBreed;
-import net.minecraft.server.v1_15_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_15_R1.PathfinderGoalFollowParent;
-import net.minecraft.server.v1_15_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_15_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_15_R1.PathfinderGoalPanic;
-import net.minecraft.server.v1_15_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_15_R1.PathfinderGoalRandomStrollLand;
-import net.minecraft.server.v1_15_R1.PathfinderGoalTempt;
-import net.minecraft.server.v1_15_R1.RecipeItemStack;
-import net.minecraft.server.v1_15_R1.SoundEffect;
-import net.minecraft.server.v1_15_R1.SoundEffects;
-import net.minecraft.server.v1_15_R1.World;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.minecraft.server.v1_16_R1.BlockPosition;
+import net.minecraft.server.v1_16_R1.DamageSource;
+import net.minecraft.server.v1_16_R1.Entity;
+import net.minecraft.server.v1_16_R1.EntityAgeable;
+import net.minecraft.server.v1_16_R1.EntityChicken;
+import net.minecraft.server.v1_16_R1.EntityHuman;
+import net.minecraft.server.v1_16_R1.EntityLiving;
+import net.minecraft.server.v1_16_R1.EntityPose;
+import net.minecraft.server.v1_16_R1.EntitySize;
+import net.minecraft.server.v1_16_R1.EntityTypes;
+import net.minecraft.server.v1_16_R1.GenericAttributes;
+import net.minecraft.server.v1_16_R1.IBlockData;
+import net.minecraft.server.v1_16_R1.IMaterial;
+import net.minecraft.server.v1_16_R1.ItemStack;
+import net.minecraft.server.v1_16_R1.Items;
+import net.minecraft.server.v1_16_R1.MathHelper;
+import net.minecraft.server.v1_16_R1.NBTTagCompound;
+import net.minecraft.server.v1_16_R1.PathfinderGoalBreed;
+import net.minecraft.server.v1_16_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_16_R1.PathfinderGoalFollowParent;
+import net.minecraft.server.v1_16_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_16_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_16_R1.PathfinderGoalPanic;
+import net.minecraft.server.v1_16_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_16_R1.PathfinderGoalRandomStrollLand;
+import net.minecraft.server.v1_16_R1.PathfinderGoalTempt;
+import net.minecraft.server.v1_16_R1.RecipeItemStack;
+import net.minecraft.server.v1_16_R1.SoundEffect;
+import net.minecraft.server.v1_16_R1.SoundEffects;
+import net.minecraft.server.v1_16_R1.World;
 
 public class TestChicken extends EntityChicken {
 
 	private static final RecipeItemStack bD = RecipeItemStack
 			.a(new IMaterial[] { Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS });
 
-	public float bw; 
+	public float bw;
 
 	public float bx;
 
@@ -53,9 +52,8 @@ public class TestChicken extends EntityChicken {
 	public int eggLayTime;
 
 	public boolean bC;
-	
+
 	private int z = 1;
-	
 
 	public TestChicken(World world, EntityTypes<? extends EntityChicken> entityType) {
 		this(world);
@@ -93,13 +91,6 @@ public class TestChicken extends EntityChicken {
 	}
 
 	@Override
-	protected void initAttributes() {
-		super.initAttributes();
-		getAttributeInstance(GenericAttributes.MAX_HEALTH).setValue(4.0D);
-		getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.25D);
-	}
-
-	@Override
 	public boolean b(float f, float f1) {
 		return false;
 	}
@@ -120,11 +111,6 @@ public class TestChicken extends EntityChicken {
 	}
 
 	@Override
-	protected void a(BlockPosition blockposition, IBlockData iblockdata) {
-		a(SoundEffects.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
-	}
-
-	@Override
 	public EntityChicken createChild(EntityAgeable entityageable) {
 		return EntityTypes.CHICKEN.a(this.world);
 	}
@@ -140,43 +126,13 @@ public class TestChicken extends EntityChicken {
 	}
 
 	@Override
-	public void a(NBTTagCompound nbttagcompound) {
-		super.a(nbttagcompound);
-		this.bC = nbttagcompound.getBoolean("IsChickenJockey");
-		if (nbttagcompound.hasKey("EggLayTime"))
-			this.eggLayTime = nbttagcompound.getInt("EggLayTime");
-	}
-
-	@Override
-	public void b(NBTTagCompound nbttagcompound) {
-		super.b(nbttagcompound);
-		nbttagcompound.setBoolean("IsChickenJockey", this.bC);
-		nbttagcompound.setInt("EggLayTime", this.eggLayTime);
-	}
-
-	@Override
 	public boolean isTypeNotPersistent(double d0) {
 		return (isChickenJockey() && !isVehicle());
 	}
 
 	@Override
-	public void k(Entity entity) {
-		super.k(entity);
-		float f = MathHelper.sin(this.aI * 0.017453292F);
-		float f1 = MathHelper.cos(this.aI * 0.017453292F);
-		entity.setPosition(locX() + (0.1F * f), e(0.5D) + entity.aR() + 0.0D, locZ() - (0.1F * f1));
-		if (entity instanceof EntityLiving)
-			((EntityLiving) entity).aI = this.aI;
-	}
-
-	@Override
 	public boolean isChickenJockey() {
 		return this.bC;
-	}
-
-	@Override
-	public void r(boolean flag) {
-		this.bC = flag;
 	}
 
 }
