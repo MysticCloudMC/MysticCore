@@ -9,6 +9,7 @@ import net.mysticcloud.spigot.core.commands.DebugCommand;
 import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
+import net.mysticcloud.spigot.core.commands.GamemodeCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.ParticlesCommand;
@@ -64,6 +65,7 @@ public class Main extends JavaPlugin {
 		new FriendCommand(this, "friends", "friend");
 		new TeleportCommand(this,"tp","tpa","tpaccept","tpdeny","tphere","tpoff");
 		new BossCommand(this,"boss");
+		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

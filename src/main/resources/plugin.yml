@@ -93,4 +93,10 @@ commands:
     description: Toggle teleportation requests.
   boss:
     description: spawn a boss.
+  gamemode:
+  gmc:
+  gms:
+  gma:
+  gmsp:
+  
   

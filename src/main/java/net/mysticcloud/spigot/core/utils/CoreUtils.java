@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -1320,6 +1321,11 @@ public class CoreUtils {
 
 	public static void alert(AlertType type, String message) {
 		Bukkit.broadcastMessage(colorize("&4&l" + type.name() + " ALERT &f> &c" + message));
+	}
+
+	public static void setGameMode(Player pl, GameMode gm) {
+		pl.setGameMode(gm);
+		pl.sendMessage(prefixes("gamemode") + "Your current gamemode is "  + gm.name());
 	}
 
 }
