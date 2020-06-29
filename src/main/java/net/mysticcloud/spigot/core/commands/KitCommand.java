@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,8 +26,8 @@ public class KitCommand implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (args.length == 0) {
-			if (sender instanceof Player) {
+		if (sender instanceof Player) {
+			if (args.length == 0) {
 
 				List<String> s = new ArrayList<>();
 				for (Kit kit : KitManager.getKits()) {
@@ -35,36 +36,46 @@ public class KitCommand implements CommandExecutor {
 					}
 				}
 				if (sender.hasPermission("mysticcloud.kit.gui")) {
-					GUIManager.openInventory(((Player) sender),KitManager.getGUI(((Player) sender)), "Kits");
+					GUIManager.openInventory(((Player) sender), KitManager.getGUI(((Player) sender)), "Kits");
 				}
 				sender.sendMessage(
 						CoreUtils.prefixes().get("kits") + ("You have access to these kits: " + s.toString()));
+
 			} else {
-				sender.sendMessage(CoreUtils.prefixes().get("kits") + ("Only players can run that command."));
+				if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("mysticcloud.kit.admin.reload")) {
+					KitManager.reloadKits();
+				} else {
+					if (sender instanceof Player) {
+
+						if (KitManager.kitExists(args[0])) {
+							if (sender.hasPermission("mysticcloud.kit." + args[0])) {
+								KitManager.applyKit(((Player) sender), args[0]);
+								return false;
+							} else {
+								sender.sendMessage(CoreUtils.prefixes().get("kits")
+										+ ("You don't have permission to use that kit"));
+							}
+
+						} else {
+							sender.sendMessage(CoreUtils.prefixes().get("kits") + ("That kit doesn't exist."));
+						}
+					} else {
+						sender.sendMessage(CoreUtils.prefixes().get("kits") + ("Only players can run that command."));
+					}
+
+				}
 			}
 		} else {
-			if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("mysticcloud.kit.admin.reload")) {
-				KitManager.reloadKits();
-			} else {
-				if (sender instanceof Player) {
-
-					if (KitManager.kitExists(args[0])) {
-						if (sender.hasPermission("mysticcloud.kit." + args[0])) {
-							KitManager.applyKit(((Player) sender), args[0]);
-							return false;
-						} else {
-							sender.sendMessage(
-									CoreUtils.prefixes().get("kits") + ("You don't have permission to use that kit"));
-						}
-
-					} else {
-						sender.sendMessage(CoreUtils.prefixes().get("kits") + ("That kit doesn't exist."));
+			if(args.length >= 2) {
+				if(Bukkit.getPlayer(args[0])!=null) {
+					if (KitManager.kitExists(args[1])) {
+						KitManager.applyKit(Bukkit.getPlayer(args[0]), args[1]);
 					}
 				} else {
-					sender.sendMessage(CoreUtils.prefixes().get("kits") + ("Only players can run that command."));
+					sender.sendMessage("player offline. -- rush code :)");
 				}
-
 			}
+			
 		}
 
 		return false;
