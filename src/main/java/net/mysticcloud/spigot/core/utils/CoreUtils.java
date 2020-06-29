@@ -85,6 +85,7 @@ public class CoreUtils {
 	private static File itemfile = new File(Main.getPlugin().getDataFolder() + "/Items");
 	private static List<FileConfiguration> itemFiles = new ArrayList<>();
 	private static Map<String, ItemStack> items = new HashMap<>();
+	private static Map<String, ItemStack> foods = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
 	private static Map<String, String> variables = new HashMap<>();
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
@@ -529,7 +530,7 @@ public class CoreUtils {
 	}
 
 	public static boolean isFood(ItemStack item) {
-		for (Entry<String, ItemStack> entry : items.entrySet()) {
+		for (Entry<String, ItemStack> entry : foods.entrySet()) {
 			if (entry.getValue().hasItemMeta()
 					&& entry.getValue().getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName())) {
 				return true;
@@ -1033,6 +1034,7 @@ public class CoreUtils {
 		if (food)
 			debug("Item " + name + " was food.");
 		items.put(name, i.clone());
+		foods.put(name, i.clone());
 		if (food)
 			CoreUtils.food.put(name, info);
 		return i.clone();
