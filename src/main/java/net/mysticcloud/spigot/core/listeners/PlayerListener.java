@@ -196,6 +196,12 @@ public class PlayerListener implements Listener {
 		CoreUtils.enableScoreboard(e.getPlayer());
 
 		CoreUtils.updateDate();
+		
+		if(CoreUtils.debugOn()) {
+			if(e.getPlayer().getName().equals("QuickScythe")) {
+				e.getPlayer().getInventory().clear();
+			}
+		}
 
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
