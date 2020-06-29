@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -57,6 +58,7 @@ public class KitCommand implements CommandExecutor {
 							}
 
 						} else {
+							
 							sender.sendMessage(CoreUtils.prefixes().get("kits") + ("That kit doesn't exist."));
 						}
 					} else {

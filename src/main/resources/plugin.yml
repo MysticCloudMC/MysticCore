@@ -94,9 +94,17 @@ commands:
   boss:
     description: spawn a boss.
   gamemode:
+    description: Change your game mode.
   gmc:
+    description: Shortcut to creative mode.
   gms:
+    description: Shortcut to survival mode.
   gma:
+    description: Shortcut to adventure mode.
   gmsp:
+    description: Shortcut to spectator mode.
+  clear:
+    aliases: ['c']
+    description: clear your inventory.
   
   

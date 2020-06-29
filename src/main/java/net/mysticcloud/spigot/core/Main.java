@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.mysticcloud.spigot.core.commands.BossCommand;
+import net.mysticcloud.spigot.core.commands.ClearCommand;
 import net.mysticcloud.spigot.core.commands.DebugCommand;
 import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
@@ -66,6 +67,7 @@ public class Main extends JavaPlugin {
 		new TeleportCommand(this,"tp","tpa","tpaccept","tpdeny","tphere","tpoff");
 		new BossCommand(this,"boss");
 		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
+		new ClearCommand(this,"clear");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {

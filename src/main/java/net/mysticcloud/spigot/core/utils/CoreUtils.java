@@ -1008,7 +1008,6 @@ public class CoreUtils {
 						EquipmentSlot.FEET);
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
-
 			if (item.isSet(name + ".Enchantments")) {
 				for (String en : item.getStringList(name + ".Enchantments")) {
 					if (en.contains("-")) {
