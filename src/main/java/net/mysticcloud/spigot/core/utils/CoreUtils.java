@@ -1002,10 +1002,8 @@ public class CoreUtils {
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
 			if (item.isSet(name + ".Attributes.Boots.MovementSpeed")) {
-
-				AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "Boots Movement Speed",
-						item.getDouble(name + ".Attributes.Boots.MovementSpeed"), Operation.ADD_NUMBER,
-						EquipmentSlot.FEET);
+				AttributeModifier am = new AttributeModifier("Boots Movement Speed",
+						item.getDouble(name + ".Attributes.Boots.MovementSpeed"), Operation.ADD_NUMBER);
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
 			if (item.isSet(name + ".Enchantments")) {
