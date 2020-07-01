@@ -1031,10 +1031,12 @@ public class CoreUtils {
 		}
 
 		debug("Item loaded from config, and saved to cache.");
-		if (food)
+		if (food) {
+			foods.put(name, i.clone());
 			debug("Item " + name + " was food.");
+		}
 		items.put(name, i.clone());
-		foods.put(name, i.clone());
+		
 		if (food)
 			CoreUtils.food.put(name, info);
 		return i.clone();
