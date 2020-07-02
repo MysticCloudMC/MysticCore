@@ -106,5 +106,7 @@ commands:
   clear:
     aliases: ['c']
     description: clear your inventory.
+  update:
+    description: Update a plugin in our repository.
   
   

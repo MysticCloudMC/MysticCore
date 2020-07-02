@@ -25,6 +25,7 @@ import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
 import net.mysticcloud.spigot.core.commands.TeleportCommand;
 import net.mysticcloud.spigot.core.commands.UUIDCommand;
+import net.mysticcloud.spigot.core.commands.UpdateCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
@@ -68,6 +69,7 @@ public class Main extends JavaPlugin {
 		new BossCommand(this,"boss");
 		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
 		new ClearCommand(this,"clear");
+		new UpdateCommand(this,"update");
 		startDateChecker();
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
