@@ -5,7 +5,7 @@
 	<property name="project.pluginsLocation" location="PLUGINS DIRECTORY" />
 
 	<target name="clean" description="Cleans project">
-		<!--<delete file="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar" />-->
+		<delete file="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar" />
 	</target>
 	
 	<target name="mvn" depends="clean">
