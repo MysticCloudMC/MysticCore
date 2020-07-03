@@ -17,7 +17,7 @@
 	<target name="createjar" description="Create a jar for the project" depends="mvn">
 		<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
 			<fileset dir="${basedir}">
-				<include name="**.yml" />
+				<include name="*/*.yml" />
 			</fileset>
 			<fileset dir="${basedir}\bin">
 				<include name="**" />
