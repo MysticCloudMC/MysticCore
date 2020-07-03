@@ -18,7 +18,7 @@
 
 	<target name="createjar" description="Create a jar for the project" depends="mvn">
 		<exec dir="." executable="sh">
-					        <arg line="-c 'sudo -u root cp *.jar /home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar'" />
+					        <arg line="-c 'sudo -u root cp ${project.projectname}.jar /home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar'" />
 					    </exec>
 		<!--<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
 			<fileset dir="${basedir}">
