@@ -131,8 +131,8 @@ public class CoreUtils {
 
 		registerSidebarList();
 		
-		gemscore.registerNewTeam("GemTeam");
-		gemscore.getTeam("GemTeam").setColor(ChatColor.GREEN);
+		gemscore.registerNewTeam("GemTeam5");
+		gemscore.getTeam("GemTeam5").setColor(ChatColor.GREEN);
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
