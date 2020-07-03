@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SimpleProject" default="CreateJar" basedir=".">
+<project name="SimpleProject" default="createjar" basedir=".">
 
 	<basename file="${basedir}" property="project.projectname" />
 	<property name="project.pluginsLocation" location="PLUGINS DIRECTORY" />
 
 	<target name="clean" description="Cleans project">
-		<delete file="${project.pluginsLocation}\${project.projectname}.jar" />
+		<delete file="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar" />
 	</target>
 	
 	<target name="mvn" depends="clean">
@@ -14,7 +14,7 @@
 	    </exec>
 	</target>
 
-	<target name="CreateJar" description="Create a jar for the project" depends="clean">
+	<target name="createjar" description="Create a jar for the project" depends="mvn">
 		<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
 			<fileset dir="${basedir}">
 				<include name="**.yml" />
