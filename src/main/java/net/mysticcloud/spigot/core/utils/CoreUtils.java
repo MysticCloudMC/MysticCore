@@ -117,7 +117,7 @@ public class CoreUtils {
 
 		prefixes.put("sql", colorize("&3&lSQL &7>&f "));
 		prefixes.put("settings", colorize("&a&lSettings &7>&f "));
-		prefixes.put("items", colorize("&3&lItems &7>&f "));
+		prefixes.put("items", colorize("&a&lItems &7>&a "));
 		prefixes.put("kits", colorize("&3&lKits &7>&f "));
 		prefixes.put("pets", colorize("&e&lPets &7>&f "));
 		prefixes.put("admin", colorize("&c&lAdmin &7>&f "));
