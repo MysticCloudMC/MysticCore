@@ -17,13 +17,16 @@
 	</target>
 
 	<target name="createjar" description="Create a jar for the project" depends="mvn">
-		<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
+		<exec dir="." executable="sh">
+					        <arg line="-c 'sudo -u root cp *.jar /home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar'" />
+					    </exec>
+		<!--<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
 			<fileset dir="${basedir}">
 				<include name="*/*.yml" />
 			</fileset>
 			<fileset dir="${basedir}\bin">
 				<include name="**" />
 			</fileset>
-		</jar>
+		</jar>-->
 	</target>
 </project>
