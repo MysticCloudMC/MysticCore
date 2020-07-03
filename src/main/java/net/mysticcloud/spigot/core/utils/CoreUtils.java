@@ -131,8 +131,6 @@ public class CoreUtils {
 
 		registerSidebarList();
 		
-		gemscore.registerNewTeam("GemTeam5");
-		gemscore.getTeam("GemTeam5").setColor(ChatColor.GREEN);
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -240,7 +238,6 @@ public class CoreUtils {
 	public static void spawnGem(Location loc) {
 		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
 		
-		gemscore.getTeam("GemTeam").addEntry(item.getUniqueId().toString());
 		item.setGlowing(true);
 		item.setCustomName(colorize("&aGem"));
 		item.setCustomNameVisible(true);
@@ -379,7 +376,6 @@ public class CoreUtils {
 		KitManager.unloadCooldowns();
 		WarpUtils.save();
 		saveConfig();
-		gemscore.getTeam("GemTeam").unregister();
 	}
 
 	public static void saveConfig() {
