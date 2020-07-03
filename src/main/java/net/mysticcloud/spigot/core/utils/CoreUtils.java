@@ -98,7 +98,7 @@ public class CoreUtils {
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	
-	private static Scoreboard gemscore = Bukkit.getScoreboardManager().getMainScoreboard();
+//	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
 
 	public static Material testingblock = Material.DIAMOND;
 	
