@@ -6,7 +6,7 @@ public enum SpawnReason {
 	
 	SELF(new String[] {"You teleported to Spawn."}),
 	OTHER(new String[] {"Someone has teleported you to Spawn."}),
-	DEATH(new String[] {"You died. Good job.","Another death message. There's loads of these"});
+	DEATH(new String[] {"You died. Good job.","Another death message. There's loads of these","Hey careful, you caught an mildly-extreame case of death."});
 	
 	
 	String[] messages;
