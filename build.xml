@@ -6,7 +6,7 @@
 
 	<target name="clean" description="Cleans project">
 		<exec dir="." executable="sh">
-			        <arg line="-c 'rm /home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar'" />
+			        <arg line="-c 'sudo rm /home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar'" />
 			    </exec>
 	</target>
 	
