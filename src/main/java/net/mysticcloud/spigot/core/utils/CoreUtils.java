@@ -235,12 +235,15 @@ public class CoreUtils {
 
 	}
 	
-	public static void spawnGem(Location loc) {
+	public static Item spawnGem(Location loc) {
 		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
 		
 		item.setGlowing(true);
 		item.setCustomName(colorize("&aGem"));
 		item.setCustomNameVisible(true);
+		
+		
+		return item;
 		
 	}
 
