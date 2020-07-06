@@ -65,6 +65,8 @@ public class PlayerListener implements Listener {
 			if(e.getItem().getItemStack().getType().equals(Material.NETHER_STAR)) {
 				if(e.getItem().isGlowing()) {
 					CoreUtils.getMysticPlayer(((Player)e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+					e.getEntity().remove();
+					e.setCancelled(true);
 				}
 			}
 		}
