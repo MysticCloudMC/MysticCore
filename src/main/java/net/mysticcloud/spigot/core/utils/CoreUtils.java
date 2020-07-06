@@ -246,6 +246,25 @@ public class CoreUtils {
 		return item;
 		
 	}
+	
+	public static ItemStack createUnstackableItemStack(Material type) {
+		ItemStack i = new ItemStack(type);
+		ItemMeta im = i.getItemMeta();
+		List<String> list = new ArrayList<>();
+		list.add(getRandom().nextInt() + "");
+		im.setLore(list);
+		i.setItemMeta(im);
+		return i;
+	}
+	
+	public static ItemStack makeItemStackUnstackable(ItemStack i) {
+		ItemMeta im = i.getItemMeta();
+		List<String> list = new ArrayList<>();
+		list.add(getRandom().nextInt() + "");
+		im.setLore(list);
+		i.setItemMeta(im);
+		return i;
+	}
 
 	public static UUID LookupUUID(String player) {
 		UUID uid = null;
