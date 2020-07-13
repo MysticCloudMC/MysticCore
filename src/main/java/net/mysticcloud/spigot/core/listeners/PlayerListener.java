@@ -61,20 +61,21 @@ public class PlayerListener implements Listener {
 	public PlayerListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
+
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
-		if(e.getEntity() instanceof Player) {
-			if(e.getItem().getItemStack().getType().equals(Material.NETHER_STAR)) {
-				if(e.getItem().isGlowing()) {
-					CoreUtils.getMysticPlayer(((Player)e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+		if (e.getEntity() instanceof Player) {
+			if (e.getItem().getItemStack().getType().equals(Material.NETHER_STAR)) {
+				if (e.getItem().isGlowing()) {
+					CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
 					e.getEntity().remove();
 					e.setCancelled(true);
 				}
 			}
 		}
-		if(EventUtils.getEventID("Timed Test") != -1) {
-			if(e.getEntity() instanceof Player) {
-				EventUtils.getEvent("Timed Test").score(((Player)e.getEntity()),1);
+		if (EventUtils.getEventID("Timed Test") != -1) {
+			if (e.getEntity() instanceof Player) {
+				EventUtils.getEvent("Timed Test").score(((Player) e.getEntity()), 1);
 			}
 		}
 	}
@@ -130,8 +131,6 @@ public class PlayerListener implements Listener {
 	// }
 	//
 
-	
-	
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageEvent e) {
@@ -156,8 +155,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-		if(e.getDamager() instanceof Snowball && e.getEntity() instanceof Player) {
-			if(e.getDamager().hasMetadata("doesDamage")) {
+		if (e.getDamager() instanceof Snowball && e.getEntity() instanceof Player) {
+			if (e.getDamager().hasMetadata("doesDamage")) {
 				e.setDamage(2);
 			}
 		}
@@ -191,46 +190,59 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
-		if(CoreUtils.debugOn()) {
-			if(e.getBlock().getType().name().endsWith("_CONCRETE")) {
-				Bukkit.broadcastMessage("BlockPlaceEvent");
-				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
-					if(e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")){
-						e.getBlock().getRelative(face).setType(e.getBlock().getType());
+			Bukkit.broadcastMessage("PlaceEvent-1");
+			if (e.getBlock().getType().name().endsWith("_CONCRETE")) {
+				Bukkit.broadcastMessage("BlockFromToEvent");
+				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+					@Override
+					public void run() {
+						for (BlockFace face : new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH,
+								BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST }) {
+							if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")) {
+								if(!CoreUtils.debugOn())e.getBlock().getRelative(face).setType(e.getBlock().getType());
+								else e.getBlock().getWorld().getBlockAt(e.getBlock().getRelative(face).getLocation()).setType(e.getBlock().getType());
+							}
+							continue;
+						}
 					}
-					continue;
-				}
+				}, 5);
+
 			}
-			
-		}
+
 	}
-	
+
 	@EventHandler
 	public void onBlockIdk(org.bukkit.event.block.BlockFormEvent e) {
 		Bukkit.broadcastMessage("Form event");
 	}
-	
-	
+
 	@EventHandler
 	public void onBlockChange(org.bukkit.event.block.BlockFromToEvent e) {
-		if(CoreUtils.debugOn()) {
 			Bukkit.broadcastMessage("BlockFromToEvent-1");
-			if(e.getToBlock().getType().name().endsWith("_CONCRETE")) {
+			if (e.getToBlock().getType().name().endsWith("_CONCRETE")) {
 				Bukkit.broadcastMessage("BlockFromToEvent");
-				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
-					if(e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")){
-						e.getBlock().getRelative(face).setType(e.getToBlock().getType());
+				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+					@Override
+					public void run() {
+						for (BlockFace face : new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH,
+								BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST }) {
+							if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")) {
+								if(!CoreUtils.debugOn())e.getBlock().getRelative(face).setType(e.getToBlock().getType());
+								else e.getBlock().getWorld().getBlockAt(e.getBlock().getRelative(face).getLocation()).setType(e.getToBlock().getType());
+							}
+							continue;
+						}
 					}
-					continue;
-				}
+				}, 5);
+
 			}
-			
-		}
+
 	}
-	
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
@@ -240,9 +252,9 @@ public class PlayerListener implements Listener {
 		CoreUtils.enableScoreboard(e.getPlayer());
 
 		CoreUtils.updateDate();
-		
-		if(CoreUtils.debugOn()) {
-			if(e.getPlayer().getName().equals("QuickScythe")) {
+
+		if (CoreUtils.debugOn()) {
+			if (e.getPlayer().getName().equals("QuickScythe")) {
 				e.getPlayer().getInventory().clear();
 			}
 		}
