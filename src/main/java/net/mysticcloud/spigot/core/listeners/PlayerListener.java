@@ -20,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -191,11 +192,28 @@ public class PlayerListener implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent e) {
+		if(CoreUtils.debugOn()) {
+			if(e.getBlock().getType().name().endsWith("_CONCRETE")) {
+				Bukkit.broadcastMessage("BlockPlaceEvent");
+				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
+					if(e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")){
+						e.getBlock().getRelative(face).setType(e.getBlock().getType());
+					}
+					continue;
+				}
+			}
+			
+		}
+	}
+	
 	
 	@EventHandler
 	public void onBlockChange(org.bukkit.event.block.BlockFromToEvent e) {
 		if(CoreUtils.debugOn()) {
 			if(e.getToBlock().getType().name().endsWith("_CONCRETE")) {
+				Bukkit.broadcastMessage("BlockFromToEvent");
 				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
 					if(e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")){
 						e.getBlock().getRelative(face).setType(e.getToBlock().getType());
