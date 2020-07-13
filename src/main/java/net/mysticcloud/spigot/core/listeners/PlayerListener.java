@@ -41,6 +41,7 @@ import org.bukkit.potion.PotionEffect;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.runnables.BlockRunnable;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
@@ -196,24 +197,7 @@ public class PlayerListener implements Listener {
 		Bukkit.broadcastMessage("PlaceEvent-1");
 		if (e.getBlock().getType().name().endsWith("_CONCRETE")) {
 			Bukkit.broadcastMessage("BlockFromToEvent");
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
-
-				@Override
-				public void run() {
-					for (BlockFace face : new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH,
-							BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST }) {
-						if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")
-								&& !e.getBlock().getRelative(face).getType().equals(e.getBlock().getType())) {
-							if (!CoreUtils.debugOn())
-								e.getBlock().getRelative(face).setType(e.getBlock().getType());
-							else
-								e.getBlock().getWorld().getBlockAt(e.getBlock().getRelative(face).getLocation())
-										.setType(e.getBlock().getType());
-						}
-						continue;
-					}
-				}
-			}, 5);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new BlockRunnable(e.getBlock()), 5);
 
 		}
 
