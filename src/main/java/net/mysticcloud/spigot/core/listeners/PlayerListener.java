@@ -214,7 +214,7 @@ public class PlayerListener implements Listener {
 				public void run() {
 					for (BlockFace face : new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH,
 							BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST }) {
-						if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")) {
+						if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE") && !e.getBlock().getRelative(face).getType().equals(e.getBlock().getType())) {
 							if (!CoreUtils.debugOn())
 								e.getBlock().getRelative(face).setType(e.getBlock().getType());
 							else
