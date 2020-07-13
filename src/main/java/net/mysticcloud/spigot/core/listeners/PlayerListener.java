@@ -208,10 +208,16 @@ public class PlayerListener implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onBlockIdk(org.bukkit.event.block.BlockFormEvent e) {
+		Bukkit.broadcastMessage("Form event");
+	}
+	
 	
 	@EventHandler
 	public void onBlockChange(org.bukkit.event.block.BlockFromToEvent e) {
 		if(CoreUtils.debugOn()) {
+			Bukkit.broadcastMessage("BlockFromToEvent-1");
 			if(e.getToBlock().getType().name().endsWith("_CONCRETE")) {
 				Bukkit.broadcastMessage("BlockFromToEvent");
 				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
