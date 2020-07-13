@@ -12,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
@@ -189,6 +190,23 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
+	
+	
+	@EventHandler
+	public void onBlockChange(org.bukkit.event.block.BlockFromToEvent e) {
+		if(CoreUtils.debugOn()) {
+			if(e.getToBlock().getType().name().endsWith("_CONCRETE")) {
+				for(BlockFace face : new BlockFace[] {BlockFace.UP,BlockFace.DOWN,BlockFace.NORTH,BlockFace.EAST,BlockFace.SOUTH,BlockFace.WEST}) {
+					if(e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")){
+						e.getBlock().getRelative(face).setType(e.getToBlock().getType());
+					}
+					continue;
+				}
+			}
+			
+		}
+	}
+	
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
