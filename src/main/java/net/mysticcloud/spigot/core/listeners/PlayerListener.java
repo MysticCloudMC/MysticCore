@@ -195,17 +195,39 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent e) {
 		Bukkit.broadcastMessage("PlaceEvent-1");
-		if (e.getBlock().getType().name().endsWith("_CONCRETE")) {
-			Bukkit.broadcastMessage("BlockFromToEvent");
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new BlockRunnable(e.getBlock()), 5);
-
-		}
+//		if (e.getBlock().getType().name().endsWith("_CONCRETE")) {
+//			Bukkit.broadcastMessage("BlockFromToEvent");
+//			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new BlockRunnable(e.getBlock()), 5);
+//
+//		}
 
 	}
 
 	@EventHandler
 	public void onBlockIdk(org.bukkit.event.block.BlockPhysicsEvent e) {
-		Bukkit.broadcastMessage("Form event");
+		Bukkit.broadcastMessage("PhysicsEvent-1");
+		if (e.getBlock().getType().name().endsWith("_CONCRETE")) {
+			Bukkit.broadcastMessage("PhysicsEvent");
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+				@Override
+				public void run() {
+					for (BlockFace face : new BlockFace[] { BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH,
+							BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST }) {
+						if (e.getBlock().getRelative(face).getType().name().endsWith("_CONCRETE")) {
+							if (!CoreUtils.debugOn())
+								e.getBlock().getRelative(face).setType(e.getBlock().getType());
+							else
+								e.getBlock().getWorld().getBlockAt(e.getBlock().getRelative(face).getLocation())
+										.setType(e.getBlock().getType());
+						}
+						continue;
+					}
+				}
+			}, 5);
+
+		}
+
 	}
 
 	@EventHandler
