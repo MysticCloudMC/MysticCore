@@ -74,22 +74,8 @@ public class PlayerListener implements Listener {
 				}
 			}
 		}
-		if (EventUtils.getEventID("Timed Test") != -1) {
-			if (e.getEntity() instanceof Player) {
-				EventUtils.getEvent("Timed Test").score(((Player) e.getEntity()), 1);
-			}
-		}
 	}
 
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onPlayerMove(PlayerMoveEvent e) {
-		if (CoreUtils.debugOn()) {
-			if (e.getPlayer().getItemInHand() != null || e.getPlayer().getItemInHand().getType() != Material.AIR) {
-				CoreUtils.testingblock = e.getPlayer().getItemInHand().getType();
-			}
-		}
-	}
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
@@ -383,6 +369,10 @@ public class PlayerListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
 			e.setCancelled(true);
+			if(e.getCurrentItem().getType().equals(Material.BARRIER)) {
+				CoreUtils.particlesOff(e.getWhoClicked().getUniqueId());
+				return;
+			}
 			for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
 				if (e.getCurrentItem().getType().equals(format.formatter().item().getType())) {
 					CoreUtils.particles(e.getWhoClicked().getUniqueId(), format);

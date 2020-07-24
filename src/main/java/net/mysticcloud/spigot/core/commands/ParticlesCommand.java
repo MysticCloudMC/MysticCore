@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 
 public class ParticlesCommand implements CommandExecutor {
@@ -23,10 +24,10 @@ public class ParticlesCommand implements CommandExecutor {
 			if(sender.hasPermission("mysticcloud.cmd.particles")){
 				GUIManager.openInventory(((Player)sender),GUIManager.generateParticleFormatMenu((Player)sender), "Particle Format");
 			} else {
-				//No perms (shouldn't happen but handle it anyway incase you forget
+				sender.sendMessage(CoreUtils.getCoreMessage("noperm"));
 			}
 		} else {
-			//Console
+			sender.sendMessage(CoreUtils.getCoreMessage("playeronly"));
 		}
 		
 		return true;

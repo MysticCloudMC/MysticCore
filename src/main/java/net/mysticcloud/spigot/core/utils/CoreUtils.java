@@ -88,6 +88,7 @@ public class CoreUtils {
 	private static Map<String, ItemStack> foods = new HashMap<>();
 	private static Map<String, FoodInfo> food = new HashMap<>();
 	private static Map<String, String> variables = new HashMap<>();
+	private static Map<String, String> messages = new HashMap<>();
 	public static Map<UUID, List<TimedPerm>> timedPerms = new HashMap<>();
 	public static Map<UUID, String> offlineTimedUsers = new HashMap<>();
 
@@ -128,6 +129,9 @@ public class CoreUtils {
 		prefixes.put("account", colorize("&a&lAccount &7>&f "));
 		prefixes.put("teleport", colorize("&3&lTeleport &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
+		
+		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
+		messages.put("noperm", prefixes("root") + "That is a player only command.");
 
 		registerSidebarList();
 		
@@ -233,6 +237,12 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+	public static void addCoreMessage(String name, String message) {
+		messages.put(name, colorize(message));
+	}
+	public static String getCoreMessage(String name) {
+		return messages.get(name);
 	}
 	
 	public static Item spawnGem(Location loc) {
@@ -438,6 +448,10 @@ public class CoreUtils {
 	public static void playerList(String key, String value) {
 		playerlist.put(key, value);
 	}
+	
+	public static void particlesOff(UUID uid) {
+		particles.remove(uid);
+	}
 
 	public static void particles(UUID uid, ParticleFormatEnum format) {
 		particles.put(uid, format.formatter());
@@ -522,6 +536,8 @@ public class CoreUtils {
 	public static String colorize(String message) {
 		return ChatColor.translateAlternateColorCodes('&', message);
 	}
+	
+	
 
 	@SuppressWarnings("deprecation")
 	public static String getTime() {

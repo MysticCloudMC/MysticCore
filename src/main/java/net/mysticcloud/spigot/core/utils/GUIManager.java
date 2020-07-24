@@ -68,6 +68,7 @@ public class GUIManager {
 		if (invTracker.containsKey(player.getUniqueId())) {
 			if (invTracker.get(player.getUniqueId()) != "none") {
 				invTracker.put(player.getUniqueId(), "none");
+				player.closeInventory();
 			}
 
 		} else {
@@ -84,7 +85,7 @@ public class GUIManager {
 	public static Inventory generateParticleFormatMenu(Player player) {
 
 		InventoryCreator inv = new InventoryCreator("Particle Formats", (null),
-				((ParticleFormatEnum.values().length / 9) + 1) * 9);
+				(((ParticleFormatEnum.values().length / 9) + 1) * 9)+9);
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'X', (String[]) null);
 		ArrayList<Character> c = new ArrayList<Character>();
 		for (int i = 0; i != (((int) (ParticleFormatEnum.values().length / 9)) + 1) * 9; i++) {
@@ -104,6 +105,19 @@ public class GUIManager {
 			}
 
 		}
+		
+		inv.addItem(new ItemStack(Material.BARRIER), CoreUtils.colorize("&cRemove Particles"), 'z', new String[] {"Expermimental"}, false);
+		
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('z');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		
 		inv.setConfiguration(c);
 		c.clear();
 		c = null;
