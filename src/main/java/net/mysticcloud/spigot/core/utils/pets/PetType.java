@@ -3,6 +3,8 @@ package net.mysticcloud.spigot.core.utils.pets;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+
 
 public class PetType {
 	
@@ -10,9 +12,11 @@ public class PetType {
 	boolean fly = false;
 	ItemStack idle = new ItemStack(Material.AIR);
 	ItemStack moving = new ItemStack(Material.AIR);
+	String displayName = "";
 	
 	public PetType(String name){
 		this.name = name;
+		displayName = name;
 		
 	}
 	public void setCanFly(boolean fly){
@@ -33,6 +37,9 @@ public class PetType {
 	public String getName() {
 		return name;
 	}
+	public String getDisplayName() {
+		return CoreUtils.colorize(displayName);
+	}
 	public ItemStack getIdleItem() {
 		return idle;
 	}
@@ -42,6 +49,9 @@ public class PetType {
 
 	public boolean canFly() {
 		return fly;
+	}
+	public void setDisplayName(String name) {
+		this.displayName = name;
 	}
 
 }

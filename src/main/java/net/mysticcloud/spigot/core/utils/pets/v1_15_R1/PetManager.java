@@ -40,6 +40,9 @@ public class PetManager {
 			for (File file : getAllFiles()) {
 				FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
 				PetType t = new PetType(file.getName().replace(".yml", ""));
+				if (fc.isSet("Name")) {
+					t.setDisplayName(fc.getString("Name"));
+				}
 				if (fc.isSet("IdleItem")) {
 					ItemStack i = new ItemStack(Material.PUMPKIN);
 					if (fc.getString("IdleItem").contains("CustomItem")) {
@@ -126,7 +129,7 @@ public class PetManager {
 	public static void removePets() {
 		for (Pet rpet : rpets) {
 			pets.remove(rpet);
-			((ArmorStand)rpet).remove();
+			((ArmorStand) rpet).remove();
 		}
 		rpets.clear();
 
@@ -140,10 +143,10 @@ public class PetManager {
 		}
 		removePets();
 	}
-	
+
 	public static boolean hasPet(Player player) {
-		for(Pet pet : pets) {
-			if(pet.getOwner() == player.getUniqueId()) {
+		for (Pet pet : pets) {
+			if (pet.getOwner() == player.getUniqueId()) {
 				return true;
 			}
 		}
@@ -152,22 +155,22 @@ public class PetManager {
 
 	public static Pet spawnPet(Player owner, String type, Location loc) {
 
-			if (owner.hasPermission("mysticcloud.pets.multipets")) {
-				Pet p = (Pet) PetManager.spawnEntity(new Pet(((CraftWorld) loc.getWorld()).getHandle()), loc);
-				p.setOwner(owner.getUniqueId());
-				p.setType(getPetType(type));
-				CoreUtils.debug(getPetType(type) + " - ");
-				ArmorStand pb = (ArmorStand) p.getBukkitEntity();
-				pb.setBasePlate(false);
-				pb.setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), "true"));
-				pb.setVisible(false);
-				pb.setSmall(true);
-				pb.setInvulnerable(true);
-				pets.add(p);
-				return p;
-			} else {
-				owner.sendMessage(CoreUtils.prefixes().get("pets") + ("You can only have 1 pet at a time sorry."));
-			}
+		if (owner.hasPermission("mysticcloud.pets.multipets")) {
+			Pet p = (Pet) PetManager.spawnEntity(new Pet(((CraftWorld) loc.getWorld()).getHandle()), loc);
+			p.setOwner(owner.getUniqueId());
+			p.setType(getPetType(type));
+			CoreUtils.debug(getPetType(type) + " - ");
+			ArmorStand pb = (ArmorStand) p.getBukkitEntity();
+			pb.setBasePlate(false);
+			pb.setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), "true"));
+			pb.setVisible(false);
+			pb.setSmall(true);
+			pb.setInvulnerable(true);
+			pets.add(p);
+			return p;
+		} else {
+			owner.sendMessage(CoreUtils.prefixes().get("pets") + ("You can only have 1 pet at a time sorry."));
+		}
 
 		return null;
 	}
@@ -188,10 +191,10 @@ public class PetManager {
 		for (int i = 0; i != (((int) (types.size() / 9)) + 1) * 9; i++) {
 			if (i < types.size()) {
 				if (player.hasPermission("mysticcloud.pet." + types.get(i).getName())) {
-					inv.addItem(new ItemStack(types.get(i).getIdleItem()), types.get(i).getName(), (char) i,
+					inv.addItem(new ItemStack(types.get(i).getIdleItem()), types.get(i).getDisplayName(), (char) i,
 							(String[]) null, false);
 				} else {
-					inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), types.get(i).getName(), (char) i,
+					inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), types.get(i).getDisplayName(), (char) i,
 							new String[] { "&cLocked..." }, false);
 				}
 				c.add((char) i);
@@ -206,6 +209,7 @@ public class PetManager {
 		return inv.getInventory();
 
 	}
+
 	public static net.minecraft.server.v1_16_R1.Entity spawnEntity(net.minecraft.server.v1_16_R1.Entity entity,
 			Location loc) {
 

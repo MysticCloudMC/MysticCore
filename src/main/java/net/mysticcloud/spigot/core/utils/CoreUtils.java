@@ -1189,6 +1189,7 @@ public class CoreUtils {
 	}
 
 	public static MysticPlayer getMysticPlayer(Player player) {
+		if(player == null) return null;
 		return getMysticPlayer(player.getUniqueId());
 	}
 
