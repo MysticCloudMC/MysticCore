@@ -121,7 +121,7 @@ public class PlayerListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageEvent e) {
-		if (e.getEntity() instanceof Player && !(e.getEntity().hasMetadata("game"))) {
+		if (e.getEntity() instanceof Player && CoreUtils.coreHandleDamage()) {
 			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
 				e.setCancelled(true);
 				CoreUtils.teleportToSpawn((Player) e.getEntity(), SpawnReason.DEATH);

@@ -74,6 +74,8 @@ public class CoreUtils {
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
+	
+	private static boolean handleDamage = true;
 
 	private static Map<String, String> prefixes = new HashMap<>();
 
@@ -1362,6 +1364,12 @@ public class CoreUtils {
 	public static void setGameMode(Player pl, GameMode gm) {
 		pl.setGameMode(gm);
 		pl.sendMessage(prefixes("gamemode") + "Your current gamemode is "  + gm.name());
+	}
+	public static void coreHandleDamage(boolean handle) {
+		handleDamage = handle;
+	}
+	public static boolean coreHandleDamage() {
+		return handleDamage;
 	}
 
 }
