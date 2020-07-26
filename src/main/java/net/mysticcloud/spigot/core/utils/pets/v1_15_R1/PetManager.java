@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -234,6 +235,15 @@ public class PetManager {
 		}
 
 		return entity;
+	}
+
+	public static boolean getPetTypeExists(String stripColor) {
+		for(PetType type : types) {
+			if(ChatColor.stripColor(CoreUtils.colorize(type.getDisplayName())).equalsIgnoreCase(stripColor)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

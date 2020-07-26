@@ -416,7 +416,7 @@ public class PlayerListener implements Listener {
 			e.setCancelled(true);
 			if (e.getCurrentItem() == null)
 				return;
-			if (PetManager.getPetType(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())) == null)
+			if (!PetManager.getPetTypeExists(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())))
 				return;
 			Pet p = PetManager.spawnPet(((Player) e.getWhoClicked()),
 					ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()),
