@@ -422,7 +422,7 @@ public class PlayerListener implements Listener {
 					ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()),
 					((Player) e.getWhoClicked()).getLocation());
 			e.getWhoClicked().closeInventory();
-			((ArmorStand) p).setVisible(false);
+			((ArmorStand) p.getBukkitEntity()).setVisible(false);
 		}
 	}
 
