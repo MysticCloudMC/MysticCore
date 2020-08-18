@@ -948,14 +948,14 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Lore")) {
 				List<String> lore = new ArrayList<>();
 				if (item.get(name + ".Options.Lore") instanceof List<?>) {
-					for(String s : item.getStringList(name + ".Options.Lore")) {
+					for (String s : item.getStringList(name + ".Options.Lore")) {
 						lore.add(colorize(s));
 					}
 				}
 				if (item.get(name + ".Options.Lore") instanceof String) {
 					lore.add(colorize(item.getString(name + ".Options.Lore")));
 				}
-				if(!lore.isEmpty())
+				if (!lore.isEmpty())
 					a.setLore(lore);
 			}
 
@@ -1047,8 +1047,9 @@ public class CoreUtils {
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
 			if (item.isSet(name + ".Attributes.Boots.MovementSpeed")) {
-				AttributeModifier am = new AttributeModifier("Boots Movement Speed",
-						item.getDouble(name + ".Attributes.Boots.MovementSpeed"), Operation.ADD_NUMBER);
+				AttributeModifier am = new AttributeModifier(UUID.randomUUID(),
+						"Boots Movement Speed", item.getDouble(name + ".Attributes.Boots.MovementSpeed"),
+						Operation.ADD_NUMBER, EquipmentSlot.FEET);
 				a.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED, am);
 			}
 			if (item.isSet(name + ".Enchantments")) {
