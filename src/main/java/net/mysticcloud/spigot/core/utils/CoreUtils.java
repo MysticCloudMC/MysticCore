@@ -976,7 +976,12 @@ public class CoreUtils {
 
 			if (item.isSet(name + ".MysticEnhancements.FireDamage")) {
 				List<String> lore = a.hasLore() ? a.getLore() : new ArrayList<>();
-				lore.add(colorize("&eFire&7 Damage: &e&l" + item.get(name + ".MysticEnhancements.FireDamage")));
+				lore.add(colorize("&cFire&7 Damage: &c&l" + item.get(name + ".MysticEnhancements.FireDamage")));
+				a.setLore(lore);
+			}
+			if (item.isSet(name + ".MysticEnhancements.FrostDamage")) {
+				List<String> lore = a.hasLore() ? a.getLore() : new ArrayList<>();
+				lore.add(colorize("&bFrost&7 Damage: &b&l" + item.get(name + ".MysticEnhancements.FrostDamage")));
 				a.setLore(lore);
 			}
 

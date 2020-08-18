@@ -13,6 +13,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
@@ -21,7 +22,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -34,6 +34,7 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
@@ -70,7 +71,6 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
@@ -116,27 +116,27 @@ public class PlayerListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageByEntityEvent e) {
-		if(e.getDamager() instanceof Player) {
-			Player player = (Player)e.getDamager();
-			if(player.getItemInHand() != null) {
-				ItemStack item = player.getItemInHand();
-				if(item.hasItemMeta()) {
-					if(item.getItemMeta().hasLore()) {
-						int fire = 0;
-						int ice = 0;
-						for(String s : item.getItemMeta().getLore()) {
-							if(ChatColor.stripColor(s).contains("Fire Damage:")) {
-								fire = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
-							}
-							if(ChatColor.stripColor(s).contains("Frost Damage:")) {
-								ice = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
-							}
-						}
-						if(fire != 0) {
-							e.getEntity().setFireTicks(20);
-						}
-					}
+		if (e.getDamager() instanceof Player && ((Player) e.getDamager()).getItemInHand() != null
+				&& ((Player) e.getDamager()).getItemInHand().hasItemMeta()
+				&& ((Player) e.getDamager()).getItemInHand().getItemMeta().hasLore()) {
+			Player player = (Player) e.getDamager();
+			ItemStack item = player.getItemInHand();
+			int fire = 0;
+			int ice = 0;
+			for (String s : item.getItemMeta().getLore()) {
+				if (ChatColor.stripColor(s).contains("Fire Damage:")) {
+					fire = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
 				}
+				if (ChatColor.stripColor(s).contains("Frost Damage:")) {
+					ice = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
+				}
+			}
+			if (fire != 0) {
+				e.getEntity().setFireTicks(20);
+			}
+			if (ice != 0) {
+				if (e.getEntity() instanceof LivingEntity)
+					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 1));
 			}
 		}
 		if (e.getEntity() instanceof Player && CoreUtils.coreHandleDamage()) {
@@ -195,7 +195,6 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
@@ -387,7 +386,7 @@ public class PlayerListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
 			e.setCancelled(true);
-			if(e.getCurrentItem().getType().equals(Material.BARRIER)) {
+			if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
 				CoreUtils.particlesOff(e.getWhoClicked().getUniqueId());
 				return;
 			}
