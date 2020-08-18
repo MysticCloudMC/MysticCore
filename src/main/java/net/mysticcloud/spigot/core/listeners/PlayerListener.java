@@ -46,6 +46,7 @@ import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
@@ -137,8 +138,9 @@ public class PlayerListener implements Listener {
 			if (ice != 0) {
 				if (e.getEntity() instanceof LivingEntity) {
 					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ice*20, 1));
-					CircleFeetFormat format = new CircleFeetFormat();
-					format.particle(Particle.DOLPHIN);
+					RandomFormat format = new RandomFormat();
+					format.particle(Particle.REDSTONE);
+					format.setDustOptions(new DustOptions(Color.AQUA, 1));
 					CoreUtils.particles.put(e.getEntity().getUniqueId(), format);
 					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
