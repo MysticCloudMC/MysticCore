@@ -74,7 +74,7 @@ public class CoreUtils {
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
-	
+
 	private static boolean handleDamage = true;
 
 	private static Map<String, String> prefixes = new HashMap<>();
@@ -100,16 +100,15 @@ public class CoreUtils {
 	private static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
-	
+
 //	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
 
 	public static Material testingblock = Material.DIAMOND;
-	
 
 	public static float t = 0;
 
 	public static void start() {
-		
+
 		df.setRoundingMode(RoundingMode.DOWN);
 
 		setupEconomy();
@@ -131,12 +130,11 @@ public class CoreUtils {
 		prefixes.put("account", colorize("&a&lAccount &7>&f "));
 		prefixes.put("teleport", colorize("&3&lTeleport &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
-		
+
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("noperm", prefixes("root") + "That is a player only command.");
 
 		registerSidebarList();
-		
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -240,25 +238,26 @@ public class CoreUtils {
 		MysticEntityUtils.registerEntities();
 
 	}
+
 	public static void addCoreMessage(String name, String message) {
 		messages.put(name, colorize(message));
 	}
+
 	public static String getCoreMessage(String name) {
 		return messages.get(name);
 	}
-	
+
 	public static Item spawnGem(Location loc) {
 		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
-		
+
 		item.setGlowing(true);
 		item.setCustomName(colorize("&aGem"));
 		item.setCustomNameVisible(true);
-		
-		
+
 		return item;
-		
+
 	}
-	
+
 	public static ItemStack createUnstackableItemStack(Material type) {
 		ItemStack i = new ItemStack(type);
 		ItemMeta im = i.getItemMeta();
@@ -268,7 +267,7 @@ public class CoreUtils {
 		i.setItemMeta(im);
 		return i;
 	}
-	
+
 	public static ItemStack makeItemStackUnstackable(ItemStack i) {
 		ItemMeta im = i.getItemMeta();
 		List<String> list = new ArrayList<>();
@@ -450,7 +449,7 @@ public class CoreUtils {
 	public static void playerList(String key, String value) {
 		playerlist.put(key, value);
 	}
-	
+
 	public static void particlesOff(UUID uid) {
 		particles.remove(uid);
 	}
@@ -464,16 +463,16 @@ public class CoreUtils {
 	}
 
 	public static String encryptLocation(Location loc) {
-		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getPitch()
-		+ ":" + loc.getYaw();
-		r = r.replaceAll("\\.",",");
+		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":"
+				+ loc.getPitch() + ":" + loc.getYaw();
+		r = r.replaceAll("\\.", ",");
 		return r;
 	}
 
 	public static Location decryptLocation(String s) {
 		debug("Decrypting Location: " + s);
-		if(s.contains(","))
-			s = s.replaceAll(",",".");
+		if (s.contains(","))
+			s = s.replaceAll(",", ".");
 		String[] args = s.split(":");
 		return new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
 				Double.parseDouble(args[3]));
@@ -538,8 +537,6 @@ public class CoreUtils {
 	public static String colorize(String message) {
 		return ChatColor.translateAlternateColorCodes('&', message);
 	}
-	
-	
 
 	@SuppressWarnings("deprecation")
 	public static String getTime() {
@@ -948,8 +945,19 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
-			if (item.isSet(name + ".Options.Lore"))
-				a.setLore(CoreUtils.colorizeStringList(item.getStringList(name + ".Options.Lore")));
+			if (item.isSet(name + ".Options.Lore")) {
+				List<String> lore = new ArrayList<>();
+				if (item.get(name + ".Options.Lore") instanceof List<?>) {
+					for(String s : item.getStringList(name + ".Options.Lore")) {
+						lore.add(colorize(s));
+					}
+				}
+				if (item.get(name + ".Options.Lore") instanceof String) {
+					lore.add(colorize(item.getString(name + ".Options.Lore")));
+				}
+				if(!lore.isEmpty())
+					a.setLore(lore);
+			}
 
 			if (item.isSet(name + ".Food.Hunger")) {
 				food = true;
@@ -1072,7 +1080,7 @@ public class CoreUtils {
 			debug("Item " + name + " was food.");
 		}
 		items.put(name, i.clone());
-		
+
 		if (food)
 			CoreUtils.food.put(name, info);
 		return i.clone();
@@ -1207,7 +1215,8 @@ public class CoreUtils {
 	}
 
 	public static MysticPlayer getMysticPlayer(Player player) {
-		if(player == null) return null;
+		if (player == null)
+			return null;
 		return getMysticPlayer(player.getUniqueId());
 	}
 
@@ -1363,11 +1372,13 @@ public class CoreUtils {
 
 	public static void setGameMode(Player pl, GameMode gm) {
 		pl.setGameMode(gm);
-		pl.sendMessage(prefixes("gamemode") + "Your current gamemode is "  + gm.name());
+		pl.sendMessage(prefixes("gamemode") + "Your current gamemode is " + gm.name());
 	}
+
 	public static void coreHandleDamage(boolean handle) {
 		handleDamage = handle;
 	}
+
 	public static boolean coreHandleDamage() {
 		return handleDamage;
 	}
