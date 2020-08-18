@@ -3,36 +3,29 @@ package net.mysticcloud.spigot.core.utils.entities;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import net.minecraft.server.v1_16_R1.BlockPosition;
-import net.minecraft.server.v1_16_R1.DamageSource;
-import net.minecraft.server.v1_16_R1.Entity;
-import net.minecraft.server.v1_16_R1.EntityAgeable;
-import net.minecraft.server.v1_16_R1.EntityChicken;
-import net.minecraft.server.v1_16_R1.EntityHuman;
-import net.minecraft.server.v1_16_R1.EntityLiving;
-import net.minecraft.server.v1_16_R1.EntityPose;
-import net.minecraft.server.v1_16_R1.EntitySize;
-import net.minecraft.server.v1_16_R1.EntityTypes;
-import net.minecraft.server.v1_16_R1.GenericAttributes;
-import net.minecraft.server.v1_16_R1.IBlockData;
-import net.minecraft.server.v1_16_R1.IMaterial;
-import net.minecraft.server.v1_16_R1.ItemStack;
-import net.minecraft.server.v1_16_R1.Items;
-import net.minecraft.server.v1_16_R1.MathHelper;
-import net.minecraft.server.v1_16_R1.NBTTagCompound;
-import net.minecraft.server.v1_16_R1.PathfinderGoalBreed;
-import net.minecraft.server.v1_16_R1.PathfinderGoalFloat;
-import net.minecraft.server.v1_16_R1.PathfinderGoalFollowParent;
-import net.minecraft.server.v1_16_R1.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_16_R1.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_16_R1.PathfinderGoalPanic;
-import net.minecraft.server.v1_16_R1.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_16_R1.PathfinderGoalRandomStrollLand;
-import net.minecraft.server.v1_16_R1.PathfinderGoalTempt;
-import net.minecraft.server.v1_16_R1.RecipeItemStack;
-import net.minecraft.server.v1_16_R1.SoundEffect;
-import net.minecraft.server.v1_16_R1.SoundEffects;
-import net.minecraft.server.v1_16_R1.World;
+import net.minecraft.server.v1_16_R2.DamageSource;
+import net.minecraft.server.v1_16_R2.EntityAgeable;
+import net.minecraft.server.v1_16_R2.EntityChicken;
+import net.minecraft.server.v1_16_R2.EntityHuman;
+import net.minecraft.server.v1_16_R2.EntityPose;
+import net.minecraft.server.v1_16_R2.EntitySize;
+import net.minecraft.server.v1_16_R2.EntityTypes;
+import net.minecraft.server.v1_16_R2.IMaterial;
+import net.minecraft.server.v1_16_R2.ItemStack;
+import net.minecraft.server.v1_16_R2.Items;
+import net.minecraft.server.v1_16_R2.PathfinderGoalBreed;
+import net.minecraft.server.v1_16_R2.PathfinderGoalFloat;
+import net.minecraft.server.v1_16_R2.PathfinderGoalFollowParent;
+import net.minecraft.server.v1_16_R2.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_16_R2.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_16_R2.PathfinderGoalPanic;
+import net.minecraft.server.v1_16_R2.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_16_R2.PathfinderGoalRandomStrollLand;
+import net.minecraft.server.v1_16_R2.PathfinderGoalTempt;
+import net.minecraft.server.v1_16_R2.RecipeItemStack;
+import net.minecraft.server.v1_16_R2.SoundEffect;
+import net.minecraft.server.v1_16_R2.SoundEffects;
+import net.minecraft.server.v1_16_R2.World;
 
 public class TestChicken extends EntityChicken {
 
@@ -110,10 +103,6 @@ public class TestChicken extends EntityChicken {
 		return SoundEffects.ENTITY_CHICKEN_DEATH;
 	}
 
-	@Override
-	public EntityChicken createChild(EntityAgeable entityageable) {
-		return EntityTypes.CHICKEN.a(this.world);
-	}
 
 	@Override
 	public boolean i(ItemStack itemstack) {

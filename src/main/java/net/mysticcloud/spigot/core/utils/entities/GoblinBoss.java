@@ -7,13 +7,13 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import net.minecraft.server.v1_16_R1.DamageSource;
-import net.minecraft.server.v1_16_R1.EntityTypes;
-import net.minecraft.server.v1_16_R1.EntityZombie;
-import net.minecraft.server.v1_16_R1.EnumItemSlot;
-import net.minecraft.server.v1_16_R1.ItemStack;
-import net.minecraft.server.v1_16_R1.Items;
-import net.minecraft.server.v1_16_R1.World;
+import net.minecraft.server.v1_16_R2.DamageSource;
+import net.minecraft.server.v1_16_R2.EntityTypes;
+import net.minecraft.server.v1_16_R2.EntityZombie;
+import net.minecraft.server.v1_16_R2.EnumItemSlot;
+import net.minecraft.server.v1_16_R2.ItemStack;
+import net.minecraft.server.v1_16_R2.Items;
+import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
