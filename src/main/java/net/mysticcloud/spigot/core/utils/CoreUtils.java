@@ -934,13 +934,7 @@ public class CoreUtils {
 			a.setDisplayName(item.isSet(name + ".Options.Display") ? colorize(item.getString(name + ".Options.Display"))
 					: ChatColor.RESET + (i.getType() + "").substring(0, 1).toUpperCase()
 							+ (i.getType() + "").substring(1, (i.getType() + "").length()).toLowerCase());
-			if (item.isSet(name + ".Options.Hide"))
-				if (item.get(name + ".Options.Hide") != "All")
-					for (String s : item.getStringList(name + ".Options.Hide"))
-						a.addItemFlags(ItemFlag.valueOf("HIDE_" + s.toUpperCase()));
-				else
-					for (ItemFlag flag : ItemFlag.values())
-						a.addItemFlags(flag);
+			
 
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
@@ -1063,6 +1057,14 @@ public class CoreUtils {
 
 				}
 			}
+			
+			if (item.isSet(name + ".Options.Hide"))
+				if (item.get(name + ".Options.Hide") != "All")
+					for (String s : item.getStringList(name + ".Options.Hide"))
+						a.addItemFlags(ItemFlag.valueOf("HIDE_" + s.toUpperCase()));
+				else
+					for (ItemFlag flag : ItemFlag.values())
+						a.addItemFlags(flag);
 
 		}
 		a.setDisplayName(a.hasDisplayName() ? a.getDisplayName() : CoreUtils.colorize("&cERROR"));
