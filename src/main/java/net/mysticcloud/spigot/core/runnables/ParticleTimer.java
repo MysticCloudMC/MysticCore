@@ -31,8 +31,8 @@ public class ParticleTimer implements Runnable {
 								entry.getKey())
 						.getLocation()
 						, i);
-			} catch (IllegalArgumentException ex) {
-				CoreUtils.debug("Player Particle error");
+			} catch (NullPointerException ex) {
+				CoreUtils.particles__remove.add(entry.getKey());
 			}
 
 		}
