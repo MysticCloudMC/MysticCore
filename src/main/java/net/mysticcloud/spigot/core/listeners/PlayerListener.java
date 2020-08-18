@@ -115,7 +115,30 @@ public class PlayerListener implements Listener {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerDeath(EntityDamageEvent e) {
+	public void onPlayerDeath(EntityDamageByEntityEvent e) {
+		if(e.getDamager() instanceof Player) {
+			Player player = (Player)e.getDamager();
+			if(player.getItemInHand() != null) {
+				ItemStack item = player.getItemInHand();
+				if(item.hasItemMeta()) {
+					if(item.getItemMeta().hasLore()) {
+						int fire = 0;
+						int ice = 0;
+						for(String s : item.getItemMeta().getLore()) {
+							if(ChatColor.stripColor(s).contains("Fire Damage:")) {
+								fire = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
+							}
+							if(ChatColor.stripColor(s).contains("Frost Damage:")) {
+								ice = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
+							}
+						}
+						if(fire != 0) {
+							e.getEntity().setFireTicks(20);
+						}
+					}
+				}
+			}
+		}
 		if (e.getEntity() instanceof Player && CoreUtils.coreHandleDamage()) {
 			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
 				e.setCancelled(true);

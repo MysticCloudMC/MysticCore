@@ -940,7 +940,7 @@ public class CoreUtils {
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
 			if (item.isSet(name + ".Options.Lore")) {
-				List<String> lore = new ArrayList<>();
+				List<String> lore = a.hasLore() ? a.getLore() : new ArrayList<>();
 				if (item.get(name + ".Options.Lore") instanceof List<?>) {
 					for (String s : item.getStringList(name + ".Options.Lore")) {
 						lore.add(colorize(s));
@@ -974,6 +974,11 @@ public class CoreUtils {
 				a.setLore(lore);
 			}
 			i.setAmount(amount);
+			
+			if(item.isSet(name + ".MysticEnhancements.FireDamage")) {
+				List<String> lore = a.hasLore() ? a.getLore() : new ArrayList<>();
+				lore.add(colorize("&eFire&7 Damage: &e&l" + item.get(name + ".MysticEnhancements.FireDamage")));
+			}
 
 			if (item.isSet(name + ".Attributes.MainHand.Damage")) {
 
