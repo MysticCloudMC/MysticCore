@@ -23,8 +23,7 @@ public class ParticleTimer implements Runnable {
 		if (i > 360)
 			i = 1;
 		try {
-			
-		
+
 //		for (Entry<UUID, ParticleFormat> entry : CoreUtils.entityparticles.entrySet()) {
 //			try {
 //				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation(), i);
@@ -34,23 +33,23 @@ public class ParticleTimer implements Runnable {
 //			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 //
 //		}
-		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
-			try {
-				entry.getValue().display(Bukkit.getPlayer(entry.getKey()).getLocation(), i);
-			} catch (IllegalArgumentException ex) {
-				CoreUtils.debug("Player Particle error");
-			}
-			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
+			for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
+				try {
+					entry.getValue().display(Bukkit.getPlayer(entry.getKey()).getLocation(), i);
+				} catch (IllegalArgumentException ex) {
+					CoreUtils.debug("Player Particle error");
+				}
+				// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 
-		}for(UUID uid : CoreUtils.particles__remove) {
-			CoreUtils.particles.remove(uid);
-		}
-		} catch(Exception ex) {
+			}
+			for (UUID uid : CoreUtils.particles__remove) {
+				CoreUtils.particles.remove(uid);
+			}
+		} catch (Exception ex) {
 			CoreUtils.debug("There was an error!");
 			Bukkit.getConsoleSender().sendMessage(ex.getMessage());
 		}
 
-		
 		i = i + 1;
 
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new ParticleTimer(i), 1);

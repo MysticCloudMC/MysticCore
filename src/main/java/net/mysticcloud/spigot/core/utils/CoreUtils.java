@@ -69,7 +69,6 @@ public class CoreUtils {
 	public static Map<UUID, Boolean> sidebars = new HashMap<>();
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
-	public static Map<UUID, ParticleFormat> entityparticles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
@@ -452,7 +451,7 @@ public class CoreUtils {
 	}
 
 	public static void particlesOff(UUID uid) {
-		particles.remove(uid);
+		particles__remove.add(uid);
 	}
 
 	public static void particles(UUID uid, ParticleFormatEnum format) {
