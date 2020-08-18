@@ -132,11 +132,23 @@ public class PlayerListener implements Listener {
 				}
 			}
 			if (fire != 0) {
-				e.getEntity().setFireTicks(20);
+				e.getEntity().setFireTicks(fire*20);
 			}
 			if (ice != 0) {
-				if (e.getEntity() instanceof LivingEntity)
-					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, 1));
+				if (e.getEntity() instanceof LivingEntity) {
+					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ice*20, 1));
+					CircleFeetFormat format = new CircleFeetFormat();
+					format.particle(Particle.DOLPHIN);
+					CoreUtils.particles.put(e.getEntity().getUniqueId(), format);
+					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+						@Override
+						public void run() {
+							CoreUtils.particles__remove.add(e.getEntity().getUniqueId());
+						}
+						
+					}, ice*20);
+				}
 			}
 		}
 		if (e.getEntity() instanceof Player && CoreUtils.coreHandleDamage()) {

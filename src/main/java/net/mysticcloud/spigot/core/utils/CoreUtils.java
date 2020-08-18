@@ -106,6 +106,7 @@ public class CoreUtils {
 	public static Material testingblock = Material.DIAMOND;
 
 	public static float t = 0;
+	public static List<UUID> particles__remove = new ArrayList<>();
 
 	public static void start() {
 

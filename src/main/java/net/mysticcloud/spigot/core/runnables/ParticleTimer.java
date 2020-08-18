@@ -42,6 +42,8 @@ public class ParticleTimer implements Runnable {
 			}
 			// CoreUtils.debug(Particle.values()[CoreUtils.particletest]);
 
+		}for(UUID uid : CoreUtils.particles__remove) {
+			CoreUtils.particles.remove(uid);
 		}
 		} catch(Exception ex) {
 			CoreUtils.debug("There was an error!");
