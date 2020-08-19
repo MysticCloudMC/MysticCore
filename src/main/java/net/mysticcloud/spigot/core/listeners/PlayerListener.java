@@ -15,6 +15,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
@@ -320,6 +321,7 @@ public class PlayerListener implements Listener {
 				return;
 			if (!e.getItem().hasItemMeta())
 				return;
+			
 			if (CoreUtils.isFood(e.getItem())) {
 				CoreUtils.debug("This is food.");
 
@@ -345,6 +347,13 @@ public class PlayerListener implements Listener {
 				}
 				e.setCancelled(true);
 				return;
+			}
+			if(e.getItem().getItemMeta().hasLore()) {
+				for(String s : e.getItem().getItemMeta().getLore()) {
+					if(ChatColor.stripColor(s).contains("Fireball Damage:")) {
+						e.getPlayer().launchProjectile(Fireball.class);
+					}
+				}
 			}
 		}
 
