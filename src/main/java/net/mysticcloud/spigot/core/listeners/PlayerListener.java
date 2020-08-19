@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.listeners;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
@@ -23,6 +25,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -33,6 +36,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -114,9 +118,51 @@ public class PlayerListener implements Listener {
 	// }
 	//
 
+	@EventHandler
+	public void onProjectileShoot(ProjectileLaunchEvent e) {
+		if (e.getEntity().getShooter() instanceof Player) {
+			if (((Player) e.getEntity().getShooter()).getItemInHand().getItemMeta().hasLore()) {
+				List<String> lore = ((Player) e.getEntity().getShooter()).getItemInHand().getItemMeta().getLore();
+				for (String s : lore) {
+					if (ChatColor.stripColor(s).contains("Fire Damage:")) {
+						e.getEntity().setMetadata("fire", new FixedMetadataValue(Main.getPlugin(),
+								Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""))));
+					}
+					if (ChatColor.stripColor(s).contains("Frost Damage:")) {
+						e.getEntity().setMetadata("frost", new FixedMetadataValue(Main.getPlugin(),
+								Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""))));
+					}
+				}
+			}
+		}
+	}
+
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageByEntityEvent e) {
+		if (e.getDamager() instanceof Arrow) {
+			if (e.getDamager().hasMetadata("fire")) {
+				e.getEntity().setFireTicks(Integer.parseInt("" + e.getDamager().getMetadata("fire").get(0).value()) * 20);
+			}
+			if (e.getDamager().hasMetadata("frost")) {
+				if (e.getEntity() instanceof LivingEntity) {
+					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW,
+							Integer.parseInt("" + e.getDamager().getMetadata("frost").get(0).value()) * 20, 1));
+					RandomFormat format = new RandomFormat();
+					format.particle(Particle.REDSTONE);
+					format.setDustOptions(new DustOptions(Color.AQUA, 1));
+					CoreUtils.particles.put(e.getEntity().getUniqueId(), format);
+					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+						@Override
+						public void run() {
+							CoreUtils.particles__remove.add(e.getEntity().getUniqueId());
+						}
+
+					}, Integer.parseInt("" + e.getDamager().getMetadata("frost").get(0).value()) * 20);
+				}
+			}
+		}
 		if (e.getDamager() instanceof Player && ((Player) e.getDamager()).getItemInHand() != null
 				&& ((Player) e.getDamager()).getItemInHand().hasItemMeta()
 				&& ((Player) e.getDamager()).getItemInHand().getItemMeta().hasLore()) {
@@ -133,11 +179,12 @@ public class PlayerListener implements Listener {
 				}
 			}
 			if (fire != 0) {
-				e.getEntity().setFireTicks(fire*20);
+				e.getEntity().setFireTicks(fire * 20);
 			}
 			if (ice != 0) {
 				if (e.getEntity() instanceof LivingEntity) {
-					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ice*20, 1));
+					((LivingEntity) e.getEntity())
+							.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ice * 20, 1));
 					RandomFormat format = new RandomFormat();
 					format.particle(Particle.REDSTONE);
 					format.setDustOptions(new DustOptions(Color.AQUA, 1));
@@ -148,8 +195,8 @@ public class PlayerListener implements Listener {
 						public void run() {
 							CoreUtils.particles__remove.add(e.getEntity().getUniqueId());
 						}
-						
-					}, ice*20);
+
+					}, ice * 20);
 				}
 			}
 		}
