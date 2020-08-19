@@ -96,7 +96,7 @@ public class CoreUtils {
 	public static List<String> ecoaccounts = new ArrayList<>();
 	public static double startingBalance = 100.00;
 	private static Economy economy = null;
-	private static Map<Integer, String> sidebar = new HashMap<>();
+	public static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -884,18 +884,18 @@ public class CoreUtils {
 
 	private static void registerSidebarList() {
 		sidebar.clear();
-		sidebar.put(15, "&c");
-		sidebar.put(14, "&eRank");
-		sidebar.put(13, "%r");
+//		sidebar.put(15, "&c");
+//		sidebar.put(14, "&eRank");
+//		sidebar.put(13, "%r");
 		sidebar.put(12, "&c&c");
 		sidebar.put(11, "&aGems");
 		sidebar.put(10, "&a\u2B50 &f%g");
 		sidebar.put(9, "&c&f&c");
 		sidebar.put(8, "&6Balance");
 		sidebar.put(7, "&6$&f %balance");
-		sidebar.put(6, "&c&c&c");
-		sidebar.put(5, "&cLevel");
-		sidebar.put(4, "&f%level");
+//		sidebar.put(6, "&c&c&c");
+//		sidebar.put(5, "&cLevel");
+//		sidebar.put(4, "&f%level");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday");
 		sidebar.put(1, "&c%hdayline");
@@ -1021,7 +1021,7 @@ public class CoreUtils {
 			}
 			if (item.isSet(name + ".Attributes.Boots.Protection")) {
 
-				AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "Boot Protection",
+				AttributeModifier am = new AttributeModifier(UUID.randomUUID(), "Boots Protection",
 						item.getDouble(name + ".Attributes.Boots.Protection"), Operation.ADD_NUMBER,
 						EquipmentSlot.FEET);
 				a.addAttributeModifier(Attribute.GENERIC_ARMOR, am);
