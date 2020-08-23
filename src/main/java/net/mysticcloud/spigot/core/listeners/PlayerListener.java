@@ -119,24 +119,7 @@ public class PlayerListener implements Listener {
 	// }
 	//
 
-	@EventHandler
-	public void onProjectileShoot(ProjectileLaunchEvent e) {
-		if (e.getEntity().getShooter() instanceof Player) {
-			if (((Player) e.getEntity().getShooter()).getItemInHand().getItemMeta().hasLore()) {
-				List<String> lore = ((Player) e.getEntity().getShooter()).getItemInHand().getItemMeta().getLore();
-				for (String s : lore) {
-					if (ChatColor.stripColor(s).contains("Fire Damage:")) {
-						e.getEntity().setMetadata("fire", new FixedMetadataValue(Main.getPlugin(),
-								Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""))));
-					}
-					if (ChatColor.stripColor(s).contains("Frost Damage:")) {
-						e.getEntity().setMetadata("frost", new FixedMetadataValue(Main.getPlugin(),
-								Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""))));
-					}
-				}
-			}
-		}
-	}
+	
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
