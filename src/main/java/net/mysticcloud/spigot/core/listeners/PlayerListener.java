@@ -141,66 +141,6 @@ public class PlayerListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDeath(EntityDamageByEntityEvent e) {
-		if (e.getDamager() instanceof Arrow) {
-			if (e.getDamager().hasMetadata("fire")) {
-				e.getEntity().setFireTicks(Integer.parseInt("" + e.getDamager().getMetadata("fire").get(0).value()) * 20);
-			}
-			if (e.getDamager().hasMetadata("frost")) {
-				if (e.getEntity() instanceof LivingEntity) {
-					((LivingEntity) e.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW,
-							Integer.parseInt("" + e.getDamager().getMetadata("frost").get(0).value()) * 20, 1));
-					RandomFormat format = new RandomFormat();
-					format.particle(Particle.REDSTONE);
-					format.setDustOptions(new DustOptions(Color.AQUA, 1));
-					CoreUtils.particles.put(e.getEntity().getUniqueId(), format);
-					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
-
-						@Override
-						public void run() {
-							CoreUtils.particles__remove.add(e.getEntity().getUniqueId());
-						}
-
-					}, Integer.parseInt("" + e.getDamager().getMetadata("frost").get(0).value()) * 20);
-				}
-			}
-		}
-		if (e.getDamager() instanceof Player && ((Player) e.getDamager()).getItemInHand() != null
-				&& ((Player) e.getDamager()).getItemInHand().hasItemMeta()
-				&& ((Player) e.getDamager()).getItemInHand().getItemMeta().hasLore()) {
-			Player player = (Player) e.getDamager();
-			ItemStack item = player.getItemInHand();
-			int fire = 0;
-			int ice = 0;
-			for (String s : item.getItemMeta().getLore()) {
-				if (ChatColor.stripColor(s).contains("Fire Damage:")) {
-					fire = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
-				}
-				if (ChatColor.stripColor(s).contains("Frost Damage:")) {
-					ice = Integer.parseInt(ChatColor.stripColor(s).split(":")[1].replaceAll(" ", ""));
-				}
-			}
-			if (fire != 0) {
-				e.getEntity().setFireTicks(fire * 20);
-			}
-			if (ice != 0) {
-				if (e.getEntity() instanceof LivingEntity) {
-					((LivingEntity) e.getEntity())
-							.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, ice * 20, 1));
-					RandomFormat format = new RandomFormat();
-					format.particle(Particle.REDSTONE);
-					format.setDustOptions(new DustOptions(Color.AQUA, 1));
-					CoreUtils.particles.put(e.getEntity().getUniqueId(), format);
-					Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
-
-						@Override
-						public void run() {
-							CoreUtils.particles__remove.add(e.getEntity().getUniqueId());
-						}
-
-					}, ice * 20);
-				}
-			}
-		}
 		if (e.getEntity() instanceof Player && CoreUtils.coreHandleDamage()) {
 			if (((Player) e.getEntity()).getHealth() - e.getDamage() <= 0) {
 				e.setCancelled(true);
