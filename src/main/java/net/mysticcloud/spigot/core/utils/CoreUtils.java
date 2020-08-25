@@ -1248,6 +1248,7 @@ public class CoreUtils {
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
+				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
 
 				Map<String, Object> data = new HashMap<>();
 
@@ -1255,6 +1256,9 @@ public class CoreUtils {
 					if (!rs.getMetaData().getColumnName(i).equalsIgnoreCase("BALANCE")
 							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("UUID")
 							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("GEMS")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("DISCORD_ID")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("FORUMS_NAME")
+							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("DISCORD_BOOSTER")
 							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("LEVEL")) {
 						data.put(rs.getMetaData().getColumnName(i), rs.getObject(rs.getMetaData().getColumnName(i)));
 

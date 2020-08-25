@@ -19,11 +19,19 @@ public class MysticPlayer {
 	private int gems = 0;
 	private double xp = 0.0;
 	private Map<String, Object> extraData = new HashMap<>();
+	private boolean nitro = false;
 	
 	long needed = 0;
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
+	}
+	
+	public void setNitro(boolean nitro) {
+		this.nitro = nitro;
+	}
+	public boolean isNitro() {
+		return nitro;
 	}
 
 	public void setBalance(double balance, boolean save) {
@@ -169,5 +177,6 @@ public class MysticPlayer {
 		}
 		return friends;
 	}
+
 
 }
