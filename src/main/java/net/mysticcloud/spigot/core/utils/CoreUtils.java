@@ -893,9 +893,9 @@ public class CoreUtils {
 		sidebar.put(9, "&c&f&c");
 		sidebar.put(8, "&6Balance");
 		sidebar.put(7, "&6$&f %balance");
-//		sidebar.put(6, "&c&c&c");
-//		sidebar.put(5, "&cLevel");
-//		sidebar.put(4, "&f%level");
+		sidebar.put(6, "&c&c&c");
+		sidebar.put(5, "&cLevel");
+		sidebar.put(4, "&f%level");
 		sidebar.put(3, "&b");
 		sidebar.put(2, "&b%holiday");
 		sidebar.put(1, "&c%hdayline");
