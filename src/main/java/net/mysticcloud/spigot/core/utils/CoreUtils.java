@@ -1309,9 +1309,9 @@ public class CoreUtils {
 		String sql = "UPDATE MysticPlayers SET ";
 		sql = sql + "BALANCE='" + player.getBalance() + "',";
 		sql = sql + "GEMS='" + player.getGems() + "',";
-		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
-			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
-		}
+//		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
+//			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
+//		}
 		sql = sql + "LEVEL='" + player.getXP() + "' ";
 		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
 		debug(sql);
