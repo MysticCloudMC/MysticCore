@@ -1,7 +1,9 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,29 +12,38 @@ import org.bukkit.entity.Player;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.UID;
 
 public class RegisterCommand implements CommandExecutor {
 
-	public RegisterCommand(Main plugin, String cmd){
+	public RegisterCommand(Main plugin, String cmd) {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-		if(!CoreUtils.connected()) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!CoreUtils.connected()) {
 			sender.sendMessage(CoreUtils.colorize("&eSQL&7 >&f SQL is disabled."));
 			return true;
 		}
-		if(sender instanceof Player){
-			if(args.length!=1) {
-				sender.sendMessage(CoreUtils.colorize("&e/register <web username>"));
+		if (sender instanceof Player) {
+			if (args.length != 1) {
+				sender.sendMessage(CoreUtils.colorize("&e/register <discord|forums(wip)>"));
 				return true;
 			}
+			if (args[0].equalsIgnoreCase("discord")) {
+				String key = "dc-" + new UID(5);
+//				ResultSet rs = CoreUtils.sendQuery("SELECT UUID FROM MysticPlayers WHERE DISCORD_KEY!=NULL;");
+				Bukkit.broadcastMessage(
+						"Update result: " + CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key
+								+ "' WHERE UUID='" + ((Player) sender).getUniqueId() + "';"));
+			}
 			try {
-				switch(CoreUtils.registerPlayer(args[0], ((Player)sender))) {
+				switch (CoreUtils.registerPlayer(args[0], ((Player) sender))) {
 				case 1:
-					sender.sendMessage(CoreUtils.colorize("&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process. Here's $55 for registering!"));
-					MysticPlayer pl = CoreUtils.getMysticPlayer(((Player)sender));
+					sender.sendMessage(CoreUtils.colorize(
+							"&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process. Here's $55 for registering!"));
+					MysticPlayer pl = CoreUtils.getMysticPlayer(((Player) sender));
 					CoreUtils.getEconomy().depositPlayer(pl.getUUID().toString(), 55);
 					break;
 				case 0:
@@ -51,8 +62,7 @@ public class RegisterCommand implements CommandExecutor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 		} else {
 			sender.sendMessage(CoreUtils.colorize("&c/register <web username>"));
 		}
