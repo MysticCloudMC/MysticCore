@@ -39,7 +39,7 @@ public class RegisterCommand implements CommandExecutor {
 				try {
 					while (rs.next()) {
 						if (UUID.fromString(rs.getString("UUID")).equals(((Player) sender).getUniqueId())) {
-							if (rs.getString("DISCORD_ID").equals("null")) {
+							if (rs.getString("DISCORD_ID") == null) {
 								sender.sendMessage(CoreUtils.colorize(
 										"&eYou've already started the registering process. &aHead to the MysticCloud discord, and type '>linktominecraft &2"
 												+ rs.getString("DISCORD_KEY") + "&a' in the #bot-commands channel."));
