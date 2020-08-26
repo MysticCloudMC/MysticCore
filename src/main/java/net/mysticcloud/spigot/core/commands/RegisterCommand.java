@@ -34,13 +34,18 @@ public class RegisterCommand implements CommandExecutor {
 			}
 			if (args[0].equalsIgnoreCase("discord")) {
 				String key = "dc-" + new UID(5);
-				ResultSet rs = CoreUtils.sendQuery("SELECT UUID,DISCORD_ID,DISCORD_KEY FROM MysticPlayers WHERE DISCORD_KEY IS NOT NULL;");
+				ResultSet rs = CoreUtils.sendQuery(
+						"SELECT UUID,DISCORD_ID,DISCORD_KEY FROM MysticPlayers WHERE DISCORD_KEY IS NOT NULL;");
 				try {
-					while(rs.next()) {
-						if(UUID.fromString(rs.getString("UUID")).equals(((Player)sender).getUniqueId())) {
-							Bukkit.broadcastMessage("DISCORD_ID: " + rs.getString("DISCORD_ID"));
-							Bukkit.broadcastMessage("DISCORD_KEY: " + rs.getString("DISCORD_KEY"));
-//							sender.sendMessage(CoreUtils.colorize("&eYou are already "));
+					while (rs.next()) {
+						if (UUID.fromString(rs.getString("UUID")).equals(((Player) sender).getUniqueId())) {
+							if (rs.getString("DISCORD_ID").equals("null")) {
+								sender.sendMessage(CoreUtils.colorize(
+										"&eYou've already started the registering process. &aHead to the MysticCloud discord, and type '>linktominecraft &2"
+												+ rs.getString("DISCORD_KEY") + "&a' in the #bot-commands channel."));
+							} else {
+								sender.sendMessage(CoreUtils.colorize("&cYou've already registered on Discord."));
+							}
 							return true;
 						}
 					}
@@ -48,9 +53,9 @@ public class RegisterCommand implements CommandExecutor {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Bukkit.broadcastMessage(
-						"Update result: " + CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key
-								+ "' WHERE UUID='" + ((Player) sender).getUniqueId() + "';"));
+				CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key
+								+ "' WHERE UUID='" + ((Player) sender).getUniqueId() + "';");
+				sender.sendMessage(CoreUtils.colorize("&aHead to the MysticCloud discord, and type '>linktominecraft &2" + key + "&a' in the #bot-commands channel."));
 			}
 
 		} else {
