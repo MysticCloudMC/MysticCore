@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.commands;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -33,34 +34,23 @@ public class RegisterCommand implements CommandExecutor {
 			}
 			if (args[0].equalsIgnoreCase("discord")) {
 				String key = "dc-" + new UID(5);
-//				ResultSet rs = CoreUtils.sendQuery("SELECT UUID FROM MysticPlayers WHERE DISCORD_KEY!=NULL;");
+				ResultSet rs = CoreUtils.sendQuery("SELECT UUID,DISCORD_ID,DISCORD_KEY FROM MysticPlayers WHERE DISCORD_KEY IS NOT NULL;");
+				try {
+					while(rs.next()) {
+						if(UUID.fromString(rs.getString("UUID")).equals(((Player)sender).getUniqueId())) {
+							Bukkit.broadcastMessage("DISCORD_ID: " + rs.getString("DISCORD_ID"));
+							Bukkit.broadcastMessage("DISCORD_KEY: " + rs.getString("DISCORD_KEY"));
+//							sender.sendMessage(CoreUtils.colorize("&eYou are already "));
+							return true;
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Bukkit.broadcastMessage(
 						"Update result: " + CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key
 								+ "' WHERE UUID='" + ((Player) sender).getUniqueId() + "';"));
-			}
-			try {
-				switch (CoreUtils.registerPlayer(args[0], ((Player) sender))) {
-				case 1:
-					sender.sendMessage(CoreUtils.colorize(
-							"&aFound your web account! Please log in and click the Link with Minecraft link on your profile page to complete this process. Here's $55 for registering!"));
-					MysticPlayer pl = CoreUtils.getMysticPlayer(((Player) sender));
-					CoreUtils.getEconomy().depositPlayer(pl.getUUID().toString(), 55);
-					break;
-				case 0:
-					sender.sendMessage(CoreUtils.colorize("&cError 0"));
-					break;
-				case -1:
-					sender.sendMessage(CoreUtils.colorize("&cError -1"));
-					break;
-				case -100:
-					sender.sendMessage(CoreUtils.colorize("&cYou have already registered!"));
-					break;
-				default:
-					break;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 
 		} else {
