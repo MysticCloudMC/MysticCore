@@ -542,6 +542,7 @@ public class CoreUtils {
 		message = ChatColor.translateAlternateColorCodes('&', message);
 		Matcher matcher = pattern.matcher(message);
 		while (matcher.find()) {
+			Bukkit.broadcastMessage("Found!");
 			String color = message.substring(matcher.start(), matcher.end());
 			message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
 		}
