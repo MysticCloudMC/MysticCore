@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -70,6 +72,8 @@ public class CoreUtils {
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
+
+	private static final Pattern pattern = Pattern.compile("(?<!\\\\)(#[a-fA-F0-9]{6})");
 
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
@@ -536,20 +540,13 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		message = ChatColor.translateAlternateColorCodes('&', message);
-
-		if (message.contains("#......")) {
-			Bukkit.broadcastMessage("Sweet it worked!");
-
+		Matcher matcher = pattern.matcher(message);
+		while (matcher.find()) {
+			String color = message.substring(matcher.start(), matcher.end());
+			message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
 		}
-		else if (message.contains("#")) {
-//			try {
-//				String color = message.
-//			}catch(Exception ex) {
-//				ex.printStackTrace();
-//			}
-		}
-
 		return message;
+
 	}
 
 	@SuppressWarnings("deprecation")
