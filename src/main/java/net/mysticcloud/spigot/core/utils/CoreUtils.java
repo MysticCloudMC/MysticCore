@@ -535,7 +535,21 @@ public class CoreUtils {
 	}
 
 	public static String colorize(String message) {
-		return ChatColor.translateAlternateColorCodes('&', message);
+		message = ChatColor.translateAlternateColorCodes('&', message);
+
+		if (message.contains("#......")) {
+			Bukkit.broadcastMessage("Sweet it worked!");
+
+		}
+		else if (message.contains("#")) {
+//			try {
+//				String color = message.
+//			}catch(Exception ex) {
+//				ex.printStackTrace();
+//			}
+		}
+
+		return message;
 	}
 
 	@SuppressWarnings("deprecation")
