@@ -72,10 +72,10 @@ public class AtomicFormat extends ParticleFormat {
 						.clone().add(
 								rotateAroundAxisY(
 										new Vector(Math
-												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r*1.75))),
+												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r))),
 												1,
 												Math.sin(Math
-														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r*1.75)))),
+														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r)))),
 										loc.getYaw())));
 
 		spawnParticle(
