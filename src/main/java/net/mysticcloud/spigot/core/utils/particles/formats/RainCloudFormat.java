@@ -40,33 +40,23 @@ public class RainCloudFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 		cloc = loc.clone();
+		if (0.05 > CoreUtils.getRandom().nextDouble() * 100) {
+			for (int z = 0; z != 5 * scalar; i++) {
+				loc.add((CoreUtils.getRandom().nextDouble()
+						* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
+								: -(double) 1 / scalar)),
+						-1 / scalar,
+						(CoreUtils.getRandom().nextDouble()
+								* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
+										: -(double) 1 / scalar)));
+				spawnParticle(Particle.END_ROD, loc);
+			}
+		}
 		if (i % 2 == 0)
 			for (int a = 0; a != 11; a++) {
 				for (int t = 0; t != spots + 1; t++) {
-					if (0.05 > CoreUtils.getRandom().nextDouble() * 100) {
-
-//						for (int f = 0; f != 2; f++) {
-						for (int z = 0; z != 5 * scalar; i++) {
-							loc.add((CoreUtils.getRandom().nextDouble()
-									* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
-											: -(double) 1 / scalar)),
-									-1 / scalar,
-									(CoreUtils.getRandom().nextDouble()
-											* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
-													: -(double) 1 / scalar)));
-							spawnParticle(Particle.END_ROD, loc);
-						}
-//							for (Vector vec : points) {
-//								Location loca = new Location(loc.getWorld(), vec.getX(), vec.getY(), vec.getZ());
-//								spawnParticle(Particle.END_ROD, loca);
-//							}
-//						}
-
-					} else {
-
 						spawnParticle(Particle.CLOUD, cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
 								h + 1, Math.sin(t * (360 / spots)) * (a * (r / 10))));
-					}
 				}
 
 			}
