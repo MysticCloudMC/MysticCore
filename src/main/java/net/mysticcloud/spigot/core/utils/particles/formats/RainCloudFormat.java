@@ -62,8 +62,7 @@ public class RainCloudFormat extends ParticleFormat {
 							}
 							for (Vector vec : points) {
 								Location loca = new Location(loc.getWorld(), vec.getX(), vec.getY(), vec.getZ());
-								loca.getWorld().spawnParticle(Particle.END_ROD,
-										loca, 0);
+								spawnParticle(Particle.END_ROD, loca);
 							}
 						}
 
