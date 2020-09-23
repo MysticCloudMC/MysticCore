@@ -43,7 +43,7 @@ public class RainCloudFormat extends ParticleFormat {
 		if (i % 2 == 0)
 			for (int a = 0; a != 11; a++) {
 				for (int t = 0; t != spots + 1; t++) {
-					if (0.001 > CoreUtils.getRandom().nextDouble() * 100) {
+					if (1 > CoreUtils.getRandom().nextDouble() * 100) {
 
 						for (int f = 0; f != 2; f++) {
 							LinkedList<Vector> points = new LinkedList<>();
@@ -62,12 +62,11 @@ public class RainCloudFormat extends ParticleFormat {
 												: -(double) 1 / scalar)));
 								spawnParticle(Particle.END_ROD,
 										new Location(loc.getWorld(), point.getX(), point.getY(), point.getZ()));
-								points.add(point);
 							}
-							for (Vector vec : points) {
-								Location loca = new Location(loc.getWorld(), vec.getX(), vec.getY(), vec.getZ());
-								spawnParticle(Particle.END_ROD, loca);
-							}
+//							for (Vector vec : points) {
+//								Location loca = new Location(loc.getWorld(), vec.getX(), vec.getY(), vec.getZ());
+//								spawnParticle(Particle.END_ROD, loca);
+//							}
 						}
 
 					} else {
