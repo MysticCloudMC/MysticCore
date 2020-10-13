@@ -541,12 +541,23 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		message = ChatColor.translateAlternateColorCodes('&', message);
-		Matcher matcher = pattern.matcher(message);
-		while (matcher.find()) {
-			Bukkit.broadcastMessage("Found!");
-			String color = message.substring(matcher.start(), matcher.end());
-			message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
+
+		if (message.contains("#")) {
+			try {
+				for (String s : message.split("#")) {
+					message = message.replace("#" + s.substring(0, 6),
+							net.md_5.bungee.api.ChatColor.of(Color.decode("#" + s.substring(0, 6))) + "");
+				}
+			} catch (Exception ex) {
+			}
 		}
+
+//		Matcher matcher = pattern.matcher(message);
+//		while (matcher.find()) {
+//			Bukkit.broadcastMessage("Found!");
+//			String color = message.substring(matcher.start(), matcher.end());
+//			message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color));
+//		}
 		return message;
 
 	}
