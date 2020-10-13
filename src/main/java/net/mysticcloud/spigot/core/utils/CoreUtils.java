@@ -545,6 +545,7 @@ public class CoreUtils {
 		if (message.contains("#")) {
 			try {
 				for (String s : message.split("#")) {
+					Bukkit.broadcastMessage(s.substring(0, 6));
 					message = message.replace("#" + s.substring(0, 6),
 							net.md_5.bungee.api.ChatColor.of(Color.decode("#" + s.substring(0, 6))) + "");
 				}
