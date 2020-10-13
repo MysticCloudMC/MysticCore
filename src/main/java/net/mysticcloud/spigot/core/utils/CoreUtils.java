@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.utils;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.math.RoundingMode;
@@ -548,6 +549,29 @@ public class CoreUtils {
 		}
 		return message;
 
+	}
+
+	public static Color generateColor(int seed, double frequency) {
+		return generateColor(seed, frequency, 0);
+	}
+
+	public static Color generateColor(int seed, double frequency, double shift) {
+
+		int amp = 100;
+		if (amp > 127)
+			amp = 127;
+		int peak = 255 - amp;
+		int red = (int) (Math.sin(frequency * (seed + shift) + 0) * amp + peak);
+		int green = (int) (Math.sin(frequency * (seed + shift) + 2 * Math.PI / 3) * amp + peak);
+		int blue = (int) (Math.sin(frequency * (seed + shift) + 4 * Math.PI / 3) * amp + peak);
+		if (red > 255)
+			red = 255;
+		if (green > 255)
+			green = 255;
+		if (blue > 255)
+			blue = 255;
+
+		return new Color(red, green, blue);
 	}
 
 	@SuppressWarnings("deprecation")
