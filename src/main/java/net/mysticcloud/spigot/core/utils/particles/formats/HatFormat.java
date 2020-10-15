@@ -14,7 +14,6 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class HatFormat extends ParticleFormat {
 
 	Vector v = new Vector(0, 1, 0);
-	Location cloc = null;
 
 	public HatFormat() {
 		changeParticle = true;
@@ -40,8 +39,8 @@ public class HatFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 		v = rotateAroundAxisX(new Vector(0, 1, 0), loc.getPitch());
-		v = rotateAroundAxisY(v, cloc.getYaw());
-		spawnParticle(particle, cloc.add(v));
+		v = rotateAroundAxisY(v, loc.getYaw());
+		spawnParticle(particle, loc.add(v));
 	}
 
 }
