@@ -189,7 +189,7 @@ public class GUIManager {
 			a = a + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i + 2, 0.9, 127))
 					+ ("Rainbow").substring(i, i + 1);
 		}
-		inv.addItem(new ItemStack(Material.WHITE_DYE), a, 'L', new String[] {});
+		inv.addItem(new ItemStack(Material.MAGMA_CREAM), a, 'L', new String[] {});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
