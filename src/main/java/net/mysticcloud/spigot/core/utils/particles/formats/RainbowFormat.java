@@ -11,6 +11,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class RainbowFormat extends ParticleFormat {
@@ -39,19 +40,19 @@ public class RainbowFormat extends ParticleFormat {
 		cloc = loc.clone();
 
 		for (int b = 0; b != 6; b++) {
-			if (b == 0)
-				color = Color.RED;
-			if (b == 1)
-				color = Color.ORANGE;
-			if (b == 2)
-				color = Color.YELLOW;
-			if (b == 3)
-				color = Color.GREEN;
-			if (b == 4)
-				color = Color.BLUE;
-			if (b == 5)
-				color = Color.PURPLE;
-			setDustOptions(new DustOptions(color, 1));
+//			if (b == 0)
+//				color = Color.RED;
+//			if (b == 1)
+//				color = Color.ORANGE;
+//			if (b == 2)
+//				color = Color.YELLOW;
+//			if (b == 3)
+//				color = Color.GREEN;
+//			if (b == 4)
+//				color = Color.BLUE;
+//			if (b == 5)
+//				color = Color.PURPLE;
+			setDustOptions(new DustOptions(Color.fromRGB(CoreUtils.generateColor(b, 1).getRGB()), 1));
 			for (int a = 1; a != 21; a++) {
 				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)),
 						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)));
