@@ -52,7 +52,7 @@ public class RainbowFormat extends ParticleFormat {
 //			if (b == 5)
 //				color = Color.PURPLE;
 //			Color.fromRGB(red, green, blue)
-			java.awt.Color color = CoreUtils.generateColor(b+1, 1,127);
+			java.awt.Color color = CoreUtils.generateColor(b+((1*Math.PI)/2), 1,127);
 			setDustOptions(new DustOptions(Color.fromRGB(color.getRed(),color.getBlue(),color.getGreen()), 1));
 			for (int a = 1; a != 21; a++) {
 				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)),

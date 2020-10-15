@@ -565,11 +565,11 @@ public class CoreUtils {
 
 	}
 
-	public static Color generateColor(int seed, double frequency) {
+	public static Color generateColor(double seed, double frequency) {
 		return generateColor(seed, frequency, 100);
 	}
 
-	public static Color generateColor(int seed, double frequency, int amp) {
+	public static Color generateColor(double seed, double frequency, int amp) {
 
 		if (amp > 127)
 			amp = 127;
