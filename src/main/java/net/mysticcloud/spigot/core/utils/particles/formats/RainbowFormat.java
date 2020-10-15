@@ -25,7 +25,7 @@ public class RainbowFormat extends ParticleFormat {
 //		ComponentBuilder builder = new ComponentBuilder();
 		String a = "";
 		for(int i=0;i!=s.length();i++) {
-			a = a + ChatColor.of(CoreUtils.generateColor(i, 1,100)) + s.substring(i,i+1);
+			a = a + ChatColor.of(CoreUtils.generateColor(i+2, 0.9,127)) + s.substring(i,i+1);
 		}
 		
 		name = a;
