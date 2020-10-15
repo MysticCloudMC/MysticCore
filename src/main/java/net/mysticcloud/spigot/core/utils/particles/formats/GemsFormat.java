@@ -37,15 +37,15 @@ public class GemsFormat extends ParticleFormat {
 	}
 	
 	@Override
-	public void display(UUID uid, int i) {
+	public void display(UUID uid) {
 		if(Bukkit.getPlayer(uid) != null) {
-			display(Bukkit.getPlayer(uid).getLocation(),i);
+			display(Bukkit.getPlayer(uid).getLocation());
 		}
 	}
 
 	@Override
-	public void display(Location loc, int i) {
-		super.display(loc, i);
+	public void display(Location loc) {
+		super.display(loc);
 		cloc = loc.add(-(l/2) + (CoreUtils.getRandom().nextDouble()*l),
 						(1.5 + CoreUtils.getRandom().nextDouble())
 								- (CoreUtils.getRandom().nextInt((int)h) + CoreUtils.getRandom().nextDouble()),

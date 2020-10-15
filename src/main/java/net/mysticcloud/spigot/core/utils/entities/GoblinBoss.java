@@ -71,7 +71,8 @@ public class GoblinBoss extends EntityZombie {
 					damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
 		}
 		
-		format.display(getBukkitEntity().getLocation(), z);
+		format.setLifetime(z);
+		format.display(getBukkitEntity().getLocation());
 		z = z + 1;
 	}
 

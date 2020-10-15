@@ -31,13 +31,13 @@ public class CircleFeetFormat extends ParticleFormat {
 	}
 
 	@Override
-	public void display(UUID uid, int i) {
-		display(Bukkit.getPlayer(uid).getLocation(),i);
+	public void display(UUID uid) {
+		display(Bukkit.getPlayer(uid).getLocation());
 
 	}
 	
 	@Override
-	public void display(Location loc, int i) {
+	public void display(Location loc) {
 		if(particle == null) return;
 		spawnParticle(particle,
 				loc.clone().add(Math.cos(Math.toRadians(((i) * (360 / spots)))) * (r),

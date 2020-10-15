@@ -32,8 +32,8 @@ public class PopperFormat extends ParticleFormat {
 	}
 
 	@Override
-	public void display(UUID uid, int i) {
-		super.display(uid, i);
+	public void display(UUID uid) {
+		super.display(uid);
 		if(particle == null) return;
 		if(r<=0){
 			r = 1;

@@ -25,14 +25,14 @@ public class CapeFormat extends ParticleFormat {
 	}
 
 	@Override
-	public void display(UUID uid, int i) {
+	public void display(UUID uid) {
 		if(Bukkit.getPlayer(uid) != null)
-			display(Bukkit.getPlayer(uid).getEyeLocation(), i);
+			display(Bukkit.getPlayer(uid).getEyeLocation());
 	}
 	
 	
 	@Override
-	public void display(Location loc, int i) {
+	public void display(Location loc) {
 
 		cloc = loc.clone();
 		double x = -0.5;

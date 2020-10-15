@@ -90,7 +90,8 @@ public class SpiderQueenBoss extends EntitySpider {
 			minions.add(minion);
 		}
 
-		format.display(getBukkitEntity().getLocation(), z);
+		format.setLifetime(z);
+		format.display(getBukkitEntity().getLocation());
 		z = z + 1;
 
 	}

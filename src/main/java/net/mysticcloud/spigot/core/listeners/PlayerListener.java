@@ -372,6 +372,10 @@ public class PlayerListener implements Listener {
 				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.WHITE, 1));
 				e.getWhoClicked().closeInventory();
 				break;
+			case MAGMA_CREAM:
+				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.RED, 99));
+				e.getWhoClicked().closeInventory();
+				break;
 			default:
 				break;
 			}

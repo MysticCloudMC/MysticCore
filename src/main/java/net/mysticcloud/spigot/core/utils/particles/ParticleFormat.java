@@ -32,51 +32,64 @@ public class ParticleFormat {
 	protected int spots = 40;
 	protected double h = 2;
 	protected double l = 1.5;
+	protected int i = 0;
 
 	protected String name = "Format Name";
 
 	protected ItemStack guiItem = new ItemStack(Material.GRASS_BLOCK);
 
-	public void display(UUID uid, int i) throws IllegalArgumentException {
+	public void display(UUID uid) throws IllegalArgumentException {
 		if (particle == null)
 			return;
-
 	}
-	
+
+	public void display(Location loc) throws IllegalArgumentException {
+		if (particle == null)
+			return;
+	}
+
+	public void setLifetime(int i) {
+		this.i = i;
+	}
+
+	public int getLifetime() {
+		return i;
+	}
+
 	public void setHeight(double h) {
 		this.h = h;
 	}
+
 	public void setRadius(double r) {
 		this.r = r;
 	}
+
 	public void setLength(double l) {
 		this.l = l;
 	}
+
 	public void setSpots(int spots) {
 		this.spots = spots;
 	}
+
 	public void setColumns(int cols) {
 		this.cols = cols;
 	}
-	
+
 	public double getHeight() {
 		return h;
 	}
+
 	public double getCoumns() {
 		return cols;
 	}
+
 	public double getLength() {
 		return l;
 	}
+
 	public int getSpots() {
 		return spots;
-	}
-	
-	
-	public void display(Location loc, int i) throws IllegalArgumentException {
-		if (particle == null)
-			return;
-
 	}
 
 	public void setDustOptions(DustOptions dustoptions) {
@@ -94,32 +107,30 @@ public class ParticleFormat {
 	public void setMaterialData(MaterialData materialdata) {
 		this.materialdata = materialdata;
 	}
-	
-	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY,
-			double offsetZ) {
+
+	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY, double offsetZ) {
 		if (particle.getDataType() == null) {
 			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
 			return;
 		}
-		
-		if(CoreUtils.testingblock != null){
+
+		if (CoreUtils.testingblock != null) {
 			materialdata = new MaterialData(CoreUtils.testingblock);
 		}
-		
 
 		if (particle.getDataType() != Void.class) {
-			if (particle.getDataType() == DustOptions.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
-						dustoptions);
+			if (particle.getDataType() == DustOptions.class) {
+				if (dustoptions.getSize() == 99) {
+
+				}
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
+			}
 			if (particle.getDataType() == MaterialData.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
-						materialdata);
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, materialdata);
 			if (particle.getDataType() == ItemStack.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
-						itemstack);
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, itemstack);
 			if (particle.getDataType() == BlockData.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2,
-						blockdata);
+				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, blockdata);
 		} else {
 			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
 		}
@@ -128,15 +139,18 @@ public class ParticleFormat {
 
 	public void spawnParticle(UUID uid, Particle particle, Location loc, double offsetX, double offsetY,
 			double offsetZ) {
-		if(Bukkit.getPlayer(uid) == null) return;
-		spawnParticle(particle,loc,offsetX,offsetY,offsetZ);
+		if (Bukkit.getPlayer(uid) == null)
+			return;
+		spawnParticle(particle, loc, offsetX, offsetY, offsetZ);
 
 	}
 
 	public void spawnParticle(UUID uid, Particle particle, Location loc) {
-		if(Bukkit.getPlayer(uid) == null) return;
+		if (Bukkit.getPlayer(uid) == null)
+			return;
 		spawnParticle(particle, loc);
 	}
+
 	public void spawnParticle(Particle particle, Location loc) {
 		spawnParticle(particle, loc, 0, 0, 0);
 	}

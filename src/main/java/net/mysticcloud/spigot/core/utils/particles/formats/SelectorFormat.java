@@ -34,12 +34,13 @@ public class SelectorFormat extends ParticleFormat {
 	}
 
 	@Override
-	public void display(UUID uid, int i) {
-		display(Bukkit.getPlayer(uid).getLocation(),i);
+	public void display(UUID uid) {
+		
+		display(Bukkit.getPlayer(uid).getLocation());
 	}
 	
 	@Override
-	public void display(Location loc, int i) {
+	public void display(Location loc) {
 		if(particle == null) return;
 		random.particle(particle);
 		random.setBlockData(blockdata);
@@ -48,7 +49,8 @@ public class SelectorFormat extends ParticleFormat {
 		random.setLength(l);
 		random.setHeight(h);
 		this.loc = loc;
-		random.display(loc, i);
+		random.setLifetime(i);
+		random.display(loc);
 		for(int t=0;t!=cols;t++){
 			spawnParticle(particle,loc.clone().add(rotateAroundAxisY(new Vector(
 					Math.cos(Math.toRadians(t) * (360 / cols)) * (r),

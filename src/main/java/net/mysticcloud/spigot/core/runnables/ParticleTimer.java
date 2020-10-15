@@ -25,12 +25,8 @@ public class ParticleTimer implements Runnable {
 
 		for (Entry<UUID, ParticleFormat> entry : CoreUtils.particles.entrySet()) {
 			try {
-				entry.getValue()
-				.display(
-						Bukkit.getEntity(
-								entry.getKey())
-						.getLocation()
-						, i);
+				entry.getValue().setLifetime(i);
+				entry.getValue().display(Bukkit.getEntity(entry.getKey()).getLocation());
 			} catch (NullPointerException ex) {
 				CoreUtils.particles__remove.add(entry.getKey());
 			}

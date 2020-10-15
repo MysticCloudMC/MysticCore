@@ -30,13 +30,13 @@ public class HatFormat extends ParticleFormat {
 	}
 	
 	@Override
-	public void display(UUID uid, int i) {
+	public void display(UUID uid) {
 		if (Bukkit.getPlayer(uid) != null) 
-			display(Bukkit.getPlayer(uid).getLocation(), i);
+			display(Bukkit.getPlayer(uid).getLocation());
 	}
 
 	@Override
-	public void display(Location loc, int i) {
+	public void display(Location loc) {
 		if (particle == null)
 			return;
 		v = rotateAroundAxisX(new Vector(0, 1, 0), loc.getPitch());

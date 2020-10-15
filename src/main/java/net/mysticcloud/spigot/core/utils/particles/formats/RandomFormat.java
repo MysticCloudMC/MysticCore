@@ -31,8 +31,8 @@ public class RandomFormat extends ParticleFormat {
 	}
 
 	@Override
-	public void display(UUID uid, int i) {
-		display(Bukkit.getPlayer(uid).getLocation(), i);
+	public void display(UUID uid) {
+		display(Bukkit.getPlayer(uid).getLocation());
 //		if(particle!=null)spawnParticle(uid, particle,
 //				Bukkit.getPlayer(uid).getLocation().clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
 //						(1.5 + CoreUtils.getRandom().nextDouble())
@@ -41,7 +41,7 @@ public class RandomFormat extends ParticleFormat {
 	}
 	
 	@Override
-	public void display(Location loc, int i) {
+	public void display(Location loc) {
 		if(particle!=null)
 			spawnParticle(particle,
 				loc.clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
