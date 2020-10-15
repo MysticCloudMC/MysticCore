@@ -123,7 +123,7 @@ public class ParticleFormat {
 			if (particle.getDataType() == DustOptions.class) {
 				if (dustoptions.getSize() == 99) {
 					tmp = true;
-					java.awt.Color color = CoreUtils.generateColor(i, 1, 127);
+					java.awt.Color color = CoreUtils.generateColor(i, 0.25, 127);
 					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), 1);
 				}
 				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
