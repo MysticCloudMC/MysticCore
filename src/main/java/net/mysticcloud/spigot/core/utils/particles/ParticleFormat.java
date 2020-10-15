@@ -33,6 +33,7 @@ public class ParticleFormat {
 	protected double h = 2;
 	protected double l = 1.5;
 	protected int i = 0;
+	private boolean tmp = false;
 
 	protected String name = "Format Name";
 
@@ -121,9 +122,15 @@ public class ParticleFormat {
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class) {
 				if (dustoptions.getSize() == 99) {
-
+					tmp = true;
+					java.awt.Color color = CoreUtils.generateColor(i, 1, 127);
+					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), 1);
 				}
 				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
+				if (tmp) {
+					tmp = !tmp;
+					setDustOptions(new DustOptions(Color.RED, 99));
+				}
 			}
 			if (particle.getDataType() == MaterialData.class)
 				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, materialdata);

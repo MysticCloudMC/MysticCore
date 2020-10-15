@@ -48,7 +48,7 @@ public class GUIManager {
 	}
 
 	public static void switchInventory(Player player, Inventory inventory, String title) {
-		if(waitingInv == null) {
+		if (waitingInv == null) {
 			CoreUtils.debug("Waiting inv failed to init. Retrying. Result: " + init());
 		}
 		player.openInventory(waitingInv);
@@ -85,13 +85,13 @@ public class GUIManager {
 	public static Inventory generateParticleFormatMenu(Player player) {
 
 		InventoryCreator inv = new InventoryCreator("Particle Formats", (null),
-				(((ParticleFormatEnum.values().length / 9) + 1) * 9)+9);
+				(((ParticleFormatEnum.values().length / 9) + 1) * 9) + 9);
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'X', (String[]) null);
 		ArrayList<Character> c = new ArrayList<Character>();
 		for (int i = 0; i != (((int) (ParticleFormatEnum.values().length / 9)) + 1) * 9; i++) {
 			if (i < ParticleFormatEnum.values().length) {
-				if (player.hasPermission("mysticcloud.particleformat." + ChatColor.stripColor(
-						ParticleFormatEnum.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
+				if (player.hasPermission("mysticcloud.particleformat." + ChatColor
+						.stripColor(ParticleFormatEnum.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
 					inv.addItem(ParticleFormatEnum.values()[i].formatter().item(),
 							ParticleFormatEnum.values()[i].formatter().name(), (char) i, (String[]) null, false);
 				} else {
@@ -105,9 +105,10 @@ public class GUIManager {
 			}
 
 		}
-		
-		inv.addItem(new ItemStack(Material.BARRIER), CoreUtils.colorize("&cRemove Particles"), 'z', new String[] {"Expermimental"}, false);
-		
+
+		inv.addItem(new ItemStack(Material.BARRIER), CoreUtils.colorize("&cRemove Particles"), 'z',
+				new String[] { "Expermimental" }, false);
+
 		c.add('X');
 		c.add('X');
 		c.add('X');
@@ -117,7 +118,7 @@ public class GUIManager {
 		c.add('X');
 		c.add('X');
 		c.add('X');
-		
+
 		inv.setConfiguration(c);
 		c.clear();
 		c = null;
@@ -139,7 +140,7 @@ public class GUIManager {
 
 				inv.addItem(CoreUtils.particleToItemStack(p, perm),
 						perm ? CoreUtils.colorize(CoreUtils.particlesToString(p)) : CoreUtils.colorize("&cLocked..."),
-						(char) i, (String[]) null, true, false, (short)0);
+						(char) i, (String[]) null, true, false, (short) 0);
 				c.add((char) i);
 			} else {
 				c.add('X');
@@ -167,30 +168,34 @@ public class GUIManager {
 
 	public static Inventory generateParticleColorMenu(Player player, Particle particle) {
 		InventoryCreator inv = new InventoryCreator("&b&lColors", null, 36);
-		
+
 		inv.addItem(new ItemStack(Material.PINK_DYE), "&dPink", 'A', new String[] {});
 		inv.addItem(new ItemStack(Material.RED_DYE), "&cRed", 'B', new String[] {});
 		inv.addItem(new ItemStack(Material.ORANGE_DYE), "&6Orange", 'C', new String[] {});
 		inv.addItem(new ItemStack(Material.YELLOW_DYE), "&eYellow", 'D', new String[] {});
-		
+
 		inv.addItem(new ItemStack(Material.LIME_DYE), "&aLime Green", 'E', new String[] {});
 		inv.addItem(new ItemStack(Material.GREEN_DYE), "&2Green", 'F', new String[] {});
 
 		inv.addItem(new ItemStack(Material.BLUE_DYE), "&3Blue", 'G', new String[] {});
 		inv.addItem(new ItemStack(Material.PURPLE_DYE), "&5Purple", 'H', new String[] {});
 		inv.addItem(new ItemStack(Material.BROWN_DYE), "&6Brown", 'I', new String[] {});
-		
+
 		inv.addItem(new ItemStack(Material.BLACK_DYE), "&7Black", 'J', new String[] {});
 		inv.addItem(new ItemStack(Material.WHITE_DYE), "&fWhite", 'K', new String[] {});
 
+		String a = "";
+		for (int i = 0; i != ("Rainbow").length(); i++) {
+			a = a + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i + 2, 0.9, 127))
+					+ ("Rainbow").substring(i, i + 1);
+		}
+		inv.addItem(new ItemStack(Material.WHITE_DYE), a, 'L', new String[] {});
+
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
-		
-		inv.setConfiguration(new char[] {
-				'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-				'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X',
-				'X', 'X', 'H', 'I', 'X', 'J', 'K', 'X', 'X',
-				'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'
-				});
+
+		inv.setConfiguration(
+				new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X',
+						'X', 'X', 'H', 'I', 'L', 'J', 'K', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
 
