@@ -11,6 +11,7 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import net.md_5.bungee.api.ChatColor;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
@@ -20,7 +21,14 @@ public class RainbowFormat extends ParticleFormat {
 	double r = 1;
 
 	public RainbowFormat() {
-		name = "&cR&ea&ain&bb&2o&5w";
+		String s = "Rainbow";
+//		ComponentBuilder builder = new ComponentBuilder();
+		String a = "";
+		for(int i=0;i!=s.length()-1;i++) {
+			a = a + ChatColor.of(CoreUtils.generateColor(i, 1)) + s.substring(i,i+1);
+		}
+		
+		name = a;
 		guiItem = new ItemStack(Material.COAL);
 		particle = Particle.REDSTONE;
 	}
