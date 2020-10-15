@@ -24,7 +24,8 @@ public class HaloFormat extends ParticleFormat {
 		guiItem = new ItemStack(Material.GOLDEN_HELMET);
 		allowedParticles.add(Particle.REDSTONE);
 		r = 0.5;
-		h = 2.5;
+		h = 2.25;
+		spots = spots/2;
 	}
 
 	@Override
