@@ -17,7 +17,6 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 public class RainbowFormat extends ParticleFormat {
 
 	Location cloc = null;
-	Color color = Color.WHITE;
 	double r = 1;
 
 	public RainbowFormat() {
@@ -52,7 +51,9 @@ public class RainbowFormat extends ParticleFormat {
 //				color = Color.BLUE;
 //			if (b == 5)
 //				color = Color.PURPLE;
-			setDustOptions(new DustOptions(Color.fromRGB(CoreUtils.generateColor(b, 1).getRGB()), 1));
+//			Color.fromRGB(red, green, blue)
+			java.awt.Color color = CoreUtils.generateColor(b, 1);
+			setDustOptions(new DustOptions(Color.fromRGB(color.getRed(),color.getBlue(),color.getGreen()), 1));
 			for (int a = 1; a != 21; a++) {
 				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)),
 						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)));
