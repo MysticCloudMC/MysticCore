@@ -566,18 +566,17 @@ public class CoreUtils {
 	}
 
 	public static Color generateColor(int seed, double frequency) {
-		return generateColor(seed, frequency, 0);
+		return generateColor(seed, frequency, 100);
 	}
 
-	public static Color generateColor(int seed, double frequency, double shift) {
+	public static Color generateColor(int seed, double frequency, int amp) {
 
-		int amp = 100;
 		if (amp > 127)
 			amp = 127;
 		int peak = 255 - amp;
-		int red = (int) (Math.sin(frequency * (seed + shift) + 0) * amp + peak);
-		int green = (int) (Math.sin(frequency * (seed + shift) + 2 * Math.PI / 3) * amp + peak);
-		int blue = (int) (Math.sin(frequency * (seed + shift) + 4 * Math.PI / 3) * amp + peak);
+		int red = (int) (Math.sin(frequency * (seed) + 0) * amp + peak);
+		int green = (int) (Math.sin(frequency * (seed) + 2 * Math.PI / 3) * amp + peak);
+		int blue = (int) (Math.sin(frequency * (seed) + 4 * Math.PI / 3) * amp + peak);
 		if (red > 255)
 			red = 255;
 		if (green > 255)
