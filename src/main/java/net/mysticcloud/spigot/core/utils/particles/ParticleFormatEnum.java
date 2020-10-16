@@ -14,6 +14,7 @@ import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HatFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HelixFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.LilyPadFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.PopperFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.RainCloudFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.RainbowFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
@@ -100,6 +101,8 @@ public enum ParticleFormatEnum {
 			return new SelectorFormat();
 		case "Gems":
 			return new GemsFormat();
+		case "Popper":
+			return new PopperFormat();
 		case "Wings":
 			return new WingsFormat();
 		default:
