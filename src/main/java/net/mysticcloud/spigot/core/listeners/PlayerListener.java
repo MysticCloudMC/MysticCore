@@ -80,6 +80,17 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
+		if (e.getMessage().toUpperCase().startsWith("!PCOLOR") && e.getPlayer().hasPermission("mysticcloud.admin")) {
+			String[] args = e.getMessage().split(" ");
+			if (args.length == 3) {
+				CoreUtils.particles(e.getPlayer().getUniqueId()).setDustOptions(new DustOptions(
+						org.bukkit.Color.fromRGB(
+								Integer.parseInt(args[1].split(",")[0]),
+								Integer.parseInt(args[1].split(",")[1]),
+								Integer.parseInt(args[1].split(",")[2])),
+						Float.parseFloat(args[2])));
+			}
+		}
 
 		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
 			String[] args = e.getMessage().split(" ");
@@ -118,8 +129,6 @@ public class PlayerListener implements Listener {
 	// }
 	// }
 	//
-
-	
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.LOWEST)
@@ -244,7 +253,7 @@ public class PlayerListener implements Listener {
 				return;
 			if (!e.getItem().hasItemMeta())
 				return;
-			
+
 			if (CoreUtils.isFood(e.getItem())) {
 				CoreUtils.debug("This is food.");
 
@@ -271,9 +280,9 @@ public class PlayerListener implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			if(e.getItem().getItemMeta().hasLore()) {
-				for(String s : e.getItem().getItemMeta().getLore()) {
-					if(ChatColor.stripColor(s).contains("Fireball Damage:")) {
+			if (e.getItem().getItemMeta().hasLore()) {
+				for (String s : e.getItem().getItemMeta().getLore()) {
+					if (ChatColor.stripColor(s).contains("Fireball Damage:")) {
 						e.getPlayer().launchProjectile(Fireball.class);
 					}
 				}

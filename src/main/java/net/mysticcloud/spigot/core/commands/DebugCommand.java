@@ -34,7 +34,7 @@ public class DebugCommand implements CommandExecutor {
 					
 					String s = "Hello World! Aren't rainbows cool?";
 					ComponentBuilder builder = new ComponentBuilder();
-					for(int i=0;i!=s.length()-1;i++) {
+					for(int i=0;i!=s.length();i++) {
 						
 						builder.append(s.substring(i,i+1)).color(ChatColor.of(CoreUtils.generateColor(i, 0.5)));
 					}
