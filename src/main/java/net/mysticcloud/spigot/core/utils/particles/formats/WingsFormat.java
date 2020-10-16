@@ -3,9 +3,11 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -18,11 +20,11 @@ public class WingsFormat extends ParticleFormat {
 		allowedParticles.add(Particle.CRIT);
 
 		name = "&aWings";
-		guiItem = new ItemStack(Material.GOLDEN_HELMET);
+		guiItem = new ItemStack(Material.ELYTRA);
 		allowedParticles.add(Particle.REDSTONE);
 		r = 0.5;
 		h = 2.25;
-		spots = spots/2;
+		spots = spots / 2;
 	}
 
 	@Override
@@ -36,13 +38,16 @@ public class WingsFormat extends ParticleFormat {
 	public void display(Location loc) {
 		if (particle == null)
 			return;
-		for (int a = 1; a != spots + 1; a++) {
-			spawnParticle(particle,
-					loc.clone().add(rotateAroundAxisY(new Vector(Math.cos(Math.toRadians(a) * ((360) / (spots))) * (r),
-							h, Math.sin(Math.toRadians(a) * ((360) / (spots))) * (r)), i)));
-
+		for (double f = -10.0D; f < 6.2D; f += 0.2) {
+			double var = Math.sin(f / 12.0D);
+			double x = Math.sin(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
+			double z = Math.cos(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
+			Vector v = new Vector(-x, 0.0D, -z);
+			rotateAroundAxisX(v, ((loc.getPitch() + 90.0F) * 0.017453292F));
+			rotateAroundAxisY(v, (-loc.getYaw() * 0.017453292F));
+			setDustOptions(new DustOptions(Color.RED, 1));
+			spawnParticle(particle, loc.clone().add(v));
 		}
-
 	}
 
 }

@@ -17,7 +17,8 @@ public enum ParticleFormatEnum {
 	RAIN_CLOUD("Rain Cloud"),
 	ATOMIC("Atomic"),
 	SELECTOR("Selector"),
-	GEMS("Gems");
+	GEMS("Gems"),
+	WINGS("Wings");
 
 	String name;
 
@@ -60,6 +61,8 @@ public enum ParticleFormatEnum {
 			return new SelectorFormat();
 		case "Gems":
 			return new GemsFormat();
+		case "Wings":
+			return new WingsFormat();
 		default:
 			return new CircleHeadFormat();
 

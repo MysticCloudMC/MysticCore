@@ -31,7 +31,7 @@ public class HatFormat extends ParticleFormat {
 	@Override
 	public void display(UUID uid) {
 		if (Bukkit.getPlayer(uid) != null) 
-			display(Bukkit.getPlayer(uid).getLocation());
+			display(Bukkit.getPlayer(uid).getEyeLocation());
 	}
 
 	@Override
