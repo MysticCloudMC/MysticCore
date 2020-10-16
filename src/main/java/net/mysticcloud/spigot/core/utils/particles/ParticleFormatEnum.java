@@ -30,6 +30,7 @@ public enum ParticleFormatEnum {
 	DOUBLE_HELIX("Double Helix"),
 	RANDOM("Random"),
 	CAPE("Cape"), 
+	POPPER("Popper", false),
 	RAINBOW("Rainbow"), 
 	LILY_PAD("Lily Pad"),
 	RAIN_CLOUD("Rain Cloud"),
