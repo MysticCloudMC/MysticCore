@@ -394,6 +394,7 @@ public class PlayerListener implements Listener {
 			e.setCancelled(true);
 			if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
 				CoreUtils.particlesOff(e.getWhoClicked().getUniqueId());
+				e.getWhoClicked().closeInventory();
 				return;
 			}
 			for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
