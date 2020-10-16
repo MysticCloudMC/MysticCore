@@ -91,12 +91,12 @@ public class GUIManager {
 		for (int i = 0; i != (((int) (ParticleFormatEnum.getAvalibleFormats().size() / 9)) + 1) * 9; i++) {
 			if (i < ParticleFormatEnum.getAvalibleFormats().size()) {
 				if (player.hasPermission("mysticcloud.particleformat." + ChatColor
-						.stripColor(ParticleFormatEnum.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
-					inv.addItem(ParticleFormatEnum.values()[i].formatter().item(),
-							ParticleFormatEnum.values()[i].formatter().name(), (char) i, (String[]) null, false);
+						.stripColor(ParticleFormatEnum.getAvalibleFormats().get(i).name().toLowerCase().replaceAll(" ", "_")))) {
+					inv.addItem(ParticleFormatEnum.getAvalibleFormats().get(i).formatter().item(),
+							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i, (String[]) null, false);
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
-							ParticleFormatEnum.values()[i].formatter().name(), (char) i, new String[] { "&cLocked..." },
+							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i, new String[] { "&cLocked..." },
 							false);
 				}
 				c.add((char) i);
