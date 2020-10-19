@@ -53,7 +53,6 @@ public class WingsFormat extends ParticleFormat {
 			rotateAroundAxisY(v, loc.getYaw());
 //			rotateAroundAxisX(v, ((loc.getPitch() + 90.0F) * 0.017453292F));
 //			rotateAroundAxisZ(v, (-loc.getYaw() * 0.017453292F));
-			setDustOptions(new DustOptions(Color.RED, 1));
 			spawnParticle(particle, loc.clone().add(v).add(new Vector(0, 1.125, 0)));
 			a = a + 1;
 		}
