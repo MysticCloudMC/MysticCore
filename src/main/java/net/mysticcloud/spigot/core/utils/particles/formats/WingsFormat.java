@@ -50,7 +50,7 @@ public class WingsFormat extends ParticleFormat {
 			//(a/((wend-wstart)/step))*2
 			Vector v = new Vector(-x, 0D, -z);
 			rotateAroundAxisX(v, 90);
-			rotateAroundAxisY(v, loc.getPitch());
+			rotateAroundAxisY(v, loc.getYaw());
 //			rotateAroundAxisX(v, ((loc.getPitch() + 90.0F) * 0.017453292F));
 //			rotateAroundAxisZ(v, (-loc.getYaw() * 0.017453292F));
 			setDustOptions(new DustOptions(Color.RED, 1));
