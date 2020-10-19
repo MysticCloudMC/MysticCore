@@ -48,8 +48,9 @@ public class WingsFormat extends ParticleFormat {
 			double x = Math.sin(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
 			double z = Math.cos(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
 			//(a/((wend-wstart)/step))*2
-			Vector v = new Vector(-x, 0D, -z-0.125);
+			Vector v = new Vector(-x, 0D, -z);
 			rotateAroundAxisX(v, 90);
+			v = v.add(new Vector(0,0,-0.125));
 			rotateAroundAxisY(v, loc.getYaw());
 //			rotateAroundAxisX(v, ((loc.getPitch() + 90.0F) * 0.017453292F));
 //			rotateAroundAxisZ(v, (-loc.getYaw() * 0.017453292F));
