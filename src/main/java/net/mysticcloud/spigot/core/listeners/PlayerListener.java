@@ -68,41 +68,37 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
-			if (e.getItem().getItemStack().getType().equals(Material.NETHER_STAR)) {
-				if (e.getItem().isGlowing()) {
-					CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
-					e.getEntity().remove();
-					e.setCancelled(true);
-				}
+			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {
+				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+				e.getEntity().remove();
+				e.setCancelled(true);
 			}
 		}
 	}
 
-	@EventHandler
-	public void onPlayerChat(AsyncPlayerChatEvent e) {
-		if (e.getMessage().toUpperCase().startsWith("!PCOLOR") && e.getPlayer().hasPermission("mysticcloud.admin")) {
-			String[] args = e.getMessage().split(" ");
-			if (args.length == 3) {
-				CoreUtils.particles(e.getPlayer().getUniqueId()).setDustOptions(new DustOptions(
-						org.bukkit.Color.fromRGB(
-								Integer.parseInt(args[1].split(",")[0]),
-								Integer.parseInt(args[1].split(",")[1]),
-								Integer.parseInt(args[1].split(",")[2])),
-						Float.parseFloat(args[2])));
-			}
-		}
-
-		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
-			String[] args = e.getMessage().split(" ");
-			if (args.length == 3) {
-
-				CoreUtils.particles.put(e.getPlayer().getUniqueId(),
-						ParticleFormatEnum.valueOf(args[1].toUpperCase()).formatter());
-				CoreUtils.particles(e.getPlayer().getUniqueId()).particle(Particle.valueOf(args[2].toUpperCase()));
-
-			}
-		}
-	}
+//	@EventHandler
+//	public void onPlayerChat(AsyncPlayerChatEvent e) {
+//		if (e.getMessage().toUpperCase().startsWith("!PCOLOR") && e.getPlayer().hasPermission("mysticcloud.admin")) {
+//			String[] args = e.getMessage().split(" ");
+//			if (args.length == 3) {
+//				CoreUtils.particles(e.getPlayer().getUniqueId()).setDustOptions(new DustOptions(
+//						org.bukkit.Color.fromRGB(Integer.parseInt(args[1].split(",")[0]),
+//								Integer.parseInt(args[1].split(",")[1]), Integer.parseInt(args[1].split(",")[2])),
+//						Float.parseFloat(args[2])));
+//			}
+//		}
+//
+//		if (e.getMessage().toUpperCase().startsWith("!PARTICLES") && e.getPlayer().hasPermission("mysticcloud.admin")) {
+//			String[] args = e.getMessage().split(" ");
+//			if (args.length == 3) {
+//
+//				CoreUtils.particles.put(e.getPlayer().getUniqueId(),
+//						ParticleFormatEnum.valueOf(args[1].toUpperCase()).formatter());
+//				CoreUtils.particles(e.getPlayer().getUniqueId()).particle(Particle.valueOf(args[2].toUpperCase()));
+//
+//			}
+//		}
+//	}
 
 	@EventHandler
 	public void onSignEdit(SignChangeEvent e) {

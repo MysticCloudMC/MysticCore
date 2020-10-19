@@ -104,6 +104,7 @@ public class CoreUtils {
 	public static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
+	static ItemStack gem = new ItemStack(Material.SUNFLOWER);
 
 //	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
 
@@ -115,6 +116,10 @@ public class CoreUtils {
 	public static void start() {
 
 		df.setRoundingMode(RoundingMode.DOWN);
+
+		ItemMeta gemeta = gem.getItemMeta();
+		gemeta.setDisplayName(colorize("&aGem"));
+		gem.setItemMeta(gemeta);
 
 		setupEconomy();
 
@@ -253,14 +258,17 @@ public class CoreUtils {
 	}
 
 	public static Item spawnGem(Location loc) {
-		Item item = loc.getWorld().dropItem(loc, new ItemStack(Material.NETHER_STAR));
+		Item item = loc.getWorld().dropItem(loc, gem);
 
-		item.setGlowing(true);
-		item.setCustomName(colorize("&aGem"));
+		item.setCustomName(colorize(gem.getItemMeta().getDisplayName()));
 		item.setCustomNameVisible(true);
 
 		return item;
 
+	}
+	
+	public static ItemStack getGemItem() {
+		return gem;
 	}
 
 	public static ItemStack createUnstackableItemStack(Material type) {
