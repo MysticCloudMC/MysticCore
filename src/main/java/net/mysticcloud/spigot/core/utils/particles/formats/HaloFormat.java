@@ -26,6 +26,7 @@ public class HaloFormat extends ParticleFormat {
 		r = 0.5;
 		h = 2.25;
 		spots = spots/2;
+		particleSize = 0.4f;
 	}
 
 	@Override
