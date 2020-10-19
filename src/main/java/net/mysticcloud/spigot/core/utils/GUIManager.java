@@ -172,9 +172,9 @@ public class GUIManager {
 		
 		String rainbow = "";
 		for (int i = 0; i != ("Rainbow").length(); i++) {
-			rainbow = rainbow + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i, 0.5)) + i;
+			rainbow = rainbow + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i+10, 0.5)) + ("Rainbow").substring(i,i+1);
 		}
-		InventoryCreator inv = new InventoryCreator("&7&lAngelic &7Configurations", null, 27);
+		InventoryCreator inv = new InventoryCreator("&e&lAngelic &eConfigurations", null, 27);
 
 		inv.addItem(new ItemStack(Material.WHITE_DYE), "&e&lArch&f Angel", 'A', new String[] {});
 		inv.addItem(new ItemStack(Material.RED_DYE), "&cDemon", 'B', new String[] {});
