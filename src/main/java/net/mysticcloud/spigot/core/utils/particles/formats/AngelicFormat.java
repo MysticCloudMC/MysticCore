@@ -14,11 +14,11 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class AngelicFormat extends ParticleFormat {
 
-	HaloFormat halo = new HaloFormat();
-	WingsFormat wings = new WingsFormat();
+	public HaloFormat halo = new HaloFormat();
+	public WingsFormat wings = new WingsFormat();
 
 	public AngelicFormat() {
-		changeParticle = true;
+		changeParticle = false;
 		allowedParticles.add(Particle.REDSTONE);
 
 		name = "&f&lAngelic&f format";

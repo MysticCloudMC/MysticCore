@@ -1,7 +1,6 @@
 package net.mysticcloud.spigot.core.listeners;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -14,9 +13,7 @@ import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Fireball;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
@@ -26,10 +23,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -37,9 +32,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
@@ -50,8 +43,8 @@ import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
 import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
@@ -387,6 +380,44 @@ public class PlayerListener implements Listener {
 			}
 
 		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Angelic Config") {
+			e.setCancelled(true);
+			AngelicFormat format = (AngelicFormat) CoreUtils.particles(e.getWhoClicked().getUniqueId());
+			switch (e.getCurrentItem().getType()) {
+			case WHITE_DYE:
+				format.halo.setDustOptions(new DustOptions(Color.YELLOW, format.halo.getParticleSize()));
+				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
+				e.getWhoClicked().closeInventory();
+				break;
+			case RED_DYE:
+				format.halo.setDustOptions(new DustOptions(Color.RED, format.halo.getParticleSize()));
+				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
+				e.getWhoClicked().closeInventory();
+				break;
+			case BLACK_DYE:
+				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
+				format.wings.setDustOptions(new DustOptions(Color.RED, format.wings.getParticleSize()));
+				e.getWhoClicked().closeInventory();
+				break;
+			case MAGMA_CREAM:
+				format.setDustOptions(new DustOptions(Color.BLACK, 99));
+				e.getWhoClicked().closeInventory();
+				break;
+			case FEATHER:
+				format.halo.setDustOptions(new DustOptions(Color.WHITE, format.halo.getParticleSize()));
+				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
+				e.getWhoClicked().closeInventory();
+				break;
+			case COAL:
+				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
+				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
+				e.getWhoClicked().closeInventory();
+				break;
+			default:
+				break;
+			}
+
+		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
 			e.setCancelled(true);
 			if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
@@ -397,6 +428,12 @@ public class PlayerListener implements Listener {
 			for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
 				if (e.getCurrentItem().getType().equals(format.formatter().item().getType())) {
 					CoreUtils.particles(e.getWhoClicked().getUniqueId(), format);
+					if (format.equals(ParticleFormatEnum.ANGELIC)) {
+						GUIManager.switchInventory(((Player) e.getWhoClicked()),
+								GUIManager.generateAngelicConfigurations(((Player) e.getWhoClicked())),
+								"Angelic Config");
+						return;
+					}
 					if (format.formatter().changeParticle())
 						GUIManager.switchInventory(((Player) e.getWhoClicked()),
 								GUIManager.generateParticleMenu(((Player) e.getWhoClicked()), format.formatter()),

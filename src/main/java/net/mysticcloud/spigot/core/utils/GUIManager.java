@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -90,14 +91,15 @@ public class GUIManager {
 		ArrayList<Character> c = new ArrayList<Character>();
 		for (int i = 0; i != (((int) (ParticleFormatEnum.getAvalibleFormats().size() / 9)) + 1) * 9; i++) {
 			if (i < ParticleFormatEnum.getAvalibleFormats().size()) {
-				if (player.hasPermission("mysticcloud.particleformat." + ChatColor
-						.stripColor(ParticleFormatEnum.getAvalibleFormats().get(i).name().toLowerCase().replaceAll(" ", "_")))) {
+				if (player.hasPermission("mysticcloud.particleformat." + ChatColor.stripColor(
+						ParticleFormatEnum.getAvalibleFormats().get(i).name().toLowerCase().replaceAll(" ", "_")))) {
 					inv.addItem(ParticleFormatEnum.getAvalibleFormats().get(i).formatter().item(),
-							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i, (String[]) null, false);
+							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i,
+							(String[]) null, false);
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
-							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i, new String[] { "&cLocked..." },
-							false);
+							ParticleFormatEnum.getAvalibleFormats().get(i).formatter().name(), (char) i,
+							new String[] { "&cLocked..." }, false);
 				}
 				c.add((char) i);
 			} else {
@@ -164,6 +166,31 @@ public class GUIManager {
 
 	public static Inventory getSettingsMenu() {
 		return createSettingsMenu();
+	}
+
+	public static Inventory generateAngelicConfigurations(Player player) {
+		
+		String rainbow = "";
+		for (int i = 0; i != ("Rainbow").length(); i++) {
+			rainbow = rainbow + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i, 0.5)) + i;
+		}
+		InventoryCreator inv = new InventoryCreator("&7&lAngelic &7Configurations", null, 27);
+
+		inv.addItem(new ItemStack(Material.WHITE_DYE), "&e&lArch&f Angel", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_DYE), "&cDemon", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.BLACK_DYE), "&4Satan", 'C', new String[] {});
+		inv.addItem(new ItemStack(Material.COAL), "&8Night Flyer", 'D', new String[] {});
+		inv.addItem(new ItemStack(Material.FEATHER), "&7Angel", 'E', new String[] {});
+		inv.addItem(new ItemStack(Material.MAGMA_CREAM), rainbow, 'F', new String[] {});
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+
+		inv.setConfiguration(
+				new char[] { 
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'A', 'B', 'C', 'X', 'D', 'E', 'F', 'X',
+						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+		return inv.getInventory();
 	}
 
 	public static Inventory generateParticleColorMenu(Player player, Particle particle) {
