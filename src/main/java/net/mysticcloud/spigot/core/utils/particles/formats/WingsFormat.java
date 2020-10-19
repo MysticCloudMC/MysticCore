@@ -18,11 +18,12 @@ public class WingsFormat extends ParticleFormat {
 	double wstart = -10.0D;
 	double wend = 6.2D;
 	double step = 0.2D;
+	
 
 	public WingsFormat() {
 		changeParticle = true;
 		allowedParticles.add(Particle.CRIT);
-
+		particleSize = 0.5f;
 		name = "&aWings";
 		guiItem = new ItemStack(Material.ELYTRA);
 		allowedParticles.add(Particle.REDSTONE);

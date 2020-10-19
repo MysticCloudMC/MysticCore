@@ -33,6 +33,7 @@ public class ParticleFormat {
 	protected double h = 2;
 	protected double l = 1.5;
 	protected int i = 0;
+	protected float particleSize = 1f;
 	private boolean tmp = false;
 
 	protected String name = "Format Name";
@@ -124,7 +125,7 @@ public class ParticleFormat {
 				if (dustoptions.getSize() == 99) {
 					tmp = true;
 					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
-					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), 1);
+					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), particleSize);
 				}
 				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
 				if (tmp) {
