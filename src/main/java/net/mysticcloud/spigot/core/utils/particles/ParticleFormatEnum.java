@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.AtomicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
@@ -38,6 +39,7 @@ public enum ParticleFormatEnum {
 	ATOMIC("Atomic"),
 	SELECTOR("Selector"),
 	GEMS("Gems"),
+	ANGELIC("Angelic", false),
 	WINGS("Wings", false);
 
 	String name;
@@ -105,6 +107,8 @@ public enum ParticleFormatEnum {
 			return new PopperFormat();
 		case "Wings":
 			return new WingsFormat();
+		case "Angelic":
+			return new AngelicFormat();
 		default:
 			return new CircleHeadFormat();
 
