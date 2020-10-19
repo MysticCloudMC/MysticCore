@@ -10,12 +10,11 @@ import org.bukkit.Particle.DustOptions;
 import org.bukkit.inventory.ItemStack;
 
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class AngelicFormat extends ParticleFormat {
 
 	HaloFormat halo = new HaloFormat();
-	WingsFormat wings = (WingsFormat) ParticleFormatEnum.WINGS.formatter();
+	WingsFormat wings = new WingsFormat();
 
 	public AngelicFormat() {
 		changeParticle = true;
