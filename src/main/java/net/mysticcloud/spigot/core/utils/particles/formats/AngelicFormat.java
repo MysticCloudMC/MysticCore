@@ -53,7 +53,7 @@ public class AngelicFormat extends ParticleFormat {
 	public void display(Location loc) {
 		super.display(loc);
 		halo.setLifetime(i);
-		wings.setLength(i);
+		wings.setLifetime(i);
 		halo.display(loc);
 		wings.display(loc);
 	}
