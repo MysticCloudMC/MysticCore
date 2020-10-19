@@ -20,10 +20,19 @@ public class AngelicFormat extends ParticleFormat {
 		changeParticle = true;
 		allowedParticles.add(Particle.REDSTONE);
 
-		name = "&e&lDouble &eHelix";
-		guiItem = new ItemStack(Material.BONE);
+		name = "&f&lAngelic&f format";
+		guiItem = new ItemStack(Material.FEATHER);
 
 		particle = Particle.REDSTONE;
+		halo.particle(particle);
+		wings.particle(particle);
+	}
+	
+	@Override
+	public void particle(Particle particle) {
+		super.particle(particle);
+		halo.particle(particle);
+		wings.particle(particle);
 	}
 
 	@Override
