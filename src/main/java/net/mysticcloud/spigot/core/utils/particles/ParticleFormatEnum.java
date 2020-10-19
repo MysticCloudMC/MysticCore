@@ -39,7 +39,7 @@ public enum ParticleFormatEnum {
 	ATOMIC("Atomic"),
 	SELECTOR("Selector"),
 	GEMS("Gems"),
-	ANGELIC("Angelic", false),
+	ANGELIC("Angelic", true),
 	WINGS("Wings", false);
 
 	String name;

@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.utils.particles.formats;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -26,6 +27,8 @@ public class AngelicFormat extends ParticleFormat {
 		particle = Particle.REDSTONE;
 		halo.particle(particle);
 		wings.particle(particle);
+		halo.setDustOptions(new DustOptions(Color.YELLOW, halo.getParticleSize()));
+		wings.setDustOptions(new DustOptions(Color.WHITE, wings.getParticleSize()));
 	}
 	
 	@Override
