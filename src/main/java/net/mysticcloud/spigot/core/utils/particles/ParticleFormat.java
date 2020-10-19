@@ -218,4 +218,8 @@ public class ParticleFormat {
 		return v.setX(x).setY(y);
 	}
 
+	public float getParticleSize() {
+		return particleSize;
+	}
+
 }

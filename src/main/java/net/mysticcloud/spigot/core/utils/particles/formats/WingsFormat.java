@@ -44,7 +44,7 @@ public class WingsFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 		int a = 0;
-		for (double f = -10.0D; f < 6.2D; f += 0.2) {
+		for (double f = -10.0D; f < 6.2D; f += 0.1) {
 			double var = Math.sin(f / 12.0D);
 			double x = Math.sin(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
 			double z = Math.cos(f) * (Math.exp(Math.cos(f)) - 2.0D * Math.cos(4.0D * f) - Math.pow(var, 5.0D)) / 2.0D;
