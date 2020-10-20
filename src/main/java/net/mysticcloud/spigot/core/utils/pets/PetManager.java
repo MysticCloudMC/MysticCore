@@ -33,7 +33,7 @@ public class PetManager {
 		inv.setConfiguration(
 				new char[] { 
 						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-						'X', 'A', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X',
 						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
