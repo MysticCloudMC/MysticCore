@@ -16,6 +16,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityTypes;
+import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 
 public class MysticEntityUtils {
 
@@ -23,8 +24,10 @@ public class MysticEntityUtils {
 
 	public static void registerEntities() {
 		try {
+			new MysticEntityType<Snowman>("snowmanpet", Snowman.class, EntityTypes.SNOW_GOLEM, Snowman::new)
+			.register();
 			new MysticEntityType<GoblinBoss>("goblinboss", GoblinBoss.class, EntityTypes.ZOMBIE, GoblinBoss::new)
-					.register();
+			.register();
 			new MysticEntityType<TestChicken>("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new)
 					.register();
 			new MysticEntityType<IronBoss>("ironboss", IronBoss.class, EntityTypes.IRON_GOLEM, IronBoss::new)

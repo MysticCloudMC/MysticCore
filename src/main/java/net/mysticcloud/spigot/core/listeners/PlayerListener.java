@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
@@ -46,8 +45,6 @@ import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.Pet;
-import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
@@ -106,9 +103,6 @@ public class PlayerListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), false);
 		CoreUtils.saveMysticPlayer(e.getPlayer());
-		if (PetManager.hasPet(e.getPlayer())) {
-			PetManager.removePets(e.getPlayer());
-		}
 	}
 
 	// @EventHandler
@@ -472,18 +466,6 @@ public class PlayerListener implements Listener {
 			}
 		}
 
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
-			e.setCancelled(true);
-			if (e.getCurrentItem() == null)
-				return;
-			if (!PetManager.getPetTypeExists(ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())))
-				return;
-			Pet p = PetManager.spawnPet(((Player) e.getWhoClicked()),
-					ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()),
-					((Player) e.getWhoClicked()).getLocation());
-			e.getWhoClicked().closeInventory();
-			((ArmorStand) p.getBukkitEntity()).setVisible(false);
-		}
 	}
 
 }

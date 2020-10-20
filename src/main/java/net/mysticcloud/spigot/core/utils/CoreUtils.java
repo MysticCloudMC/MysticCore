@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
@@ -54,7 +53,6 @@ import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
@@ -228,7 +226,6 @@ public class CoreUtils {
 			itemFiles.add(fc);
 
 		}
-		PetManager.registerPets();
 
 		if (Main.getPlugin().getConfig().isSet("SPAWN") && Main.getPlugin().getConfig().getString("SPAWN") != "")
 			spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));

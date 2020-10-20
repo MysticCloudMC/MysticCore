@@ -34,7 +34,6 @@ import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.pets.v1_15_R1.PetManager;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class Main extends JavaPlugin {
@@ -83,7 +82,6 @@ public class Main extends JavaPlugin {
 
 	public void onDisable() {
 		CoreUtils.end();
-		PetManager.removeAllPets();
 		for(Player player : Bukkit.getOnlinePlayers()) {
 			CoreUtils.saveMysticPlayer(player);
 		}
