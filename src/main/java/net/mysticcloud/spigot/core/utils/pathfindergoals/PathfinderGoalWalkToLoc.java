@@ -35,14 +35,12 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 
 	public void c() {
 		if (owner != null) {
-			Bukkit.broadcastMessage("Owner not null: " + owner.getLocation().getX());
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
 			this.navigation.a(pathEntity, speed);
 		}
 	}
 	public void d() {
 		if (owner != null) {
-			Bukkit.broadcastMessage("Owner not null: " + owner.getLocation().getX());
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
 			this.navigation.a(pathEntity, speed);
 		}
@@ -50,8 +48,7 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 	
 	public void e() {
 		if (owner != null) {
-			Bukkit.broadcastMessage("Owner not null: " + owner.getLocation().getX());
-			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
+			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
 			this.navigation.a(pathEntity, speed);
 		}
 	}

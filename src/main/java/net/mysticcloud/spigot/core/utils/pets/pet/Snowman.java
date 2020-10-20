@@ -98,29 +98,29 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	@Override
 	public void movementTick() {
-		super.movementTick();
+//		super.movementTick();
 		pf.setOwner(Bukkit.getPlayer(owner));
-		if (!this.world.isClientSide) {
-			int i = MathHelper.floor(locX());
-			int j = MathHelper.floor(locY());
-			int k = MathHelper.floor(locZ());
-			if (this.world.getBiome(new BlockPosition(i, 0, k))
-					.getAdjustedTemperature(new BlockPosition(i, j, k)) > 1.0F)
-				damageEntity(CraftEventFactory.MELTING, 1.0F);
-			if (!this.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING))
-				return;
-			IBlockData iblockdata = Blocks.SNOW.getBlockData();
-			for (int l = 0; l < 4; l++) {
-				i = MathHelper.floor(locX() + ((l % 2 * 2 - 1) * 0.25F));
-				j = MathHelper.floor(locY());
-				k = MathHelper.floor(locZ() + ((l / 2 % 2 * 2 - 1) * 0.25F));
-				BlockPosition blockposition = new BlockPosition(i, j, k);
-				if (this.world.getType(blockposition).isAir()
-						&& this.world.getBiome(blockposition).getAdjustedTemperature(blockposition) < 0.8F
-						&& iblockdata.canPlace(this.world, blockposition))
-					CraftEventFactory.handleBlockFormEvent(this.world, blockposition, iblockdata, this);
-			}
-		}
+//		if (!this.world.isClientSide) {
+//			int i = MathHelper.floor(locX());
+//			int j = MathHelper.floor(locY());
+//			int k = MathHelper.floor(locZ());
+//			if (this.world.getBiome(new BlockPosition(i, 0, k))
+//					.getAdjustedTemperature(new BlockPosition(i, j, k)) > 1.0F)
+//				damageEntity(CraftEventFactory.MELTING, 1.0F);
+//			if (!this.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING))
+//				return;
+//			IBlockData iblockdata = Blocks.SNOW.getBlockData();
+//			for (int l = 0; l < 4; l++) {
+//				i = MathHelper.floor(locX() + ((l % 2 * 2 - 1) * 0.25F));
+//				j = MathHelper.floor(locY());
+//				k = MathHelper.floor(locZ() + ((l / 2 % 2 * 2 - 1) * 0.25F));
+//				BlockPosition blockposition = new BlockPosition(i, j, k);
+//				if (this.world.getType(blockposition).isAir()
+//						&& this.world.getBiome(blockposition).getAdjustedTemperature(blockposition) < 0.8F
+//						&& iblockdata.canPlace(this.world, blockposition))
+//					CraftEventFactory.handleBlockFormEvent(this.world, blockposition, iblockdata, this);
+//			}
+//		}
 	}
 
 	public void a(EntityLiving entityliving, float f) {
