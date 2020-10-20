@@ -47,4 +47,12 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 			this.navigation.a(pathEntity, speed);
 		}
 	}
+	
+	public void e() {
+		if (owner != null) {
+			Bukkit.broadcastMessage("Owner not null: " + owner.getLocation().getX());
+			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
+			this.navigation.a(pathEntity, speed);
+		}
+	}
 }
