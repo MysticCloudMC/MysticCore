@@ -34,7 +34,7 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 
 	public void c() {
 		if (owner != null) {
-			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
+			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 2);
 			this.navigation.a(pathEntity, speed);
 		}
 	}
