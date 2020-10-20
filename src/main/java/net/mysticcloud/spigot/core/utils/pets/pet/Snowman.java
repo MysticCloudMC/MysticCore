@@ -98,6 +98,7 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	public void movementTick() {
 		super.movementTick();
+		pf.setOwner(Bukkit.getPlayer(owner));
 		if (!this.world.isClientSide) {
 			int i = MathHelper.floor(locX());
 			int j = MathHelper.floor(locY());
