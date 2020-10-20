@@ -6,6 +6,6 @@ import org.bukkit.Location;
 
 public interface Pet {
 	
-	public void spawn(Location loc, UUID owner);
+	public void spawn(Location loc, String owner);
 
 }

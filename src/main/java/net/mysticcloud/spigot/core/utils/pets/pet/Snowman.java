@@ -4,15 +4,11 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R2.event.CraftEventFactory;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.AttributeProvider;
-import net.minecraft.server.v1_16_R2.BlockPosition;
-import net.minecraft.server.v1_16_R2.Blocks;
 import net.minecraft.server.v1_16_R2.DamageSource;
-import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityHuman;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
 import net.minecraft.server.v1_16_R2.EntityLiving;
@@ -23,9 +19,7 @@ import net.minecraft.server.v1_16_R2.EntitySnowman;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.EnumHand;
 import net.minecraft.server.v1_16_R2.EnumInteractionResult;
-import net.minecraft.server.v1_16_R2.GameRules;
 import net.minecraft.server.v1_16_R2.GenericAttributes;
-import net.minecraft.server.v1_16_R2.IBlockData;
 import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.Items;
 import net.minecraft.server.v1_16_R2.MathHelper;
@@ -34,13 +28,18 @@ import net.minecraft.server.v1_16_R2.SoundCategory;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
 import net.minecraft.server.v1_16_R2.World;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
 public class Snowman extends EntitySnowman implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
-	UUID owner;
+	String owner;
+	
+	String prefix = "&7";
+	String suffix = "Snowman";
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
 		this(world);
@@ -54,12 +53,13 @@ public class Snowman extends EntitySnowman implements Pet {
 		super(EntityTypes.SNOW_GOLEM, world);
 	}
 
-	public void spawn(Location loc, UUID owner) {
+	public void spawn(Location loc, String owner) {
 		this.owner = owner;
+		setBaby(true);
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-//		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.IRON_BOSS.getFormattedCallName()));
+		getBukkitEntity().setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
 		setCustomNameVisible(true);
 
 	}
