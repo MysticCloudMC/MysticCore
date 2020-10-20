@@ -38,8 +38,8 @@ public class Snowman extends EntitySnowman implements Pet {
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 	
-	String prefix = "&7";
-	String suffix = "Snowman";
+	String prefix = "&f";
+	String suffix = "&f&lSnowman";
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
 		this(world);

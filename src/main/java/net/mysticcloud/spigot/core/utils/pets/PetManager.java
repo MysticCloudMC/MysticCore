@@ -26,7 +26,7 @@ public class PetManager {
 		InventoryCreator inv = new InventoryCreator("&3&lPet GUI", null, 27);
 
 		inv.addItem(new ItemStack(Material.PUMPKIN), "&f&lSnowman Pet", 'A', new String[] {});
-		inv.addItem(new ItemStack(Material.SADDLE), "&5&lBaby Pig Pet", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.SADDLE), "&d&lBaby Pig Pet", 'B', new String[] {});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
