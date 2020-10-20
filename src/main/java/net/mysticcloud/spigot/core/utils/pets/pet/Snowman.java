@@ -1,6 +1,10 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
+import java.util.UUID;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_16_R2.event.CraftEventFactory;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
@@ -8,9 +12,9 @@ import net.minecraft.server.v1_16_R2.AttributeProvider;
 import net.minecraft.server.v1_16_R2.BlockPosition;
 import net.minecraft.server.v1_16_R2.Blocks;
 import net.minecraft.server.v1_16_R2.DamageSource;
+import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityHuman;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
-import net.minecraft.server.v1_16_R2.EntityIronGolem;
 import net.minecraft.server.v1_16_R2.EntityLiving;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
@@ -22,23 +26,21 @@ import net.minecraft.server.v1_16_R2.EnumInteractionResult;
 import net.minecraft.server.v1_16_R2.GameRules;
 import net.minecraft.server.v1_16_R2.GenericAttributes;
 import net.minecraft.server.v1_16_R2.IBlockData;
-import net.minecraft.server.v1_16_R2.IMonster;
 import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.Items;
 import net.minecraft.server.v1_16_R2.MathHelper;
 import net.minecraft.server.v1_16_R2.NBTTagCompound;
-import net.minecraft.server.v1_16_R2.PathfinderGoalArrowAttack;
-import net.minecraft.server.v1_16_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_16_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_16_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_16_R2.PathfinderGoalRandomStrollLand;
 import net.minecraft.server.v1_16_R2.SoundCategory;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
 import net.minecraft.server.v1_16_R2.World;
+import net.mysticcloud.spigot.core.utils.pathfindergoals.CustomPathfinderGoalFollowEntity;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
 public class Snowman extends EntitySnowman implements Pet {
+
+	CustomPathfinderGoalFollowEntity pf = new CustomPathfinderGoalFollowEntity(this, 1.5D, 20F, 10F);
+	UUID owner;
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
 		this(world);
@@ -52,8 +54,8 @@ public class Snowman extends EntitySnowman implements Pet {
 		super(EntityTypes.SNOW_GOLEM, world);
 	}
 
-	public void spawn(Location loc) {
-
+	public void spawn(Location loc, UUID owner) {
+		this.owner = owner;
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 //		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.IRON_BOSS.getFormattedCallName()));
@@ -62,12 +64,14 @@ public class Snowman extends EntitySnowman implements Pet {
 	}
 
 	protected void initPathfinder() {
-		this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 1.25D, 20, 10.0F));
-		this.goalSelector.a(2, new PathfinderGoalRandomStrollLand(this, 1.0D, 1.0000001E-5F));
-		this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
-		this.goalSelector.a(4, new PathfinderGoalRandomLookaround(this));
-		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityInsentient.class, 10, true,
-				false, entityliving -> entityliving instanceof IMonster));
+		this.goalSelector.a(1, pf);
+//		this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 1.25D, 20, 10.0F));
+//		this.goalSelector.a(2, new PathfinderGoalRandomStrollLand(this, 1.0D, 1.0000001E-5F));
+//		this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
+//		this.goalSelector.a(4, new PathfinderGoalRandomLookaround(this));
+//		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityInsentient.class, 10, true,
+//				false, entityliving -> entityliving instanceof IMonster));
+
 	}
 
 	public static AttributeProvider.Builder m() {
@@ -92,6 +96,10 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	public void movementTick() {
 		super.movementTick();
+		  Entity pett = ((CraftPlayer) Bukkit.getPlayer(owner)).getHandle();
+//          .getNavigation().a(2);
+          pf.c = ((EntityInsentient) pett);
+//		pf.c = ((CraftPlayer)Bukkit.getPlayer(owner)).getHandle().
 		if (!this.world.isClientSide) {
 			int i = MathHelper.floor(locX());
 			int j = MathHelper.floor(locY());
@@ -153,8 +161,6 @@ public class Snowman extends EntitySnowman implements Pet {
 	public boolean canShear() {
 		return (isAlive() && hasPumpkin());
 	}
-
-
 
 	protected SoundEffect getSoundAmbient() {
 		return SoundEffects.ENTITY_SNOW_GOLEM_AMBIENT;
