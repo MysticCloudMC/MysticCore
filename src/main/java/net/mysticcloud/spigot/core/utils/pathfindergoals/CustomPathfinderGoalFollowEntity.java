@@ -41,7 +41,8 @@ public class CustomPathfinderGoalFollowEntity extends PathfinderGoal {
 	}
 
 	public boolean a() {
-		return true;
+		return c != null;
+//		return true;
 	}
 
 	public boolean b() {
