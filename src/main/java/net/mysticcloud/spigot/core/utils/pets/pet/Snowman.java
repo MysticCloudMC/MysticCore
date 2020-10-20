@@ -96,6 +96,7 @@ public class Snowman extends EntitySnowman implements Pet {
 		return true;
 	}
 
+	@Override
 	public void movementTick() {
 		super.movementTick();
 		pf.setOwner(Bukkit.getPlayer(owner));
