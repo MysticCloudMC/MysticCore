@@ -14,6 +14,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
+import net.mysticcloud.spigot.core.utils.pets.pet.BabyPig;
 import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
@@ -144,7 +145,11 @@ public class PunishmentGUIListener implements Listener {
 			case PUMPKIN:
 				pet = new Snowman(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
 				break;
+			case SADDLE:
+				pet = new BabyPig(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
+				break;
 			}
+			
 			if(pet != null) {
 				PetManager.spawnPet(pet, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
 				e.getWhoClicked().closeInventory();
