@@ -19,7 +19,7 @@ public class PetCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		if(sender instanceof Player){
 			Pet snowman = new Snowman(((CraftWorld)((Player)sender).getWorld()).getHandle());
-			snowman.spawn(((Player)sender).getLocation());
+			snowman.spawn(((Player)sender).getLocation(), ((Player)sender).getUniqueId());
 ////			PetManager.spawnPet(((Player)sender), ((Player)sender).getLocation());
 ////			Minion minion = (Minion) CoreUtils.spawnEntity(new Minion(((CraftWorld)((Player)sender).getWorld()).getHandle()), ((Player)sender).getLocation());
 ////			minion.setOwner(((Player)sender).getName());
