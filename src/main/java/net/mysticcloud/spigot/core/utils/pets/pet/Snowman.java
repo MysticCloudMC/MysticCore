@@ -39,7 +39,7 @@ import net.mysticcloud.spigot.core.utils.pets.Pet;
 
 public class Snowman extends EntitySnowman implements Pet {
 
-	PathfinderGoalWalkToLoc pf = new PathfinderGoalWalkToLoc(this, 1.5D);
+	PathfinderGoalWalkToLoc pf;
 	UUID owner;
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
@@ -65,6 +65,7 @@ public class Snowman extends EntitySnowman implements Pet {
 	}
 
 	protected void initPathfinder() {
+		pf = new PathfinderGoalWalkToLoc(this, 1.5D);
 		this.goalSelector.a(1, pf);
 //		this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 1.25D, 20, 10.0F));
 //		this.goalSelector.a(2, new PathfinderGoalRandomStrollLand(this, 1.0D, 1.0000001E-5F));
