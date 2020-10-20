@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
@@ -63,7 +64,8 @@ public class PlayerListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {
 				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
-				e.getEntity().remove();
+//				e.getItem().teleport(new Location(e.getEntity().getWorld(),0,-1,0));
+				e.getItem().remove();
 				e.setCancelled(true);
 			}
 		}
