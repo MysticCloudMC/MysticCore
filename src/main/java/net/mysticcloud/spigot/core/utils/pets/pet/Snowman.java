@@ -34,12 +34,12 @@ import net.minecraft.server.v1_16_R2.SoundCategory;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
 import net.minecraft.server.v1_16_R2.World;
-import net.mysticcloud.spigot.core.utils.pathfindergoals.CustomPathfinderGoalFollowEntity;
+import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
 public class Snowman extends EntitySnowman implements Pet {
 
-	CustomPathfinderGoalFollowEntity pf = new CustomPathfinderGoalFollowEntity(this, 1.5D, 20F, 10F);
+	PathfinderGoalWalkToLoc pf = new PathfinderGoalWalkToLoc(this, 1.5D);
 	UUID owner;
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
@@ -56,6 +56,7 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	public void spawn(Location loc, UUID owner) {
 		this.owner = owner;
+		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 //		getBukkitEntity().setCustomName(CoreUtils.colorize("&e" + Bosses.IRON_BOSS.getFormattedCallName()));
@@ -96,10 +97,6 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	public void movementTick() {
 		super.movementTick();
-		  Entity pett = ((CraftPlayer) Bukkit.getPlayer(owner)).getHandle();
-//          .getNavigation().a(2);
-          pf.c = ((EntityInsentient) pett);
-//		pf.c = ((CraftPlayer)Bukkit.getPlayer(owner)).getHandle().
 		if (!this.world.isClientSide) {
 			int i = MathHelper.floor(locX());
 			int j = MathHelper.floor(locY());
