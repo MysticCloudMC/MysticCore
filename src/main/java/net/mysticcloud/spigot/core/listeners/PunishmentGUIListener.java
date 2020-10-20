@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.listeners;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +12,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.pets.Pet;
+import net.mysticcloud.spigot.core.utils.pets.PetManager;
+import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -129,6 +133,21 @@ public class PunishmentGUIListener implements Listener {
 				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
 						InfringementType.CHAT, InfringementSeverity.LOW, "Advertising. ");
 				break;
+			}
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
+			e.setCancelled(true);
+			Pet pet = null;
+			switch (e.getCurrentItem().getType()) {
+			default:
+				break;
+			case PUMPKIN:
+				pet = new Snowman(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
+				break;
+			}
+			if(pet != null) {
+				PetManager.spawnPet(pet, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
+				e.getWhoClicked().closeInventory();
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
