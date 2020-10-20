@@ -8,4 +8,6 @@ public interface Pet {
 	
 	public void spawn(Location loc, String owner);
 
+	public Location getLocation();
+
 }

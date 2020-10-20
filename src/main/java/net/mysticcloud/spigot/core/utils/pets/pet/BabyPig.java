@@ -110,4 +110,9 @@ public class BabyPig extends EntityPig implements Pet {
 		return SoundEffects.ENTITY_SNOW_GOLEM_DEATH;
 	}
 
+	@Override
+	public Location getLocation() {
+		return getBukkitEntity().getLocation();
+	}
+
 }

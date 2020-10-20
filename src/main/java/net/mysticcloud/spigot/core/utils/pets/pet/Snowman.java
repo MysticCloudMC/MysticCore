@@ -1,9 +1,10 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.craftbukkit.v1_16_R2.event.CraftEventFactory;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
@@ -28,8 +29,11 @@ import net.minecraft.server.v1_16_R2.SoundCategory;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
 import net.minecraft.server.v1_16_R2.World;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.runnables.PetParticles;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.entities.Bosses;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
@@ -40,17 +44,27 @@ public class Snowman extends EntitySnowman implements Pet {
 	
 	String prefix = "&f";
 	String suffix = "&f&lSnowman";
+	
+	ParticleFormat format = new RandomFormat();
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
 		this(world);
+		init();
 	}
 
 	public Snowman(EntityTypes<? extends EntitySnowman> entityType, World world) {
 		this(world);
+		init();
 	}
 
 	public Snowman(World world) {
 		super(EntityTypes.SNOW_GOLEM, world);
+		init();
+	}
+	
+	public void init() {
+		format.particle(Particle.REDSTONE);
+		format.setDustOptions(new DustOptions(Color.WHITE,1));
 	}
 
 	public void spawn(Location loc, String owner) {
@@ -61,7 +75,12 @@ public class Snowman extends EntitySnowman implements Pet {
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		getBukkitEntity().setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
 		setCustomNameVisible(true);
+		startParticles();
 
+	}
+	
+	public void startParticles() {
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this,0,format), 1);
 	}
 
 	protected void initPathfinder() {
@@ -95,6 +114,7 @@ public class Snowman extends EntitySnowman implements Pet {
 	public boolean dN() {
 		return true;
 	}
+	
 
 //	@Override
 //	public void movementTick() {
@@ -172,6 +192,11 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	protected SoundEffect getSoundDeath() {
 		return SoundEffects.ENTITY_SNOW_GOLEM_DEATH;
+	}
+
+	@Override
+	public Location getLocation() {
+		return getBukkitEntity().getLocation();
 	}
 
 }
