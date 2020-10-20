@@ -10,6 +10,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.AttributeProvider;
 import net.minecraft.server.v1_16_R2.DamageSource;
+import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityHuman;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
 import net.minecraft.server.v1_16_R2.EntityLiving;
@@ -63,8 +64,7 @@ public class Snowman extends EntitySnowman implements Pet {
 	}
 	
 	public void init() {
-		format.particle(Particle.REDSTONE);
-		format.setDustOptions(new DustOptions(Color.WHITE,1));
+		format.particle(Particle.WHITE_ASH);
 	}
 
 	public void spawn(Location loc, String owner) {
@@ -78,6 +78,7 @@ public class Snowman extends EntitySnowman implements Pet {
 		startParticles();
 
 	}
+	
 	
 	public void startParticles() {
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this,0,format), 1);
@@ -197,6 +198,11 @@ public class Snowman extends EntitySnowman implements Pet {
 	@Override
 	public Location getLocation() {
 		return getBukkitEntity().getLocation();
+	}
+
+	@Override
+	public Entity getEntity() {
+		return this;
 	}
 
 }

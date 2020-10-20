@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
+import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityPig;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
@@ -113,6 +114,11 @@ public class BabyPig extends EntityPig implements Pet {
 	@Override
 	public Location getLocation() {
 		return getBukkitEntity().getLocation();
+	}
+
+	@Override
+	public Entity getEntity() {
+		return this;
 	}
 
 }
