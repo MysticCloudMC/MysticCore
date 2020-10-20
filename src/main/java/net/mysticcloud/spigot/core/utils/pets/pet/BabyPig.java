@@ -21,8 +21,8 @@ public class BabyPig extends EntityPig implements Pet {
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 	
-	String prefix = "&5";
-	String suffix = "&5&lBaby Piggy";
+	String prefix = "&d";
+	String suffix = "&d&lBaby Piggy";
 
 	public BabyPig(World world, EntityTypes<? extends EntityPig> entityType) {
 		this(world);
