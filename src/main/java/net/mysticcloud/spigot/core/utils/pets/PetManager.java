@@ -34,7 +34,7 @@ public class PetManager {
 		inv.addItem(new ItemStack(Material.PUMPKIN), "&f&lSnowman Pet", 'A', new String[] {});
 		inv.addItem(new ItemStack(Material.SADDLE), "&d&lBaby Pig Pet", 'B', new String[] {});
 		inv.addItem(new ItemStack(Material.RED_MUSHROOM_BLOCK), "&c&lBaby Mooshroom Pet", 'C', new String[] {});
-		inv.addItem(new ItemStack(Material.RED_MUSHROOM_BLOCK), "&6&lBat Pet", 'D', new String[] {});
+		inv.addItem(new ItemStack(Material.BAT_SPAWN_EGG), "&6&lBat Pet", 'D', new String[] {});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
