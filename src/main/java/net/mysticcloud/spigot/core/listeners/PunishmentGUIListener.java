@@ -16,6 +16,7 @@ import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyMooshroom;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyPig;
+import net.mysticcloud.spigot.core.utils.pets.pet.Bat;
 import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
@@ -151,6 +152,9 @@ public class PunishmentGUIListener implements Listener {
 				break;
 			case RED_MUSHROOM_BLOCK:
 				pet = new BabyMooshroom(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
+				break;
+			case BAT_SPAWN_EGG:
+				pet = new Bat(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
 				break;
 			}
 			
