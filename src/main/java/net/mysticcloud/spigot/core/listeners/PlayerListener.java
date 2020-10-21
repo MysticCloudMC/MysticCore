@@ -224,7 +224,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
-		if(e.getRightClicked() instanceof Pet) {
+		if(e.getRightClicked().hasMetadata("pet")) {
 			Bukkit.broadcastMessage("Pet");
 		}
 		if (CoreUtils.debugOn()) {

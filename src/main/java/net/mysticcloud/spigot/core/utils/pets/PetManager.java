@@ -9,7 +9,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
+import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.InventoryCreator;
 
 public class PetManager {
@@ -18,6 +20,7 @@ public class PetManager {
 	
 	public static void spawnPet(Pet pet, Location loc, Player owner) {
 		pet.spawn(loc, owner.getName());
+		pet.getEntity().getBukkitEntity().setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), true));
 		pets.put(owner.getUniqueId(), pet);
 	}
 	
