@@ -40,7 +40,8 @@ public class PetManager {
 	public static Inventory generatePetGUI(Player player) {
 
 		InventoryCreator inv = new InventoryCreator("&e&lPets", (null), (((PetType.values().length / 9) + 1) * 9) + 9*2);
-		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'X', (String[]) null);
+		inv.addItem(new ItemStack(Material.YELLOW_STAINED_GLASS_PANE), "&eComing Soon", 'O', (String[]) null);
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&7Click an Option", 'X', (String[]) null);
 		ArrayList<Character> c = new ArrayList<Character>();
 		c.add('X');
 		c.add('X');
@@ -63,7 +64,7 @@ public class PetManager {
 				}
 				c.add((char) i);
 			} else {
-				c.add('X');
+				c.add('O');
 			}
 
 		}

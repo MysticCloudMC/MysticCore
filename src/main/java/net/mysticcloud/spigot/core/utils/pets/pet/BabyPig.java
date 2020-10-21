@@ -42,6 +42,7 @@ public class BabyPig extends EntityPig implements Pet {
 	public void spawn(Location loc, String owner) {
 		this.owner = owner;
 		setBaby(true);
+		setAge(-1);
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);

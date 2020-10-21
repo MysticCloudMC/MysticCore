@@ -15,7 +15,10 @@ public enum PetType {
 	SNOWMAN("&f&lSnowman",Material.PUMPKIN, new String[] {"&a&lHoliday &c&lExclusive"}),
 	BABY_PIG("&d&lBaby Pig", Material.PIG_SPAWN_EGG, new String[] {"&fRight click to ride!"}),
 	BABY_MOOSHROOM("&c&lBaby Mooshroom", Material.RED_MUSHROOM_BLOCK, new String[] {"&fRight click to ride!"}),
-	BAT("&6&lPet Bat", Material.BAT_SPAWN_EGG);
+	BAT("&6&lPet Bat", Material.BAT_SPAWN_EGG),
+	BABY_SHEEP("&f&lBaby Sheep", Material.WHITE_WOOL),
+	BABY_PANDA("&7&lBaby Panda",Material.BAMBOO);
+	
 	
 	String name;
 	Material gui;

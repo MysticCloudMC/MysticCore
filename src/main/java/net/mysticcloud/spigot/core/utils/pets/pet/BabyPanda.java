@@ -1,16 +1,14 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
-import net.minecraft.server.v1_16_R2.EntityMushroomCow;
-import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityPanda;
 import net.minecraft.server.v1_16_R2.EntityPose;
+import net.minecraft.server.v1_16_R2.EntitySheep;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
@@ -20,24 +18,24 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
-public class BabyMooshroom extends EntityMushroomCow implements Pet {
+public class BabyPanda extends EntityPanda implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 
-	String prefix = "&c";
-	String suffix = "&c&lBaby Mooshroom";
+	String prefix = "&f";
+	String suffix = "&f&lBaby Sheep";
 
-	public BabyMooshroom(World world, EntityTypes<? extends EntityMushroomCow> entityType) {
+	public BabyPanda(World world, EntityTypes<? extends EntityPanda> entityType) {
 		this(world);
 	}
 
-	public BabyMooshroom(EntityTypes<? extends EntityMushroomCow> entityType, World world) {
+	public BabyPanda(EntityTypes<? extends EntityPanda> entityType, World world) {
 		this(world);
 	}
 
-	public BabyMooshroom(World world) {
-		super(EntityTypes.MOOSHROOM, world);
+	public BabyPanda(World world) {
+		super(EntityTypes.PANDA, world);
 	}
 
 	public void spawn(Location loc, String owner) {

@@ -29,23 +29,20 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 		this.owner = owner;
 	}
 
+	//Should start
 	public boolean a() {
 		return true;
 	}
 
+	//Start tick
 	public void c() {
 		if (owner != null) {
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
 			this.navigation.a(pathEntity, speed);
 		}
 	}
-	public void d() {
-		if (owner != null) {
-			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
-			this.navigation.a(pathEntity, speed);
-		}
-	}
 	
+	//Movement Tick
 	public void e() {
 		if (owner != null) {
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
