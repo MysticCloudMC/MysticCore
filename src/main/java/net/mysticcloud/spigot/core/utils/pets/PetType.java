@@ -6,7 +6,9 @@ import net.md_5.bungee.api.ChatColor;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyMooshroom;
+import net.mysticcloud.spigot.core.utils.pets.pet.BabyPanda;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyPig;
+import net.mysticcloud.spigot.core.utils.pets.pet.BabySheep;
 import net.mysticcloud.spigot.core.utils.pets.pet.Bat;
 import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 
@@ -41,6 +43,8 @@ public enum PetType {
 		case BABY_PIG: return new BabyPig(world);
 		case BABY_MOOSHROOM: return new BabyMooshroom(world);
 		case BAT: return new Bat(world);
+		case BABY_SHEEP: return new BabySheep(world);
+		case BABY_PANDA: return new BabyPanda(world);
 		default: return null;
 		}
 	}
