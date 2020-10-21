@@ -33,13 +33,14 @@ public class PetManager {
 
 		inv.addItem(new ItemStack(Material.PUMPKIN), "&f&lSnowman Pet", 'A', new String[] {});
 		inv.addItem(new ItemStack(Material.SADDLE), "&d&lBaby Pig Pet", 'B', new String[] {});
+		inv.addItem(new ItemStack(Material.RED_MUSHROOM_BLOCK), "&c&lBaby Mooshroom Pet", 'C', new String[] {});
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
 		inv.setConfiguration(
 				new char[] { 
 						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-						'X', 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X',
+						'X', 'X', 'A', 'X', 'B', 'X', 'C', 'X', 'X',
 						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
