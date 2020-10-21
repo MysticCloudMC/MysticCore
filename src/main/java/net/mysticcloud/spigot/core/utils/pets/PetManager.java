@@ -1,18 +1,23 @@
 package net.mysticcloud.spigot.core.utils.pets;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class PetManager {
 	
@@ -26,24 +31,60 @@ public class PetManager {
 		pet.getEntity().getBukkitEntity().setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), true));
 		pets.put(owner.getUniqueId(), pet);
 	}
+	public static void spawnPet(PetType type, Location loc, Player owner) {
+		Pet pet = type.newPet(((CraftWorld)loc.getWorld()).getHandle());
+		if(pet != null)
+			spawnPet(pet,loc,owner);
+	}
 	
 	public static Inventory generatePetGUI(Player player) {
-		
-		InventoryCreator inv = new InventoryCreator("&3&lPet GUI", null, 27);
 
-		inv.addItem(new ItemStack(Material.PUMPKIN), "&f&lSnowman Pet", 'A', new String[] {});
-		inv.addItem(new ItemStack(Material.SADDLE), "&d&lBaby Pig Pet", 'B', new String[] {});
-		inv.addItem(new ItemStack(Material.RED_MUSHROOM_BLOCK), "&c&lBaby Mooshroom Pet", 'C', new String[] {});
-		inv.addItem(new ItemStack(Material.BAT_SPAWN_EGG), "&6&lBat Pet", 'D', new String[] {});
+		InventoryCreator inv = new InventoryCreator("&e&lPets", (null), (((PetType.values().length / 9) + 1) * 9) + 9);
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'X', (String[]) null);
+		ArrayList<Character> c = new ArrayList<Character>();
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		for (int i = 0; i != (((int) (PetType.values().length / 9)) + 2) * 9; i++) {
+			if (i < PetType.values().length) {
+				if (player.hasPermission("mysticcloud.pet."
+						+ ChatColor.stripColor(PetType.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
+					inv.addItem(new ItemStack(PetType.values()[i].getGUIMaterial()), PetType.values()[i].getName(),
+							(char) i, (String[]) null, false);
+				} else {
+					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), PetType.values()[i].getName(), (char) i,
+							new String[] { "&cLocked..." }, false);
+				}
+				c.add((char) i);
+			} else {
+				c.add('X');
+			}
 
-		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
+		}
 
-		inv.setConfiguration(
-				new char[] { 
-						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-						'X', 'A', 'X', 'B', 'X', 'C', 'X', 'D', 'X',
-						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+
+		inv.setConfiguration(c);
+		c.clear();
+		c = null;
+
 		return inv.getInventory();
+
 	}
 
 	public static Pet getPet(UUID uid) {

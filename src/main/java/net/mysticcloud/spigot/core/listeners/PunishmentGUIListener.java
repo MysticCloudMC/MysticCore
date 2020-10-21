@@ -9,11 +9,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import net.md_5.bungee.api.ChatColor;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
+import net.mysticcloud.spigot.core.utils.pets.PetType;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyMooshroom;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyPig;
 import net.mysticcloud.spigot.core.utils.pets.pet.Bat;
@@ -140,27 +142,11 @@ public class PunishmentGUIListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
 			e.setCancelled(true);
-			Pet pet = null;
-			switch (e.getCurrentItem().getType()) {
-			default:
-				break;
-			case PUMPKIN:
-				pet = new Snowman(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
-				break;
-			case SADDLE:
-				pet = new BabyPig(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
-				break;
-			case RED_MUSHROOM_BLOCK:
-				pet = new BabyMooshroom(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
-				break;
-			case BAT_SPAWN_EGG:
-				pet = new Bat(((CraftWorld)((Player)e.getWhoClicked()).getWorld()).getHandle());
-				break;
-			}
-			
-			if(pet != null) {
-				PetManager.spawnPet(pet, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
-				e.getWhoClicked().closeInventory();
+			for(PetType type : PetType.values()) {
+				if(e.getCurrentItem().getType().equals(type.getGUIMaterial()) && ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equals(type.getStrippedName())) {
+					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
+					e.getWhoClicked().closeInventory();
+				}
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
