@@ -39,7 +39,7 @@ public class PetManager {
 	
 	public static Inventory generatePetGUI(Player player) {
 
-		InventoryCreator inv = new InventoryCreator("&e&lPets", (null), (((PetType.values().length / 9) + 1) * 9) + 9);
+		InventoryCreator inv = new InventoryCreator("&e&lPets", (null), (((PetType.values().length / 9) + 1) * 9) + 9*2);
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'X', (String[]) null);
 		ArrayList<Character> c = new ArrayList<Character>();
 		c.add('X');
@@ -51,7 +51,7 @@ public class PetManager {
 		c.add('X');
 		c.add('X');
 		c.add('X');
-		for (int i = 0; i != (((int) (PetType.values().length / 9)) + 2) * 9; i++) {
+		for (int i = 0; i != (((int) (PetType.values().length / 9)) + 1) * 9; i++) {
 			if (i < PetType.values().length) {
 				if (player.hasPermission("mysticcloud.pet."
 						+ PetType.values()[i].getStrippedName().toLowerCase().replaceAll(" ", "_"))) {
@@ -80,8 +80,8 @@ public class PetManager {
 		c.add('X');
 
 		inv.setConfiguration(c);
-		c.clear();
-		c = null;
+//		c.clear();
+//		c = null;
 
 		return inv.getInventory();
 
