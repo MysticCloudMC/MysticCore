@@ -54,9 +54,9 @@ public class PetManager {
 		for (int i = 0; i != (((int) (PetType.values().length / 9)) + 2) * 9; i++) {
 			if (i < PetType.values().length) {
 				if (player.hasPermission("mysticcloud.pet."
-						+ ChatColor.stripColor(PetType.values()[i].name().toLowerCase().replaceAll(" ", "_")))) {
+						+ PetType.values()[i].getStrippedName().toLowerCase().replaceAll(" ", "_"))) {
 					inv.addItem(new ItemStack(PetType.values()[i].getGUIMaterial()), PetType.values()[i].getName(),
-							(char) i, (String[]) null, false);
+							(char) i, PetType.values()[i].getDescription(), false);
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), PetType.values()[i].getName(), (char) i,
 							new String[] { "&cLocked..." }, false);
