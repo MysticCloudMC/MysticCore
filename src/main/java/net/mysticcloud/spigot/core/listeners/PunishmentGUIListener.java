@@ -143,7 +143,7 @@ public class PunishmentGUIListener implements Listener {
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
 			e.setCancelled(true);
 			for(PetType type : PetType.values()) {
-				if(e.getCurrentItem().getType().equals(type.getGUIMaterial()) && ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equals(type.getStrippedName())) {
+				if(e.getCurrentItem().getType().equals(type.getGUIMaterial())) {
 					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
 					e.getWhoClicked().closeInventory();
 				}
