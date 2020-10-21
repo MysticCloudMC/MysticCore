@@ -19,6 +19,9 @@ public class PetManager {
 	static Map<UUID, Pet> pets = new HashMap<>();
 	
 	public static void spawnPet(Pet pet, Location loc, Player owner) {
+		if(pets.containsKey(owner.getUniqueId())) {
+			pets.get(owner.getUniqueId()).getEntity().getBukkitEntity().remove();
+		}
 		pet.spawn(loc, owner.getName());
 		pet.getEntity().getBukkitEntity().setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), true));
 		pets.put(owner.getUniqueId(), pet);
@@ -39,6 +42,10 @@ public class PetManager {
 						'X', 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X',
 						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
+	}
+
+	public static Pet getPet(UUID uid) {
+		return pets.get(uid);
 	}
 
 }

@@ -1,10 +1,10 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.craftbukkit.v1_16_R2.event.CraftEventFactory;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
@@ -208,6 +208,11 @@ public class Snowman extends EntitySnowman implements Pet {
 	@Override
 	public boolean isMountable() {
 		return false;
+	}
+
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 
 }

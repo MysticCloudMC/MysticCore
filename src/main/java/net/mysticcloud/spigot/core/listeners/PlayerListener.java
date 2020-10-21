@@ -45,6 +45,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
+import net.mysticcloud.spigot.core.utils.pets.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
@@ -225,7 +226,12 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
 		if(e.getRightClicked().hasMetadata("pet")) {
-			Bukkit.broadcastMessage("Pet");
+			Pet pet = PetManager.getPet(e.getPlayer().getUniqueId());
+			if(pet.isMountable() && pet.getOwner().equals(e.getPlayer().getName())) {
+				e.getRightClicked().addPassenger(e.getPlayer());
+			}
+			
+			
 		}
 		if (CoreUtils.debugOn()) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());

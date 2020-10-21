@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -21,7 +23,7 @@ public class BabyPig extends EntityPig implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
-	
+
 	String prefix = "&d";
 	String suffix = "&d&lBaby Piggy";
 
@@ -43,7 +45,8 @@ public class BabyPig extends EntityPig implements Pet {
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-		getBukkitEntity().setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
+		getBukkitEntity()
+				.setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
 		setCustomNameVisible(true);
 
 	}
@@ -59,10 +62,6 @@ public class BabyPig extends EntityPig implements Pet {
 //				false, entityliving -> entityliving instanceof IMonster));
 
 	}
-
-
-
-
 
 //	@Override
 //	public void movementTick() {
@@ -91,13 +90,9 @@ public class BabyPig extends EntityPig implements Pet {
 ////		}
 //	}
 
-
 	protected float b(EntityPose entitypose, EntitySize entitysize) {
 		return 1.7F;
 	}
-
-
-
 
 	protected SoundEffect getSoundAmbient() {
 		return SoundEffects.ENTITY_SNOW_GOLEM_AMBIENT;
@@ -125,6 +120,11 @@ public class BabyPig extends EntityPig implements Pet {
 	public boolean isMountable() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public String getOwner() {
+		return owner;
 	}
 
 }
