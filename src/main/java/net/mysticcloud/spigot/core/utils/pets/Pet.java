@@ -13,5 +13,7 @@ public interface Pet {
 	public Location getLocation();
 	
 	public Entity getEntity();
+	
+	public boolean isMountable();
 
 }

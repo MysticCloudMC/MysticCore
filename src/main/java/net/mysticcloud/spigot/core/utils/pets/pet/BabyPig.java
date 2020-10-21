@@ -121,4 +121,10 @@ public class BabyPig extends EntityPig implements Pet {
 		return this;
 	}
 
+	@Override
+	public boolean isMountable() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

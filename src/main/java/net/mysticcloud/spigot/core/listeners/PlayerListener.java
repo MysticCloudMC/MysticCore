@@ -12,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
@@ -45,6 +44,7 @@ import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
@@ -224,6 +224,9 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
+		if(e.getRightClicked() instanceof Pet) {
+			Bukkit.broadcastMessage("Pet");
+		}
 		if (CoreUtils.debugOn()) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");

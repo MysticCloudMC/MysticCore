@@ -205,4 +205,9 @@ public class Snowman extends EntitySnowman implements Pet {
 		return this;
 	}
 
+	@Override
+	public boolean isMountable() {
+		return false;
+	}
+
 }
