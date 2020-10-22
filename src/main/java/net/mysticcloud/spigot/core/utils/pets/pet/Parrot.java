@@ -1,7 +1,10 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Parrot.Variant;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
@@ -40,6 +43,7 @@ public class Parrot extends EntityParrot implements Pet {
 	public void spawn(Location loc, String owner) {
 		this.owner = owner;
 		setBaby(true);
+		((org.bukkit.entity.Parrot) getBukkitEntity()).setVariant(Variant.values()[new Random().nextInt(Variant.values().length)]);
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
