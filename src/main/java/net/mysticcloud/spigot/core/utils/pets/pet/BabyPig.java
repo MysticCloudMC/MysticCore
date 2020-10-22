@@ -1,9 +1,10 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
@@ -15,7 +16,11 @@ import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
 import net.minecraft.server.v1_16_R2.World;
+import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.runnables.PetParticles;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
@@ -26,6 +31,8 @@ public class BabyPig extends EntityPig implements Pet {
 
 	String prefix = "&d";
 	String suffix = "&d&lBaby Piggy";
+	
+	ParticleFormat format = new RandomFormat();
 
 	public BabyPig(World world, EntityTypes<? extends EntityPig> entityType) {
 		this(world);
@@ -43,13 +50,23 @@ public class BabyPig extends EntityPig implements Pet {
 		this.owner = owner;
 		setBaby(true);
 		setAge(-1);
+		format.particle(Particle.REDSTONE);
+		format.setHeight(1);
+		format.setParticleSize(0.3f);
+		format.setDustOptions(new DustOptions(Color.FUCHSIA,0.3f));
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		getBukkitEntity()
 				.setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
 		setCustomNameVisible(true);
+		startParticles();
 
+	}
+	
+	
+	public void startParticles() {
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this,0,format), 1);
 	}
 
 	protected void initPathfinder() {

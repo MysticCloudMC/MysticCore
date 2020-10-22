@@ -222,4 +222,8 @@ public class ParticleFormat {
 		return particleSize;
 	}
 
+	public void setParticleSize(float particleSize) {
+		this.particleSize = particleSize;
+	}
+
 }
