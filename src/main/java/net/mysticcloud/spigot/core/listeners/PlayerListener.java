@@ -231,7 +231,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
 		if(e.getRightClicked().hasMetadata("pet")) {
 			Pet pet = PetManager.getPet(e.getPlayer().getUniqueId());
-			if(pet.isMountable() && pet.getOwner().equals(e.getPlayer().getName())) {
+			if(pet.isMountable() && pet.getPetOwner().equals(e.getPlayer().getName())) {
 				e.getRightClicked().addPassenger(e.getPlayer());
 			}
 			
