@@ -15,7 +15,6 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 
 	private EntityInsentient entity;
 
-
 	private NavigationAbstract navigation;
 
 	LivingEntity owner;
@@ -30,32 +29,36 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 		this.owner = owner;
 	}
 
-	//Should start
+	// Should start
 	public boolean a() {
 		return true;
 	}
 
-	//Start tick
+	// Start tick
 	public void c() {
 		if (owner != null) {
-			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
+			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(),
+					owner.getLocation().getZ(), 20);
 			entity.a(PathType.WATER);
 			this.navigation.a(pathEntity, speed);
 		}
 	}
-	
-	//Movement Tick
+
+	// Movement Tick
 	public void e() {
 		if (owner != null) {
-			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
-			if(distance() > 20) {
+			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(),
+					owner.getLocation().getZ(), 1);
+			if (distance() > 20) {
 				entity.getBukkitEntity().teleport(owner);
 			}
-			this.navigation.a(pathEntity, speed);
+			if (distance() > 2)
+				this.navigation.a(pathEntity, speed);
 		}
 	}
-	
+
 	private double distance() {
-		return Math.sqrt(Math.pow(owner.getLocation().getX()-entity.locX(), 2) + Math.pow(owner.getLocation().getY()-entity.locY(), 2));
+		return Math.sqrt(Math.pow(owner.getLocation().getX() - entity.locX(), 2)
+				+ Math.pow(owner.getLocation().getY() - entity.locY(), 2));
 	}
 }
