@@ -51,7 +51,7 @@ public class BabyPig extends EntityPig implements Pet {
 		setBaby(true);
 		setAge(-1);
 		format.particle(Particle.REDSTONE);
-		format.setHeight(1);
+		format.setHeight(0.5);
 		format.setParticleSize(0.3f);
 		format.setDustOptions(new DustOptions(Color.FUCHSIA,0.3f));
 		pf.setOwner(Bukkit.getPlayer(owner));
