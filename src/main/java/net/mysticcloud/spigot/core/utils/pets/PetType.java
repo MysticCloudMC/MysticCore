@@ -16,11 +16,11 @@ import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 public enum PetType {
 	
 	SNOWMAN("&f&lSnowman",Material.PUMPKIN, new String[] {"&a&lHoliday &c&lExclusive"}),
-	BABY_PIG("&d&lBaby Pig", Material.PIG_SPAWN_EGG, new String[] {"&fRight click to ride!"}),
+	BABY_PIG("&d&lBaby Pig", Material.CARROT, new String[] {"&fRight click to ride!"}),
 	BABY_MOOSHROOM("&c&lBaby Mooshroom", Material.RED_MUSHROOM_BLOCK, new String[] {"&fRight click to ride!"}),
-	PARROT("&2&lPet Parrot", Material.CARROT),
+	PARROT("&2&lPet Parrot", Material.PARROT_SPAWN_EGG),
 	/*BABY_SHEEP("&f&lBaby Sheep", Material.WHITE_WOOL),*/
-	BABY_PANDA("&7&lBaby Panda",Material.BAMBOO),
+	BABY_PANDA("&7&lBaby Panda",Material.PANDA_SPAWN_EGG),
 	BABY_POLAR_BEAR("&f&lBaby Polar Bear",Material.SNOW_BLOCK),
 	BABY_RABBIT("&6&lBaby Rabbit",Material.RABBIT_SPAWN_EGG);
 	
