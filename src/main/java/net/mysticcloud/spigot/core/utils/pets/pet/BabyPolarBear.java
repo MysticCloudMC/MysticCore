@@ -1,13 +1,16 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
+import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
+import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityPolarBear;
 import net.minecraft.server.v1_16_R2.EntityPose;
-import net.minecraft.server.v1_16_R2.EntitySheep;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
@@ -17,24 +20,24 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
-public class BabySheep extends EntitySheep implements Pet {
+public class BabyPolarBear extends EntityPolarBear implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 
 	String prefix = "&f";
-	String suffix = "&f&lBaby Sheep";
+	String suffix = "&f&lBaby Polar Bear";
 
-	public BabySheep(World world, EntityTypes<? extends EntitySheep> entityType) {
+	public BabyPolarBear(World world, EntityTypes<? extends EntityPolarBear> entityType) {
 		this(world);
 	}
 
-	public BabySheep(EntityTypes<? extends EntitySheep> entityType, World world) {
+	public BabyPolarBear(EntityTypes<? extends EntityPolarBear> entityType, World world) {
 		this(world);
 	}
 
-	public BabySheep(World world) {
-		super(EntityTypes.SHEEP, world);
+	public BabyPolarBear(World world) {
+		super(EntityTypes.POLAR_BEAR, world);
 	}
 
 	public void spawn(Location loc, String owner) {
@@ -85,14 +88,6 @@ public class BabySheep extends EntitySheep implements Pet {
 ////						&& this.world.getBiome(blockposition).getAdjustedTemperature(blockposition) < 0.8F
 ////						&& iblockdata.canPlace(this.world, blockposition))
 ////					CraftEventFactory.handleBlockFormEvent(this.world, blockposition, iblockdata, this);
-	
-	
-	
-	//885 424 447#
-	
-	
-	
-	
 ////			}
 ////		}
 //	}

@@ -6,8 +6,9 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
+import net.minecraft.server.v1_16_R2.EntityPig;
 import net.minecraft.server.v1_16_R2.EntityPose;
-import net.minecraft.server.v1_16_R2.EntitySheep;
+import net.minecraft.server.v1_16_R2.EntityRabbit;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
@@ -17,24 +18,24 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
-public class BabySheep extends EntitySheep implements Pet {
+public class BabyRabbit extends EntityRabbit implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 
-	String prefix = "&f";
-	String suffix = "&f&lBaby Sheep";
+	String prefix = "&d";
+	String suffix = "&d&lBaby Piggy";
 
-	public BabySheep(World world, EntityTypes<? extends EntitySheep> entityType) {
+	public BabyRabbit(World world, EntityTypes<? extends EntityRabbit> entityType) {
 		this(world);
 	}
 
-	public BabySheep(EntityTypes<? extends EntitySheep> entityType, World world) {
+	public BabyRabbit(EntityTypes<? extends EntityRabbit> entityType, World world) {
 		this(world);
 	}
 
-	public BabySheep(World world) {
-		super(EntityTypes.SHEEP, world);
+	public BabyRabbit(World world) {
+		super(EntityTypes.RABBIT, world);
 	}
 
 	public void spawn(Location loc, String owner) {
@@ -50,7 +51,8 @@ public class BabySheep extends EntitySheep implements Pet {
 
 	}
 
-	protected void initPathfinder() {
+	@Override
+	public void initPathfinder() {
 		pf = new PathfinderGoalWalkToLoc(this, 1.5D);
 		this.goalSelector.a(1, pf);
 //		this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 1.25D, 20, 10.0F));
@@ -85,14 +87,6 @@ public class BabySheep extends EntitySheep implements Pet {
 ////						&& this.world.getBiome(blockposition).getAdjustedTemperature(blockposition) < 0.8F
 ////						&& iblockdata.canPlace(this.world, blockposition))
 ////					CraftEventFactory.handleBlockFormEvent(this.world, blockposition, iblockdata, this);
-	
-	
-	
-	//885 424 447#
-	
-	
-	
-	
 ////			}
 ////		}
 //	}
