@@ -7,6 +7,7 @@ import org.bukkit.entity.LivingEntity;
 import net.minecraft.server.v1_16_R2.EntityInsentient;
 import net.minecraft.server.v1_16_R2.NavigationAbstract;
 import net.minecraft.server.v1_16_R2.PathEntity;
+import net.minecraft.server.v1_16_R2.PathType;
 import net.minecraft.server.v1_16_R2.PathfinderGoal;
 
 public class PathfinderGoalWalkToLoc extends PathfinderGoal {
@@ -38,6 +39,7 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 	public void c() {
 		if (owner != null) {
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 20);
+			entity.a(PathType.WATER);
 			this.navigation.a(pathEntity, speed);
 		}
 	}
@@ -46,6 +48,7 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 	public void e() {
 		if (owner != null) {
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
+			entity.a(PathType.WATER);
 			this.navigation.a(pathEntity, speed);
 		}
 	}

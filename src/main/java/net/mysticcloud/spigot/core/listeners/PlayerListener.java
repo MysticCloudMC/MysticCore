@@ -140,6 +140,10 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+		if(e.getEntity().hasMetadata("pet")) {
+			e.setCancelled(true);
+			return;
+		}
 		if (e.getDamager() instanceof Snowball && e.getEntity() instanceof Player) {
 			if (e.getDamager().hasMetadata("doesDamage")) {
 				e.setDamage(2);
