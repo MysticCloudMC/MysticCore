@@ -10,6 +10,7 @@ import net.mysticcloud.spigot.core.utils.pets.pet.BabyPanda;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyPig;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyPolarBear;
 import net.mysticcloud.spigot.core.utils.pets.pet.BabyRabbit;
+import net.mysticcloud.spigot.core.utils.pets.pet.Parrot;
 import net.mysticcloud.spigot.core.utils.pets.pet.Snowman;
 
 public enum PetType {
@@ -17,8 +18,8 @@ public enum PetType {
 	SNOWMAN("&f&lSnowman",Material.PUMPKIN, new String[] {"&a&lHoliday &c&lExclusive"}),
 	BABY_PIG("&d&lBaby Pig", Material.PIG_SPAWN_EGG, new String[] {"&fRight click to ride!"}),
 	BABY_MOOSHROOM("&c&lBaby Mooshroom", Material.RED_MUSHROOM_BLOCK, new String[] {"&fRight click to ride!"}),
-	/*BAT("&6&lPet Bat", Material.BAT_SPAWN_EGG),
-	BABY_SHEEP("&f&lBaby Sheep", Material.WHITE_WOOL),*/
+	PARROT("&2&lPet Parrot", Material.CARROT),
+	/*BABY_SHEEP("&f&lBaby Sheep", Material.WHITE_WOOL),*/
 	BABY_PANDA("&7&lBaby Panda",Material.BAMBOO),
 	BABY_POLAR_BEAR("&f&lBaby Polar Bear",Material.SNOW_BLOCK),
 	BABY_RABBIT("&6&lBaby Rabbit",Material.RABBIT_SPAWN_EGG);
@@ -47,7 +48,7 @@ public enum PetType {
 		case BABY_PANDA: return new BabyPanda(world);
 		case BABY_POLAR_BEAR: return new BabyPolarBear(world);
 		case BABY_RABBIT: return new BabyRabbit(world);
-		//case BAT: return new Bat(world);
+		case PARROT: return new Parrot(world);
 		//case BABY_SHEEP: return new BabySheep(world);
 		default: return null;
 		}

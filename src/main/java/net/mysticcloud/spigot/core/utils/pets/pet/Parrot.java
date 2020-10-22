@@ -6,8 +6,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
-import net.minecraft.server.v1_16_R2.EntityBat;
-import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityParrot;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
@@ -18,24 +17,24 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 
-public class Bat extends EntityBat implements Pet {
+public class Parrot extends EntityParrot implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 
-	String prefix = "&d";
-	String suffix = "&d&lBaby Piggy";
+	String prefix = "&2";
+	String suffix = "&2&lParrot";
 
-	public Bat(World world, EntityTypes<? extends EntityBat> entityType) {
+	public Parrot(World world, EntityTypes<? extends EntityParrot> entityType) {
 		this(world);
 	}
 
-	public Bat(EntityTypes<? extends EntityBat> entityType, World world) {
+	public Parrot(EntityTypes<? extends EntityParrot> entityType, World world) {
 		this(world);
 	}
 
-	public Bat(World world) {
-		super(EntityTypes.BAT, world);
+	public Parrot(World world) {
+		super(EntityTypes.PARROT, world);
 	}
 
 	public void spawn(Location loc, String owner) {
@@ -49,7 +48,7 @@ public class Bat extends EntityBat implements Pet {
 		setCustomNameVisible(true);
 
 	}
-
+	
 	protected void initPathfinder() {
 		pf = new PathfinderGoalWalkToLoc(this, 1.5D);
 		this.goalSelector.a(1, pf);
@@ -93,7 +92,6 @@ public class Bat extends EntityBat implements Pet {
 		return 1.7F;
 	}
 
-
 	protected SoundEffect getSoundHurt(DamageSource damagesource) {
 		return SoundEffects.ENTITY_SNOW_GOLEM_HURT;
 	}
@@ -119,7 +117,7 @@ public class Bat extends EntityBat implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 

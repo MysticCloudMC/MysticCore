@@ -48,8 +48,14 @@ public class PathfinderGoalWalkToLoc extends PathfinderGoal {
 	public void e() {
 		if (owner != null) {
 			PathEntity pathEntity = this.navigation.a(owner.getLocation().getX(), owner.getLocation().getY(), owner.getLocation().getZ(), 1);
-			entity.a(PathType.WATER);
+			if(distance() > 20) {
+				entity.getBukkitEntity().teleport(owner);
+			}
 			this.navigation.a(pathEntity, speed);
 		}
+	}
+	
+	private double distance() {
+		return Math.sqrt(Math.pow(owner.getLocation().getX()-entity.locX(), 2) + Math.pow(owner.getLocation().getY()-entity.locY(), 2));
 	}
 }

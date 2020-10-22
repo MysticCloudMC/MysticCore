@@ -125,7 +125,7 @@ public class BabyPolarBear extends EntityPolarBear implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 

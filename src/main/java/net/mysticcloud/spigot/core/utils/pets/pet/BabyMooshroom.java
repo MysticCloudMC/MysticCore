@@ -125,7 +125,7 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 

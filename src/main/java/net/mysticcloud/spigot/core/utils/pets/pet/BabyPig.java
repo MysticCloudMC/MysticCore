@@ -124,7 +124,7 @@ public class BabyPig extends EntityPig implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 

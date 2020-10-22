@@ -16,6 +16,6 @@ public interface Pet {
 	
 	public boolean isMountable();
 
-	public String getOwner();
+	public String getPetOwner();
 
 }

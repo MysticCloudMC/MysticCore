@@ -23,8 +23,8 @@ public class BabyRabbit extends EntityRabbit implements Pet {
 	PathfinderGoalWalkToLoc pf;
 	String owner;
 
-	String prefix = "&d";
-	String suffix = "&d&lBaby Piggy";
+	String prefix = "&6";
+	String suffix = "&6&lBaby Bunny";
 
 	public BabyRabbit(World world, EntityTypes<? extends EntityRabbit> entityType) {
 		this(world);
@@ -124,7 +124,7 @@ public class BabyRabbit extends EntityRabbit implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 

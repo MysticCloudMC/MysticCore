@@ -211,7 +211,7 @@ public class Snowman extends EntitySnowman implements Pet {
 	}
 
 	@Override
-	public String getOwner() {
+	public String getPetOwner() {
 		return owner;
 	}
 
