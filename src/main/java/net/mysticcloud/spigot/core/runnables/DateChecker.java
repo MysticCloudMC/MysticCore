@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
@@ -34,7 +33,8 @@ public class DateChecker implements Runnable {
 	public void run() {
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
-				if(!entry.getValue().populated()) continue;
+				if (!entry.getValue().populated())
+					continue;
 				if (entry.getValue().getEventCheck().check()) {
 					entry.getValue().end();
 					EventUtils.addRemoveEvent(entry.getKey());
@@ -70,51 +70,68 @@ public class DateChecker implements Runnable {
 				}
 			}
 
-			CoreUtils.setHoliday(Holiday.NONE);
+			boolean holiday = false;
 
 			if (CoreUtils.getMonth() == Calendar.JANUARY) {
-				if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 16)
+				if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 16) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.NEW_YEARS);
+				}
 
 			}
 
 			if (CoreUtils.getMonth() == Calendar.FEBRUARY) {
-				if (CoreUtils.getDay() == 13 || CoreUtils.getDay() == 14)
+				if (CoreUtils.getDay() == 13 || CoreUtils.getDay() == 14) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.VALENTINES);
+				}
 			}
 
 			if (CoreUtils.getMonth() == Calendar.MARCH) {
-				if (CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20)
+				if (CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.ST_PATRICKS);
+				}
 
 			}
 			if (CoreUtils.getMonth() == Calendar.MAY) {
-				if (CoreUtils.getDay() == 5)
+				if (CoreUtils.getDay() == 5) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
+				}
 				if (CoreUtils.getDay() >= 22 && CoreUtils.getDay() <= 24) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.MEMORIAL_DAY);
 				}
 
 			}
 			if (CoreUtils.getMonth() == Calendar.JULY) {
-				if (CoreUtils.getDay() == 31)
+				if (CoreUtils.getDay() == 31) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.AVACADO_DAY);
+				}
 
 			}
 
 			if (CoreUtils.getMonth() == Calendar.OCTOBER) {
-				if (CoreUtils.getDay() >= 20)
+				if (CoreUtils.getDay() >= 20) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.HALLOWEEN);
+				}
 
 			}
 //		if (CoreUtils.getMonth() == Calendar.NOVEMBER) {
 //		}
 			if (CoreUtils.getMonth() == Calendar.DECEMBER) {
-				if (CoreUtils.getDay() <= 26)
+				if (CoreUtils.getDay() <= 26) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.CHRISTMAS);
+				}
 
-				if (CoreUtils.getDay() >= 27)
+				if (CoreUtils.getDay() >= 27) {
+					holiday = true;
 					CoreUtils.setHoliday(Holiday.NEW_YEARS);
+				}
 //
 //			
 			}
@@ -127,14 +144,15 @@ public class DateChecker implements Runnable {
 
 //		CoreUtils.updateDate();
 
-			if (CoreUtils.getHoliday() != Holiday.NONE)
+			if (holiday)
 				Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
+			else CoreUtils.setHoliday(Holiday.NONE);
 		} catch (Exception ex) {
 			CoreUtils.debug("There was an error!");
 			ex.printStackTrace();
 		}
 
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
 	}
 
 }
