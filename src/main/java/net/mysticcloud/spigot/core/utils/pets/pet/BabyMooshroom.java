@@ -70,7 +70,7 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 		super.movementTick();
 		if(!getPassengers().isEmpty()) {
 			for(Entity e : passengers) {
-				Bukkit.broadcastMessage(e.getName());
+				Bukkit.broadcastMessage(e.getClass() + "");
 			}
 		}
 	}
