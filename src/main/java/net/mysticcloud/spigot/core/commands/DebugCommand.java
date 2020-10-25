@@ -15,6 +15,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
+import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class DebugCommand implements CommandExecutor {
@@ -106,7 +107,10 @@ public class DebugCommand implements CommandExecutor {
 						sender.spigot().sendMessage(builder.create());
 					}
 					if (args[0].equalsIgnoreCase("time")) {
-						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.getMonth() + "/" + CoreUtils.getDay() + " " + CoreUtils.getTime()));
+						sender.sendMessage(CoreUtils
+								.colorize(CoreUtils.prefixes("debug") + CoreUtils.getMonth() + "/" + CoreUtils.getDay()
+										+ " " + CoreUtils.getTime() + (CoreUtils.getHoliday().equals(Holiday.NONE) ? ""
+												: CoreUtils.getHoliday().getName())));
 
 					}
 				}

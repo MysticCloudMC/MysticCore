@@ -66,7 +66,6 @@ public class CoreUtils {
 	static IDatabase wbconn;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
-	private static Date date = new Date();
 	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
 	public static Map<UUID, Boolean> sidebars = new HashMap<>();
 
@@ -595,8 +594,8 @@ public class CoreUtils {
 	@SuppressWarnings("deprecation")
 	public static String getTime() {
 
-		String min = date.getMinutes() + "";
-		String hr = date.getHours() + "";
+		String min = new Date().getMinutes() + "";
+		String hr = new Date().getHours() + "";
 		if (min.length() == 1)
 			min = "0" + min;
 		if (Integer.parseInt(hr) > 12) {
@@ -716,11 +715,6 @@ public class CoreUtils {
 		return s;
 	}
 
-	public static void updateDate() {
-
-		date = new Date();
-	}
-
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
@@ -742,7 +736,7 @@ public class CoreUtils {
 	}
 
 	public static Date getDate() {
-		return date;
+		return new Date();
 	}
 
 	public static List<String> colorizeStringList(List<String> stringList) {

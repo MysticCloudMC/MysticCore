@@ -189,7 +189,6 @@ public class PlayerListener implements Listener {
 
 		CoreUtils.enableScoreboard(e.getPlayer());
 
-		CoreUtils.updateDate();
 
 
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
