@@ -106,7 +106,7 @@ public class DebugCommand implements CommandExecutor {
 						sender.spigot().sendMessage(builder.create());
 					}
 					if (args[0].equalsIgnoreCase("time")) {
-						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.getTime()));
+						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.getMonth() + "/" + CoreUtils.getDay() + " " + CoreUtils.getTime()));
 
 					}
 				}
