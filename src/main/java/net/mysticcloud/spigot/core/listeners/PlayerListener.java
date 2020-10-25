@@ -104,6 +104,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), false);
 		CoreUtils.saveMysticPlayer(e.getPlayer());
+		PetManager.removePets(e.getPlayer());
 	}
 
 	// @EventHandler

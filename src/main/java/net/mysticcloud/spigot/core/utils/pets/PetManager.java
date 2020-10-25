@@ -91,5 +91,12 @@ public class PetManager {
 	public static Pet getPet(UUID uid) {
 		return pets.get(uid);
 	}
+	public static void removePets(Player player) {
+//		for(Pet pet : pets.get(player.getUniqueId())) {
+//			pet.getEntity().getBukkitEntity().remove();
+//		}
+		pets.get(player.getUniqueId()).getEntity().getBukkitEntity().remove();
+		pets.remove(player.getUniqueId());
+	}
 
 }
