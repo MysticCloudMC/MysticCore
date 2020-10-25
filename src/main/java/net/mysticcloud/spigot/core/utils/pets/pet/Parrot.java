@@ -10,11 +10,13 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityParrot;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
+import net.minecraft.server.v1_16_R2.Vec3D;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
@@ -27,6 +29,8 @@ public class Parrot extends EntityParrot implements Pet {
 
 	String prefix = "&2";
 	String suffix = "&2&lParrot";
+	
+	double speedMod = 10;
 
 	public Parrot(World world, EntityTypes<? extends EntityParrot> entityType) {
 		this(world);
@@ -63,6 +67,21 @@ public class Parrot extends EntityParrot implements Pet {
 //		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityInsentient.class, 10, true,
 //				false, entityliving -> entityliving instanceof IMonster));
 
+	}
+	
+	@Override
+	public void movementTick() {
+		super.movementTick();
+		if(!getPassengers().isEmpty()) {
+			for(Entity e : passengers) {
+				if(e instanceof EntityPlayer) {
+					Vec3D vec = e.getLookDirection();
+					yaw = e.yaw;
+					setMot(new Vec3D(vec.x/speedMod, vec.y/speedMod, vec.z/speedMod));
+					break;
+				}
+			}
+		}
 	}
 
 //	@Override
