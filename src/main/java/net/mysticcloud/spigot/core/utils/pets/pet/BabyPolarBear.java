@@ -9,12 +9,15 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.EntityPolarBear;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
+import net.minecraft.server.v1_16_R2.Material;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
+import net.minecraft.server.v1_16_R2.Vec3D;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
@@ -27,6 +30,8 @@ public class BabyPolarBear extends EntityPolarBear implements Pet {
 
 	String prefix = "&f";
 	String suffix = "&f&lBaby Polar Bear";
+
+	double speedMod = 10;
 
 	public BabyPolarBear(World world, EntityTypes<? extends EntityPolarBear> entityType) {
 		this(world);
@@ -63,6 +68,25 @@ public class BabyPolarBear extends EntityPolarBear implements Pet {
 //		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityInsentient.class, 10, true,
 //				false, entityliving -> entityliving instanceof IMonster));
 
+	}
+
+	@Override
+	public void movementTick() {
+		super.movementTick();
+		if (!getPassengers().isEmpty()) {
+			for (Entity e : passengers) {
+				if (e instanceof EntityPlayer) {
+//					((EntityPlayer)e).
+					Vec3D vec = e.getLookDirection();
+					yaw = e.yaw;
+					setMot(new Vec3D(vec.x / speedMod, 0, vec.z / speedMod));
+					if (!e.getBukkitEntity().getLocation().add(vec.x, 0, vec.z).getBlock().getType()
+							.equals(org.bukkit.Material.AIR) && onGround)
+						jump();
+						break;
+				}
+			}
+		}
 	}
 
 //	@Override

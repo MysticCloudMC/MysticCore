@@ -10,11 +10,13 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
+import net.minecraft.server.v1_16_R2.Vec3D;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.PetParticles;
@@ -31,6 +33,9 @@ public class BabyPig extends EntityPig implements Pet {
 
 	String prefix = "&d";
 	String suffix = "&d&lBaby Piggy";
+	
+	
+	double speedMod = 10;
 	
 	ParticleFormat format = new RandomFormat();
 
@@ -107,6 +112,21 @@ public class BabyPig extends EntityPig implements Pet {
 ////			}
 ////		}
 //	}
+	
+	@Override
+	public void movementTick() {
+		super.movementTick();
+		if(!getPassengers().isEmpty()) {
+			for(Entity e : passengers) {
+				if(e instanceof EntityPlayer) {
+					Vec3D vec = e.getLookDirection();
+					yaw = e.yaw;
+					setMot(new Vec3D(vec.x/speedMod, 0, vec.z/speedMod));
+					break;
+				}
+			}
+		}
+	}
 
 	protected float b(EntityPose entitypose, EntitySize entitysize) {
 		return 1.7F;

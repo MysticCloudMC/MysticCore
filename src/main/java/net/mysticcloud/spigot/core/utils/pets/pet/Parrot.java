@@ -30,7 +30,7 @@ public class Parrot extends EntityParrot implements Pet {
 	String prefix = "&2";
 	String suffix = "&2&lParrot";
 	
-	double speedMod = 10;
+	double speedMod = 8.5;
 
 	public Parrot(World world, EntityTypes<? extends EntityParrot> entityType) {
 		this(world);

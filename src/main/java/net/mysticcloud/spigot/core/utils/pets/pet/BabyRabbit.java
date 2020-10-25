@@ -120,7 +120,7 @@ public class BabyRabbit extends EntityRabbit implements Pet {
 	@Override
 	public boolean isMountable() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override

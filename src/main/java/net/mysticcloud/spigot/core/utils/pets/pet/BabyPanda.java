@@ -119,7 +119,7 @@ public class BabyPanda extends EntityPanda implements Pet {
 	@Override
 	public boolean isMountable() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
