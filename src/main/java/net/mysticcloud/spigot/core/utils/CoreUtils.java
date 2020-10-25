@@ -81,7 +81,6 @@ public class CoreUtils {
 
 	private static Map<String, String> prefixes = new HashMap<>();
 
-	private static boolean debug = false;
 	private static Location spawn = null;
 
 	private static Map<String, String> playerlist = new HashMap<>();
@@ -852,16 +851,14 @@ public class CoreUtils {
 	}
 
 	public static boolean debugOn() {
-		return debug;
+		return true;
 	}
 
 	public static boolean toggleDebug() {
-		debug = !debug;
-		return debug;
+		return true;
 	}
 
 	public static void setDebug(boolean status) {
-		debug = status;
 	}
 
 	public static void debug(Object obj) {
@@ -869,13 +866,16 @@ public class CoreUtils {
 	}
 
 	public static void debug(String message) {
-		if (debug)
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (player.hasPermission("mysticcloud.admin")) {
-					player.sendMessage(colorize(prefixes("debug") + message));
-				}
-			}
-		Bukkit.getConsoleSender().sendMessage(colorize(prefixes("debug") + message));
+		
+		DebugUtils.debug(message);
+		
+//		if (debug)
+//			for (Player player : Bukkit.getOnlinePlayers()) {
+//				if (player.hasPermission("mysticcloud.admin")) {
+//					player.sendMessage(colorize(prefixes("debug") + message));
+//				}
+//			}
+//		Bukkit.getConsoleSender().sendMessage(colorize(prefixes("debug") + message));
 	}
 
 	@SuppressWarnings("deprecation")
