@@ -1,7 +1,5 @@
 package net.mysticcloud.spigot.core.utils.pets.pet;
 
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -9,12 +7,13 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.Entity;
 import net.minecraft.server.v1_16_R2.EntityMushroomCow;
-import net.minecraft.server.v1_16_R2.EntityPig;
+import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.EntityPose;
 import net.minecraft.server.v1_16_R2.EntitySize;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.SoundEffect;
 import net.minecraft.server.v1_16_R2.SoundEffects;
+import net.minecraft.server.v1_16_R2.Vec3D;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
@@ -70,7 +69,11 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 		super.movementTick();
 		if(!getPassengers().isEmpty()) {
 			for(Entity e : passengers) {
-				Bukkit.broadcastMessage(e.getClass() + "");
+				if(e instanceof EntityPlayer) {
+					Vec3D vec = e.getLookDirection();
+					
+					setMot(new Vec3D(vec.x, 0, vec.z));
+				}
 			}
 		}
 	}
