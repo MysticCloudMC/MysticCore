@@ -135,10 +135,7 @@ public class DateChecker implements Runnable {
 			ex.printStackTrace();
 		}
 
-		if (!CoreUtils.debugOn())
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
-		else
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 10);
 	}
 
 }

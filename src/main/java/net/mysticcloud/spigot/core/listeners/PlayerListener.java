@@ -37,6 +37,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
@@ -190,11 +191,6 @@ public class PlayerListener implements Listener {
 
 		CoreUtils.updateDate();
 
-		if (CoreUtils.debugOn()) {
-			if (e.getPlayer().getName().equals("QuickScythe")) {
-				e.getPlayer().getInventory().clear();
-			}
-		}
 
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
@@ -238,7 +234,7 @@ public class PlayerListener implements Listener {
 			
 			
 		}
-		if (CoreUtils.debugOn()) {
+		if (DebugUtils.isDebugger(e.getPlayer().getUniqueId())) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");
 		}

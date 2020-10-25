@@ -850,16 +850,8 @@ public class CoreUtils {
 		return "";
 	}
 
-	public static boolean debugOn() {
-		return true;
-	}
 
-	public static boolean toggleDebug() {
-		return true;
-	}
 
-	public static void setDebug(boolean status) {
-	}
 
 	public static void debug(Object obj) {
 		debug(obj + "");

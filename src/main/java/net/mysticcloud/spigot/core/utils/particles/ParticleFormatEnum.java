@@ -2,8 +2,9 @@ package net.mysticcloud.spigot.core.utils.particles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.AtomicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;
@@ -24,23 +25,10 @@ import net.mysticcloud.spigot.core.utils.particles.formats.WingsFormat;
 
 public enum ParticleFormatEnum {
 
-	CIRCLE_HEAD("Circle Head"),
-	CIRCLE_FEET("Circle Feet"),
-	HALO("Halo"),
-	HAT("Hat"),
-	HELIX("Helix"),
-	DOUBLE_HELIX("Double Helix"),
-	RANDOM("Random"),
-	CAPE("Cape"), 
-	POPPER("Popper", false),
-	RAINBOW("Rainbow"), 
-	LILY_PAD("Lily Pad"),
-	RAIN_CLOUD("Rain Cloud"),
-	ATOMIC("Atomic"),
-	SELECTOR("Selector"),
-	GEMS("Gems"),
-	ANGELIC("Angelic", true),
-	WINGS("Wings", false);
+	CIRCLE_HEAD("Circle Head"), CIRCLE_FEET("Circle Feet"), HALO("Halo"), HAT("Hat"), HELIX("Helix"),
+	DOUBLE_HELIX("Double Helix"), RANDOM("Random"), CAPE("Cape"), POPPER("Popper", false), RAINBOW("Rainbow"),
+	LILY_PAD("Lily Pad"), RAIN_CLOUD("Rain Cloud"), ATOMIC("Atomic"), SELECTOR("Selector"), GEMS("Gems"),
+	ANGELIC("Angelic", true), WINGS("Wings", false);
 
 	String name;
 	boolean avalible = true;
@@ -51,23 +39,29 @@ public enum ParticleFormatEnum {
 		this.name = name;
 		formatter = formatter();
 	}
-	
+
 	ParticleFormatEnum(String name, boolean avalible) {
 		this.name = name;
 		this.avalible = avalible;
 		formatter = formatter();
 	}
-	
-	public static List<ParticleFormatEnum> getAvalibleFormats() {
+
+	public static List<ParticleFormatEnum> getAvalibleFormats(UUID uid) {
 		List<ParticleFormatEnum> formats = new ArrayList<>();
-		for(ParticleFormatEnum format : ParticleFormatEnum.values()) {
-			if(format.isAvalible() || CoreUtils.debugOn()) {
+		for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
+			if (format.isAvalible()) {
 				formats.add(format);
+			} else {
+				if (uid != null) {
+					if (DebugUtils.isDebugger(uid)) {
+						formats.add(format);
+					}
+				}
 			}
 		}
 		return formats;
 	}
-	
+
 	public boolean isAvalible() {
 		return avalible;
 	}
