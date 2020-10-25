@@ -70,6 +70,7 @@ public class DateChecker implements Runnable {
 					}
 				}
 			}
+			CoreUtils.updateDate();
 
 			CoreUtils.setHoliday(Holiday.NONE);
 
