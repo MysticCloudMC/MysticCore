@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -236,6 +237,14 @@ public class PlayerListener implements Listener {
 		if (DebugUtils.isDebugger(e.getPlayer().getUniqueId())) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");
+		}
+	}
+	
+	@EventHandler
+	public void onEntityDamage(EntityDamageEvent e) {
+		if(e.getEntity().hasMetadata("pet")) {
+			e.setCancelled(true);
+			return;
 		}
 	}
 
