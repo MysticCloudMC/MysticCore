@@ -64,6 +64,16 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 //				false, entityliving -> entityliving instanceof IMonster));
 
 	}
+	
+	@Override
+	public void movementTick() {
+		super.movementTick();
+		if(!getPassengers().isEmpty()) {
+			for(Entity e : passengers) {
+				Bukkit.broadcastMessage(e.getName());
+			}
+		}
+	}
 
 //	@Override
 //	public void movementTick() {
