@@ -26,6 +26,8 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 
 	String prefix = "&c";
 	String suffix = "&c&lBaby Mooshroom";
+	
+	double speedMod = 10D;
 
 	public BabyMooshroom(World world, EntityTypes<? extends EntityMushroomCow> entityType) {
 		this(world);
@@ -71,8 +73,9 @@ public class BabyMooshroom extends EntityMushroomCow implements Pet {
 			for(Entity e : passengers) {
 				if(e instanceof EntityPlayer) {
 					Vec3D vec = e.getLookDirection();
-					
-					setMot(new Vec3D(vec.x, 0, vec.z));
+					yaw = e.yaw;
+					setMot(new Vec3D(vec.x/speedMod, 0, vec.z/speedMod));
+					break;
 				}
 			}
 		}
