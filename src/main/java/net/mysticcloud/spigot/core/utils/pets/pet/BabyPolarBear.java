@@ -81,7 +81,7 @@ public class BabyPolarBear extends EntityPolarBear implements Pet {
 					yaw = e.yaw;
 					setMot(new Vec3D(vec.x / speedMod, getMot().getY(), vec.z / speedMod));
 					if (!getBukkitEntity().getLocation().add(vec.x, 0, vec.z).getBlock().getType()
-							.equals(org.bukkit.Material.AIR))
+							.equals(org.bukkit.Material.AIR) && isOnGround())
 						jump();
 						break;
 				}
