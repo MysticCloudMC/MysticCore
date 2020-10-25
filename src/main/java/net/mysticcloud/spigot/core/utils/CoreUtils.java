@@ -718,7 +718,7 @@ public class CoreUtils {
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		return cal.get(Calendar.MONTH)+1;
+		return cal.get(Calendar.MONTH);
 	}
 
 	public static int getDay() {
