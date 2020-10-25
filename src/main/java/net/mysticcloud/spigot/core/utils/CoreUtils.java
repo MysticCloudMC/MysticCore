@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -262,7 +263,7 @@ public class CoreUtils {
 		return item;
 
 	}
-	
+
 	public static ItemStack getGemItem() {
 		return gem;
 	}
@@ -720,14 +721,16 @@ public class CoreUtils {
 		date = new Date();
 	}
 
-	@SuppressWarnings("deprecation")
 	public static int getMonth() {
-		return date.getMonth();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		return cal.get(Calendar.MONTH);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static int getDay() {
-		return date.getDay();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		return cal.get(Calendar.DAY_OF_MONTH);
 	}
 
 	public static void setHoliday(Holiday hol) {
@@ -850,17 +853,14 @@ public class CoreUtils {
 		return "";
 	}
 
-
-
-
 	public static void debug(Object obj) {
 		debug(obj + "");
 	}
 
 	public static void debug(String message) {
-		
+
 		DebugUtils.debug(message);
-		
+
 //		if (debug)
 //			for (Player player : Bukkit.getOnlinePlayers()) {
 //				if (player.hasPermission("mysticcloud.admin")) {
