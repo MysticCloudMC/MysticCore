@@ -27,12 +27,17 @@ public class PetManager {
 	static Map<UUID, Pet> pets = new HashMap<>();
 
 	public static void spawnPet(Pet pet, Location loc, Player owner) {
-		if (pets.containsKey(owner.getUniqueId())) {
+		if (pets.containsKey(owner.getUniqueId()) && pets.get(owner.getUniqueId()).getEntity().isAlive()) {
+			pet.spawn(pets.get(owner.getUniqueId()).getEntity().getBukkitEntity().getLocation(), owner.getName());
 			pets.get(owner.getUniqueId()).getEntity().getBukkitEntity().remove();
+			pet.getEntity().getBukkitEntity().setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), true));
+			pets.put(owner.getUniqueId(), pet);
+			return;
 		}
 		pet.spawn(loc, owner.getName());
 		pet.getEntity().getBukkitEntity().setMetadata("pet", new FixedMetadataValue(Main.getPlugin(), true));
 		pets.put(owner.getUniqueId(), pet);
+
 	}
 
 	public static void spawnPet(PetType type, Location loc, Player owner) {
@@ -119,8 +124,6 @@ public class PetManager {
 				}
 			}
 		}
-		
-		
 
 		public static void jumpingPetRidingTick(Pet pet) {
 			if (!pet.getEntity().getPassengers().isEmpty()) {
