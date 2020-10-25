@@ -16,8 +16,9 @@ import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
+import net.mysticcloud.spigot.core.utils.pets.PetManager;
 
-public class BabySheep extends EntitySheep implements Pet {
+public abstract class BabySheep extends EntitySheep implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
@@ -53,49 +54,16 @@ public class BabySheep extends EntitySheep implements Pet {
 	protected void initPathfinder() {
 		pf = new PathfinderGoalWalkToLoc(this, 1.5D);
 		this.goalSelector.a(1, pf);
-//		this.goalSelector.a(1, new PathfinderGoalArrowAttack(this, 1.25D, 20, 10.0F));
-//		this.goalSelector.a(2, new PathfinderGoalRandomStrollLand(this, 1.0D, 1.0000001E-5F));
-//		this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, (Class) EntityHuman.class, 6.0F));
-//		this.goalSelector.a(4, new PathfinderGoalRandomLookaround(this));
-//		this.targetSelector.a(1, new PathfinderGoalNearestAttackableTarget<>(this, EntityInsentient.class, 10, true,
-//				false, entityliving -> entityliving instanceof IMonster));
 
 	}
 
-//	@Override
-//	public void movementTick() {
-////		super.movementTick();
-//		pf.setOwner(Bukkit.getPlayer(owner));
-////		if (!this.world.isClientSide) {
-////			int i = MathHelper.floor(locX());
-////			int j = MathHelper.floor(locY());
-////			int k = MathHelper.floor(locZ());
-////			if (this.world.getBiome(new BlockPosition(i, 0, k))
-////					.getAdjustedTemperature(new BlockPosition(i, j, k)) > 1.0F)
-////				damageEntity(CraftEventFactory.MELTING, 1.0F);
-////			if (!this.world.getGameRules().getBoolean(GameRules.MOB_GRIEFING))
-////				return;
-////			IBlockData iblockdata = Blocks.SNOW.getBlockData();
-////			for (int l = 0; l < 4; l++) {
-////				i = MathHelper.floor(locX() + ((l % 2 * 2 - 1) * 0.25F));
-////				j = MathHelper.floor(locY());
-////				k = MathHelper.floor(locZ() + ((l / 2 % 2 * 2 - 1) * 0.25F));
-////				BlockPosition blockposition = new BlockPosition(i, j, k);
-////				if (this.world.getType(blockposition).isAir()
-////						&& this.world.getBiome(blockposition).getAdjustedTemperature(blockposition) < 0.8F
-////						&& iblockdata.canPlace(this.world, blockposition))
-////					CraftEventFactory.handleBlockFormEvent(this.world, blockposition, iblockdata, this);
-	
-	
-	
-	//885 424 447#
-	
-	
-	
-	
-////			}
-////		}
-//	}
+
+	@Override
+	public void movementTick() {
+		setBaby(true);
+		super.movementTick();
+		PetManager.PetUtils.jumpingPetRidingTick(this);
+	}
 
 	protected float b(EntityPose entitypose, EntitySize entitysize) {
 		return 1.7F;

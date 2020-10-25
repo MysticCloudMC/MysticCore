@@ -25,6 +25,7 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.pathfindergoals.PathfinderGoalWalkToLoc;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
+import net.mysticcloud.spigot.core.utils.pets.PetManager;
 
 public class BabyPig extends EntityPig implements Pet {
 
@@ -115,17 +116,9 @@ public class BabyPig extends EntityPig implements Pet {
 	
 	@Override
 	public void movementTick() {
+		setBaby(true);
 		super.movementTick();
-		if(!getPassengers().isEmpty()) {
-			for(Entity e : passengers) {
-				if(e instanceof EntityPlayer) {
-					Vec3D vec = e.getLookDirection();
-					yaw = e.yaw;
-					setMot(new Vec3D(vec.x/speedMod, 0, vec.z/speedMod));
-					break;
-				}
-			}
-		}
+		PetManager.PetUtils.jumpingPetRidingTick(this);
 	}
 
 	protected float b(EntityPose entitypose, EntitySize entitysize) {
@@ -163,6 +156,17 @@ public class BabyPig extends EntityPig implements Pet {
 	@Override
 	public String getPetOwner() {
 		return owner;
+	}
+
+	@Override
+	public double getSpeedMod() {
+		// TODO Auto-generated method stub
+		return speedMod;
+	}
+	
+	@Override
+	public void forceJump() {
+		jump();
 	}
 
 }
