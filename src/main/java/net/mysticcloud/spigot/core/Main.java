@@ -34,6 +34,8 @@ import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.events.Event;
+import net.mysticcloud.spigot.core.utils.events.EventType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class Main extends JavaPlugin {
@@ -70,6 +72,7 @@ public class Main extends JavaPlugin {
 		new ClearCommand(this,"clear");
 		new UpdateCommand(this,"update");
 		startDateChecker();
+		
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));

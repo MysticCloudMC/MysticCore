@@ -6,7 +6,7 @@
 	<version>0.5</version>
 	<name>MysticCore</name>
 	<properties>
-	  <rootdir>/</rootdir>
+	  <rootdir>C:/</rootdir>
 	</properties>
 	<url>http://www.mysticcloud.net</url>
 
