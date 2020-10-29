@@ -124,7 +124,10 @@ public class Event {
 	}
 
 	public void start(String color1, String color2, String color3) {
-		String f = CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " Event" + color1 + "]=-=-=-");
+		start(color1,color2,color3,"Event");
+	}
+	public void start(String color1, String color2, String color3, String event) {
+		String f = CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " " + event + color1 + "]=-=-=-");
 		broadcast(CoreUtils.colorize(f));
 		broadcast(CoreUtils.colorize(name + color3 + " is starting."));
 		if (metadata.get("DESCRIPTION") != null) {
