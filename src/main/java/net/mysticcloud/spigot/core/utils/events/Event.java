@@ -189,7 +189,10 @@ public class Event {
 	}
 	
 	public void end(String color1, String color2, String color3) {
-		broadcast(CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " Event " + color3 + "Completed" + color1 + "]=-=-=-"));
+		end(color1,color2,color3,"Event");
+	}
+	public void end(String color1, String color2, String color3,String event) {
+		broadcast(CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " " + event + " " + color3 + "Completed" + color1 + "]=-=-=-"));
 		check.end();
 	}
 
