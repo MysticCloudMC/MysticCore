@@ -84,7 +84,7 @@ public class CoreUtils {
 	private static Location spawn = null;
 
 	private static Map<String, String> playerlist = new HashMap<>();
-	
+
 	private static boolean coreBoard = true;
 
 	private static File itemfile = new File(Main.getPlugin().getDataFolder() + "/Items");
@@ -895,7 +895,7 @@ public class CoreUtils {
 	}
 
 	public static void enableScoreboard(Player player) {
-		if(coreBoard) {
+		if (coreBoard) {
 			if (!sidebars.containsKey(player.getUniqueId())) {
 				sidebars.put(player.getUniqueId(), false);
 			}
@@ -918,7 +918,8 @@ public class CoreUtils {
 					} else
 						continue;
 				}
-				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue())))
+						.setScore(entry.getKey());
 
 			}
 
@@ -1423,6 +1424,107 @@ public class CoreUtils {
 		return ncolor + "less than a second" + tcolor + "";
 	}
 
+	public static String formatDateRaw(long ms) {
+
+		int l = (int) (ms / 1000);
+		int sec = l % 60;
+		int min = (l / 60) % 60;
+		int hours = ((l / 60) / 60) % 24;
+		int days = (((l / 60) / 60) / 24) % 7;
+		int weeks = (((l / 60) / 60) / 24) / 7;
+
+		if (weeks > 0) {
+			return weeks + " weeks" + (days > 0 ? ", " + days + " days" : "")
+					+ (hours > 0 ? ", " + hours + " hours" : "") + (min > 0 ? ", " + min + " minutes" : "")
+					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+		}
+		if (days > 0) {
+			return days + " days" + (hours > 0 ? ", " + hours + " hours" : "")
+					+ (min > 0 ? ", " + min + " minutes" : "")
+					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+		}
+		if (hours > 0) {
+			return hours + " hours" + (min > 0 ? ", " + min + " minutes" : "")
+					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+		}
+		if (min > 0) {
+			return min + " minutes" + (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+		}
+		if (sec > 0) {
+			return sec + " " + (sec == 1 ? "second" : "seconds");
+		}
+
+		return "less than a second" + "";
+	}
+
+	public static String formatDateTime(long ms, String ncolor, String tcolor) {
+
+		int l = (int) (ms / 1000);
+		int sec = l % 60;
+		int min = (l / 60) % 60;
+		int hours = ((l / 60) / 60) % 24;
+		int days = (((l / 60) / 60) / 24) % 7;
+		int weeks = (((l / 60) / 60) / 24) / 7;
+
+		DecimalFormat format = new DecimalFormat("00");
+
+		if (weeks > 0) {
+			return ncolor + format.format(weeks) + tcolor + ":" + ncolor + format.format(days) + tcolor + ":" + ncolor
+					+ format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor
+					+ format.format(sec) + tcolor;
+
+		}
+		if (days > 0) {
+			return ncolor + format.format(days) + tcolor + ":" + ncolor + format.format(hours) + tcolor + ":" + ncolor
+					+ format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
+		}
+		if (hours > 0) {
+			return ncolor + format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor
+					+ format.format(sec) + tcolor;
+		}
+		if (min > 0) {
+			return ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor;
+		}
+		if (sec > 0) {
+			return ncolor + "00" + tcolor + ":" + ncolor + format.format(sec) + tcolor;
+		}
+
+		return ncolor + "less than a second" + tcolor + "";
+	}
+
+	public static String formatDateTimeRaw(long ms) {
+
+		int l = (int) (ms / 1000);
+		int sec = l % 60;
+		int min = (l / 60) % 60;
+		int hours = ((l / 60) / 60) % 24;
+		int days = (((l / 60) / 60) / 24) % 7;
+		int weeks = (((l / 60) / 60) / 24) / 7;
+
+		DecimalFormat format = new DecimalFormat("00");
+
+		if (weeks > 0) {
+			return format.format(weeks) + ":" + format.format(days) + ":" + format.format(hours) + ":"
+					+ format.format(min) + ":" + format.format(sec);
+
+		}
+		if (days > 0) {
+			return format.format(days) + ":" + format.format(hours) + ":" + format.format(min) + ":"
+					+ format.format(sec);
+		}
+		if (hours > 0) {
+			return format.format(hours) + ":" + format.format(min) + ":" + format.format(sec);
+		}
+		if (min > 0) {
+			return format.format(min) + ":" + format.format(sec);
+		}
+		if (sec > 0) {
+			return "00" + ":" + format.format(sec);
+		}
+
+		return "less than a second";
+	}
+
 	public static String getSimpleTimeFormat(long ms) {
 		return formatDate(ms, "&c", "&4");
 	}
@@ -1447,7 +1549,7 @@ public class CoreUtils {
 	public static boolean useCoreScoreboard() {
 		return coreBoard;
 	}
-	
+
 	public static void useCoreScoreboard(boolean use) {
 		coreBoard = use;
 	}
