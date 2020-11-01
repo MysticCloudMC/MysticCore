@@ -84,6 +84,8 @@ public class CoreUtils {
 	private static Location spawn = null;
 
 	private static Map<String, String> playerlist = new HashMap<>();
+	
+	private static boolean coreBoard = true;
 
 	private static File itemfile = new File(Main.getPlugin().getDataFolder() + "/Items");
 	private static List<FileConfiguration> itemFiles = new ArrayList<>();
@@ -893,33 +895,35 @@ public class CoreUtils {
 	}
 
 	public static void enableScoreboard(Player player) {
-		if (!sidebars.containsKey(player.getUniqueId())) {
-			sidebars.put(player.getUniqueId(), false);
-		}
-		if (!sidebars.get(player.getUniqueId())) {
-			return;
-		}
-		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		Objective objective = scoreboard.registerNewObjective("sidebar", "dummy",
-				colorize("        &3&lMystic&f&lCloud        "));
-		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		registerSidebarList();
-		for (Entry<Integer, String> entry : sidebar.entrySet()) {
-
-			for (String s : scoreboard.getEntries()) {
-
-				if (entry.getKey() == objective.getScore(s).getScore()) {
-					if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
-						scoreboard.resetScores(s);
-					}
-				} else
-					continue;
+		if(coreBoard) {
+			if (!sidebars.containsKey(player.getUniqueId())) {
+				sidebars.put(player.getUniqueId(), false);
 			}
-			objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+			if (!sidebars.get(player.getUniqueId())) {
+				return;
+			}
+			Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+			Objective objective = scoreboard.registerNewObjective("sidebar", "dummy",
+					colorize("        &3&lMystic&f&lCloud        "));
+			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+			registerSidebarList();
+			for (Entry<Integer, String> entry : sidebar.entrySet()) {
 
+				for (String s : scoreboard.getEntries()) {
+
+					if (entry.getKey() == objective.getScore(s).getScore()) {
+						if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
+							scoreboard.resetScores(s);
+						}
+					} else
+						continue;
+				}
+				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue()))).setScore(entry.getKey());
+
+			}
+
+			player.setScoreboard(scoreboard);
 		}
-
-		player.setScoreboard(scoreboard);
 	}
 
 	private static void registerSidebarList() {
@@ -1438,6 +1442,14 @@ public class CoreUtils {
 
 	public static boolean coreHandleDamage() {
 		return handleDamage;
+	}
+
+	public static boolean useCoreScoreboard() {
+		return coreBoard;
+	}
+	
+	public static void useCoreScoreboard(boolean use) {
+		coreBoard = use;
 	}
 
 }

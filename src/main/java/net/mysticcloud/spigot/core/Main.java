@@ -76,7 +76,7 @@ public class Main extends JavaPlugin {
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
-			CoreUtils.enableScoreboard(player);
+			if(CoreUtils.useCoreScoreboard())CoreUtils.enableScoreboard(player);
 		}
 		
 		
