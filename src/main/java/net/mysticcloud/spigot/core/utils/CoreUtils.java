@@ -72,8 +72,6 @@ public class CoreUtils {
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
 
-	private static final Pattern pattern = Pattern.compile("(#[a-fA-F0-9]{6})");
-
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
 
@@ -552,7 +550,6 @@ public class CoreUtils {
 
 			for (String s : message.split("#")) {
 				try {
-					Bukkit.broadcastMessage(s.substring(0, 6));
 					message = message.replace("#" + s.substring(0, 6),
 							net.md_5.bungee.api.ChatColor.of(Color.decode("#" + s.substring(0, 6))) + "");
 
