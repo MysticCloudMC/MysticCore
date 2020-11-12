@@ -189,7 +189,7 @@ public class KitManager {
 		for (ItemStack item : kitsManager.get(kit).getItems()) {
 			if (player.getInventory().firstEmpty() != -1) {
 				if (item.getType().name().contains("_HELMET") || item.getType().name().contains("_CHESTPLATE")
-						|| item.getType().name().contains("_LEGGINS") || item.getType().name().contains("_BOOTS")) {
+						|| item.getType().name().contains("_LEGGINGS") || item.getType().name().contains("_BOOTS")) {
 					switch (item.getType().name().split("_")[item.getType().name().split("_").length - 1]) {
 					case "HELMET":
 						player.getInventory().setItem(EquipmentSlot.HEAD, item);
