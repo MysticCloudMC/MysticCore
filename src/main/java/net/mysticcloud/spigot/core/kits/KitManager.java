@@ -15,6 +15,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,7 +29,7 @@ public class KitManager {
 	static boolean loaded = false;
 
 	static String name = "Kit GUI";
-	
+
 	static File cooldownFile = new File(Main.getPlugin().getDataFolder() + "/kitcache/cooldowns.yml");
 
 	static Map<String, Kit> kitsManager = new HashMap<>();
@@ -54,7 +55,9 @@ public class KitManager {
 						}
 					}
 				}
+
 				if (fc.isSet("Item")) {
+//					ItemStack item = new ItemStack(Material.COOKED_BEEF);
 					if (fc.getString("Item").contains("CustomItem")) {
 						kit.setGUIItem(CoreUtils.getItem(fc.getString("Item").split(":")[1]));
 					} else {
@@ -80,18 +83,17 @@ public class KitManager {
 		}
 		try {
 			FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
-			
-			for(String uid : cc.getStringList("UUIDS")) {
-				for(String kit : cc.getStringList(uid + ".kits")) {
+
+			for (String uid : cc.getStringList("UUIDS")) {
+				for (String kit : cc.getStringList(uid + ".kits")) {
 					KitWrapper wrapper = new KitWrapper(cc.getString(uid + "." + kit), cc.getLong(uid + ".started"));
 					cooldown.put(UUID.fromString(uid), wrapper);
 					Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(),
 							new KitCooldownTimer(UUID.fromString(uid), wrapper), 20);
 				}
-				
+
 			}
-			
-			
+
 		} catch (NullPointerException ex) {
 			cooldownFile.getParentFile().mkdirs();
 			try {
@@ -176,17 +178,40 @@ public class KitManager {
 	public static void applyKit(Player player, String kit) {
 		if (cooldown.containsKey(player.getUniqueId()) && !player.hasPermission("mysticcloud.admin.kit.override")) {
 			CoreUtils.debug((new Date().getTime() - cooldown.get(player.getUniqueId()).started()) + "");
-			player.sendMessage(CoreUtils.prefixes().get("kits") + CoreUtils.colorize("You can't use that kit yet! You must wait &7"
-					+ getSimpleTimeFormat((getKit(kit).getCooldown()*1000)-(new Date().getTime() - cooldown.get(player.getUniqueId()).started())) + "&f."));
+			player.sendMessage(
+					CoreUtils.prefixes().get("kits")
+							+ CoreUtils.colorize("You can't use that kit yet! You must wait &7"
+									+ getSimpleTimeFormat((getKit(kit).getCooldown() * 1000)
+											- (new Date().getTime() - cooldown.get(player.getUniqueId()).started()))
+									+ "&f."));
 			return;
 		}
 		for (ItemStack item : kitsManager.get(kit).getItems()) {
 			if (player.getInventory().firstEmpty() != -1) {
-				player.getInventory().addItem(item);
+				if (item.getType().name().contains("_HELMET") || item.getType().name().contains("_CHESTPLATE")
+						|| item.getType().name().contains("_LEGGINS") || item.getType().name().contains("_BOOTS")) {
+					switch (item.getType().name().split("_")[item.getType().name().split("_").length - 1]) {
+					case "HELMET":
+						player.getInventory().setItem(EquipmentSlot.HEAD, item);
+						break;
+					case "CHESTPLATE":
+						player.getInventory().setItem(EquipmentSlot.CHEST, item);
+						break;
+					case "LEGGINGS":
+						player.getInventory().setItem(EquipmentSlot.LEGS, item);
+						break;
+					case "BOOTS":
+						player.getInventory().setItem(EquipmentSlot.FEET, item);
+						break;
+					default:
+						break;
+					}
+				} else
+					player.getInventory().addItem(item);
 			} else {
 				player.getWorld().dropItemNaturally(player.getLocation(), item);
-				player.sendMessage(
-						CoreUtils.prefixes().get("kits") +  CoreUtils.colorize("No room in inventory. Dropping item on ground.."));
+				player.sendMessage(CoreUtils.prefixes().get("kits")
+						+ CoreUtils.colorize("No room in inventory. Dropping item on ground.."));
 			}
 		}
 		KitWrapper wrapper = new KitWrapper(kit, new Date().getTime());
@@ -196,33 +221,7 @@ public class KitManager {
 	}
 
 	private static String getSimpleTimeFormat(long micro) {
-
-		
-		int l = (int) (micro/1000);
-		int sec = l % 60;
-		int min = (l / 60) % 60;
-		int hours = ((l / 60) / 60) % 24;
-		int days = (((l / 60) / 60) / 24) % 7;
-		int weeks = (((l / 60) / 60) / 24) / 7;
-
-		if (weeks > 0) {
-			return weeks + " &fweeks, &7" + days + "&f days, &7" + hours + "&f hours, &7" + min + "&f minutes, and &7" + sec
-					+ " seconds";
-		}
-		if (days > 0) {
-			return days + "&f days, &7" + hours + "&f hours, &7" + min + "&f minutes, and &7" + sec + "&f seconds";
-		}
-		if (hours > 0) {
-			return hours + "&f hours, &7" + min + "&f minutes, and &7" + sec + "&f seconds";
-		}
-		if (min > 0) {
-			return min + "&f minutes, and &7" + sec + "&f seconds";
-		}
-		if (sec > 0) {
-			return sec + "&f seconds";
-		}
-
-		return ((long)(micro/1000)) + "&f seconds";
+		return CoreUtils.formatDateTime(micro, "&7", "&f");
 	}
 
 	@SuppressWarnings("deprecation")
@@ -234,18 +233,13 @@ public class KitManager {
 		for (int i = 0; i != (((int) (KitManager.getKits().size() / 9)) + 1) * 9; i++) {
 			if (i < KitManager.getKits().size()) {
 				if (player.hasPermission("mysticcloud.kit." + KitManager.getKits().get(i).getName())) {
-					inv.addItem(
-							KitManager.getKits().get(i).getItem(),
-							KitManager.getKits().get(i).getDisplayName(),
-							(char) i,
-							KitManager.getKits().get(i).getDescription(),
-							 true,
-							 true, 
-							 KitManager.getKits().get(i).getItem().getDurability()
-							 );
+					inv.addItem(KitManager.getKits().get(i).getItem(), KitManager.getKits().get(i).getDisplayName(),
+							(char) i, KitManager.getKits().get(i).getDescription(), true, false,
+							KitManager.getKits().get(i).getItem().getDurability());
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
-							KitManager.getKits().get(i).getDisplayName(), (char) i, new String[] { "&cLocked..." },false);
+							KitManager.getKits().get(i).getDisplayName(), (char) i, new String[] { "&cLocked..." },
+							false);
 				}
 				c.add((char) i);
 			} else {
@@ -268,28 +262,27 @@ public class KitManager {
 		cooldown.remove(uid);
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
+//	@SuppressWarnings("unlikely-arg-type")
 	public static void unloadCooldowns() {
 		FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
 		Map<String, List<String>> uids = new HashMap<>();
 		for (Entry<UUID, KitWrapper> entry : cooldown.entrySet()) {
-			if(!uids.containsKey(entry.getKey() + "")) {
-				uids.put(entry.getKey() +"", new ArrayList<>());
-				uids.get(entry.getKey()).add(entry.getValue().kit());
+			if (!uids.containsKey(entry.getKey() + "")) {
+				uids.put(entry.getKey().toString(), new ArrayList<>());
+				uids.get(entry.getKey().toString()).add(entry.getValue().kit());
 
 			} else {
-				uids.get(entry.getKey()).add(entry.getValue().kit());
+				uids.get(entry.getKey().toString()).add(entry.getValue().kit());
 			}
-			
+
 			cc.set(entry.getKey() + "." + entry.getValue().kit(), entry.getValue().started());
 		}
-		
+
 		cc.set("UUIDS", uids.keySet());
-		for(Entry<String, List<String>> entry : uids.entrySet()) {
+		for (Entry<String, List<String>> entry : uids.entrySet()) {
 			cc.set(entry + ".kits", entry.getValue());
 		}
-		
-		
+
 		try {
 			cc.save(cooldownFile);
 		} catch (IOException e) {
