@@ -1415,35 +1415,37 @@ public class CoreUtils {
 
 	public static String formatDateRaw(long ms) {
 
-		int l = (int) (ms / 1000);
-		int sec = l % 60;
-		int min = (l / 60) % 60;
-		int hours = ((l / 60) / 60) % 24;
-		int days = (((l / 60) / 60) / 24) % 7;
-		int weeks = (((l / 60) / 60) / 24) / 7;
+		return formatDate(ms, "", "");
 
-		if (weeks > 0) {
-			return weeks + " weeks" + (days > 0 ? ", " + days + " days" : "")
-					+ (hours > 0 ? ", " + hours + " hours" : "") + (min > 0 ? ", " + min + " minutes" : "")
-					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-		}
-		if (days > 0) {
-			return days + " days" + (hours > 0 ? ", " + hours + " hours" : "")
-					+ (min > 0 ? ", " + min + " minutes" : "")
-					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-		}
-		if (hours > 0) {
-			return hours + " hours" + (min > 0 ? ", " + min + " minutes" : "")
-					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-		}
-		if (min > 0) {
-			return min + " minutes" + (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-		}
-		if (sec > 0) {
-			return sec + " " + (sec == 1 ? "second" : "seconds");
-		}
-
-		return "less than a second" + "";
+//		int l = (int) (ms / 1000);
+//		int sec = l % 60;
+//		int min = (l / 60) % 60;
+//		int hours = ((l / 60) / 60) % 24;
+//		int days = (((l / 60) / 60) / 24) % 7;
+//		int weeks = (((l / 60) / 60) / 24) / 7;
+//
+//		if (weeks > 0) {
+//			return weeks + " weeks" + (days > 0 ? ", " + days + " days" : "")
+//					+ (hours > 0 ? ", " + hours + " hours" : "") + (min > 0 ? ", " + min + " minutes" : "")
+//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+//		}
+//		if (days > 0) {
+//			return days + " days" + (hours > 0 ? ", " + hours + " hours" : "")
+//					+ (min > 0 ? ", " + min + " minutes" : "")
+//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+//		}
+//		if (hours > 0) {
+//			return hours + " hours" + (min > 0 ? ", " + min + " minutes" : "")
+//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+//		}
+//		if (min > 0) {
+//			return min + " minutes" + (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
+//		}
+//		if (sec > 0) {
+//			return sec + " " + (sec == 1 ? "second" : "seconds");
+//		}
+//
+//		return "less than a second" + "";
 	}
 
 	public static String formatDateTime(long ms, String ncolor, String tcolor) {
@@ -1483,35 +1485,37 @@ public class CoreUtils {
 
 	public static String formatDateTimeRaw(long ms) {
 
-		int l = (int) (ms / 1000);
-		int sec = l % 60;
-		int min = (l / 60) % 60;
-		int hours = ((l / 60) / 60) % 24;
-		int days = (((l / 60) / 60) / 24) % 7;
-		int weeks = (((l / 60) / 60) / 24) / 7;
+		return formatDateTime(ms, "", "");
 
-		DecimalFormat format = new DecimalFormat("00");
-
-		if (weeks > 0) {
-			return format.format(weeks) + ":" + format.format(days) + ":" + format.format(hours) + ":"
-					+ format.format(min) + ":" + format.format(sec);
-
-		}
-		if (days > 0) {
-			return format.format(days) + ":" + format.format(hours) + ":" + format.format(min) + ":"
-					+ format.format(sec);
-		}
-		if (hours > 0) {
-			return format.format(hours) + ":" + format.format(min) + ":" + format.format(sec);
-		}
-		if (min > 0) {
-			return format.format(min) + ":" + format.format(sec);
-		}
-		if (sec > 0) {
-			return "00" + ":" + format.format(sec);
-		}
-
-		return "less than a second";
+//		int l = (int) (ms / 1000);
+//		int sec = l % 60;
+//		int min = (l / 60) % 60;
+//		int hours = ((l / 60) / 60) % 24;
+//		int days = (((l / 60) / 60) / 24) % 7;
+//		int weeks = (((l / 60) / 60) / 24) / 7;
+//
+//		DecimalFormat format = new DecimalFormat("00");
+//
+//		if (weeks > 0) {
+//			return format.format(weeks) + ":" + format.format(days) + ":" + format.format(hours) + ":"
+//					+ format.format(min) + ":" + format.format(sec);
+//
+//		}
+//		if (days > 0) {
+//			return format.format(days) + ":" + format.format(hours) + ":" + format.format(min) + ":"
+//					+ format.format(sec);
+//		}
+//		if (hours > 0) {
+//			return format.format(hours) + ":" + format.format(min) + ":" + format.format(sec);
+//		}
+//		if (min > 0) {
+//			return format.format(min) + ":" + format.format(sec);
+//		}
+//		if (sec > 0) {
+//			return "00" + ":" + format.format(sec);
+//		}
+//
+//		return "less than a second";
 	}
 
 	public static String getSimpleTimeFormat(long ms) {

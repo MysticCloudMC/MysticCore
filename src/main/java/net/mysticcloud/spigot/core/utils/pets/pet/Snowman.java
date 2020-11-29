@@ -81,6 +81,11 @@ public class Snowman extends EntitySnowman implements Pet {
 	}
 	
 	
+	@Override
+	public void movementTick() {
+	}
+	
+	
 	public void startParticles() {
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this,0,format), 1);
 	}
