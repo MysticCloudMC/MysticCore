@@ -42,10 +42,10 @@ public class Snowman extends EntitySnowman implements Pet {
 
 	PathfinderGoalWalkToLoc pf;
 	String owner;
-	
+
 	String prefix = "&f";
 	String suffix = "&f&lSnowman";
-	
+
 	ParticleFormat format = new RandomFormat();
 
 	public Snowman(World world, EntityTypes<? extends EntitySnowman> entityType) {
@@ -62,7 +62,7 @@ public class Snowman extends EntitySnowman implements Pet {
 		super(EntityTypes.SNOW_GOLEM, world);
 		init();
 	}
-	
+
 	public void init() {
 		format.particle(Particle.WHITE_ASH);
 	}
@@ -73,21 +73,16 @@ public class Snowman extends EntitySnowman implements Pet {
 		pf.setOwner(Bukkit.getPlayer(owner));
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-		getBukkitEntity().setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
+		getBukkitEntity()
+				.setCustomName(CoreUtils.colorize(prefix + owner + (owner.endsWith("s") ? "' " : "'s ") + suffix));
 		setCustomNameVisible(true);
 		startParticles();
 		setHasPumpkin(false);
 
 	}
-	
-	
-	@Override
-	public void movementTick() {
-	}
-	
-	
+
 	public void startParticles() {
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this,0,format), 1);
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(this, 0, format), 1);
 	}
 
 	protected void initPathfinder() {
@@ -191,6 +186,7 @@ public class Snowman extends EntitySnowman implements Pet {
 	public double getSpeedMod() {
 		return 0;
 	}
+
 	@Override
 	public void forceJump() {
 		jump();
