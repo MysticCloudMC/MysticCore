@@ -109,8 +109,8 @@ public class GUIManager {
 
 		}
 
-		inv.addItem(new ItemStack(Material.BARRIER), CoreUtils.colorize("&cRemove Particles"), 'z',
-				new String[] { "Expermimental" }, false);
+		inv.addItem(new ItemStack(Material.BARRIER), CoreUtils.colorize("&cRemove Particles"), 'z', (String[]) null,
+				false);
 
 		c.add('X');
 		c.add('X');
@@ -157,23 +157,41 @@ public class GUIManager {
 
 	}
 
-	public static Inventory createSettingsMenu() {
-		InventoryCreator inv = new InventoryCreator("&6Settings", null, 9);
-		inv.addItem(new ItemStack(Material.DIAMOND), "&eParticles", 'A', new String[] {});
-		inv.addItem(new ItemStack(Material.PAPER), "&cSidebar", 'B', new String[] {});
+	public static Inventory createSettingsMenu(Player player) {
+		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
+		InventoryCreator inv = new InventoryCreator("&6&lSettings Menu", null, 9);
+		inv.addItem(new ItemStack(Material.DIAMOND), "&eParticle Settings", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.PAPER), "&eSidebar", 'B', new String[] { "&7Currently is "
+				+ (mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff") + "&7." });
 		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
 
-	public static Inventory getSettingsMenu() {
-		return createSettingsMenu();
+	public static Inventory getParticleSettingsMenu(Player player) {
+		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
+		InventoryCreator inv = new InventoryCreator("&a&lParticle Settings Menu", null, 9);
+		inv.addItem(new ItemStack(Material.FIREWORK_ROCKET), "&aHoliday Particles", 'A',
+				new String[] { "&7Currently is "
+						+ (mp.getSetting(PlayerSettings.HOLIDAY_PARTICLES).equalsIgnoreCase("true") ? "&a&lon"
+								: "&c&loff")
+						+ "&7." });
+		inv.addItem(new ItemStack(Material.GRASS_BLOCK), "&cRegional Particles", 'B', new String[] { "&7Currently is "
+				+ (mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff")
+				+ "&7." });
+		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+		return inv.getInventory();
+	}
+
+	public static Inventory getSettingsMenu(Player player) {
+		return createSettingsMenu(player);
 	}
 
 	public static Inventory generateAngelicConfigurations(Player player) {
-		
+
 		String rainbow = "";
 		for (int i = 0; i != ("Rainbow").length(); i++) {
-			rainbow = rainbow + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i+10, 0.5)) + ("Rainbow").substring(i,i+1);
+			rainbow = rainbow + net.md_5.bungee.api.ChatColor.of(CoreUtils.generateColor(i + 10, 0.5))
+					+ ("Rainbow").substring(i, i + 1);
 		}
 		InventoryCreator inv = new InventoryCreator("&e&lAngelic &eConfigurations", null, 27);
 
@@ -186,11 +204,8 @@ public class GUIManager {
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eClick an option", 'X', (String[]) null);
 
-		inv.setConfiguration(
-				new char[] { 
-						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X',
-						'X', 'A', 'B', 'C', 'X', 'D', 'E', 'F', 'X',
-						'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+		inv.setConfiguration(new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'X', 'D',
+				'E', 'F', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
 

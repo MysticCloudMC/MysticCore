@@ -6,11 +6,8 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.Sound;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
@@ -31,7 +28,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -42,10 +38,10 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
@@ -59,10 +55,6 @@ public class PlayerListener implements Listener {
 	public PlayerListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
-	
-	
-	
 
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
@@ -109,7 +101,6 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), false);
 		CoreUtils.saveMysticPlayer(e.getPlayer());
 		PetManager.removePets(e.getPlayer());
 	}
@@ -148,7 +139,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-		if(e.getEntity().hasMetadata("pet")) {
+		if (e.getEntity().hasMetadata("pet")) {
 			e.setCancelled(true);
 			return;
 		}
@@ -195,8 +186,6 @@ public class PlayerListener implements Listener {
 
 		CoreUtils.enableScoreboard(e.getPlayer());
 
-
-
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
 			if (!entry.getKey().equals(e.getPlayer().getUniqueId()))
@@ -225,29 +214,26 @@ public class PlayerListener implements Listener {
 
 		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
-		CoreUtils.holidayparticles.put(e.getPlayer().getUniqueId(), true);
-		CoreUtils.sidebars.put(e.getPlayer().getUniqueId(), true);
 	}
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
-		if(e.getRightClicked().hasMetadata("pet")) {
+		if (e.getRightClicked().hasMetadata("pet")) {
 			Pet pet = PetManager.getPet(e.getPlayer().getUniqueId());
-			if(pet.isMountable() && pet.getPetOwner().equals(e.getPlayer().getName())) {
+			if (pet.isMountable() && pet.getPetOwner().equals(e.getPlayer().getName())) {
 				e.getRightClicked().addPassenger(e.getPlayer());
 			}
-			
-			
+
 		}
 		if (DebugUtils.isDebugger(e.getPlayer().getUniqueId())) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");
 		}
 	}
-	
+
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent e) {
-		if(e.getEntity().hasMetadata("pet")) {
+		if (e.getEntity().hasMetadata("pet")) {
 			e.setCancelled(true);
 			return;
 		}
@@ -318,152 +304,6 @@ public class PlayerListener implements Listener {
 		if (e.getClickedInventory() == null)
 			return;
 
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
-			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
-				return;
-			for (Particle particle : CoreUtils.particles(e.getWhoClicked().getUniqueId()).allowedParticles()) {
-				if (e.getCurrentItem().getItemMeta().getDisplayName()
-						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {
-					CoreUtils.particles(e.getWhoClicked().getUniqueId()).particle(particle);
-					if (particle.getDataType() != Void.class) {
-						if (particle.getDataType() == DustOptions.class)
-							GUIManager.switchInventory(((Player) e.getWhoClicked()),
-									GUIManager.generateParticleColorMenu(((Player) e.getWhoClicked()), particle),
-									"Particle Color");
-
-					}
-
-					else
-						e.getWhoClicked().closeInventory();
-					return;
-				}
-			}
-
-		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Color") {
-			e.setCancelled(true);
-			float ps = CoreUtils.particles(e.getWhoClicked().getUniqueId()).getParticleSize();
-			switch (e.getCurrentItem().getType()) {
-			case PINK_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.fromRGB(255, 124, 163), 1));
-				e.getWhoClicked().closeInventory();
-				break;
-			case RED_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.RED, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case ORANGE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.ORANGE, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case YELLOW_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.YELLOW, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case LIME_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.LIME, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case GREEN_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.GREEN, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case BLUE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.TEAL, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case PURPLE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.PURPLE, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case BROWN_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId())
-						.setDustOptions(new DustOptions(Color.fromRGB(84, 53, 0), ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case BLACK_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.BLACK, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case WHITE_DYE:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.WHITE, ps));
-				e.getWhoClicked().closeInventory();
-				break;
-			case MAGMA_CREAM:
-				CoreUtils.particles(e.getWhoClicked().getUniqueId()).setDustOptions(new DustOptions(Color.RED, 99));
-				e.getWhoClicked().closeInventory();
-				break;
-			default:
-				break;
-			}
-
-		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Angelic Config") {
-			e.setCancelled(true);
-			AngelicFormat format = (AngelicFormat) CoreUtils.particles(e.getWhoClicked().getUniqueId());
-			switch (e.getCurrentItem().getType()) {
-			case WHITE_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.YELLOW, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
-				e.getWhoClicked().closeInventory();
-				break;
-			case RED_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.RED, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
-				e.getWhoClicked().closeInventory();
-				break;
-			case BLACK_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.RED, format.wings.getParticleSize()));
-				e.getWhoClicked().closeInventory();
-				break;
-			case MAGMA_CREAM:
-				format.setDustOptions(new DustOptions(Color.BLACK, 99));
-				e.getWhoClicked().closeInventory();
-				break;
-			case FEATHER:
-				format.halo.setDustOptions(new DustOptions(Color.WHITE, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
-				e.getWhoClicked().closeInventory();
-				break;
-			case COAL:
-				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
-				e.getWhoClicked().closeInventory();
-				break;
-			default:
-				break;
-			}
-
-		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
-			e.setCancelled(true);
-			if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
-				CoreUtils.particlesOff(e.getWhoClicked().getUniqueId());
-				e.getWhoClicked().closeInventory();
-				return;
-			}
-			for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
-				if (e.getCurrentItem().getType().equals(format.formatter().item().getType())) {
-					CoreUtils.particles(e.getWhoClicked().getUniqueId(), format);
-					if (format.equals(ParticleFormatEnum.ANGELIC)) {
-						GUIManager.switchInventory(((Player) e.getWhoClicked()),
-								GUIManager.generateAngelicConfigurations(((Player) e.getWhoClicked())),
-								"Angelic Config");
-						return;
-					}
-					if (format.formatter().changeParticle())
-						GUIManager.switchInventory(((Player) e.getWhoClicked()),
-								GUIManager.generateParticleMenu(((Player) e.getWhoClicked()), format.formatter()),
-								"Particles");
-					else {
-						e.getWhoClicked().closeInventory();
-					}
-					return;
-				}
-			}
-		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Kits") {
 			e.setCancelled(true);
 			if (e.getCurrentItem().getType().equals(Material.AIR))
@@ -478,14 +318,32 @@ public class PlayerListener implements Listener {
 
 			e.getWhoClicked().closeInventory();
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings") {
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Settings") {
+			MysticPlayer mp = CoreUtils.getMysticPlayer((Player) e.getWhoClicked());
+			if (e.getCurrentItem().getType().equals(Material.FIREWORK_ROCKET)) {
+				mp.setSetting(PlayerSettings.HOLIDAY_PARTICLES,
+						mp.getSetting(PlayerSettings.HOLIDAY_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
+				GUIManager.openInventory((Player) e.getWhoClicked(),
+						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+			}
+			if (e.getCurrentItem().getType().equals(Material.GRASS_BLOCK)) {
+				mp.setSetting(PlayerSettings.REGIONAL_PARTICLES,
+						mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
+				GUIManager.openInventory((Player) e.getWhoClicked(),
+						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+			}
+		}
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings Menu") {
+			MysticPlayer mp = CoreUtils.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.DIAMOND)) {
-				CoreUtils.toggleParticles((Player) e.getWhoClicked());
-				e.getWhoClicked().closeInventory();
+				GUIManager.openInventory((Player) e.getWhoClicked(),
+						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
 			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
-				CoreUtils.toggleSidebar((Player) e.getWhoClicked());
-				e.getWhoClicked().closeInventory();
+				mp.setSetting(PlayerSettings.SIDEBAR,
+						mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "false" : "true");
+				GUIManager.openInventory(((Player) e.getWhoClicked()),
+						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}
 		}
 

@@ -142,28 +142,7 @@ public class PunishmentGUIListener implements Listener {
 				}
 			}
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
-			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
-				return;
-			for (Particle particle : CoreUtils.particles(e.getWhoClicked().getUniqueId()).allowedParticles()) {
-				if (e.getCurrentItem().getItemMeta().getDisplayName()
-						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {
-					CoreUtils.particles(e.getWhoClicked().getUniqueId()).particle(particle);
-					if (particle.getDataType() != Void.class) {
-						if (particle.getDataType() == DustOptions.class)
-							GUIManager.switchInventory(((Player) e.getWhoClicked()),
-									GUIManager.generateParticleColorMenu(((Player) e.getWhoClicked()), particle),
-									"Particle Color");
-
-					}
-
-					else
-						e.getWhoClicked().closeInventory();
-					return;
-				}
-			}
-
-		}
+		
 
 	}
 

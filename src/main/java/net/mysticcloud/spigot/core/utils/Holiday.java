@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.utils;
 
+import org.bukkit.Material;
+
 public enum Holiday {
 	
 	CHRISTMAS("Christmas"),
@@ -24,6 +26,11 @@ public enum Holiday {
 	
 	public String getName() {
 		return name;
+	}
+
+	Material getGUIItem() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

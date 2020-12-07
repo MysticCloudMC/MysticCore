@@ -20,6 +20,7 @@ public class MysticPlayer {
 	private double xp = 0.0;
 	private Map<String, Object> extraData = new HashMap<>();
 	private boolean nitro = false;
+	private Map<PlayerSettings, String> settings = new HashMap<>();
 	
 	long needed = 0;
 
@@ -33,6 +34,16 @@ public class MysticPlayer {
 	public boolean isNitro() {
 		return nitro;
 	}
+	
+	public String setSetting(PlayerSettings setting, String value) {
+		settings.put(setting, value);
+		return value;
+	}
+	
+	public String getSetting(PlayerSettings setting) {
+		return settings.containsKey(setting) ? settings.get(setting) : setting.getDefaultValue();
+	}
+	
 
 	public void setBalance(double balance, boolean save) {
 		this.balance = balance;

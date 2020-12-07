@@ -20,7 +20,7 @@ public class SettingsCommand implements CommandExecutor {
 			Player player = ((Player)sender);
 			if(args.length == 0) {
 				
-				GUIManager.openInventory(player, GUIManager.getSettingsMenu(), "Settings");
+				GUIManager.openInventory(player, GUIManager.getSettingsMenu(player), "Settings Menu");
 			}
 		}
 		return true;

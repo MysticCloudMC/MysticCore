@@ -28,14 +28,13 @@ import net.mysticcloud.spigot.core.commands.UUIDCommand;
 import net.mysticcloud.spigot.core.commands.UpdateCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.listeners.ParticleGUIListener;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.listeners.PunishmentGUIListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.events.Event;
-import net.mysticcloud.spigot.core.utils.events.EventType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class Main extends JavaPlugin {
@@ -48,6 +47,7 @@ public class Main extends JavaPlugin {
 		KitManager.registerKits();
 		new PlayerListener(this);
 		new PunishmentGUIListener(this);
+		new ParticleGUIListener(this);
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
 		new SettingsCommand("settings", this);

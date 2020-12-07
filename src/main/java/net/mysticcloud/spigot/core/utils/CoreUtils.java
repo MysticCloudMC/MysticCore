@@ -66,8 +66,6 @@ public class CoreUtils {
 	static IDatabase wbconn;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
-	public static Map<UUID, Boolean> holidayparticles = new HashMap<>();
-	public static Map<UUID, Boolean> sidebars = new HashMap<>();
 
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 	static Map<UUID, MysticPlayer> mplayers = new HashMap<>();
@@ -746,38 +744,6 @@ public class CoreUtils {
 		return new Random();
 	}
 
-	public static void toggleParticles(Player player) {
-		if (!holidayparticles.containsKey(player.getUniqueId())) {
-			holidayparticles.put(player.getUniqueId(), true);
-			return;
-		}
-		if (holidayparticles.get(player.getUniqueId())) {
-			player.sendMessage(prefixes.get("settings") + "Particles turned off");
-			holidayparticles.put(player.getUniqueId(), false);
-		} else {
-			player.sendMessage(prefixes.get("settings") + "Particles turned on");
-			holidayparticles.put(player.getUniqueId(), true);
-		}
-	}
-
-	public static void toggleSidebar(Player player) {
-		if (!sidebars.containsKey(player.getUniqueId())) {
-			player.sendMessage(prefixes.get("settings") + "Sidebar turned off");
-			sidebars.put(player.getUniqueId(), false);
-			player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
-			return;
-		}
-		if (sidebars.get(player.getUniqueId())) {
-			player.sendMessage(prefixes.get("settings") + "Sidebar turned off");
-			sidebars.put(player.getUniqueId(), false);
-			player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
-		} else {
-			player.sendMessage(prefixes.get("settings") + "Sidebar turned on");
-			sidebars.put(player.getUniqueId(), true);
-			enableScoreboard(player);
-		}
-	}
-
 	public static void addPermission(Player player, String permission) {
 		PermissionsEx.getUser(player).addPermission(permission);
 	}
@@ -885,10 +851,7 @@ public class CoreUtils {
 
 	public static void enableScoreboard(Player player) {
 		if (coreBoard) {
-			if (!sidebars.containsKey(player.getUniqueId())) {
-				sidebars.put(player.getUniqueId(), false);
-			}
-			if (!sidebars.get(player.getUniqueId())) {
+			if (!getMysticPlayer(player).getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true")) {
 				return;
 			}
 			Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
