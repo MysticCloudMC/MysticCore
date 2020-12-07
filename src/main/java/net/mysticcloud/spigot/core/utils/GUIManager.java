@@ -160,7 +160,7 @@ public class GUIManager {
 	public static Inventory createSettingsMenu(Player player) {
 		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
 		InventoryCreator inv = new InventoryCreator("&6&lSettings Menu", null, 9);
-		inv.addItem(new ItemStack(Material.DIAMOND), "&eParticle Settings", 'A', new String[] {});
+		inv.addItem(new ItemStack(Material.DIAMOND), "&aParticle Settings", 'A', new String[] {"&7Click to open Particle Settings."});
 		inv.addItem(new ItemStack(Material.PAPER), "&eSidebar", 'B', new String[] { "&7Currently is "
 				+ (mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff") + "&7." });
 		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
