@@ -75,6 +75,20 @@ public class DebugCommand implements CommandExecutor {
 
 						}
 					}
+					
+					if (args[0].equalsIgnoreCase("holiday")) {
+						if(args.length == 1) {
+							DebugUtils.holidayCheck(!DebugUtils.holidayCheck());
+							sender.sendMessage(CoreUtils.prefixes("debug") + "Holiday Check is set to " + CoreUtils.colorize((DebugUtils.holidayCheck() ? "&a&ltrue" : "&c&lfalse")+"&f."));
+						}
+						if(args.length == 2) {
+							CoreUtils.setHoliday(Holiday.valueOf(args[1]));
+							if(DebugUtils.holidayCheck()) {
+								DebugUtils.holidayCheck(false);
+								sender.sendMessage(CoreUtils.prefixes("debug") + "Holiday Check is set to " + CoreUtils.colorize("&c&lfalse&f."));
+							}
+						}
+					}
 
 					if (args[0].equalsIgnoreCase("pcolor")) {
 						if (args.length == 3) {

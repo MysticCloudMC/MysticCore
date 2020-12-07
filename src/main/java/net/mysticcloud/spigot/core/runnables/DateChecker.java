@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
 import net.mysticcloud.spigot.core.utils.events.Event;
@@ -70,71 +71,73 @@ public class DateChecker implements Runnable {
 				}
 			}
 
-			boolean holiday = false;
+			if (DebugUtils.holidayCheck()) {
 
-			if (CoreUtils.getMonth() == Calendar.JANUARY) {
-				if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 16) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.NEW_YEARS);
+				boolean holiday = false;
+
+				if (CoreUtils.getMonth() == Calendar.JANUARY) {
+					if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 16) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.NEW_YEARS);
+					}
+
 				}
 
-			}
-
-			if (CoreUtils.getMonth() == Calendar.FEBRUARY) {
-				if (CoreUtils.getDay() == 13 || CoreUtils.getDay() == 14) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.VALENTINES);
-				}
-			}
-
-			if (CoreUtils.getMonth() == Calendar.MARCH) {
-				if (CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.ST_PATRICKS);
+				if (CoreUtils.getMonth() == Calendar.FEBRUARY) {
+					if (CoreUtils.getDay() == 13 || CoreUtils.getDay() == 14) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.VALENTINES);
+					}
 				}
 
-			}
-			if (CoreUtils.getMonth() == Calendar.MAY) {
-				if (CoreUtils.getDay() == 5) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
+				if (CoreUtils.getMonth() == Calendar.MARCH) {
+					if (CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.ST_PATRICKS);
+					}
+
 				}
-				if (CoreUtils.getDay() >= 22 && CoreUtils.getDay() <= 24) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.MEMORIAL_DAY);
+				if (CoreUtils.getMonth() == Calendar.MAY) {
+					if (CoreUtils.getDay() == 5) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
+					}
+					if (CoreUtils.getDay() >= 22 && CoreUtils.getDay() <= 24) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.MEMORIAL_DAY);
+					}
+
+				}
+				if (CoreUtils.getMonth() == Calendar.JULY) {
+					if (CoreUtils.getDay() == 31) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.AVACADO_DAY);
+					}
+
 				}
 
-			}
-			if (CoreUtils.getMonth() == Calendar.JULY) {
-				if (CoreUtils.getDay() == 31) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.AVACADO_DAY);
+				if (CoreUtils.getMonth() == Calendar.OCTOBER) {
+					if (CoreUtils.getDay() >= 20) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.HALLOWEEN);
+					}
+
 				}
-
-			}
-
-			if (CoreUtils.getMonth() == Calendar.OCTOBER) {
-				if (CoreUtils.getDay() >= 20) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.HALLOWEEN);
-				}
-
-			}
 //		if (CoreUtils.getMonth() == Calendar.NOVEMBER) {
 //		}
-			if (CoreUtils.getMonth() == Calendar.DECEMBER) {
-				if (CoreUtils.getDay() <= 26) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.CHRISTMAS);
-				}
+				if (CoreUtils.getMonth() == Calendar.DECEMBER) {
+					if (CoreUtils.getDay() <= 26) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.CHRISTMAS);
+					}
 
-				if (CoreUtils.getDay() >= 27) {
-					holiday = true;
-					CoreUtils.setHoliday(Holiday.NEW_YEARS);
-				}
+					if (CoreUtils.getDay() >= 27) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.NEW_YEARS);
+					}
 //
 //			
-			}
+				}
 
 //		if(CoreUtils.getHoliday() != Holiday.NONE){
 //			CoreUtils.runRunnables();
@@ -144,9 +147,11 @@ public class DateChecker implements Runnable {
 
 //		CoreUtils.updateDate();
 
-			if (holiday)
-				Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
-			else CoreUtils.setHoliday(Holiday.NONE);
+				if (holiday)
+					Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
+				else
+					CoreUtils.setHoliday(Holiday.NONE);
+			}
 		} catch (Exception ex) {
 			CoreUtils.debug("There was an error!");
 			ex.printStackTrace();
