@@ -204,8 +204,8 @@ public class PunishmentUtils {
 			while (rs.next()) {
 				if (rs.getString("TYPE").equalsIgnoreCase(type.name())){
 					if(rs.getString("NOTES").contains("[SEVERITY ")){
-						String sev = rs.getString("NOTES").replaceAll("[","|");
-						sev = sev.replaceAll("]","|");
+						String sev = rs.getString("NOTES").replaceAll("[\\[\\]]","|");
+//						sev = sev.replaceAll("]","|");
 						sev = sev.split("EVERITY ")[1].split("|")[0];
 						Bukkit.broadcastMessage(sev);
 						if(InfringementSeverity.valueOf(sev).equals(severity)){
