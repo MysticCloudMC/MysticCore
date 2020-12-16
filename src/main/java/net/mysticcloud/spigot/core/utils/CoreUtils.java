@@ -137,7 +137,7 @@ public class CoreUtils {
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
 
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
-		messages.put("noperm", prefixes("root") + "That is a player only command.");
+		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
 
 		registerSidebarList();
 
@@ -224,18 +224,29 @@ public class CoreUtils {
 
 		}
 
-		if (Main.getPlugin().getConfig().isSet("SPAWN") && Main.getPlugin().getConfig().getString("SPAWN") != "")
-			spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
-		if (Main.getPlugin().getConfig().isSet("PlayerList.Header")) {
-			playerlist.put("header", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Header")));
-		}
-		if (Main.getPlugin().getConfig().isSet("PlayerList.PlayerName")) {
-			playerlist.put("name", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.PlayerName")));
-		}
-		if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
-			playerlist.put("footer", CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
-		}
+			@Override
+			public void run() {
+				if (Main.getPlugin().getConfig().isSet("SPAWN")
+						&& Main.getPlugin().getConfig().getString("SPAWN") != "")
+					spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
+
+				if (Main.getPlugin().getConfig().isSet("PlayerList.Header")) {
+					playerlist.put("header",
+							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Header")));
+				}
+				if (Main.getPlugin().getConfig().isSet("PlayerList.PlayerName")) {
+					playerlist.put("name",
+							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.PlayerName")));
+				}
+				if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
+					playerlist.put("footer",
+							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
+				}
+			}
+
+		}, 5 * 20);
 
 		WarpUtils.registerWarps();
 
