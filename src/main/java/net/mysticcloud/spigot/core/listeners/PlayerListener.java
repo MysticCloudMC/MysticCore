@@ -185,6 +185,13 @@ public class PlayerListener implements Listener {
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
 		CoreUtils.enableScoreboard(e.getPlayer());
+		
+		Player player = e.getPlayer();
+
+		player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+		player.setPlayerListName(
+				CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
@@ -196,12 +203,7 @@ public class PlayerListener implements Listener {
 				public void run() {
 					CoreUtils.offlineTimedUsers.remove(entry.getKey());
 
-					Player player = e.getPlayer();
-
-					player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
-					player.setPlayerListName(
-							CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
-					player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
+					
 				}
 
 			}, 20);
