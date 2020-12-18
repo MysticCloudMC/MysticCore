@@ -188,31 +188,29 @@ public class PlayerListener implements Listener {
 
 		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
-			if (!entry.getKey().equals(e.getPlayer().getUniqueId()))
-				continue;
-
-			CoreUtils.removeTimedPermission(e.getPlayer(), entry.getValue());
+			
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
 					CoreUtils.offlineTimedUsers.remove(entry.getKey());
+
+					Player player = e.getPlayer();
+
+					player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+					player.setPlayerListName(
+							CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+					player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 				}
 
 			}, 20);
-			break;
+			
+			if (!entry.getKey().equals(e.getPlayer().getUniqueId()))
+				continue;
+
+			CoreUtils.removeTimedPermission(e.getPlayer(), entry.getValue());
 		}
-
-		Player player = e.getPlayer();
-
-		player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
-		String phs = CoreUtils.playerList("name");
-		phs = PlaceholderUtils.replace(player, phs);
-
-		player.setPlayerListName(CoreUtils.colorize(phs));
-
-		player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 
 	}
 
