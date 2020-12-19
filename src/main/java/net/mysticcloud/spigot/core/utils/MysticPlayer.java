@@ -137,57 +137,7 @@ public class MysticPlayer {
 		this.xp = xp;
 	}
 	
-	public boolean isFriends(UUID uid){
-		for(MysticPlayer pl : getFriends()){
-			if(pl.getUUID().equals(uid)) return true;
-		}
-		return false;
-	}
 
-	public List<MysticPlayer> getFriends() {
-		try {
-			if (!CoreUtils.isPlayerRegistered(uid))
-				return null;
-		} catch (SQLException e) {
-			return null;
-		}
-		String sfriends = "";
-		List<MysticPlayer> friends = new ArrayList<>();
-		ResultSet rs = CoreUtils.wbconn.query("SELECT * FROM Users");
-		try {
-			while (rs.next()) {
-				if (uid.toString().equalsIgnoreCase(rs.getString("MINECRAFT_UUID")))
-					sfriends = rs.getString("FRIENDS");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		CoreUtils.debug("SFriends: " + sfriends);
-		if (sfriends != "") {
-			ResultSet rs2 = CoreUtils.wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
-			try {
-				while (rs2.next()) {
-					if (sfriends.contains(","))
-						for (String friend : sfriends.split(",")) {
-							if (rs2.getString("USERNAME").equalsIgnoreCase(friend)) {
-								friends.add(
-										CoreUtils.getMysticPlayer(UUID.fromString(rs2.getString("MINECRAFT_UUID"))));
-							}
-						}
-					else {
-						if (rs2.getString("USERNAME").equalsIgnoreCase(sfriends)) {
-							friends.add(CoreUtils.getMysticPlayer(UUID.fromString(rs2.getString("MINECRAFT_UUID"))));
-						}
-					}
-
-				}
-			} catch (SQLException e) {
-				return friends;
-			}
-		}
-		return friends;
-	}
 
 
 }
