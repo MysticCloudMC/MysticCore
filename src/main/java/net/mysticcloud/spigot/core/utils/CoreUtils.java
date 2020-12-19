@@ -63,7 +63,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 public class CoreUtils {
 
 	private static IDatabase db;
-	static IDatabase wbconn;
+	static IDatabase fdb;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
 
@@ -154,13 +154,13 @@ public class CoreUtils {
 		try {
 			connected = true;
 			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
-			wbconn = new IDatabase(SQLDriver.MYSQL, "localhost", "Website", 3306, "mysql", "v4pob8LW");
-			if (db.init() && wbconn.init())
+			fdb = new IDatabase(SQLDriver.MYSQL, "localhost", "Forums", 3306, "mysql", "v4pob8LW");
+			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
 		} catch (NullPointerException ex) {
 			connected = false;
 			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
-			wbconn = new IDatabase(SQLDriver.SQLITE, "Website");
+			fdb = new IDatabase(SQLDriver.SQLITE, "Website");
 			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
 		}
 		loadVariables();
@@ -380,10 +380,15 @@ public class CoreUtils {
 
 	}
 
+	public static IDatabase getForumsDatabase() {
+		return fdb;
+
+	}
+
 	public static String lookupWebname(UUID uid) {
 		String name = "";
-		wbconn.init();
-		ResultSet rs = wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
+		fdb.init();
+		ResultSet rs = fdb.query("SELECT * FROM Users WHERE REGISTERED='true'");
 		try {
 			while (rs.next()) {
 				if (rs.getString("MIENCRAFT_UUID").equalsIgnoreCase(uid.toString())) {
@@ -650,60 +655,15 @@ public class CoreUtils {
 		return null;
 	}
 
-	public static int registerPlayer(String webName, Player player) throws SQLException {
-		if (isPlayerRegistered(webName, player))
-			return -100;
-		getMysticPlayer(player);
-		return wbconn.update("UPDATE Users SET REGISTERED='waiting',MINECRAFT_UUID='" + player.getUniqueId()
-				+ "' WHERE USERNAME='" + webName + "'");
-	}
-
-	private static boolean isPlayerRegistered(String webName, Player player) throws SQLException {
-
-		wbconn.init();
-		ResultSet rs = wbconn.query("SELECT * FROM Users");
-		while (rs.next()) {
-			if (rs.getString("USERNAME").equalsIgnoreCase(webName)) {
-				try {
-					if (!rs.getString("REGISTERED").equalsIgnoreCase("true"))
-						return false;
-					else
-						return true;
-				} catch (NullPointerException ex) {
-					return false;
-				}
-
-			}
-
-		}
-		return false;
-	}
-
-	public static boolean isPlayerRegistered(UUID uid) throws SQLException {
-
-		wbconn.init();
-		ResultSet rs = wbconn.query("SELECT * FROM Users WHERE REGISTERED='true'");
-		while (rs.next()) {
-			if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
-				return true;
-			}
-
-		}
-		return false;
-	}
-
 	public static ResultSet sendQuery(String query) throws NullPointerException {
-		wbconn.init();
 		return db.query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
-		wbconn.init();
 		return db.update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
-		wbconn.init();
 		return db.input(query);
 	}
 

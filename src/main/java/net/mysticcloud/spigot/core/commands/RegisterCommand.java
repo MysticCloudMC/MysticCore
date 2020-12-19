@@ -28,9 +28,40 @@ public class RegisterCommand implements CommandExecutor {
 			return true;
 		}
 		if (sender instanceof Player) {
-			if (args.length != 1) {
+			if (args.length == 0) {
 				sender.sendMessage(CoreUtils.colorize("&e/register <discord|forums(wip)>"));
 				return true;
+			}
+			if (args[0].equalsIgnoreCase("forums")) {
+				if (args.length == 1) {
+					sender.sendMessage(
+							CoreUtils.colorize("&e/register forums <email you used to create your forums account>"));
+					return true;
+				}
+				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user;");
+
+				String id = "";
+				try {
+					while (rs.next()) {
+						if (rs.getString("email").equalsIgnoreCase(args[1])) {
+							id = rs.getString("user_id");
+							break;
+						}
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				if (!id.equals("")) {
+					CoreUtils.sendUpdate("UPDATE MysticPlayers SET FORUMS_NAME='" + id + "' WHERE UUID='"
+							+ ((Player) sender).getUniqueId() + "';");
+					sender.sendMessage(
+							CoreUtils.colorize("&aLinked your Mystic Account with your Forums account!"));
+				} else {
+					sender.sendMessage(
+							CoreUtils.colorize("&cUnable to find your forums account using that email address."));
+				}
 			}
 			if (args[0].equalsIgnoreCase("discord")) {
 				String key = "dc-" + new UID(5);
@@ -53,9 +84,10 @@ public class RegisterCommand implements CommandExecutor {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key
-								+ "' WHERE UUID='" + ((Player) sender).getUniqueId() + "';");
-				sender.sendMessage(CoreUtils.colorize("&aHead to the MysticCloud discord, and type '>linktominecraft &2" + key + "&a' in the #bot-commands channel."));
+				CoreUtils.sendUpdate("UPDATE MysticPlayers SET DISCORD_KEY='" + key + "' WHERE UUID='"
+						+ ((Player) sender).getUniqueId() + "';");
+				sender.sendMessage(CoreUtils.colorize("&aHead to the MysticCloud discord, and type '>linktominecraft &2"
+						+ key + "&a' in the #bot-commands channel."));
 			}
 
 		} else {
