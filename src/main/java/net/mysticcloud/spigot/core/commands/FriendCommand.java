@@ -22,7 +22,7 @@ public class FriendCommand implements CommandExecutor {
 			List<String> friendsl = CoreUtils.getMysticPlayer((Player)sender).getFriends();
 			String friends = "";
 			for(String s : friendsl) {
-				friends = friends == "" ? s : friends + ", " + s;
+				friends = friends == "" ? s : CoreUtils.LookupForumID(s) + ", " + s;
 			}
 			sender.sendMessage(CoreUtils.prefixes("friends") + "Below is a list of your friends:");
 			sender.sendMessage(CoreUtils.colorize("&f" + (friends == "" ? "&cYou don't have any registered friends. &fTo add a friend link your Minecraft account with your MysticCloud web account, and friend a user that has done the same!" : friends)));
