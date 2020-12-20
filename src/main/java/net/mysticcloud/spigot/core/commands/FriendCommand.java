@@ -24,7 +24,7 @@ public class FriendCommand implements CommandExecutor {
 				List<String> friendsl = CoreUtils.getMysticPlayer((Player) sender).getFriends();
 				String friends = "";
 				for (String s : friendsl) {
-					friends = friends == "" ? s : CoreUtils.LookupForumID(s) + ", " + s;
+					friends = friends == "" ? s : friends + ", " + s;
 				}
 				sender.sendMessage(CoreUtils.prefixes("friends") + "Below is a list of your friends:");
 				sender.sendMessage(CoreUtils.colorize("&f" + (friends == ""
