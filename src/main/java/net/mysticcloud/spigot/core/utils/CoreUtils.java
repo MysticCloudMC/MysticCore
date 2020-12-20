@@ -313,20 +313,7 @@ public class CoreUtils {
 	}
 	
 	public static int LookupForumID(String player) {
-		int uid = 0;
-		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers WHERE FORUMS_NAME IS NOT NULL");
-		try {
-			while (rs.next()) {
-				if (rs.getString("NAME").equalsIgnoreCase(player)) {
-					uid = Integer.parseInt(rs.getString("FORUMS_NAME"));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return uid;
-
+		return LookupForumID(LookupUUID(player));
 	}
 	
 	public static int LookupForumID(UUID uuid) {
