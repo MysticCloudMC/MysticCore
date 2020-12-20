@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.json.JSONObject;
+import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 

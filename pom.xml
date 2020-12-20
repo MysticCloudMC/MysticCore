@@ -21,12 +21,7 @@
 	<dependencies>
 		<!--This adds the Spigot API artifact to the build -->
 
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20201115</version>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>ru.tehkode</groupId>
