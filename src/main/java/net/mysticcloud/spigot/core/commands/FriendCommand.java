@@ -27,6 +27,9 @@ public class FriendCommand implements CommandExecutor {
 			sender.sendMessage(CoreUtils.prefixes("friends") + "Below is a list of your friends:");
 			sender.sendMessage(CoreUtils.colorize("&f" + (friends == "" ? "&cYou don't have any registered friends. &fTo add a friend link your Minecraft account with your MysticCloud web account, and friend a user that has done the same!" : friends)));
 		}
+		if (cmd.getName().equalsIgnoreCase("friend")) {
+			sender.sendMessage("" +CoreUtils.getMysticPlayer((Player)sender).isFriends(args[0]));
+		}
 		return true;
 	}
 }

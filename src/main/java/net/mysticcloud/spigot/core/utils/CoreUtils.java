@@ -311,6 +311,58 @@ public class CoreUtils {
 		return uid;
 
 	}
+	
+	public static int LookupForumID(String player) {
+		int uid = 0;
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats WHERE FORUMS_NAME IS NOT NULL");
+		try {
+			while (rs.next()) {
+				if (rs.getString("NAME").equalsIgnoreCase(player)) {
+					uid = Integer.parseInt(rs.getString("FORUMS_NAME"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return uid;
+
+	}
+	
+	public static int LookupForumID(UUID uuid) {
+		int uid = 0;
+		ResultSet rs = sendQuery("SELECT * FROM PlayerStats WHERE FORUMS_NAME IS NOT NULL");
+		try {
+			while (rs.next()) {
+				if (rs.getString("UUID").equalsIgnoreCase(uuid.toString())) {
+					uid = Integer.parseInt(rs.getString("FORUMS_NAME"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return uid;
+
+	}
+	
+	@Deprecated
+	public static UUID LookupUUID(int forumId) {
+		UUID uid = null;
+		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers");
+		try {
+			while (rs.next()) {
+				if (rs.getString("FORUMS_NAME").equalsIgnoreCase(forumId + "")) {
+					uid = UUID.fromString(rs.getString("UUID"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return uid;
+
+	}
 
 	@Deprecated
 	public static long LookupLastSeen(String player) {
