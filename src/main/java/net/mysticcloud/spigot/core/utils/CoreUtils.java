@@ -314,7 +314,7 @@ public class CoreUtils {
 	
 	public static int LookupForumID(String player) {
 		int uid = 0;
-		ResultSet rs = sendQuery("SELECT * FROM PlayerStats WHERE FORUMS_NAME IS NOT NULL");
+		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers WHERE FORUMS_NAME IS NOT NULL");
 		try {
 			while (rs.next()) {
 				if (rs.getString("NAME").equalsIgnoreCase(player)) {
@@ -331,7 +331,7 @@ public class CoreUtils {
 	
 	public static int LookupForumID(UUID uuid) {
 		int uid = 0;
-		ResultSet rs = sendQuery("SELECT * FROM PlayerStats WHERE FORUMS_NAME IS NOT NULL");
+		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers WHERE FORUMS_NAME IS NOT NULL");
 		try {
 			while (rs.next()) {
 				if (rs.getString("UUID").equalsIgnoreCase(uuid.toString())) {
