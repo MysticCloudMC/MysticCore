@@ -29,9 +29,9 @@ public class FriendCommand implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("friend")) {
 			
-			sender.sendMessage("" + CoreUtils.LookupForumID(args[0]));
+//			sender.sendMessage("" + CoreUtils.LookupForumID(args[0]));
 			
-//			sender.sendMessage("" +CoreUtils.getMysticPlayer((Player)sender).isFriends(args[0]));
+			sender.sendMessage("" +CoreUtils.getMysticPlayer((Player)sender).isFriends(args[0]));
 		}
 		return true;
 	}
