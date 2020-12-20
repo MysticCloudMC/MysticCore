@@ -1,7 +1,10 @@
 package net.mysticcloud.spigot.core.utils;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.json.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 
@@ -21,29 +25,29 @@ public class MysticPlayer {
 	private Map<String, Object> extraData = new HashMap<>();
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
-	
+
 	long needed = 0;
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
 	}
-	
+
 	public void setNitro(boolean nitro) {
 		this.nitro = nitro;
 	}
+
 	public boolean isNitro() {
 		return nitro;
 	}
-	
+
 	public String setSetting(PlayerSettings setting, String value) {
 		settings.put(setting, value);
 		return value;
 	}
-	
+
 	public String getSetting(PlayerSettings setting) {
 		return settings.containsKey(setting) ? settings.get(setting) : setting.getDefaultValue();
 	}
-	
 
 	public void setBalance(double balance, boolean save) {
 		this.balance = balance;
@@ -66,7 +70,7 @@ public class MysticPlayer {
 	}
 
 	public int getLevel() {
-		return (int) LevelUtils.getMainWorker().getLevel((long) (xp*100));
+		return (int) LevelUtils.getMainWorker().getLevel((long) (xp * 100));
 	}
 
 	public int getGems() {
@@ -84,28 +88,30 @@ public class MysticPlayer {
 	public Map<String, Object> getExtraData() {
 		return extraData;
 	}
-	
-	void setExtraData(Map<String,Object> extraData){
+
+	void setExtraData(Map<String, Object> extraData) {
 		this.extraData = extraData;
 	}
 
 	public void addGems(int i) {
 		gems = gems + i;
 	}
-	
+
 	public void gainXP(double xp) {
 		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
-		
-		needed = LevelUtils.getMainWorker().untilNextLevel((long) (this.xp*100));
+
+		needed = LevelUtils.getMainWorker().untilNextLevel((long) (this.xp * 100));
 //		Bukkit.broadcastMessage("XP: " + this.xp);
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
 		sendMessage(
-				((xp*100)<=needed) ? "You gained &7" + ((double) xp * 100.0) + " &fxp. You need &7" + needed
-						+ "&f more points to level up." : "You gained &7" + ((double) xp * 100.0) + " &fxp.");
-		if ((xp*100)>=needed) {
-			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp*100)));
+				((xp * 100) <= needed)
+						? "You gained &7" + ((double) xp * 100.0) + " &fxp. You need &7" + needed
+								+ "&f more points to level up."
+						: "You gained &7" + ((double) xp * 100.0) + " &fxp.");
+		if ((xp * 100) >= needed) {
+			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp * 100)));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
@@ -114,12 +120,12 @@ public class MysticPlayer {
 //		level = level + 1;
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
-	
+
 	public void levelUp(long level) {
 //		this.level = level;
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
-	
+
 	public void sendMessage(String message) {
 		sendMessage("account", message);
 	}
@@ -129,15 +135,48 @@ public class MysticPlayer {
 			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes(prefix) + CoreUtils.colorize(message));
 		}
 	}
-	
-	public double getXP(){
+
+	public double getXP() {
 		return xp;
 	}
-	public void setXP(double xp){
+
+	public void setXP(double xp) {
 		this.xp = xp;
 	}
-	
 
+	public List<String> getFriends() {
 
+		List<String> friends = new ArrayList<>();
+		try {
+			URL apiUrl = new URL("http://www.mysticcloud.net/api/friends.php?u=" + getUUID());
+			URLConnection yc = apiUrl.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+			String inputLine;
+			JSONObject json = null;
+			while ((inputLine = in.readLine()) != null)
+				json = new JSONObject(inputLine);
+
+			for (Object o : json.getJSONArray("FRIENDS")) {
+				if (o.toString().equalsIgnoreCase("0"))
+					continue;
+				URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
+				URLConnection yc2 = apiUrl2.openConnection();
+				BufferedReader in2 = new BufferedReader(new InputStreamReader(yc2.getInputStream()));
+				String inputLine2;
+				JSONObject json2 = null;
+				while ((inputLine2 = in2.readLine()) != null)
+					json2 = new JSONObject(inputLine2);
+				if (json2.has("USERNAME"))
+					friends.add(json2.getString("USERNAME"));
+
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return friends;
+
+	}
 
 }

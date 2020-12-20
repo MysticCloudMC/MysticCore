@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mysticcloud</groupId>
@@ -6,7 +7,7 @@
 	<version>0.5</version>
 	<name>MysticCore</name>
 	<properties>
-	  <rootdir>/</rootdir>
+		<rootdir>/</rootdir>
 	</properties>
 	<url>http://www.mysticcloud.net</url>
 
@@ -19,7 +20,14 @@
 
 	<dependencies>
 		<!--This adds the Spigot API artifact to the build -->
-		
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20201115</version>
+		</dependency>
+
 		<dependency>
 			<groupId>ru.tehkode</groupId>
 			<artifactId>permissionsex</artifactId>
