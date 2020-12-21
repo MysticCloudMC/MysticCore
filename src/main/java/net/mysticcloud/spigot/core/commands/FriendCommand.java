@@ -35,7 +35,7 @@ public class FriendCommand implements CommandExecutor {
 				if (CoreUtils.LookupUUID(args[0]) != null) {
 					if (CoreUtils.getMysticPlayer((Player) sender).isFriends(args[0])) {
 						sender.sendMessage(CoreUtils.prefixes("friends") + CoreUtils
-								.colorize("When this is finished there will be a link to this player's stats."));
+								.colorize("http://www.mysticcloud.net/stats/?u=" + CoreUtils.LookupUUID(args[0])));
 					} else {
 						sender.sendMessage(CoreUtils.prefixes("friends") + CoreUtils.colorize(
 								"You are not friends with that player. Follow someone on your forum account, and if you both have linked your Mystic Account and Forum accounts (/register) you will be their friend."));
