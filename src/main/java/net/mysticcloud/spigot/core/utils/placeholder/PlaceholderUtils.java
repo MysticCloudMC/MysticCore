@@ -32,11 +32,11 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%server", Bukkit.getName());
 		if (CoreUtils.getMysticPlayer(player).isNitro()) // if nitro
 
-			string = string.replace("%nitro%",
-					CoreUtils.colorize("&d\u25C6") + ChatColor.getLastColors(string.split("%nitro%")[0]));
+			string = string.replace("%nitro",
+					CoreUtils.colorize("&d\u25C6") + ChatColor.getLastColors(string.split("%nitro")[0]));
 
 		else
-			string = string.replace("%nitro%", "");
+			string = string.replace("%nitro", "");
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
