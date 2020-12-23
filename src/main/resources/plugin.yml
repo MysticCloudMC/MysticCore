@@ -109,7 +109,8 @@ commands:
   update:
     description: Update a plugin in our repository.
   tag:
-    aliases: ['tags']
+    description: Set a custom Tag.
+  tags:
     description: Set a custom Tag.
   
   
