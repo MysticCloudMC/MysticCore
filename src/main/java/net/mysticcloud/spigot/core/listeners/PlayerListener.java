@@ -191,10 +191,12 @@ public class PlayerListener implements Listener {
 			@Override
 			public void run() {
 				Player player = e.getPlayer();
-
-				player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+				
 				player.setPlayerListName(
 						CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+
+				player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+				
 				player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 			}
 
