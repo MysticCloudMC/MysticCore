@@ -35,6 +35,7 @@ import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class Main extends JavaPlugin {
@@ -75,7 +76,13 @@ public class Main extends JavaPlugin {
 		
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
+			player.setPlayerListName(
+					CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+
+			player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+			
+			player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
+//			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
 			if(CoreUtils.useCoreScoreboard())CoreUtils.enableScoreboard(player);
 		}
 		
