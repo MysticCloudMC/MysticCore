@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core;
+	package net.mysticcloud.spigot.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,6 +11,7 @@ import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.GamemodeCommand;
+import net.mysticcloud.spigot.core.commands.HelpCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.ParticlesCommand;
@@ -72,6 +73,7 @@ public class Main extends JavaPlugin {
 		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
 		new ClearCommand(this,"clear");
 		new UpdateCommand(this,"update");
+		new HelpCommand(this,"help", "?");
 		startDateChecker();
 		
 		GUIManager.init();
