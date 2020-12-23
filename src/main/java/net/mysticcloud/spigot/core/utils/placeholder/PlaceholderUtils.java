@@ -20,20 +20,16 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%gems", "" + mp.getGems());
 		string = string.replaceAll("%g", "" + mp.getGems());
 		string = string.replaceAll("%level", "" + mp.getLevel());
-		string = string.replaceAll("%rank", CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
-		string = string.replaceAll("%prefix", CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
+		string = string.replaceAll("%rank", "%r");
+		string = string.replaceAll("%prefix", "%r");
 		string = string.replaceAll("%r", CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
-		string = string.replaceAll("%player%", player.getName());
-		string = string.replaceAll("%displayname%", player.getDisplayName());
-		string = string.replaceAll("%customname%", player.getCustomName());
-		string = string.replaceAll("%time%", player.getWorld().getFullTime() + "");
-		string = string.replaceAll("%realtime%", CoreUtils.getTime());
-		string = string.replaceAll("%playertime%", player.getPlayerTime() + "");
-		string = string.replaceAll("%prefix%", CoreUtils.colorize(CoreUtils.getPlayerPrefix(player)));
-		string = string.replaceAll("%suffix%", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
-		string = string.replaceAll("%server%", Bukkit.getName());
-		string = string.replaceAll("%world%", player.getWorld().getName());
-		string = string.replaceAll("%level%", CoreUtils.getMysticPlayer(player).getLevel() + "");
+		string = string.replaceAll("%displayname", player.getDisplayName());
+		string = string.replaceAll("%customname", player.getCustomName());
+		string = string.replaceAll("%time", player.getWorld().getFullTime() + "");
+		string = string.replaceAll("%realtime", CoreUtils.getTime());
+		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
+		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
+		string = string.replaceAll("%server", Bukkit.getName());
 		if (CoreUtils.getMysticPlayer(player).isNitro()) // if nitro
 
 			string = string.replace("%nitro%",
