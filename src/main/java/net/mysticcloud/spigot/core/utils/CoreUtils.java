@@ -16,7 +16,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,6 +57,7 @@ import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
+import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CoreUtils {
@@ -247,22 +247,38 @@ public class CoreUtils {
 			}
 
 		}, 5 * 20);
-		
-		if(playerList("header").equals("")) {
+
+		if (playerList("header").equals("")) {
 			playerlist.put("header", "&3&lMystic&7&lCloud &f&lNetwork");
 		}
-		if(playerList("name").equals("")) {
+		if (playerList("name").equals("")) {
 			playerlist.put("name", "%prefix%nitro%player");
 		}
-		if(playerList("footer").equals("")) {
+		if (playerList("footer").equals("")) {
 			playerlist.put("footer", "&3play.mysticcloud.net");
 		}
-		
 
 		WarpUtils.registerWarps();
 
 		MysticEntityUtils.registerEntities();
 
+	}
+
+	public static void setTag(Player player, CustomTag tag) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		group.setPrefix(tag.getTag(), null);
+		if (!PermissionsEx.getUser(player).inGroup(group)) {
+			PermissionsEx.getUser(player).addGroup(group);
+		}
+	}
+	
+	public static void removeTag(Player player) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		if (PermissionsEx.getUser(player).inGroup(group)) {
+			PermissionsEx.getUser(player).removeGroup(group);
+		}
 	}
 
 	public static void addCoreMessage(String name, String message) {
@@ -322,11 +338,11 @@ public class CoreUtils {
 		return uid;
 
 	}
-	
+
 	public static int LookupForumID(String player) {
 		return LookupForumID(LookupUUID(player));
 	}
-	
+
 	public static int LookupForumID(UUID uuid) {
 		int uid = 0;
 		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers WHERE FORUMS_NAME IS NOT NULL");
@@ -343,7 +359,7 @@ public class CoreUtils {
 		return uid;
 
 	}
-	
+
 	@Deprecated
 	public static UUID LookupUUID(int forumId) {
 		UUID uid = null;

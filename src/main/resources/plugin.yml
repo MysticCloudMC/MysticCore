@@ -108,8 +108,8 @@ commands:
     description: clear your inventory.
   update:
     description: Update a plugin in our repository.
-  help:
-    aliases: ['?']
-    description: Custom help command.
+  tag:
+    aliases: ['tags']
+    description: Set a custom Tag.
   
   

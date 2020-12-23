@@ -11,7 +11,6 @@ import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.GamemodeCommand;
-import net.mysticcloud.spigot.core.commands.HelpCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.ParticlesCommand;
@@ -24,6 +23,7 @@ import net.mysticcloud.spigot.core.commands.SeenCommand;
 import net.mysticcloud.spigot.core.commands.SettingsCommand;
 import net.mysticcloud.spigot.core.commands.SpawnCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
+import net.mysticcloud.spigot.core.commands.TagCommand;
 import net.mysticcloud.spigot.core.commands.TeleportCommand;
 import net.mysticcloud.spigot.core.commands.UUIDCommand;
 import net.mysticcloud.spigot.core.commands.UpdateCommand;
@@ -73,6 +73,7 @@ public class Main extends JavaPlugin {
 		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
 		new ClearCommand(this,"clear");
 		new UpdateCommand(this,"update");
+		new TagCommand(this,"tag","tags");
 		startDateChecker();
 		
 		GUIManager.init();
