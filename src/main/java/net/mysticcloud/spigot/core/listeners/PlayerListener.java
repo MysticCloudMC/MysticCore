@@ -22,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -66,6 +67,25 @@ public class PlayerListener implements Listener {
 				e.setCancelled(true);
 			}
 		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPreCommand(PlayerCommandPreprocessEvent e){
+	  String[] args = e.getMessage().split(" ");
+	  if(args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")){
+	    e.setCancelled(true);
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&3---------------------&7[&3&lHelp Menu&7]&3---------------------"));
+	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&f Need help with your current gamemode? There is always help posted at the /spawn of every gamemode"));
+	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&fNeed to report player/staff abuse? Head onto the forums and let us know please! :)"));
+	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&fNeed a referesher on the rules? /rules should help you out. :)"));
+	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&fWant to apply for staff? You can do that on the forums as-well."));
+	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
+	    e.getPlayer().sendMessage(CoreUtils.colorize("&3-----------------------------------------------------"));
+	  }
 	}
 
 //	@EventHandler
