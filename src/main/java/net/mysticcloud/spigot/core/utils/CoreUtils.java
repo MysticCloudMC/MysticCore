@@ -248,11 +248,11 @@ public class CoreUtils {
 
 		}, 5 * 20);
 		
-		if(playerList("header").equals("")) {
-			playerlist.put("footer", "&&lMystic&7&lCloud &f&lNetwork");
+		if(playerList("").equals("")) {
+			playerlist.put("header", "&&lMystic&7&lCloud &f&lNetwork");
 		}
 		if(playerList("name").equals("")) {
-			playerlist.put("footer", "%prefix%%nitro%%player%");
+			playerlist.put("name", "%prefix%%nitro%%player%");
 		}
 		if(playerList("footer").equals("")) {
 			playerlist.put("footer", "&3play.mysticcloud.net");
