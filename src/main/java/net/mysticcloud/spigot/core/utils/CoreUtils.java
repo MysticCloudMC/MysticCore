@@ -248,7 +248,7 @@ public class CoreUtils {
 
 		}, 5 * 20);
 		
-		if(playerList("").equals("")) {
+		if(playerList("header").equals("")) {
 			playerlist.put("header", "&&lMystic&7&lCloud &f&lNetwork");
 		}
 		if(playerList("name").equals("")) {
