@@ -818,11 +818,15 @@ public class CoreUtils {
 	public static String getPlayerPrefix(Player player) {
 		if (PermissionsEx.getUser(player).getGroups().length > 0) {
 			String prefix = "";
+			String tag = "";
 			for (PermissionGroup group : PermissionsEx.getUser(player).getGroups()) {
-
+				if(group.getName().equals(player.getUniqueId().toString())) {
+					tag = group.getPrefix();
+					continue;
+				}
 				prefix = prefix + group.getPrefix();
 			}
-			return colorize(prefix);
+			return colorize(prefix + tag);
 		}
 		return "";
 	}
