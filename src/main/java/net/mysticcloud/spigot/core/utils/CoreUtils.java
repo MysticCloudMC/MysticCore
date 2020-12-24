@@ -466,7 +466,7 @@ public class CoreUtils {
 		ResultSet rs = fdb.query("SELECT * FROM Users WHERE REGISTERED='true'");
 		try {
 			while (rs.next()) {
-				if (rs.getString("MIENCRAFT_UUID").equalsIgnoreCase(uid.toString())) {
+				if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
 					name = (rs.getString("USERNAME"));
 				}
 			}
@@ -829,15 +829,13 @@ public class CoreUtils {
 	public static String getPlayerPrefix(Player player) {
 		if (PermissionsEx.getUser(player).getGroups().length > 0) {
 			String prefix = "";
-			String tag = "";
 			for (PermissionGroup group : PermissionsEx.getUser(player).getGroups()) {
-				if(group.getName().equals(player.getUniqueId().toString())) {
-					tag = group.getPrefix();
+				if(group.getName().equals(player.getUniqueId().toString())) 
 					continue;
-				}
+				
 				prefix = prefix + group.getPrefix();
 			}
-			return colorize(prefix + tag);
+			return colorize(prefix);
 		}
 		return "";
 	}
