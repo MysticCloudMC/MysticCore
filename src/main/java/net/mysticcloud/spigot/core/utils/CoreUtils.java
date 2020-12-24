@@ -273,6 +273,15 @@ public class CoreUtils {
 		}
 	}
 	
+	public static String getTag(Player player) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		if (!PermissionsEx.getUser(player).inGroup(group)) {
+			return group.getPrefix();
+		}
+		return "";
+	}
+	
 	public static void removeTag(Player player) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
@@ -813,6 +822,8 @@ public class CoreUtils {
 		debug("Removed TimedPerm for " + player.getName());
 		timedPerms.remove(player.getUniqueId());
 	}
+	
+	
 
 	@SuppressWarnings("deprecation")
 	public static String getPlayerPrefix(Player player) {
