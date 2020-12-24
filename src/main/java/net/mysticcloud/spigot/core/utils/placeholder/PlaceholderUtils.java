@@ -30,6 +30,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
 		string = string.replaceAll("%server", Bukkit.getName());
+		string = string.replaceAll("%tag", CoreUtils.getTag(player));
 		if (CoreUtils.getMysticPlayer(player).isNitro()) // if nitro
 
 			string = string.replace("%nitro",
