@@ -196,7 +196,7 @@ public class MysticPlayer {
 			while ((inputLine = in.readLine()) != null)
 				json = new JSONObject(inputLine);
 
-			id = json.getString("FORUMS_NAME");
+			id = json.getString("FORUMS_ID");
 
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
