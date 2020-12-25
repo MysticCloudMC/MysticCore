@@ -147,38 +147,15 @@ public class MysticPlayer {
 	}
 
 	public boolean isFriends(String username) {
-		return isFriends(CoreUtils.LookupForumID(username));
+		return getFriends().contains(username);
 	}
 
 	public boolean isFriends(UUID uid) {
-		return isFriends(CoreUtils.LookupForumID(uid));
+		return isFriends(CoreUtils.lookupUsername(uid));
 	}
 
 	public boolean isFriends(int forumId) {
-
-		try {
-			URL apiUrl = new URL("http://www.mysticcloud.net/api/friends.php?u=" + getUUID());
-			URLConnection yc = apiUrl.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-			String inputLine;
-			JSONObject json = null;
-			while ((inputLine = in.readLine()) != null)
-				json = new JSONObject(inputLine);
-
-			for (Object o : json.getJSONArray("FRIENDS")) {
-				if (o.toString().equalsIgnoreCase("0"))
-					continue;
-				if (o.toString().equalsIgnoreCase(forumId + ""))
-					return true;
-
-			}
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-
+		return isFriends(CoreUtils.lookupUsername(CoreUtils.LookupUUID(forumId)));
 	}
 
 	public List<String> getFriends() {
