@@ -276,7 +276,7 @@ public class CoreUtils {
 	public static String getTag(Player player) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
-		if (!PermissionsEx.getUser(player).inGroup(group)) {
+		if (PermissionsEx.getUser(player).inGroup(group)) {
 			return group.getPrefix();
 		}
 		return "";
