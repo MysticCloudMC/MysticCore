@@ -201,8 +201,7 @@ public class MysticPlayer {
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='?';",
-						o.toString());
+				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
 				while (rs.next()) {
 					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
 						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
