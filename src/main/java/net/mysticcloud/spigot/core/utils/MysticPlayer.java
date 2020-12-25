@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -143,15 +145,15 @@ public class MysticPlayer {
 	public void setXP(double xp) {
 		this.xp = xp;
 	}
-	
+
 	public boolean isFriends(String username) {
 		return isFriends(CoreUtils.LookupForumID(username));
 	}
-	
+
 	public boolean isFriends(UUID uid) {
 		return isFriends(CoreUtils.LookupForumID(uid));
 	}
-	
+
 	public boolean isFriends(int forumId) {
 
 		try {
@@ -166,7 +168,8 @@ public class MysticPlayer {
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				if(o.toString().equalsIgnoreCase(forumId + "")) return true;
+				if (o.toString().equalsIgnoreCase(forumId + ""))
+					return true;
 
 			}
 
@@ -181,6 +184,9 @@ public class MysticPlayer {
 	public List<String> getFriends() {
 
 		List<String> friends = new ArrayList<>();
+
+		String id = "0";
+
 		try {
 			URL apiUrl = new URL("http://www.mysticcloud.net/api/friends.php?u=" + getUUID());
 			URLConnection yc = apiUrl.openConnection();
@@ -190,22 +196,30 @@ public class MysticPlayer {
 			while ((inputLine = in.readLine()) != null)
 				json = new JSONObject(inputLine);
 
+			id = json.getString("FORUMS_NAME");
+
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
-				URLConnection yc2 = apiUrl2.openConnection();
-				BufferedReader in2 = new BufferedReader(new InputStreamReader(yc2.getInputStream()));
-				String inputLine2;
-				JSONObject json2 = null;
-				while ((inputLine2 = in2.readLine()) != null)
-					json2 = new JSONObject(inputLine2);
-				if (json2.has("USERNAME"))
-					friends.add(json2.getString("USERNAME"));
+				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='?';",
+						o.toString());
+				while (rs.next()) {
+					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
+						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
+						URLConnection yc2 = apiUrl2.openConnection();
+						BufferedReader in2 = new BufferedReader(new InputStreamReader(yc2.getInputStream()));
+						String inputLine2;
+						JSONObject json2 = null;
+						while ((inputLine2 = in2.readLine()) != null)
+							json2 = new JSONObject(inputLine2);
+						if (json2.has("USERNAME"))
+							friends.add(json2.getString("USERNAME"));
+					}
+				}
 
 			}
 
-		} catch (IOException e) {
+		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
