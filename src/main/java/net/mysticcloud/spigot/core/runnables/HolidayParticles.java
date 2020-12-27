@@ -125,14 +125,14 @@ public class HolidayParticles implements Runnable {
 								(1.5 + CoreUtils.getRandom().nextDouble())
 										- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
 								-0.5 + CoreUtils.getRandom().nextDouble()), 0, 0, 0, 0,
-								new Particle.DustOptions(Color.fromRGB((int) 0, (int) 0, (int) 0), 1));
+								new Particle.DustOptions(Color.fromRGB(160,202,249), 1));
 					else
 						player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
 								-0.5 + CoreUtils.getRandom().nextDouble(),
 								(1.5 + CoreUtils.getRandom().nextDouble())
 										- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
 								-0.5 + CoreUtils.getRandom().nextDouble()), 0, 0, 0, 0,
-								new Particle.DustOptions(Color.fromRGB((int) 125, (int) 0, (int) 255), 1));
+								new Particle.DustOptions(Color.fromRGB(249,160,172), 1));
 				}
 			}
 
@@ -142,6 +142,12 @@ public class HolidayParticles implements Runnable {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
+					player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
+							-0.5 + CoreUtils.getRandom().nextDouble(),
+							(1.5 + CoreUtils.getRandom().nextDouble())
+									- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
+							-0.5 + CoreUtils.getRandom().nextDouble()), 0, 0, 0, 0,
+							new Particle.DustOptions(Color.fromRGB((int) 0, (int) 0, (int) 0), 1));
 					if (CoreUtils.getRandom().nextBoolean())
 						player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
 								-0.5 + CoreUtils.getRandom().nextDouble(),
