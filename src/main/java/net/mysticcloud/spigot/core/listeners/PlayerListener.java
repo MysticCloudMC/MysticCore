@@ -60,18 +60,6 @@ public class PlayerListener implements Listener {
 	}
 	
 	@EventHandler
-	public void onPlayerTeleport(PlayerTeleportEvent e) {
-		if(e.getPlayer().hasMetadata("coreteleporting")) {
-			e.getPlayer().removeMetadata("coreteleporting", Main.getPlugin());
-			e.setCancelled(false);
-			return;
-		} else {
-			TeleportUtils.teleportLocation(e.getPlayer(), e.getTo());
-			e.setCancelled(true);
-		}
-	}
-
-	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
 			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {

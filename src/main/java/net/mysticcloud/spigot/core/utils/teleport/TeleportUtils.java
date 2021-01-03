@@ -102,8 +102,7 @@ public class TeleportUtils {
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
 			return;
 		}
-		if (!player.hasMetadata("coreteleporting"))
-			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
+		player.removeMetadata("coreteleporting", Main.getPlugin());
 		player.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
 						+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
