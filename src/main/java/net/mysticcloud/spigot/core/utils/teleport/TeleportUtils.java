@@ -89,7 +89,27 @@ public class TeleportUtils {
 		}
 	}
 
+	public static void teleport(Player player, Player other) {
+		teleport(player, other, false);
+	}
+
+	public static void teleport(Player player, Location loc) {
+		teleport(player, loc, true);
+	}
+
+	public static void teleport(Player player, Player other, boolean sender) {
+		teleportPlayer(player, other, sender);
+	}
+
+	public static void teleport(Player player, Location loc, boolean message) {
+		teleportLocation(player, loc, message);
+	}
+
 	public static void teleportLocation(Player player, Location loc) {
+		teleportLocation(player, loc, true);
+	}
+
+	public static void teleportLocation(Player player, Location loc, boolean message) {
 		if (!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
@@ -103,9 +123,10 @@ public class TeleportUtils {
 			return;
 		}
 		player.removeMetadata("coreteleporting", Main.getPlugin());
-		player.sendMessage(CoreUtils.colorize(
-				CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
-						+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
+		if (message)
+			player.sendMessage(CoreUtils.colorize(
+					CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
+							+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
 		player.teleport(loc);
 	}
 
