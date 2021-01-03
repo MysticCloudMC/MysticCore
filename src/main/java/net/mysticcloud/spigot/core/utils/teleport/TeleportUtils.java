@@ -90,7 +90,7 @@ public class TeleportUtils {
 	}
 
 	public static void teleportLocation(Player player, Location loc) {
-		if (player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
+		if (!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
