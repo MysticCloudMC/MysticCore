@@ -3,19 +3,36 @@ package net.mysticcloud.spigot.core.utils;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.OfflinePlayer;
+
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.mysticcloud.spigot.core.Main;
 
 public class VaultAPI extends AbstractEconomy {
+	
+	@Override
+	public boolean hasAccount(OfflinePlayer player) {
+		return hasAccount(player.getUniqueId().toString());
+	}
 
 	public boolean hasAccount(String uid) {
 		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
 
 	}
+	
+	@Override
+	public double getBalance(OfflinePlayer player) {
+		return getBalance(player.getUniqueId().toString());
+	}
 
 	public double getBalance(String uid) {
 		return CoreUtils.getMysticPlayer(UUID.fromString(uid)).getBalance();
+	}
+	
+	@Override
+	public boolean has(OfflinePlayer player, double amount) {
+		return has(player.getUniqueId().toString(), amount);
 	}
 
 	public boolean has(String name, double amount) {
@@ -23,6 +40,11 @@ public class VaultAPI extends AbstractEconomy {
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
+		return withdrawPlayer(player.getUniqueId().toString(), amount);
 	}
 
 	public EconomyResponse withdrawPlayer(String uid, double amount) {
@@ -44,6 +66,11 @@ public class VaultAPI extends AbstractEconomy {
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
 				EconomyResponse.ResponseType.SUCCESS, "");
 	}
+	
+	@Override
+	public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
+		return depositPlayer(player.getUniqueId().toString(), amount);
+	}
 
 	public EconomyResponse depositPlayer(String uid, double amount) {
 		if (!hasAccount(uid)) {
@@ -58,6 +85,11 @@ public class VaultAPI extends AbstractEconomy {
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
+	
+	@Override
+	public boolean createPlayerAccount(OfflinePlayer player) {
+		return createPlayerAccount(player.getUniqueId().toString());
+	}
 
 	public boolean createPlayerAccount(String uid) {
 		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
@@ -66,25 +98,55 @@ public class VaultAPI extends AbstractEconomy {
 	public String format(double summ) {
 		return String.valueOf(summ);
 	}
+	
+	@Override
+	public boolean hasAccount(OfflinePlayer player, String worldName) {
+		return hasAccount(player.getUniqueId().toString(), worldName);
+	}
 
 	public boolean hasAccount(String uid, String world) {
 		return hasAccount(uid);
+	}
+	
+	@Override
+	public boolean has(OfflinePlayer player, String worldName, double amount) {
+		return has(player.getUniqueId().toString(), worldName, amount);
 	}
 
 	public boolean has(String uid, String world, double amount) {
 		return has(uid, amount);
 	}
+	
+	@Override
+	public double getBalance(OfflinePlayer player, String world) {
+		return getBalance(player.getUniqueId().toString(), world);
+	}
 
 	public double getBalance(String uid, String world) {
 		return CoreUtils.getMoneyFormat(getBalance(uid));
+	}
+	
+	@Override
+	public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
+		return withdrawPlayer(player.getUniqueId().toString(), worldName, amount);
 	}
 
 	public EconomyResponse withdrawPlayer(String uid, String world, double amount) {
 		return withdrawPlayer(uid, amount);
 	}
+	
+	@Override
+	public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
+		return depositPlayer(player.getUniqueId().toString(), worldName, amount);
+	}
 
 	public EconomyResponse depositPlayer(String name, String world, double amount) {
 		return depositPlayer(name, amount);
+	}
+
+	@Override
+	public EconomyResponse createBank(String name, OfflinePlayer player) {
+		return null;
 	}
 
 	public EconomyResponse createBank(String s, String s1) {
@@ -118,6 +180,11 @@ public class VaultAPI extends AbstractEconomy {
 	public EconomyResponse isBankMember(String s, String s1) {
 		return null;
 	}
+	
+	@Override
+	public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
+		return createPlayerAccount(player.getUniqueId().toString(), worldName);
+	}
 
 	public boolean createPlayerAccount(String name, String world) {
 		return createPlayerAccount(name);
@@ -136,7 +203,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public String getName() {
-		return "Economy";
+		return "MysticEconomy";
 	}
 
 	public int fractionalDigits() {
