@@ -91,7 +91,7 @@ public class TeleportUtils {
 	
 
 	public static void teleportLocation(Player player, Location loc) {
-		if(player.hasPermission("mysticcloud.teleport.waitoverride")) {
+		if(player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 				
 				@Override
@@ -99,18 +99,17 @@ public class TeleportUtils {
 					teleportLocation(player, loc);
 				}
 			}, 10*20);
+			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
 			return;
 		}
 		player.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
 						+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
-		player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 		player.teleport(loc);
 	}
 
 	public static void teleportPlayer(String sender, Player player, Player other) {
-
 		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport") + "You've been teleported to &7"
 				+ other.getName() + "&f by &7" + sender + "&f."));
 		teleportPlayer(player, other, true);
