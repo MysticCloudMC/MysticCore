@@ -134,8 +134,8 @@ public class TeleportUtils {
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportLocation(player, loc);
 					else
-						player.sendMessage(
-								CoreUtils.prefixes("You've moved you so your teleportation has been cancelled."));
+						player.sendMessage(CoreUtils.prefixes("teleport")
+								+ "You've moved you so your teleportation has been cancelled.");
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
@@ -176,8 +176,8 @@ public class TeleportUtils {
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportPlayer(player, other);
 					else
-						player.sendMessage(
-								CoreUtils.prefixes("You've moved you so your teleportation has been cancelled."));
+						player.sendMessage(CoreUtils.prefixes("teleport")
+								+ "You've moved you so your teleportation has been cancelled.");
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
