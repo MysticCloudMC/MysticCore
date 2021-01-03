@@ -120,7 +120,19 @@ public class TeleportUtils {
 	}
 
 	public static void teleportPlayer(Player player, Player other, boolean sender) {
-		player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
+		if (!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+				@Override
+				public void run() {
+					teleportPlayer(player, other);
+				}
+			}, 10 * 20);
+			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
+			return;
+		}
+		player.removeMetadata("coreteleporting", Main.getPlugin());
 		player.teleport(other);
 		if (!sender)
 			player.sendMessage(CoreUtils
