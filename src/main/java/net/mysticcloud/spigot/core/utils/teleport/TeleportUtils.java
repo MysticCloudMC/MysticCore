@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.TimeoutTeleportationRequest;
@@ -50,11 +51,12 @@ public class TeleportUtils {
 	}
 
 	public static void timeoutRequest(UUID player, UUID other) {
-		if(teleportRequests.containsKey(other)) {
-			if(teleportRequests.get(other).equals(player)) {
+		if (teleportRequests.containsKey(other)) {
+			if (teleportRequests.get(other).equals(player)) {
 				teleportRequests.remove(other);
-				if(Bukkit.getPlayer(player) != null) {
-					Bukkit.getPlayer(player).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
+				if (Bukkit.getPlayer(player) != null) {
+					Bukkit.getPlayer(player).sendMessage(
+							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
 				}
 			}
 		}
@@ -87,12 +89,25 @@ public class TeleportUtils {
 		}
 	}
 	
+
 	public static void teleportLocation(Player player, Location loc) {
-		player.sendMessage(CoreUtils
-				.colorize(CoreUtils.prefixes("teleport") + "You've teleported to &7" + CoreUtils.encryptLocation(loc).replaceAll(",", "&f, &7") + "&f."));
+		if(player.hasPermission("mysticcloud.teleport.waitoverride")) {
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+				
+				@Override
+				public void run() {
+					teleportLocation(player, loc);
+				}
+			}, 10*20);
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
+			return;
+		}
+		player.sendMessage(CoreUtils.colorize(
+				CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
+						+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
+		player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 		player.teleport(loc);
 	}
-	
 
 	public static void teleportPlayer(String sender, Player player, Player other) {
 
@@ -104,11 +119,9 @@ public class TeleportUtils {
 	public static void teleportPlayer(Player player, Player other) {
 		teleportPlayer(player, other, false);
 	}
-	
-	
 
 	public static void teleportPlayer(Player player, Player other, boolean sender) {
-
+		player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 		player.teleport(other);
 		if (!sender)
 			player.sendMessage(CoreUtils

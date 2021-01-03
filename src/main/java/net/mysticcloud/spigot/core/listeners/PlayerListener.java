@@ -29,6 +29,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -50,11 +51,22 @@ import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
+import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class PlayerListener implements Listener {
 
 	public PlayerListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+	
+	@EventHandler
+	public void onPlayerTeleport(PlayerTeleportEvent e) {
+		if(e.getPlayer().hasMetadata("coreteleporting")) {
+			e.getPlayer().removeMetadata("coreteleporting", Main.getPlugin());
+		} else {
+			TeleportUtils.teleportLocation(e.getPlayer(), e.getTo());
+			e.setCancelled(true);
+		}
 	}
 
 	@EventHandler
