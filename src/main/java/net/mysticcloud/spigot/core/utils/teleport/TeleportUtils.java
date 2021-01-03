@@ -88,21 +88,22 @@ public class TeleportUtils {
 			return TeleportResult.NO_REQUESTS;
 		}
 	}
-	
 
 	public static void teleportLocation(Player player, Location loc) {
-		if(player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
+		if (player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
-				
+
 				@Override
 				public void run() {
 					teleportLocation(player, loc);
 				}
-			}, 10*20);
+			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
 			return;
 		}
+		if (!player.hasMetadata("coreteleporting"))
+			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 		player.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
 						+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
