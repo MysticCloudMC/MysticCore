@@ -64,6 +64,7 @@ public class PlayerListener implements Listener {
 		if(e.getPlayer().hasMetadata("coreteleporting")) {
 			e.getPlayer().removeMetadata("coreteleporting", Main.getPlugin());
 			e.setCancelled(false);
+			return;
 		} else {
 			TeleportUtils.teleportLocation(e.getPlayer(), e.getTo());
 			e.setCancelled(true);
