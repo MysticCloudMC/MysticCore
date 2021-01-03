@@ -133,9 +133,12 @@ public class TeleportUtils {
 					if (player.getLocation().getBlockX() == holder.getBlockX()
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportLocation(player, loc);
-					else
+					else {
+						player.removeMetadata("coreteleporting", Main.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
 								+ "You've moved you so your teleportation has been cancelled.");
+					}
+
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
@@ -175,9 +178,11 @@ public class TeleportUtils {
 					if (player.getLocation().getBlockX() == holder.getBlockX()
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportPlayer(player, other);
-					else
+					else {
+						player.removeMetadata("coreteleporting", Main.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
 								+ "You've moved you so your teleportation has been cancelled.");
+					}
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
