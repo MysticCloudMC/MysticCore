@@ -105,21 +105,41 @@ public class TeleportUtils {
 		teleportLocation(player, loc, message);
 	}
 
+	public static void teleport(Player player, Player other, boolean sender, boolean overrideWait) {
+		teleportPlayer(player, other, sender, overrideWait);
+	}
+
+	public static void teleport(Player player, Location loc, boolean message, boolean overrideWait) {
+		teleportLocation(player, loc, message, overrideWait);
+	}
+
 	public static void teleportLocation(Player player, Location loc) {
 		teleportLocation(player, loc, true);
 	}
 
 	public static void teleportLocation(Player player, Location loc, boolean message) {
-		if (!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
+		teleportLocation(player, loc, message, false);
+	}
+
+	public static void teleportLocation(Player player, Location loc, boolean message, boolean overrideWait) {
+		if ((!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting"))
+				&& !overrideWait) {
+
+			Location holder = player.getLocation();
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
-					teleportLocation(player, loc);
+					if (player.getLocation().getBlockX() == holder.getBlockX()
+							&& player.getLocation().getBlockZ() == holder.getBlockZ())
+						teleportLocation(player, loc);
+					else
+						player.sendMessage(
+								CoreUtils.prefixes("You've moved you so your teleportation has been cancelled."));
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
-			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds. Don't move.");
 			return;
 		}
 		player.removeMetadata("coreteleporting", Main.getPlugin());
@@ -141,12 +161,23 @@ public class TeleportUtils {
 	}
 
 	public static void teleportPlayer(Player player, Player other, boolean sender) {
-		if (!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting")) {
+		teleportPlayer(player, other, sender, false);
+	}
+
+	public static void teleportPlayer(Player player, Player other, boolean sender, boolean overrideWait) {
+		if ((!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting"))
+				&& !overrideWait) {
+			Location holder = player.getLocation();
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
-					teleportPlayer(player, other);
+					if (player.getLocation().getBlockX() == holder.getBlockX()
+							&& player.getLocation().getBlockZ() == holder.getBlockZ())
+						teleportPlayer(player, other);
+					else
+						player.sendMessage(
+								CoreUtils.prefixes("You've moved you so your teleportation has been cancelled."));
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
