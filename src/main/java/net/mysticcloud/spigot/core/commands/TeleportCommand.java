@@ -201,13 +201,13 @@ public class TeleportCommand implements CommandExecutor {
 						if (args[0].contains(",")) {
 							for (String pn : args[0].split(","))
 								if (Bukkit.getPlayer(pn) != null)
-									TeleportUtils.teleport(Bukkit.getPlayer(pn), (Player)sender, false, true);
+									TeleportUtils.teleport(Bukkit.getPlayer(pn), (Player) sender, false, true);
 								else
 									sender.sendMessage(CoreUtils
 											.colorize(CoreUtils.prefixes("teleport") + "&7" + pn + "&f isn't online."));
 						}
 					if (Bukkit.getPlayer(args[0]) != null)
-						TeleportUtils.teleportPlayer(Bukkit.getPlayer(args[0]), ((Player) sender));
+						TeleportUtils.teleport(Bukkit.getPlayer(args[0]), ((Player) sender), false, true);
 					else
 						sender.sendMessage(CoreUtils.prefixes("teleport") + "That player isn't online.");
 
