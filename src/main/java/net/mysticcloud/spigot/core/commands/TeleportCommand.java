@@ -74,38 +74,42 @@ public class TeleportCommand implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport")
 								+ "Sorry, you don't have permission to use that command."));
 				} else {
-					if(args.length == 3 || args.length == 5) {
-						Location loc = ((Player)sender).getLocation().clone();
-						if(args[0].contains("~")) 
-							loc = loc.add(Double.parseDouble(args[0] == "~" ? "0" : args[0].replaceAll("~", "")), 0, 0);
-						 else 
+					if (args.length == 3 || args.length == 5) {
+						Location loc = ((Player) sender).getLocation().clone();
+						if (args[0].contains("~"))
+							loc = loc.add(Double.parseDouble(args[0].equals("~") ? "0" : args[0].replaceAll("~", "")),
+									0, 0);
+						else
 							loc.setX(Double.parseDouble(args[0]));
-						
-						if(args[1].contains("~")) 
-							loc = loc.add(0, Double.parseDouble(args[1] == "~" ? "0" : args[1].replaceAll("~", "")), 0);
-						 else 
+
+						if (args[1].contains("~"))
+							loc = loc.add(0,
+									Double.parseDouble(args[0].equals("~") ? "0" : args[1].replaceAll("~", "")), 0);
+						else
 							loc.setY(Double.parseDouble(args[1]));
-						
-						if(args[2].contains("~")) 
-							loc = loc.add(0, 0, Double.parseDouble(args[2] == "~" ? "0" : args[2].replaceAll("~", "")));
-						 else 
+
+						if (args[2].contains("~"))
+							loc = loc.add(0, 0,
+									Double.parseDouble(args[0].equals("~") ? "0" : args[2].replaceAll("~", "")));
+						else
 							loc.setZ(Double.parseDouble(args[2]));
-						
-						if(args.length == 5) {
+
+						if (args.length == 5) {
 							loc.setYaw(Float.parseFloat(args[3]));
 							loc.setPitch(Float.parseFloat(args[4]));
 						}
-						
-						TeleportUtils.teleportLocation(((Player)sender), loc);
-						
+
+						TeleportUtils.teleportLocation(((Player) sender), loc);
+
 					}
-					
-					if(args.length == 4 || args.length == 6) {
-						if(Bukkit.getPlayer(args[0]) != null || args[0].contains("@p")) {
+
+					if (args.length == 4 || args.length == 6) {
+						if (Bukkit.getPlayer(args[0]) != null || args[0].contains("@p")) {
 							Player pl = null;
-							if(args[0].contains("@p")) {
-								for(Entity e : ((BlockCommandSender)sender).getBlock().getWorld().getNearbyEntities(((BlockCommandSender)sender).getBlock().getLocation(), 50, 50, 50)) {
-									if(e instanceof Player) {
+							if (args[0].contains("@p")) {
+								for (Entity e : ((BlockCommandSender) sender).getBlock().getWorld().getNearbyEntities(
+										((BlockCommandSender) sender).getBlock().getLocation(), 50, 50, 50)) {
+									if (e instanceof Player) {
 										pl = (Player) e;
 										break;
 									}
@@ -114,29 +118,28 @@ public class TeleportCommand implements CommandExecutor {
 								pl = Bukkit.getPlayer(args[0]);
 							}
 							Location loc = pl.getLocation().clone();
-							if(args[1].contains("~")) 
+							if (args[1].contains("~"))
 								loc = loc.add(Double.parseDouble(args[1]), 0, 0);
-							 else 
+							else
 								loc.setX(Double.parseDouble(args[1]));
-							
-							if(args[2].contains("~")) 
+
+							if (args[2].contains("~"))
 								loc = loc.add(0, Double.parseDouble(args[2]), 0);
-							 else 
+							else
 								loc.setY(Double.parseDouble(args[2]));
-							
-							if(args[3].contains("~")) 
+
+							if (args[3].contains("~"))
 								loc = loc.add(0, 0, Double.parseDouble(args[3]));
-							 else 
+							else
 								loc.setZ(Double.parseDouble(args[3]));
-							
-							if(args.length == 6) {
+
+							if (args.length == 6) {
 								loc.setYaw(Float.parseFloat(args[4]));
 								loc.setPitch(Float.parseFloat(args[5]));
 							}
-							
+
 							TeleportUtils.teleportLocation(pl, loc);
-							
-							
+
 						} else {
 							sender.sendMessage(CoreUtils.prefixes("teleport") + "That player isn't online.");
 						}
@@ -198,7 +201,7 @@ public class TeleportCommand implements CommandExecutor {
 						if (args[0].contains(",")) {
 							for (String pn : args[0].split(","))
 								if (Bukkit.getPlayer(pn) != null)
-									CoreUtils.teleportPlayer(Bukkit.getPlayer(pn), ((Player) sender));
+									TeleportUtils.teleport(Bukkit.getPlayer(pn), (Player)sender, false, true);
 								else
 									sender.sendMessage(CoreUtils
 											.colorize(CoreUtils.prefixes("teleport") + "&7" + pn + "&f isn't online."));
