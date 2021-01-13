@@ -44,6 +44,22 @@ public class AdminCommandTabCompleter implements TabCompleter {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		List<String> completions = new ArrayList<>();
+		if (cmd.getName().equalsIgnoreCase("invsee") || cmd.getName().equalsIgnoreCase("sudo")) {
+			if (args.length == 0)
+				StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);
+		}
+		if (cmd.getName().equalsIgnoreCase("sudo")) {
+			if (args.length == 1) {
+				List<String> allCmds = new ArrayList<>();
+				for (String s : Bukkit.getCommandAliases().keySet()) {
+					allCmds.add("/" + s);
+				}
+				allCmds.add("-move");
+				allCmds.add("-punch");
+				StringUtil.copyPartialMatches(args[1], allCmds, completions);
+
+			}
+		}
 		if (cmd.getName().equalsIgnoreCase("debug")) {
 			if (args.length == 0) {
 
@@ -59,8 +75,12 @@ public class AdminCommandTabCompleter implements TabCompleter {
 
 	}
 
-
-
-
+	public List<String> getOnlinePlayers() {
+		List<String> players = new ArrayList<>();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			players.add(player.getName());
+		}
+		return players;
+	}
 
 }

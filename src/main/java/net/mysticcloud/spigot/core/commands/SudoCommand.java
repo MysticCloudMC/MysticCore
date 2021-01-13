@@ -4,16 +4,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class SudoCommand implements CommandExecutor {
 
 	public SudoCommand(Main plugin, String cmd) {
-		plugin.getCommand(cmd).setExecutor(this);
+		PluginCommand com = plugin.getCommand(cmd);
+		com.setExecutor(this);
+		com.setTabCompleter(new AdminCommandTabCompleter());
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -33,15 +37,16 @@ public class SudoCommand implements CommandExecutor {
 					return true;
 				}
 				if (args[1].startsWith("-punch")) {
-					for(Entity e : Bukkit.getPlayer(args[0]).getNearbyEntities(5, 5, 5)) {
-						if(e.equals(Bukkit.getPlayer(args[0]))) continue;
-						if(Bukkit.getPlayer(args[0]).hasLineOfSight(e) && e instanceof LivingEntity) {
-							((LivingEntity)e).damage(0.1, Bukkit.getPlayer(args[0]));
+					for (Entity e : Bukkit.getPlayer(args[0]).getNearbyEntities(5, 5, 5)) {
+						if (e.equals(Bukkit.getPlayer(args[0])))
+							continue;
+						if (Bukkit.getPlayer(args[0]).hasLineOfSight(e) && e instanceof LivingEntity) {
+							((LivingEntity) e).damage(0.1, Bukkit.getPlayer(args[0]));
 							break;
 						}
 					}
 					return true;
-					
+
 				}
 				if (args[1].startsWith("-walk")) {
 					command = command.replaceFirst("-walk ", "");

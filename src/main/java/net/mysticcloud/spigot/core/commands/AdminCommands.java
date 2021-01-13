@@ -15,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
+import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
@@ -27,7 +27,7 @@ public class AdminCommands implements CommandExecutor {
 		for (String s : cmd) {
 			PluginCommand com = plugin.getCommand(s);
 			com.setExecutor(this);
-			com.setTabCompleter(new CommandTabCompleter());
+			com.setTabCompleter(new AdminCommandTabCompleter());
 		}
 	}
 
@@ -35,10 +35,10 @@ public class AdminCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("invsee")) {
 			if (sender instanceof Player) {
-				Player player = (Player)sender;
-				if(player.hasPermission("mysticcloud.admin.cmd.invsee")) {
-					if(args.length == 1) {
-						if(Bukkit.getPlayer(args[0])!= null) {
+				Player player = (Player) sender;
+				if (player.hasPermission("mysticcloud.admin.cmd.invsee")) {
+					if (args.length == 1) {
+						if (Bukkit.getPlayer(args[0]) != null) {
 							Player other = Bukkit.getPlayer(args[0]);
 							Inventory inv = other.getInventory();
 							player.openInventory(inv);
@@ -48,10 +48,10 @@ public class AdminCommands implements CommandExecutor {
 					} else {
 						player.sendMessage(CoreUtils.prefixes("admin") + "You must specify a player");
 					}
-				}else {
+				} else {
 					player.sendMessage(CoreUtils.prefixes("admin") + "You don't have permission to use that command.");
 				}
-				
+
 			} else {
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Player only command.");
 			}
