@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.mysticcloud.spigot.core.commands.AdminCommands;
 import net.mysticcloud.spigot.core.commands.BossCommand;
 import net.mysticcloud.spigot.core.commands.ClearCommand;
-import net.mysticcloud.spigot.core.commands.DebugCommand;
 import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
@@ -54,7 +54,7 @@ public class Main extends JavaPlugin {
 		new SQLCommand("sql", this);
 		new SettingsCommand("settings", this);
 		new PetCommand(this, "pet");
-		new DebugCommand(this, "debug");
+		new AdminCommands(this, "debug","invsee");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
