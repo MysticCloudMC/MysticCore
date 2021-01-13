@@ -49,7 +49,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);
 		}
 		if (cmd.getName().equalsIgnoreCase("sudo")) {
-			if (args.length == 1) {
+			if (args.length == 2) {
 				List<String> allCmds = new ArrayList<>();
 				for (String s : Bukkit.getCommandAliases().keySet()) {
 					allCmds.add("/" + s);
