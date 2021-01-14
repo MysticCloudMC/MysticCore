@@ -10,12 +10,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
 import net.mysticcloud.spigot.core.utils.Holiday;
-import net.mysticcloud.spigot.core.utils.entities.Bosses;
-import net.mysticcloud.spigot.core.utils.warps.Warp;
-import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
 public class AdminCommandTabCompleter implements TabCompleter {
 
@@ -45,16 +43,20 @@ public class AdminCommandTabCompleter implements TabCompleter {
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		List<String> completions = new ArrayList<>();
 		if (cmd.getName().equalsIgnoreCase("invsee") || cmd.getName().equalsIgnoreCase("sudo")) {
-			if (args.length == 0)
+			if (args.length == 1)
 				StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);
 		}
 		if (cmd.getName().equalsIgnoreCase("sudo")) {
 			if (args.length == 2) {
 				List<String> allCmds = new ArrayList<>();
-				for (String s : Bukkit.getCommandAliases().keySet()) {
-					allCmds.add("/" + s);
+				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+					for (String s : plugin.getDescription().getCommands().keySet())
+						allCmds.add("/" + s);
 				}
-				allCmds.add("-move");
+//				for (String s : Bukkit.getPl) {
+//					allCmds.add("/" + s);
+//				}
+				allCmds.add("-walk");
 				allCmds.add("-punch");
 				StringUtil.copyPartialMatches(args[1], allCmds, completions);
 
