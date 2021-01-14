@@ -63,13 +63,13 @@ public class AdminCommandTabCompleter implements TabCompleter {
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("debug")) {
-			if (args.length == 0) {
+			if (args.length == 1) {
 
 				StringUtil.copyPartialMatches(args[0], cmds.get("debug"), completions);
 			}
-			if (args.length == 1) {
-				if (args[0].equalsIgnoreCase("holiday"))
-					StringUtil.copyPartialMatches(args[0], cmds.get("debug.holiday"), completions);
+			if (args.length == 2) {
+				if (args[1].equalsIgnoreCase("holiday"))
+					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
 			}
 		}
 
