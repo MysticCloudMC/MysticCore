@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -14,6 +15,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
 import net.mysticcloud.spigot.core.utils.Holiday;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class AdminCommandTabCompleter implements TabCompleter {
 
@@ -67,9 +69,25 @@ public class AdminCommandTabCompleter implements TabCompleter {
 
 				StringUtil.copyPartialMatches(args[0], cmds.get("debug"), completions);
 			}
-			if (args.length == 2) {
+			if (args.length >= 2) {
 				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
+				if (args[0].equalsIgnoreCase("particles")) {
+					if (args.length == 3) {
+						List<String> tmp1 = new ArrayList<>();
+						for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
+							tmp1.add(format.name());
+						}
+						StringUtil.copyPartialMatches(args[2], tmp1, completions);
+					}
+					if (args.length == 4) {
+						List<String> tmp1 = new ArrayList<>();
+						for (Particle p : Particle.values()) {
+							tmp1.add(p.name());
+						}
+						StringUtil.copyPartialMatches(args[3], tmp1, completions);
+					}
+				}
 			}
 		}
 
