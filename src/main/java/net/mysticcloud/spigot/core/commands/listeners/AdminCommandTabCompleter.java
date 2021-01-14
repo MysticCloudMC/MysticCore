@@ -73,19 +73,19 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
 				if (args[0].equalsIgnoreCase("particles")) {
-					if (args.length == 3) {
+					if (args.length == 2) {
 						List<String> tmp1 = new ArrayList<>();
 						for (ParticleFormatEnum format : ParticleFormatEnum.values()) {
 							tmp1.add(format.name());
 						}
-						StringUtil.copyPartialMatches(args[2], tmp1, completions);
+						StringUtil.copyPartialMatches(args[1], tmp1, completions);
 					}
-					if (args.length == 4) {
+					if (args.length == 3) {
 						List<String> tmp1 = new ArrayList<>();
 						for (Particle p : Particle.values()) {
 							tmp1.add(p.name());
 						}
-						StringUtil.copyPartialMatches(args[3], tmp1, completions);
+						StringUtil.copyPartialMatches(args[2], tmp1, completions);
 					}
 				}
 			}
