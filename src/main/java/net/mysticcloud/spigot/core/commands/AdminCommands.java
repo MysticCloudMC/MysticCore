@@ -157,10 +157,10 @@ public class AdminCommands implements CommandExecutor {
 							sender.spigot().sendMessage(builder.create());
 						}
 						if (args[0].equalsIgnoreCase("time")) {
-							sender.sendMessage(CoreUtils.colorize(
-									CoreUtils.prefixes("debug") + CoreUtils.getMonth() + "/" + CoreUtils.getDay() + " "
-											+ CoreUtils.getTime() + (CoreUtils.getHoliday().equals(Holiday.NONE) ? ""
-													: CoreUtils.getHoliday().getName())));
+							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("debug") + CoreUtils.getMonth()
+									+ "/" + CoreUtils.getDay() + " " + CoreUtils.getTime() + " "
+									+ (CoreUtils.getHoliday().equals(Holiday.NONE) ? ""
+											: CoreUtils.getHoliday().getName())));
 
 						}
 					}

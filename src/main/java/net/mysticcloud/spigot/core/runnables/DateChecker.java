@@ -76,7 +76,7 @@ public class DateChecker implements Runnable {
 				boolean holiday = false;
 
 				if (CoreUtils.getMonth() == Calendar.JANUARY) {
-					if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 16) {
+					if (CoreUtils.getDay() >= 1 && CoreUtils.getDay() <= 7) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.NEW_YEARS);
 					}
