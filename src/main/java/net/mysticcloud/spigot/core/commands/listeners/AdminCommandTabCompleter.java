@@ -68,7 +68,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				StringUtil.copyPartialMatches(args[0], cmds.get("debug"), completions);
 			}
 			if (args.length == 2) {
-				if (args[1].equalsIgnoreCase("holiday"))
+				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
 			}
 		}
