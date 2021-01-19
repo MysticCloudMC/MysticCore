@@ -160,7 +160,8 @@ public class GUIManager {
 	public static Inventory createSettingsMenu(Player player) {
 		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
 		InventoryCreator inv = new InventoryCreator("&6&lSettings Menu", null, 9);
-		inv.addItem(new ItemStack(Material.DIAMOND), "&aParticle Settings", 'A', new String[] {"&7Click to open Particle Settings."});
+		inv.addItem(new ItemStack(Material.DIAMOND), "&aParticle Settings", 'A',
+				new String[] { "&7Click to open Particle Settings." });
 		inv.addItem(new ItemStack(Material.PAPER), "&eSidebar", 'B', new String[] { "&7Currently is "
 				+ (mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff") + "&7." });
 		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
@@ -240,6 +241,68 @@ public class GUIManager {
 				new char[] { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'X',
 						'X', 'X', 'H', 'I', 'L', 'J', 'K', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
+	}
+
+	public static Inventory getTagsMenu(Player player) {
+
+		int size = (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9);
+
+		InventoryCreator inv = new InventoryCreator("&e&lCustom Tags&7:", (null), size + 18);
+
+		ArrayList<Character> c = new ArrayList<Character>();
+
+		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'x', (String[]) null);
+		inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), "&7Choose an option.", 'X', (String[]) null);
+
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+
+		for (int i = 0; i != size; i++) {
+			CustomTag tag = CustomTag.values()[i];
+			if (tag.equals(CustomTag.NONE)) {
+				i--;
+				continue;
+			}
+			if (i < (CustomTag.values().length - 1)) {
+				if (player.hasPermission("mysticcloud.customtag." + tag.name())) {
+					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e"
+							+ tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1, tag.name().length())),
+							(char) i, (String[]) null, false);
+				} else {
+					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE),
+							ParticleFormatEnum.getAvalibleFormats(player.getUniqueId()).get(i).formatter().name(),
+							(char) i, new String[] { "&cLocked..." }, false);
+				}
+				c.add((char) i);
+			} else {
+				c.add('X');
+			}
+
+		}
+
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+		c.add('X');
+
+		inv.setConfiguration(c);
+		c.clear();
+		c = null;
+
+		return inv.getInventory();
+
 	}
 
 }

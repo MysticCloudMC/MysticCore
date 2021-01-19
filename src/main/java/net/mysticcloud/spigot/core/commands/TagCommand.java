@@ -11,6 +11,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
+import net.mysticcloud.spigot.core.utils.GUIManager;
 
 public class TagCommand implements CommandExecutor {
 
@@ -25,11 +26,14 @@ public class TagCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
+			
+			Player player = (Player) sender;
 			if (args.length == 0) {
+				GUIManager.openInventory(player, GUIManager.getTagsMenu(player), "tags");
+			}
+				
+				
 
-				CoreUtils.removeTag(((Player) sender));
-			} else
-				CoreUtils.setTag(((Player) sender), CustomTag.valueOf(args[0]));
 		} else {
 			if (args.length != 2) {
 				sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("tags") + "Try \"/tags <player> <type>\"."));
