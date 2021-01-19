@@ -64,7 +64,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent e) {
 		if (CoreUtils.getVoidWorlds().contains(e.getPlayer().getWorld().getName())) {
-			if (e.getPlayer().getLocation().getY() >= 0.5) {
+			if (e.getPlayer().getLocation().getY() <= 0.5) {
 				TeleportUtils.teleport(e.getPlayer(), CoreUtils.getSpawnLocation(), false, true);
 				e.getPlayer().setMetadata("fell", new FixedMetadataValue(Main.getPlugin(), "yup"));
 				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
