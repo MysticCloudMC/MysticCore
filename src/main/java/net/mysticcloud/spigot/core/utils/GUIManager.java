@@ -265,12 +265,13 @@ public class GUIManager {
 		c.add('X');
 
 		for (int i = 0; i != size; i++) {
-			CustomTag tag = CustomTag.values()[i];
-			if (tag.equals(CustomTag.NONE)) {
-//				i--;
-				continue;
-			}
+
 			if (i < (CustomTag.values().length - 1)) {
+				CustomTag tag = CustomTag.values()[i];
+				if (tag.equals(CustomTag.NONE)) {
+//					i--;
+					continue;
+				}
 				if (player.hasPermission("mysticcloud.customtag." + tag.name())) {
 					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e"
 							+ tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1, tag.name().length())),
