@@ -20,7 +20,6 @@ public class GamemodeCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
 			if(sender.hasPermission("mysticcloud.admin.cmd.gamemode")) {
-
 				if (cmd.getName().equalsIgnoreCase("gamemode")) {
 					if (args.length == 0) {
 						sender.sendMessage(CoreUtils.prefixes("gamemode") + "Your current gamemode is "
