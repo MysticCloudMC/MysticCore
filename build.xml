@@ -30,7 +30,7 @@
 			</jar>-->
 	</target>
 
-	<target name="createjar-in_dev" description="Create a jar for the in-dev project" depends="mvn">
+	<target name="createjar2" description="Create a jar for the in-dev project" depends="mvn">
 		<exec dir="." executable="sh">
 			<arg line="-c 'sudo -u root cp target/${project.projectname}.jar /home/Minecraft/Servers/Test/plugins/${project.projectname}.jar'" />
 		</exec>
