@@ -38,8 +38,8 @@ public class TagCommand implements CommandExecutor {
 					if (args[1].equalsIgnoreCase("none") || args[1].equalsIgnoreCase("remove")) {
 						CoreUtils.removeTag(Bukkit.getPlayer(args[0]));
 					}
-					if (!CustomTag.tagFromName(args[0]).equals(CustomTag.NONE)) {
-						CoreUtils.setTag(Bukkit.getPlayer(args[0]), CustomTag.tagFromName(args[0]));
+					if (!CustomTag.tagFromName(args[1]).equals(CustomTag.NONE)) {
+						CoreUtils.setTag(Bukkit.getPlayer(args[0]), CustomTag.tagFromName(args[1]));
 					} else
 						sender.sendMessage(
 								CoreUtils.colorize(CoreUtils.prefixes("tags") + "Sorry, that tag doesn't exist."));
