@@ -105,8 +105,10 @@ public class PetManager {
 //		for(Pet pet : pets.get(player.getUniqueId())) {
 //			pet.getEntity().getBukkitEntity().remove();
 //		}
-		pets.get(player.getUniqueId()).getEntity().getBukkitEntity().remove();
-		pets.remove(player.getUniqueId());
+		if (pets.containsKey(player.getUniqueId())) {
+			pets.get(player.getUniqueId()).getEntity().getBukkitEntity().remove();
+			pets.remove(player.getUniqueId());
+		}
 	}
 
 	public static class PetUtils {
