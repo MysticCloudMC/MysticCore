@@ -32,7 +32,7 @@
 
 	<target name="createjar2" description="Create a jar for the in-dev project" depends="mvn">
 		<exec dir="." executable="sh">
-			<arg line="-c 'sudo cp target/${project.projectname}.jar /home/Minecraft/Servers/Test/plugins/${project.projectname}.jar'" />
+			<arg line="-c 'cp target/${project.projectname}.jar /home/Minecraft/Servers/Test/plugins/${project.projectname}.jar'" />
 		</exec>
 		<!--<jar destfile="/home/Minecraft/multicraft/jar/spigot.jar.plugins/${project.projectname}.jar">
 				<fileset dir="${basedir}">
