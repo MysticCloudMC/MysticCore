@@ -27,10 +27,12 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 
 import net.mysticcloud.spigot.core.Main;
@@ -58,7 +60,23 @@ public class PlayerListener implements Listener {
 	public PlayerListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
+
+	@EventHandler
+	public void onPlayerMoveEvent(PlayerMoveEvent e) {
+		if (CoreUtils.getVoidWorlds().contains(e.getPlayer().getWorld().getName())) {
+			if (e.getPlayer().getLocation().getY() >= 0.5) {
+				TeleportUtils.teleport(e.getPlayer(), CoreUtils.getSpawnLocation(), false, true);
+				e.getPlayer().setMetadata("fell", new FixedMetadataValue(Main.getPlugin(), "yup"));
+				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+					@Override
+					public void run() {
+						e.getPlayer().removeMetadata("fell", Main.getPlugin());
+					}
+				}, 10 * 20);
+			}
+		}
+	}
+
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
@@ -70,24 +88,29 @@ public class PlayerListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPreCommand(PlayerCommandPreprocessEvent e){
-	  String[] args = e.getMessage().split(" ");
-	  if(args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")){
-	    e.setCancelled(true);
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&3---------------------&7[&3&lHelp Menu&7]&3---------------------"));
-	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&f Need help with your current gamemode? There is always help posted at the /spawn of every gamemode"));
-	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&f Need to report player/staff abuse? Head onto the forums and let us know please! :)"));
-	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&f Need a referesher on the rules? /rules should help you out. :)"));
-	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&f Want to apply for staff? You can do that on the forums as-well."));
-	    e.getPlayer().sendMessage(CoreUtils.colorize(""));
-	    e.getPlayer().sendMessage(CoreUtils.colorize("&3-----------------------------------------------------"));
-	  }
+	public void onPreCommand(PlayerCommandPreprocessEvent e) {
+		String[] args = e.getMessage().split(" ");
+		if (args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")) {
+			e.setCancelled(true);
+			e.getPlayer().sendMessage(
+					CoreUtils.colorize("&3---------------------&7[&3&lHelp Menu&7]&3---------------------"));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(CoreUtils.colorize(
+					"&f Need help with your current gamemode? There is always help posted at the /spawn of every gamemode"));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(CoreUtils
+					.colorize("&f Need to report player/staff abuse? Head onto the forums and let us know please! :)"));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(
+					CoreUtils.colorize("&f Need a referesher on the rules? /rules should help you out. :)"));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(
+					CoreUtils.colorize("&f Want to apply for staff? You can do that on the forums as-well."));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(CoreUtils.colorize("&3-----------------------------------------------------"));
+		}
 	}
 
 //	@EventHandler
@@ -213,12 +236,12 @@ public class PlayerListener implements Listener {
 			@Override
 			public void run() {
 				Player player = e.getPlayer();
-				
+
 				player.setPlayerListName(
 						CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
 
 				player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
-				
+
 				player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 			}
 

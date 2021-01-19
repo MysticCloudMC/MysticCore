@@ -100,6 +100,8 @@ public class CoreUtils {
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	static ItemStack gem = new ItemStack(Material.SUNFLOWER);
+	
+	private static List<String> voidWorlds = new ArrayList<>();
 
 //	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
 
@@ -262,6 +264,15 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+	
+	
+	public static void addVoidWorld(String worldname) {
+		voidWorlds.add(worldname);
+	}
+	
+	public static List<String> getVoidWorlds(){
+		return voidWorlds;
 	}
 
 	public static void setTag(Player player, CustomTag tag) {
