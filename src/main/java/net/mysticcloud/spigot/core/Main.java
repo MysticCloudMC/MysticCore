@@ -73,7 +73,7 @@ public class Main extends JavaPlugin {
 		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
 		new ClearCommand(this,"clear");
 		new UpdateCommand(this,"update");
-		new TagCommand(this,"tag","tags");
+		new TagCommand(this,"tags","tag");
 		startDateChecker();
 		
 		GUIManager.init();

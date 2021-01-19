@@ -112,9 +112,8 @@ commands:
     description: clear your inventory.
   update:
     description: Update a plugin in our repository.
-  tag:
-    description: Set a custom Tag.
   tags:
+    aliases: ['tag']
     description: Set a custom Tag.
   
   

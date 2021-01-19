@@ -33,7 +33,7 @@ public class MysticEntityType<T extends EntityLiving> {
         try {
             REGISTRY_MAT_MAP = RegistryMaterials.class.getDeclaredField("c");
         } catch (ReflectiveOperationException err) {
-            err.printStackTrace();
+//            err.printStackTrace();
             REGISTRY_MAT_MAP = null;
             // technically should only occur if server version changes or jar is modified in "weird" ways
         }

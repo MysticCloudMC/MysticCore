@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +24,32 @@ public class TagCommand implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (args.length == 0) {
-			CoreUtils.removeTag(((Player) sender));
-		} else
-			CoreUtils.setTag(((Player) sender), CustomTag.valueOf(args[0]));
+		if (sender instanceof Player) {
+			if (args.length == 0) {
+
+				CoreUtils.removeTag(((Player) sender));
+			} else
+				CoreUtils.setTag(((Player) sender), CustomTag.valueOf(args[0]));
+		} else {
+			if (args.length != 2) {
+				sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("tags") + "Try \"/tags <player> <type>\"."));
+			} else {
+				if (Bukkit.getPlayer(args[0]) != null) {
+					if (args[1].equalsIgnoreCase("none") || args[1].equalsIgnoreCase("remove")) {
+						CoreUtils.removeTag(Bukkit.getPlayer(args[0]));
+					}
+					if (!CustomTag.tagFromName(args[0]).equals(CustomTag.NONE)) {
+						CoreUtils.setTag(Bukkit.getPlayer(args[0]), CustomTag.tagFromName(args[0]));
+					} else
+						sender.sendMessage(
+								CoreUtils.colorize(CoreUtils.prefixes("tags") + "Sorry, that tag doesn't exist."));
+
+				} else
+					sender.sendMessage(
+							CoreUtils.colorize(CoreUtils.prefixes("tags") + "Sorry, the player must be online."));
+
+			}
+		}
 		return true;
 	}
 }

@@ -14,19 +14,49 @@ import org.bukkit.util.StringUtil;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.warps.Warp;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
 public class CommandTabCompleter implements TabCompleter {
 
+	private List<String> tags = new ArrayList<>();
+	private List<String> bosses = new ArrayList<>();
+
 	public CommandTabCompleter() {
+
+		for (CustomTag tag : CustomTag.values()) {
+			tags.add(tag.name());
+		}
+		tags.add("remove");
+
+		for (Bosses boss : Bosses.values()) {
+			bosses.add(boss.getCallName());
+		}
 
 	}
 
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		List<String> completions = new ArrayList<>();
+		if (cmd.getName().equalsIgnoreCase("tags")) {
+			if (sender instanceof Player) {
+				if (args.length == 1) {
+					StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);
+				}
+				if (args.length == 2) {
+					StringUtil.copyPartialMatches(args[1], tags, completions);
+				}
+			} else {
+				if (args.length == 1) {
+					StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);
+				}
+				if (args.length == 2) {
+					StringUtil.copyPartialMatches(args[1], tags, completions);
+				}
+			}
+		}
 		if (cmd.getName().equalsIgnoreCase("boss")) {
 			if (args.length == 1) {
 				StringUtil.copyPartialMatches(args[0], getBosses(), completions);
@@ -92,6 +122,7 @@ public class CommandTabCompleter implements TabCompleter {
 		}
 		return warps;
 	}
+
 	private List<String> getWarps(String type) {
 		List<String> warps = new ArrayList<>();
 		for (Warp warp : WarpUtils.getWarps(type)) {
@@ -109,10 +140,7 @@ public class CommandTabCompleter implements TabCompleter {
 	}
 
 	public List<String> getBosses() {
-		List<String> bosses = new ArrayList<>();
-		for (Bosses boss : Bosses.values()) {
-			bosses.add(boss.getCallName());
-		}
+
 		return bosses;
 	}
 

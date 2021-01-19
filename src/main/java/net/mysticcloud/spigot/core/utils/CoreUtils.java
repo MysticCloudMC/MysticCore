@@ -284,6 +284,7 @@ public class CoreUtils {
 		}
 	}
 	
+	
 	public static String getTag(Player player) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
@@ -292,6 +293,7 @@ public class CoreUtils {
 		}
 		return "";
 	}
+	
 	
 	public static void removeTag(Player player) {
 
