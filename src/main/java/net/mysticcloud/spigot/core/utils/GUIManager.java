@@ -267,7 +267,7 @@ public class GUIManager {
 		for (int i = 0; i != size; i++) {
 			CustomTag tag = CustomTag.values()[i];
 			if (tag.equals(CustomTag.NONE)) {
-				i--;
+//				i--;
 				continue;
 			}
 			if (i < (CustomTag.values().length - 1)) {
