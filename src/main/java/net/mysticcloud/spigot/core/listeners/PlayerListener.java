@@ -27,10 +27,9 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -39,6 +38,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
@@ -369,6 +369,20 @@ public class PlayerListener implements Listener {
 
 			e.getWhoClicked().closeInventory();
 		}
+
+		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
+
+			for (CustomTag tag : CustomTag.values()) {
+				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())
+						.equalsIgnoreCase(tag.name())) {
+					CoreUtils.setTag((Player) e.getWhoClicked(), tag);
+					GUIManager.closeInventory((Player) e.getWhoClicked());
+				}
+			}
+			e.setCancelled(true);
+
+		}
+
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Settings") {
 			MysticPlayer mp = CoreUtils.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.FIREWORK_ROCKET)) {
