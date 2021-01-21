@@ -100,7 +100,7 @@ public class CoreUtils {
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 	static ItemStack gem = new ItemStack(Material.SUNFLOWER);
-	
+
 	private static List<String> voidWorlds = new ArrayList<>();
 
 //	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
@@ -160,10 +160,17 @@ public class CoreUtils {
 			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
 		} catch (NullPointerException ex) {
-			connected = false;
-			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
-			fdb = new IDatabase(SQLDriver.SQLITE, "Website");
-			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
+
+			connected = true;
+			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "mysql", "v4pob8LW");
+			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "mysql", "v4pob8LW");
+			if (db.init() && fdb.init())
+				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
+
+//			connected = false;
+//			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
+//			fdb = new IDatabase(SQLDriver.SQLITE, "Website");
+//			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
 		}
 		loadVariables();
 		if (!itemfile.exists()) {
@@ -265,13 +272,12 @@ public class CoreUtils {
 		MysticEntityUtils.registerEntities();
 
 	}
-	
-	
+
 	public static void addVoidWorld(String worldname) {
 		voidWorlds.add(worldname);
 	}
-	
-	public static List<String> getVoidWorlds(){
+
+	public static List<String> getVoidWorlds() {
 		return voidWorlds;
 	}
 
@@ -283,8 +289,7 @@ public class CoreUtils {
 			PermissionsEx.getUser(player).addGroup(group);
 		}
 	}
-	
-	
+
 	public static String getTag(Player player) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
@@ -293,8 +298,7 @@ public class CoreUtils {
 		}
 		return "";
 	}
-	
-	
+
 	public static void removeTag(Player player) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
@@ -835,17 +839,15 @@ public class CoreUtils {
 		debug("Removed TimedPerm for " + player.getName());
 		timedPerms.remove(player.getUniqueId());
 	}
-	
-	
 
 	@SuppressWarnings("deprecation")
 	public static String getPlayerPrefix(Player player) {
 		if (PermissionsEx.getUser(player).getGroups().length > 0) {
 			String prefix = "";
 			for (PermissionGroup group : PermissionsEx.getUser(player).getGroups()) {
-				if(group.getName().equals(player.getUniqueId().toString())) 
+				if (group.getName().equals(player.getUniqueId().toString()))
 					continue;
-				
+
 				prefix = prefix + group.getPrefix();
 			}
 			return colorize(prefix);
