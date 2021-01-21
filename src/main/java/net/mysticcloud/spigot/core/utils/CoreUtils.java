@@ -162,8 +162,8 @@ public class CoreUtils {
 		} catch (NullPointerException ex) {
 
 			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "mysql", "v4pob8LW");
-			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "mysql", "v4pob8LW");
+			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "mysql", "@Dm1nUser");
+			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "mysql", "@Dm1nUser");
 			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
 
