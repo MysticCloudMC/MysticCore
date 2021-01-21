@@ -63,6 +63,29 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				StringUtil.copyPartialMatches(args[1], allCmds, completions);
 
 			}
+
+			if (args.length == 3) {
+				List<String> tmp = new ArrayList<>();
+				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+					for (String s : plugin.getDescription().getCommands().keySet()) {
+						if (s.equalsIgnoreCase(args.clone()[1].replaceFirst("/", ""))) {
+							List<String> l = new ArrayList<>();
+							String array[] = new String[l.size()];
+							for (int j = 0; j < l.size(); j++) {
+								array[j] = l.get(j);
+							}
+							Bukkit.getPluginCommand(s).getTabCompleter().onTabComplete(Bukkit.getPlayer(args[0]),
+									Bukkit.getPluginCommand(s), Bukkit.getPluginCommand(s).getLabel(), array);
+						}
+					}
+//						tmp.add(s);
+				}
+//				for (String s : Bukkit.getPl) {
+//					allCmds.add("/" + s);
+//				}
+				StringUtil.copyPartialMatches(args[1], tmp, completions);
+
+			}
 		}
 		if (cmd.getName().equalsIgnoreCase("debug")) {
 			if (args.length == 1) {
