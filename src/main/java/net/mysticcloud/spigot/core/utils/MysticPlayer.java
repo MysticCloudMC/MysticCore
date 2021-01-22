@@ -28,7 +28,7 @@ public class MysticPlayer {
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
 
-	long needed = 0;
+	double needed = 0;
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
@@ -72,7 +72,7 @@ public class MysticPlayer {
 	}
 
 	public int getLevel() {
-		return (int) LevelUtils.getMainWorker().getLevel((long) (xp * 100));
+		return (int) LevelUtils.getMainWorker().getLevel((double) (xp * 100));
 	}
 
 	public int getGems() {
@@ -100,19 +100,18 @@ public class MysticPlayer {
 	}
 
 	public void gainXP(double xp) {
-		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
+		this.xp = CoreUtils.getMoneyFormat((double) xp * 100.0);
 
-		needed = LevelUtils.getMainWorker().untilNextLevel((long) (this.xp * 100));
+		needed = LevelUtils.getMainWorker().untilNextLevel((double) (this.xp));
 //		Bukkit.broadcastMessage("XP: " + this.xp);
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
 		sendMessage(((xp * 100) <= needed)
-				? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
-						+ "&f more points to level up."
-				: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
-		if ((xp * 100) >= needed) {
-			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp * 100)));
+				? "You gained &7" + xp + " &fxp. You need &7" + needed + "&f more points to level up."
+				: "You gained &7" + xp + " &fxp.");
+		if ((xp) >= needed) {
+			levelUp(LevelUtils.getMainWorker().getLevel((double) xp));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
@@ -122,7 +121,7 @@ public class MysticPlayer {
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
 
-	public void levelUp(long level) {
+	public void levelUp(double level) {
 //		this.level = level;
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
