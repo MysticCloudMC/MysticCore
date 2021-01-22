@@ -107,11 +107,10 @@ public class MysticPlayer {
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
-		sendMessage(
-				((xp * 100) <= needed)
-						? "You gained &7" + ((double) xp * 100.0) + " &fxp. You need &7" + needed
-								+ "&f more points to level up."
-						: "You gained &7" + ((double) xp * 100.0) + " &fxp.");
+		sendMessage(((xp * 100) <= needed)
+				? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
+						+ "&f more points to level up."
+				: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
 		if ((xp * 100) >= needed) {
 			levelUp(LevelUtils.getMainWorker().getLevel((long) (xp * 100)));
 		}
@@ -178,7 +177,8 @@ public class MysticPlayer {
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
+				ResultSet rs = CoreUtils.getForumsDatabase()
+						.query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
 				while (rs.next()) {
 					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
 						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
