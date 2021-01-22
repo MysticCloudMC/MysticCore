@@ -57,7 +57,6 @@ import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
-import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CoreUtils {
@@ -159,13 +158,18 @@ public class CoreUtils {
 			fdb = new IDatabase(SQLDriver.MYSQL, "localhost", "Forums", 3306, "mysql", "v4pob8LW");
 			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
-		} catch (NullPointerException ex) {
+		} catch (NullPointerException | SQLException ex) {
 
 			connected = true;
 			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "root", "@Dm1nUser");
 			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "root", "@Dm1nUser");
-			if (db.init() && fdb.init())
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
+			try {
+				if (db.init() && fdb.init())
+					Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
+			} catch (SQLException e) {
+				connected = false;
+				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to MySQL");
+			}
 
 //			connected = false;
 //			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
@@ -479,18 +483,24 @@ public class CoreUtils {
 
 	public static String lookupWebname(UUID uid) {
 		String name = "";
-		fdb.init();
-		ResultSet rs = fdb.query("SELECT * FROM Users WHERE REGISTERED='true'");
 		try {
-			while (rs.next()) {
-				if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
-					name = (rs.getString("USERNAME"));
+			fdb.init();
+			ResultSet rs = fdb.query("SELECT * FROM Users WHERE REGISTERED='true'");
+			try {
+				while (rs.next()) {
+					if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
+						name = (rs.getString("USERNAME"));
+					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
+		} catch (SQLException e1) {
+			System.out.println("Not connected to SQL");
+			e1.printStackTrace();
+		}
+		
 		return name;
 
 	}
@@ -644,7 +654,7 @@ public class CoreUtils {
 	}
 
 	@SuppressWarnings("unused")
-	private static boolean testSQLConnection() {
+	private static boolean testSQLConnection() throws SQLException {
 		return new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW").init();
 
 	}
