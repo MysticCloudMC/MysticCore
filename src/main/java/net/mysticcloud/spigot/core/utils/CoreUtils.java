@@ -159,7 +159,7 @@ public class CoreUtils {
 			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
 		} catch (NullPointerException | SQLException ex) {
-
+			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to MySQL");
 			connected = true;
 			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "root", "@Dm1nUser");
 			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "root", "@Dm1nUser");
@@ -168,7 +168,8 @@ public class CoreUtils {
 					Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
 			} catch (SQLException e) {
 				connected = false;
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to MySQL");
+				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to contingency MySQL");
+				e.printStackTrace();
 			}
 
 //			connected = false;
