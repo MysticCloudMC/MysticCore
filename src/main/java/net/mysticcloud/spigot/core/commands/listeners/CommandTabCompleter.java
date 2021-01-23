@@ -64,7 +64,15 @@ public class CommandTabCompleter implements TabCompleter {
 		}
 		if (cmd.getName().equalsIgnoreCase("warp")) {
 			if (args.length == 1) {
-				StringUtil.copyPartialMatches(args[0], getWarps(), completions);
+				List<String> s = new ArrayList<>();
+				for (String a : getWarps())
+					if (sender.hasPermission("mysticcloud.warp.warp." + a))
+						s.add(a);
+				for (String a : WarpUtils.getWarpTypes()) {
+					if (sender.hasPermission("mysticcloud.warp." + s))
+						s.add(a);
+				}
+				StringUtil.copyPartialMatches(args[0], s, completions);
 			}
 			if (args.length == 2) {
 				StringUtil.copyPartialMatches(args[1], getWarps(args[0]), completions);
