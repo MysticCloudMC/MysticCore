@@ -68,6 +68,7 @@ public class Event {
 	void setEventType(EventType type) {
 		this.type = type;
 	}
+
 	public boolean hasMetadata(String key) {
 		return metadata.containsKey(key);
 	}
@@ -124,8 +125,9 @@ public class Event {
 	}
 
 	public void start(String color1, String color2, String color3) {
-		start(color1,color2,color3,"Event");
+		start(color1, color2, color3, "Event");
 	}
+
 	public void start(String color1, String color2, String color3, String event) {
 		String f = CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " " + event + color1 + "]=-=-=-");
 		broadcast(CoreUtils.colorize(f));
@@ -135,13 +137,8 @@ public class Event {
 		}
 		broadcast(CoreUtils.colorize("Event Type: " + color1 + type.name()));
 		if (type.equals(EventType.TIMED)) {
-			try {
-				broadcast(CoreUtils.colorize(
-						"Duration: " + CoreUtils.formatDate((long) metadata.get("DURATION"), color3, color1)));
-			} catch (NullPointerException ex) {
-				CoreUtils.alert(AlertType.FATAL, "Event DURATION was not specified in the metadata");
-
-			}
+			broadcast(CoreUtils
+					.colorize("Duration: " + CoreUtils.formatDate((long) getMetadata("DURATION"), color3, color1)));
 		}
 
 		String s = color1 + "-";
@@ -167,7 +164,12 @@ public class Event {
 	}
 
 	public Object getMetadata(String key) {
-		return metadata.get(key);
+		try {
+			return metadata.get(key);
+		} catch (NullPointerException ex) {
+			CoreUtils.alert(AlertType.FATAL, "Event " + key + " was not specified in the metadata.");
+			return null;
+		}
 	}
 
 	public Map<UUID, Double> getScores() {
@@ -175,7 +177,7 @@ public class Event {
 	}
 
 	public void score(Player player, double score) {
-		if(score > 0) {
+		if (score > 0) {
 			player.sendMessage(CoreUtils.colorize("&a+" + score));
 		} else {
 			player.sendMessage(CoreUtils.colorize("&c" + score));
@@ -185,14 +187,16 @@ public class Event {
 	}
 
 	public void end() {
-		end("&c","&4","&4&l");
+		end("&c", "&4", "&4&l");
 	}
-	
+
 	public void end(String color1, String color2, String color3) {
-		end(color1,color2,color3,"Event");
+		end(color1, color2, color3, "Event");
 	}
-	public void end(String color1, String color2, String color3,String event) {
-		broadcast(CoreUtils.colorize(color1 + "-=-=-=[" + color2 + name + " " + event + " " + color3 + "Completed" + color1 + "]=-=-=-"));
+
+	public void end(String color1, String color2, String color3, String event) {
+		broadcast(CoreUtils.colorize(
+				color1 + "-=-=-=[" + color2 + name + " " + event + " " + color3 + "Completed" + color1 + "]=-=-=-"));
 		check.end();
 	}
 
