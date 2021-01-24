@@ -140,6 +140,7 @@ public class Event {
 			broadcast(CoreUtils
 					.colorize("Duration: " + CoreUtils.formatDate((long) getMetadata("DURATION"), color3, color1)));
 		}
+		Bukkit.broadcastMessage(f);
 
 		String s = color1 + "-";
 		for (int a = 1; !(a >= ChatColor.stripColor(f).length() / 2); a++)
