@@ -28,7 +28,7 @@ public class MysticPlayer {
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
 
-	double needed = 0;
+	long needed = 0;
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
@@ -72,7 +72,7 @@ public class MysticPlayer {
 	}
 
 	public int getLevel() {
-		return (int) LevelUtils.getMainWorker().getLevel((double) (xp * 100));
+		return (int) LevelUtils.getMainWorker().getLevel((long) (xp * 100));
 	}
 
 	public int getGems() {
@@ -100,18 +100,20 @@ public class MysticPlayer {
 	}
 
 	public void gainXP(double xp) {
-		this.xp = CoreUtils.getMoneyFormat((double) xp * 100.0);
+		this.xp = CoreUtils.getMoneyFormat(this.xp + xp);
 
-		needed = LevelUtils.getMainWorker().untilNextLevel((double) (this.xp));
+		needed = (long) LevelUtils.getMainWorker().untilNextLevel((this.xp * 100));
 //		Bukkit.broadcastMessage("XP: " + this.xp);
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
-		sendMessage(((xp * 100) <= needed)
-				? "You gained &7" + xp + " &fxp. You need &7" + needed + "&f more points to level up."
-				: "You gained &7" + xp + " &fxp.");
-		if ((xp) >= needed) {
-			levelUp(LevelUtils.getMainWorker().getLevel((double) xp));
+		sendMessage(
+				((xp * 100) <= needed)
+						? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
+								+ "&f more points to level up."
+						: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
+		if ((xp * 100) >= needed) {
+			levelUp(((long)LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
@@ -121,7 +123,7 @@ public class MysticPlayer {
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
 
-	public void levelUp(double level) {
+	public void levelUp(long level) {
 //		this.level = level;
 		sendMessage("You leveled up to level &7" + getLevel() + "&f!");
 	}
@@ -176,8 +178,7 @@ public class MysticPlayer {
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				ResultSet rs = CoreUtils.getForumsDatabase()
-						.query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
+				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
 				while (rs.next()) {
 					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
 						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
