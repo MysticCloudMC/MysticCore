@@ -136,7 +136,7 @@ public class Event {
 			broadcast(CoreUtils.colorize("" + metadata.get("DESCRIPTION")));
 		}
 		broadcast(CoreUtils.colorize("Event Type: " + color1 + type.name()));
-		if (type.equals(EventType.TIMED)) {
+		if (type.equals(EventType.TIMED)) { 
 			broadcast(CoreUtils
 					.colorize("Duration: " + CoreUtils.formatDate((long) getMetadata("DURATION"), color3, color1)));
 		}
