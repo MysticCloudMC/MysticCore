@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.mysticcloud.spigot.core.commands.AFKCommand;
 import net.mysticcloud.spigot.core.commands.AdminCommands;
 import net.mysticcloud.spigot.core.commands.BossCommand;
 import net.mysticcloud.spigot.core.commands.ClearCommand;
@@ -74,6 +75,7 @@ public class Main extends JavaPlugin {
 		new ClearCommand(this,"clear");
 		new UpdateCommand(this,"update");
 		new TagCommand(this,"tags","tag");
+		new AFKCommand(this,"afk");
 		startDateChecker();
 		
 		GUIManager.init();
