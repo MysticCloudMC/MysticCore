@@ -34,6 +34,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 
+import com.comphenix.protocol.ProtocolLibrary;
+
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
@@ -226,6 +228,11 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
+
+		int version = ProtocolLibrary.getProtocolManager().getProtocolVersion(e.getPlayer());
+
+		e.setJoinMessage(
+				CoreUtils.colorize("&a" + e.getPlayer().getName() + "&7 has joined in version &f1." + version + "&7."));
 
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
