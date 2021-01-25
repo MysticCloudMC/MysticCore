@@ -21,7 +21,7 @@
 	<dependencies>
 		<!--This adds the Spigot API artifact to the build -->
 
-		
+
 
 		<dependency>
 			<groupId>ru.tehkode</groupId>
@@ -44,6 +44,20 @@
 			<version>1.13</version>
 			<scope>system</scope>
 			<systemPath>${rootdir}home/Minecraft/Dependencies/Vault.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>net.milkbowl</groupId>
+			<artifactId>vault</artifactId>
+			<version>1.13</version>
+			<scope>system</scope>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/ProtocolLib.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>net.milkbowl</groupId>
+			<artifactId>vault</artifactId>
+			<version>1.13</version>
+			<scope>system</scope>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/PlaceholderAPI.jar</systemPath>
 		</dependency>
 	</dependencies>
 
