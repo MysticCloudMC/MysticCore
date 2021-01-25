@@ -27,6 +27,7 @@ public class MysticPlayer {
 	private Map<String, Object> extraData = new HashMap<>();
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
+	private GameVersion version = null;
 
 	long needed = 0;
 
@@ -107,13 +108,12 @@ public class MysticPlayer {
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
 //		
-		sendMessage(
-				((xp * 100) <= needed)
-						? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
-								+ "&f more points to level up."
-						: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
+		sendMessage(((xp * 100) <= needed)
+				? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
+						+ "&f more points to level up."
+				: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
 		if ((xp * 100) >= needed) {
-			levelUp(((long)LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
+			levelUp(((long) LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
 		}
 		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
@@ -178,7 +178,8 @@ public class MysticPlayer {
 			for (Object o : json.getJSONArray("FRIENDS")) {
 				if (o.toString().equalsIgnoreCase("0"))
 					continue;
-				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
+				ResultSet rs = CoreUtils.getForumsDatabase()
+						.query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
 				while (rs.next()) {
 					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
 						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
@@ -201,6 +202,21 @@ public class MysticPlayer {
 		}
 		return friends;
 
+	}
+
+	public GameVersion getGameVersion() {
+		if (version == null) {
+			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid + "';");
+			try {
+				if (rs.next()) {
+					version = GameVersion.getGameVersion(Integer.parseInt(rs.getString("VERSION")));
+				}
+			} catch (SQLException e) {
+				return GameVersion.V1_8;
+			}
+		}
+
+		return version;
 	}
 
 }
