@@ -248,7 +248,7 @@ public class PlayerListener implements Listener {
 			version = "1.10";
 		if (v >= 107 && v < 210)
 			version = "1.9";
-		if (v >= 47 && v < 107)
+		if (v < 107)
 			version = "1.8 or lower";
 
 		e.setJoinMessage(
