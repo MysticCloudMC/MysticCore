@@ -229,10 +229,29 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
 
-		int version = ProtocolLibrary.getProtocolManager().getProtocolVersion(e.getPlayer());
+		int v = ProtocolLibrary.getProtocolManager().getProtocolVersion(e.getPlayer());
+		String version = "";
+		if (v >= 735)
+			version = "1.16";
+		if (v >= 573 && v < 735)
+			version = "1.15";
+		if (v >= 490 && v < 573)
+			version = "1.14";
+		if (v >= 393 && v < 490)
+			version = "1.13";
+		if (v >= 335 && v < 393)
+			version = "1.12";
+		if (v >= 315 && v < 335)
+			version = "1.11";
+		if (v >= 210 && v < 315)
+			version = "1.10";
+		if (v >= 107 && v < 210)
+			version = "1.9";
+		if (v >= 47 && v < 107)
+			version = "1.8 or lower";
 
 		e.setJoinMessage(
-				CoreUtils.colorize("&a" + e.getPlayer().getName() + "&7 has joined in version &f1." + version + "&7."));
+				CoreUtils.colorize("&a" + e.getPlayer().getName() + "&7 has joined in version &f" + version + "&7."));
 
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
