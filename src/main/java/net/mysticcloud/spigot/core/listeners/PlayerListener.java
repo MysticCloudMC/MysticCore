@@ -150,7 +150,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		CoreUtils.saveMysticPlayer(e.getPlayer());
 		PetManager.removePets(e.getPlayer());
-		e.setQuitMessage(CoreUtils.colorize("&a" + e.getPlayer().getName() + "&7 has left the game."));
+		e.setQuitMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has left the game."));
 	}
 
 	// @EventHandler
@@ -254,7 +254,7 @@ public class PlayerListener implements Listener {
 
 		CoreUtils.updateMysticPlayer(e.getPlayer());
 
-		e.setJoinMessage(CoreUtils.colorize("&a" + e.getPlayer().getName() + "&7 has joined in version &f"
+		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &f"
 				+ CoreUtils.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
 
 		CoreUtils.enableScoreboard(e.getPlayer());
