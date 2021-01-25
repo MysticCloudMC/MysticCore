@@ -230,6 +230,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent e) {
 
 		int v = ProtocolLibrary.getProtocolManager().getProtocolVersion(e.getPlayer());
+		Bukkit.broadcastMessage(v + " <-- V");
 		String version = "";
 		if (v >= 735)
 			version = "1.16";
