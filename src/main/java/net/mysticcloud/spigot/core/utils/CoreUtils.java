@@ -136,7 +136,7 @@ public class CoreUtils {
 		prefixes.put("account", colorize("&a&lAccount &7>&f "));
 		prefixes.put("teleport", colorize("&3&lTeleport &7>&f "));
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
-		CoreUtils.addPrefix("afk", "&a&lAFK &f>&7 ");
+		prefixes.put("afk", colorize("&a&lAFK &f>&7 "));
 
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
