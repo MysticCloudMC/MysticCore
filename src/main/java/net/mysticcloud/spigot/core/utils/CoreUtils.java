@@ -166,11 +166,11 @@ public class CoreUtils {
 			fdb = new IDatabase(SQLDriver.MYSQL, "localhost", "Forums", 3306, "root", "@Dm1nUser");
 			try {
 				if (db.init() && fdb.init())
-					Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
+					Bukkit.getConsoleSender()
+							.sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
 			} catch (SQLException e) {
 				connected = false;
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to contingency MySQL");
-				e.printStackTrace();
 			}
 
 //			connected = false;
@@ -243,6 +243,7 @@ public class CoreUtils {
 
 			@Override
 			public void run() {
+
 				if (Main.getPlugin().getConfig().isSet("SPAWN")
 						&& Main.getPlugin().getConfig().getString("SPAWN") != "")
 					spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
@@ -502,7 +503,7 @@ public class CoreUtils {
 			System.out.println("Not connected to SQL");
 			e1.printStackTrace();
 		}
-		
+
 		return name;
 
 	}
@@ -760,14 +761,17 @@ public class CoreUtils {
 	}
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
+		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
 		return db.query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
+		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
 		return db.update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
+		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
 		return db.input(query);
 	}
 

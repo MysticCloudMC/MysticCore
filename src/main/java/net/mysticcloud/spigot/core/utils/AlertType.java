@@ -2,6 +2,6 @@ package net.mysticcloud.spigot.core.utils;
 
 public enum AlertType {
 	
-	FATAL;
+	FATAL, HIGH;
 
 }
