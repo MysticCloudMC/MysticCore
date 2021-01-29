@@ -162,8 +162,8 @@ public class CoreUtils {
 		} catch (NullPointerException | SQLException ex) {
 			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to MySQL");
 			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "root", "@Dm1nUser");
-			fdb = new IDatabase(SQLDriver.MYSQL, "localhost", "Forums", 3306, "root", "@Dm1nUser");
+			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "root", "@Dm1nUser");
+			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "root", "@Dm1nUser");
 			try {
 				if (db.init() && fdb.init())
 					Bukkit.getConsoleSender()
