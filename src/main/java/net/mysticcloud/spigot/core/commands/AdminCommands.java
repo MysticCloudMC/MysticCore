@@ -74,6 +74,44 @@ public class AdminCommands implements CommandExecutor {
 					}
 
 					if (args.length >= 1) {
+						if (args[0].equalsIgnoreCase("hide")) {
+							if (args.length == 2) {
+								if (Bukkit.getPlayer(args[1]) != null)
+									((Player) sender).hidePlayer(Bukkit.getPlayer(args[1]));
+								else
+									sender.sendMessage(CoreUtils.prefixes("error") + "That player isn't online.");
+							}
+							if (args.length == 3) {
+								if (Bukkit.getPlayer(args[1]) == null) {
+									sender.sendMessage(CoreUtils.prefixes("error") + args[1] + " isn't online.");
+									return true;
+								}
+								if (Bukkit.getPlayer(args[2]) == null) {
+									sender.sendMessage(CoreUtils.prefixes("error") + args[2] + " isn't online.");
+									return true;
+								}
+								Bukkit.getPlayer(args[1]).hidePlayer(Bukkit.getPlayer(args[2]));
+							}
+						}
+						if (args[0].equalsIgnoreCase("show")) {
+							if (args.length == 2) {
+								if (Bukkit.getPlayer(args[1]) != null)
+									((Player) sender).showPlayer(Bukkit.getPlayer(args[1]));
+								else
+									sender.sendMessage(CoreUtils.prefixes("error") + "That player isn't online.");
+							}
+							if (args.length == 3) {
+								if (Bukkit.getPlayer(args[1]) == null) {
+									sender.sendMessage(CoreUtils.prefixes("error") + args[1] + " isn't online.");
+									return true;
+								}
+								if (Bukkit.getPlayer(args[2]) == null) {
+									sender.sendMessage(CoreUtils.prefixes("error") + args[2] + " isn't online.");
+									return true;
+								}
+								Bukkit.getPlayer(args[1]).showPlayer(Bukkit.getPlayer(args[2]));
+							}
+						}
 						if (args.length == 2) {
 							if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("delete")
 									|| args[0].equalsIgnoreCase("add")) {
