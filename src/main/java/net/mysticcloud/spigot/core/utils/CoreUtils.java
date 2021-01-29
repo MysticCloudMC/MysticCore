@@ -170,7 +170,7 @@ public class CoreUtils {
 							.sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
 			} catch (SQLException e) {
 				connected = false;
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to contingency MySQL");
+				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to QuickScythe MySQL");
 			}
 
 //			connected = false;
