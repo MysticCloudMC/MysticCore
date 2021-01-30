@@ -40,10 +40,13 @@ public class PunishmentUtils {
 					
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 
 	}
 	
@@ -176,6 +179,7 @@ public class PunishmentUtils {
 			while (rs.next()) {
 				occurrences = occurrences + 1;
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,6 +195,7 @@ public class PunishmentUtils {
 				if (rs.getString("TYPE").equalsIgnoreCase(type.name()))
 					occurrences = occurrences + 1;
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,6 +220,7 @@ public class PunishmentUtils {
 				}
 					
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -230,10 +236,12 @@ public class PunishmentUtils {
 				if (rs.getString("ACTION").equalsIgnoreCase(type.name()))
 					occurrences = occurrences + 1;
 			}
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return occurrences;
 	}
 

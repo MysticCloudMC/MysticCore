@@ -193,6 +193,7 @@ public class MysticPlayer {
 							friends.add(json2.getString("USERNAME"));
 					}
 				}
+				rs.close();
 
 			}
 
@@ -211,6 +212,7 @@ public class MysticPlayer {
 				if (rs.next()) {
 					version = GameVersion.getGameVersion(Integer.parseInt(rs.getString("VERSION")));
 				}
+				rs.close();
 			} catch (SQLException e) {
 				return GameVersion.V1_8;
 			}

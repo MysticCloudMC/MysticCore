@@ -364,6 +364,7 @@ public class CoreUtils {
 					uid = UUID.fromString(rs.getString("UUID"));
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -385,6 +386,7 @@ public class CoreUtils {
 					uid = Integer.parseInt(rs.getString("FORUMS_NAME"));
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -421,6 +423,7 @@ public class CoreUtils {
 					date = Long.parseLong(rs.getString("DATE"));
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -454,6 +457,7 @@ public class CoreUtils {
 					date = Long.parseLong(rs.getString("DATE"));
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -471,6 +475,7 @@ public class CoreUtils {
 					user = (rs.getString("NAME"));
 				}
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -495,9 +500,11 @@ public class CoreUtils {
 						name = (rs.getString("USERNAME"));
 					}
 				}
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			rs.close();
 
 		} catch (SQLException e1) {
 			System.out.println("Not connected to SQL");
@@ -524,6 +531,7 @@ public class CoreUtils {
 			while (rs.next()) {
 				variables.put(rs.getString("SETTING"), rs.getString("VALUE"));
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1353,6 +1361,7 @@ public class CoreUtils {
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 				return mp;
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1416,6 +1425,7 @@ public class CoreUtils {
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
