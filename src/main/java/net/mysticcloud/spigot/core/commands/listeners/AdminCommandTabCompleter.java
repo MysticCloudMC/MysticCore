@@ -31,6 +31,8 @@ public class AdminCommandTabCompleter implements TabCompleter {
 		debugSubCmds.add("pcolor");
 		debugSubCmds.add("particles");
 		debugSubCmds.add("time");
+		debugSubCmds.add("show");
+		debugSubCmds.add("hide");
 
 		for (Holiday h : Holiday.values()) {
 			debugHolidaySubCmds.add(h.name());
@@ -93,6 +95,10 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				StringUtil.copyPartialMatches(args[0], cmds.get("debug"), completions);
 			}
 			if (args.length >= 2) {
+				if (args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("hide")) {
+					if (args.length <= 4)
+						StringUtil.copyPartialMatches(args[args.length - 1], getOnlinePlayers(), completions);
+				}
 				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
 				if (args[0].equalsIgnoreCase("particles")) {
