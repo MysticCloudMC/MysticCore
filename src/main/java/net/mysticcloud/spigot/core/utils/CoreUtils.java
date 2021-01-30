@@ -761,17 +761,20 @@ public class CoreUtils {
 	}
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
-		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
+		if (!connected)
+			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
 		return db.query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
-		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
+		if (!connected)
+			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC002)");
 		return db.update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
-		alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
+		if (!connected)
+			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC003)");
 		return db.input(query);
 	}
 

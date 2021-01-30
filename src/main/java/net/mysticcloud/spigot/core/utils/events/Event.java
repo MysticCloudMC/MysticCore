@@ -136,7 +136,7 @@ public class Event {
 			broadcast(CoreUtils.colorize("" + metadata.get("DESCRIPTION")));
 		}
 		broadcast(CoreUtils.colorize("Event Type: " + color1 + type.name()));
-		if (type.equals(EventType.TIMED)) { 
+		if (type.equals(EventType.TIMED)) {
 			broadcast(CoreUtils
 					.colorize("Duration: " + CoreUtils.formatDate((long) getMetadata("DURATION"), color3, color1)));
 		}
@@ -163,13 +163,18 @@ public class Event {
 		metadata.put(key, value);
 	}
 
-	public Object getMetadata(String key) {
-		try {
+	public Object getMetadata(String key, boolean required) {
+		if (metadata.containsKey(key))
 			return metadata.get(key);
-		} catch (NullPointerException ex) {
-			CoreUtils.alert(AlertType.FATAL, "Event " + key + " was not specified in the metadata.");
+		else {
+			if (required)
+				CoreUtils.alert(AlertType.FATAL, "Event " + key + " was not specified in the metadata.");
 			return null;
 		}
+	}
+
+	public Object getMetadata(String key) {
+		return getMetadata(key, false);
 	}
 
 	public Map<UUID, Double> getScores() {
