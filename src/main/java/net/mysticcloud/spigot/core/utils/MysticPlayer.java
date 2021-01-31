@@ -107,11 +107,15 @@ public class MysticPlayer {
 //		Bukkit.broadcastMessage("XP: " + this.xp);
 //		Bukkit.broadcastMessage("NEEDED: " + needed);
 //		Bukkit.broadcastMessage("LEVEL2: " + LevelUtils.getMainWorker().getLevel((long) (this.xp*100)));
+
 //		
-		sendMessage(((xp * 100) <= needed)
-				? "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp. You need &7" + needed
-						+ "&f more points to level up."
-				: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
+		sendRawMessage("&3" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " xp.");
+
+//		sendRawMessage(((xp * 100) <= needed)
+//				? "&3" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " xp. You need &7" + needed
+//						+ "&f more points to level up."
+//				: "You gained &7" + CoreUtils.getMoneyFormat((double) xp * 100.0) + " &fxp.");
+
 		if ((xp * 100) >= needed) {
 			levelUp(((long) LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
 		}
@@ -135,6 +139,12 @@ public class MysticPlayer {
 	public void sendMessage(String prefix, String message) {
 		if (Bukkit.getPlayer(uid) != null) {
 			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes(prefix) + CoreUtils.colorize(message));
+		}
+	}
+
+	public void sendRawMessage(String message) {
+		if (Bukkit.getPlayer(uid) != null) {
+			Bukkit.getPlayer(uid).sendMessage(CoreUtils.colorize(message));
 		}
 	}
 
