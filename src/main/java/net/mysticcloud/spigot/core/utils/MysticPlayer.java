@@ -221,8 +221,12 @@ public class MysticPlayer {
 			try {
 				if (rs.next()) {
 					version = GameVersion.getGameVersion(Integer.parseInt(rs.getString("VERSION")));
+					rs.close();
+					return version;
 				}
+
 				rs.close();
+				return GameVersion.V1_8;
 			} catch (SQLException e) {
 				return GameVersion.V1_8;
 			}
