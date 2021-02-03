@@ -6,6 +6,7 @@ api-version: 1.15
 api: Spigot
 main: net.mysticcloud.spigot.core.Main
 dependencies: ['Vault']
+depends: ['Vault','PermissionsEx','Multiverse-Core']
 commands:
   sql:
     usage: /sql [query]
