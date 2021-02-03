@@ -143,9 +143,8 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerEnterPortal(EntityPortalEnterEvent e) {
 		if (e.getEntity() instanceof Player) {
-			e.getEntity().teleport(e.getLocation().clone().add(
-					Math.cos(e.getEntity().getLocation().getYaw()), 1,
-					Math.sin(e.getEntity().getLocation().getYaw())));
+			e.getEntity().teleport(e.getLocation().clone().add(-Math.sin(e.getEntity().getLocation().getYaw()), 0.5,
+					-Math.cos(e.getEntity().getLocation().getYaw())));
 		}
 	}
 
