@@ -20,6 +20,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -138,6 +139,15 @@ public class PlayerListener implements Listener {
 //			}
 //		}
 //	}
+
+	@EventHandler
+	public void onPlayerEnterPortal(EntityPortalEnterEvent e) {
+		if (e.getEntity() instanceof Player) {
+			e.getEntity().teleport(e.getLocation().clone().add(
+					Math.cos(e.getEntity().getLocation().getYaw()), 1,
+					Math.sin(e.getEntity().getLocation().getYaw())));
+		}
+	}
 
 	@EventHandler
 	public void onSignEdit(SignChangeEvent e) {
