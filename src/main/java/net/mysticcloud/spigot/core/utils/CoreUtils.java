@@ -630,11 +630,15 @@ public class CoreUtils {
 		String r = loc.getWorld().getName() + ":" + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":"
 				+ loc.getPitch() + ":" + loc.getYaw();
 		r = r.replaceAll("\\.", ",");
+		r = "location:" + r;
 		return r;
 	}
 
 	public static Location decryptLocation(String s) {
 		debug("Decrypting Location: " + s);
+		if (s.startsWith("location:"))
+			s = s.replaceAll("location:", "");
+
 		if (s.contains(","))
 			s = s.replaceAll(",", ".");
 		String[] args = s.split(":");
