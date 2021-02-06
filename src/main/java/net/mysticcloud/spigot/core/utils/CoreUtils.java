@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -98,6 +99,8 @@ public class CoreUtils {
 	public static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
+
+	private static Map<UUID, UUID> controllers = new HashMap<>();
 	static ItemStack gem = new ItemStack(Material.SUNFLOWER);
 
 	private static List<String> voidWorlds = new ArrayList<>();
@@ -278,6 +281,31 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+
+	public static Set<UUID> getControllers() {
+		return controllers.keySet();
+	}
+
+	public static Player controllingWho(Player controller) {
+		return controllers.containsKey(controller.getUniqueId()) ? null
+				: Bukkit.getPlayer(controllers.get(controller.getUniqueId()));
+	}
+
+	public static void control(Player controller, Player player) {
+
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.hidePlayer(Main.getPlugin(), controller);
+		}
+		controllers.put(controller.getUniqueId(), player.getUniqueId());
+	}
+
+	public static void leaveControl(Player controller) {
+		controllers.remove(controller.getUniqueId());
+		controller.teleport(CoreUtils.getSpawnLocation());
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			p.showPlayer(Main.getPlugin(), controller);
+		}
 	}
 
 	public static void addVoidWorld(String worldname) {
@@ -500,7 +528,7 @@ public class CoreUtils {
 						name = (rs.getString("USERNAME"));
 					}
 				}
-				
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

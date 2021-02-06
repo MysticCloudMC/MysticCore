@@ -33,6 +33,30 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("control")) {
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(CoreUtils.prefixes("error") + "Player only command.");
+				return false;
+			}
+
+			if (sender.hasPermission("mysticcloud.admin.control")) {
+				sender.sendMessage(CoreUtils.prefixes("error") + "No permission.");
+				return false;
+			}
+			if (args.length == 1) {
+				sender.sendMessage(CoreUtils.prefixes("error") + "Usage: /control <player>");
+				return false;
+			}
+			if (Bukkit.getPlayer(args[0]) != null) {
+				sender.sendMessage(
+						CoreUtils.prefixes("error") + "Could not find that player. Player must be online to control.");
+				return false;
+			}
+
+			CoreUtils.control((Player) sender, Bukkit.getPlayer(args[0]));
+
+		}
+
 		if (cmd.getName().equalsIgnoreCase("invsee")) {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;

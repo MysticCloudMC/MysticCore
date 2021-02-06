@@ -157,6 +157,10 @@ public class Event {
 
 		metadata.put(key, value);
 	}
+	
+	public Map<String, Object> getMetadata() {
+		return metadata;
+	}
 
 	public void overrideMetadata(String key, Object value) {
 

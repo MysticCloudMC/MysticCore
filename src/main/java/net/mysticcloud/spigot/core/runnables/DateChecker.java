@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -69,6 +70,14 @@ public class DateChecker implements Runnable {
 						}
 					}
 				}
+			}
+
+			for (UUID uid : CoreUtils.getControllers()) {
+				if (Bukkit.getPlayer(uid) == null)
+					continue;
+				if (CoreUtils.controllingWho(Bukkit.getPlayer(uid)) == null)
+					continue;
+				CoreUtils.controllingWho(Bukkit.getPlayer(uid)).teleport(Bukkit.getPlayer(uid));
 			}
 
 			if (DebugUtils.holidayCheck()) {
