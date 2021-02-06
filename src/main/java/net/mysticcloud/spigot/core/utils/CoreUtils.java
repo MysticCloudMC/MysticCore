@@ -642,8 +642,13 @@ public class CoreUtils {
 		if (s.contains(","))
 			s = s.replaceAll(",", ".");
 		String[] args = s.split(":");
-		return new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
+		Location r = new Location(Bukkit.getWorld(args[0]), Double.parseDouble(args[1]), Double.parseDouble(args[2]),
 				Double.parseDouble(args[3]));
+		if (args.length >= 5) {
+			r.setPitch(Float.parseFloat(args[4]));
+			r.setYaw(Float.parseFloat(args[5]));
+		}
+		return r;
 	}
 
 	public static Map<String, String> prefixes() {
