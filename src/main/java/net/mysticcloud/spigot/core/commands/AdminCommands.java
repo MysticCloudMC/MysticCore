@@ -102,7 +102,7 @@ public class AdminCommands implements CommandExecutor {
 						if (args[0].equalsIgnoreCase("emoticons")) {
 							if(args.length == 1) {
 								for(Emoticons emote : Emoticons.values()) {
-									sender.sendMessage(emote.name() + ": " + emote.toString());
+									sender.sendMessage(emote.name() + ": " + emote);
 								}
 							}
 						}
