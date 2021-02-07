@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.Emoticons;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.MysticPlayer;
 
@@ -30,6 +31,14 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
 		string = string.replaceAll("%server", Bukkit.getName());
+		if (string.contains("%emoticon:")) {
+			String icon = string.split("moticon:")[1].split("%")[0];
+			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
+				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
+			} else {
+				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.valueOf(icon.toUpperCase()).toString());
+			}
+		}
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
