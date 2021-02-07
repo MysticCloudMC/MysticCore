@@ -36,7 +36,6 @@ public class TeleportUtils {
 		}
 		teleportRequests.put(other.getUniqueId(), player.getUniqueId());
 		// TODO put a timer here
-		Bukkit.broadcastMessage("" + TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS));
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
 				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
 				TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS) * 20);
