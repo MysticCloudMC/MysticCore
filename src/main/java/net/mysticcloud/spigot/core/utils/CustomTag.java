@@ -1,7 +1,11 @@
 package net.mysticcloud.spigot.core.utils;
 
 public enum CustomTag {
-	GOD("&e[GOD] "), TEST("&e[Tester] "), BEAST("&6[\uD83D\uDDE1BEAST\uD83D\uDDE1] "), NONE("you shouldn't have this.");
+	GOD("&e[GOD] "),
+	TEST("&e[Tester] "),
+	BEAST("&6[" + Emoticons.SWORD + "BEAST" + Emoticons.SWORD + "] "),
+	STAR("&e[" + Emoticons.STAR_9 + "STAR" + Emoticons.STAR_9 + "] "),
+	NONE("you shouldn't have this.");
 
 	String tag;
 
