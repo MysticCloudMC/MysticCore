@@ -18,6 +18,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
+import net.mysticcloud.spigot.core.utils.Emoticons;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
@@ -98,6 +99,13 @@ public class AdminCommands implements CommandExecutor {
 					}
 
 					if (args.length >= 1) {
+						if (args[0].equalsIgnoreCase("emoticons")) {
+							if(args.length == 1) {
+								for(Emoticons emote : Emoticons.values()) {
+									sender.sendMessage(emote.name() + ": " + emote.toString());
+								}
+							}
+						}
 						if (args[0].equalsIgnoreCase("hide")) {
 							if (args.length == 2) {
 								if (Bukkit.getPlayer(args[1]) != null)
