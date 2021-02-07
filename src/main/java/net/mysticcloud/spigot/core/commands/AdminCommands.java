@@ -100,9 +100,15 @@ public class AdminCommands implements CommandExecutor {
 
 					if (args.length >= 1) {
 						if (args[0].equalsIgnoreCase("emoticons")) {
-							if(args.length == 1) {
-								for(Emoticons emote : Emoticons.values()) {
+							if (args.length == 1) {
+								for (Emoticons emote : Emoticons.values()) {
 									sender.sendMessage(emote.name() + ": " + emote);
+								}
+							}
+							if (args.length == 2) {
+								for (Emoticons emote : Emoticons.values()) {
+									if (emote.name().contains(args[1].toUpperCase()))
+										sender.sendMessage(emote.name() + ": " + emote);
 								}
 							}
 						}
