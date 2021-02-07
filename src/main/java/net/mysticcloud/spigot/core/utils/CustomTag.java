@@ -5,6 +5,7 @@ public enum CustomTag {
 	TEST("&e[Tester] "),
 	BEAST("&6[" + Emoticons.SWORD + "BEAST" + Emoticons.SWORD + "] "),
 	STAR("&e[" + Emoticons.STAR_7 + "STAR" + Emoticons.STAR_7 + "] "),
+	SUPERNOVA("&5[" + Emoticons.SUN + "SUPER NOVA" + Emoticons.SUN + "] "),
 	NONE("you shouldn't have this.");
 
 	String tag;

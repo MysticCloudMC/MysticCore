@@ -275,10 +275,10 @@ public class GUIManager {
 				String name = tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1, tag.name().length()).toLowerCase();
 				if (player.hasPermission("mysticcloud.customtag." + tag.name())) {
 					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e" + name), (char) i,
-							(String[]) null, false);
+							new String[] {tag.getTag()}, false);
 				} else {
-					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), name, (char) i,
-							new String[] { "&cLocked..." }, false);
+					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), "&cLocked...", (char) i,
+							new String[] { tag.getTag() }, false);
 				}
 				c.add((char) i);
 			} else {
