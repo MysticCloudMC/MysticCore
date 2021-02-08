@@ -17,6 +17,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class GUIManager {
 
@@ -272,13 +273,14 @@ public class GUIManager {
 //					i--;
 					continue;
 				}
-				String name = tag.name().substring(0, 1).toUpperCase() + tag.name().substring(1, tag.name().length()).toLowerCase();
+				String name = tag.name().substring(0, 1).toUpperCase()
+						+ tag.name().substring(1, tag.name().length()).toLowerCase();
 				if (player.hasPermission("mysticcloud.customtag." + tag.name())) {
 					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e" + name), (char) i,
-							new String[] {tag.getTag()}, false);
+							new String[] { PlaceholderUtils.emotify(tag.getTag()) }, false);
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), "&cLocked...", (char) i,
-							new String[] { tag.getTag() }, false);
+							new String[] { PlaceholderUtils.emotify(tag.getTag()) }, false);
 				}
 				c.add((char) i);
 			} else {

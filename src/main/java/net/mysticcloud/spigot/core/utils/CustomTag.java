@@ -17,7 +17,7 @@ public enum CustomTag {
 	}
 
 	public String getTag() {
-		return PlaceholderUtils.emotify(tag);
+		return tag;
 	}
 
 	public static CustomTag tagFromName(String name) {

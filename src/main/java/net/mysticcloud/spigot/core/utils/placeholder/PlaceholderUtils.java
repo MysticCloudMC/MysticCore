@@ -43,7 +43,7 @@ public class PlaceholderUtils {
 		else
 			string = string.replace("%nitro", "");
 
-		
+		string = emotify(string);
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
@@ -55,7 +55,8 @@ public class PlaceholderUtils {
 		return string;
 	}
 
-	public static String emotify(String tag) {
+	public static String emotify(String string) {
+		String tag = string + "";
 		if (tag.contains("%emoticon:")) {
 			String icon = tag.split("moticon:")[1].split("%")[0];
 			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
