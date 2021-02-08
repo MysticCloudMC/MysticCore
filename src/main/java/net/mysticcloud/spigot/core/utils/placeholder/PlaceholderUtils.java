@@ -43,14 +43,7 @@ public class PlaceholderUtils {
 		else
 			string = string.replace("%nitro", "");
 
-		if (string.contains("%emoticon:")) {
-			String icon = string.split("moticon:")[1].split("%")[0];
-			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
-				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
-			} else {
-				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.valueOf(icon.toUpperCase()).toString());
-			}
-		}
+		
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
@@ -60,6 +53,18 @@ public class PlaceholderUtils {
 			string = string.replaceAll("%hdayline", "");
 		}
 		return string;
+	}
+
+	public static String emotify(String tag) {
+		if (tag.contains("%emoticon:")) {
+			String icon = tag.split("moticon:")[1].split("%")[0];
+			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
+				tag = tag.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
+			} else {
+				tag = tag.replaceAll("%emoticon:" + icon + "%", Emoticons.valueOf(icon.toUpperCase()).toString());
+			}
+		}
+		return tag;
 	}
 
 }

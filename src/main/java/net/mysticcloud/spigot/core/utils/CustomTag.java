@@ -1,5 +1,7 @@
 package net.mysticcloud.spigot.core.utils;
 
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
+
 public enum CustomTag {
 	GOD("&e[GOD] "),
 	TEST("&e[Tester] "),
@@ -15,7 +17,7 @@ public enum CustomTag {
 	}
 
 	public String getTag() {
-		return tag;
+		return PlaceholderUtils.emotify(tag);
 	}
 
 	public static CustomTag tagFromName(String name) {
