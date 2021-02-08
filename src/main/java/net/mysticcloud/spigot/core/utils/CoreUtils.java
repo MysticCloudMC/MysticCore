@@ -341,7 +341,7 @@ public class CoreUtils {
 			PermissionsEx.getUser(player).removeGroup(group);
 		}
 	}
-
+	
 	public static void addCoreMessage(String name, String message) {
 		messages.put(name, colorize(message));
 	}

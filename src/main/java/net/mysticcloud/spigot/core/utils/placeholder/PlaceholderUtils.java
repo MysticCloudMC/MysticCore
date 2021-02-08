@@ -57,7 +57,7 @@ public class PlaceholderUtils {
 
 	public static String emotify(String string) {
 		String tag = string + "";
-		if (tag.contains("%emoticon:")) {
+		while (tag.contains("%emoticon:")) {
 			String icon = tag.split("moticon:")[1].split("%")[0];
 			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
 				tag = tag.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
