@@ -31,14 +31,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
 		string = string.replaceAll("%server", Bukkit.getName());
-		if (string.contains("%emoticon:")) {
-			String icon = string.split("moticon:")[1].split("%")[0];
-			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
-				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
-			} else {
-				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.valueOf(icon.toUpperCase()).toString());
-			}
-		}
+
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
@@ -49,6 +42,15 @@ public class PlaceholderUtils {
 
 		else
 			string = string.replace("%nitro", "");
+
+		if (string.contains("%emoticon:")) {
+			String icon = string.split("moticon:")[1].split("%")[0];
+			if (Emoticons.valueOf(icon.toUpperCase()) == null) {
+				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.UNKNOWN.toString());
+			} else {
+				string = string.replaceAll("%emoticon:" + icon + "%", Emoticons.valueOf(icon.toUpperCase()).toString());
+			}
+		}
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
