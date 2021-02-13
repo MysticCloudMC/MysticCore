@@ -32,8 +32,8 @@ public class CustomTag {
 //		this.tag = CoreUtils.colorize(tag);
 //	}
 
-	public void start() {
-
+	public static void start() {
+		registerTags();
 	}
 
 	public static void reloadTags() {
@@ -47,6 +47,7 @@ public class CustomTag {
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM CustomTags");
 		try {
 			while (rs.next()) {
+				CoreUtils.debug("Adding Tag: " + rs.getString("NAME"));
 				tags.put(rs.getString("NAME").toUpperCase(), CoreUtils.colorize(rs.getString("TAG")));
 			}
 			rs.close();

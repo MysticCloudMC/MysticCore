@@ -36,6 +36,7 @@ import net.mysticcloud.spigot.core.listeners.PunishmentGUIListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -77,6 +78,8 @@ public class Main extends JavaPlugin {
 		new TagCommand(this,"tags","tag");
 		new AFKCommand(this,"afk");
 		startDateChecker();
+		
+		CustomTag.start();
 		
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
