@@ -17,6 +17,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.Emoticons;
 import net.mysticcloud.spigot.core.utils.Holiday;
@@ -182,6 +183,16 @@ public class AdminCommands implements CommandExecutor {
 									return true;
 								}
 
+							}
+						}
+
+						if (args[0].equalsIgnoreCase("reload")) {
+							if (args.length == 2) {
+								if (args[1].equalsIgnoreCase("tags")) {
+									if (sender instanceof Player)
+										DebugUtils.addDebugger(((Player) sender).getUniqueId());
+									CustomTag.reloadTags();
+								}
 							}
 						}
 

@@ -110,13 +110,6 @@ public class AdminCommandTabCompleter implements TabCompleter {
 					if (args.length == 2) {
 						StringUtil.copyPartialMatches(args[1], cmds.get("debug.reload"), completions);
 					}
-					if (args.length == 3) {
-						if (args[1].equalsIgnoreCase("tags")) {
-							if (sender instanceof Player)
-								DebugUtils.addDebugger(((Player) sender).getUniqueId());
-							CustomTag.reloadTags();
-						}
-					}
 				}
 				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);
