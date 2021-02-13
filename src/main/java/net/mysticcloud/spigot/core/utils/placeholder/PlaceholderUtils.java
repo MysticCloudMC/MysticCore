@@ -34,13 +34,13 @@ public class PlaceholderUtils {
 
 		
 		if(string.contains("%lvl")) {
-			if(mp.getLevel() >= 49) {
+			if(mp.getLevel() <= 49) {
 				string = string.replaceAll("%lvl", CoreUtils.colorize("&7[" + mp.getLevel() + "]"));
 			}
-			if(mp.getLevel() <= 50 && mp.getLevel() >= 150) {
+			if(mp.getLevel() >= 50 && mp.getLevel() <= 150) {
 				string = string.replaceAll("%lvl", CoreUtils.colorize("&6[" + mp.getLevel() + "]"));
 			}
-			if(mp.getLevel() <= 150) {
+			if(mp.getLevel() >= 150) {
 				string = string.replaceAll("%lvl", CoreUtils.colorize("&a[" + mp.getLevel() + "]"));
 			}
 		}
