@@ -272,7 +272,7 @@ public class GUIManager {
 				String key = CustomTag.keys()[i];
 				String value = CustomTag.getTag(key);
 				if (value.contains("[NT]")) {
-//					i--;
+					i--;
 					continue;
 				}
 				String name = key.substring(0, 1).toUpperCase() + key.substring(1, key.length()).toLowerCase();
