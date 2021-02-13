@@ -32,6 +32,19 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
 		string = string.replaceAll("%server", Bukkit.getName());
 
+		
+		if(string.contains("%lvl")) {
+			if(mp.getLevel() >= 49) {
+				string = string.replaceAll("%lvl", CoreUtils.colorize("&7[" + mp.getLevel() + "]"));
+			}
+			if(mp.getLevel() <= 50 && mp.getLevel() >= 150) {
+				string = string.replaceAll("%lvl", CoreUtils.colorize("&6[" + mp.getLevel() + "]"));
+			}
+			if(mp.getLevel() <= 150) {
+				string = string.replaceAll("%lvl", CoreUtils.colorize("&a[" + mp.getLevel() + "]"));
+			}
+		}
+		
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
