@@ -26,13 +26,11 @@ public class TagCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
-			
+
 			Player player = (Player) sender;
 			if (args.length == 0) {
 				GUIManager.openInventory(player, GUIManager.getTagsMenu(player), "tags");
 			}
-				
-				
 
 		} else {
 			if (args.length != 2) {
@@ -42,8 +40,8 @@ public class TagCommand implements CommandExecutor {
 					if (args[1].equalsIgnoreCase("none") || args[1].equalsIgnoreCase("remove")) {
 						CoreUtils.removeTag(Bukkit.getPlayer(args[0]));
 					}
-					if (!CustomTag.tagFromName(args[1]).equals(CustomTag.NONE)) {
-						CoreUtils.setTag(Bukkit.getPlayer(args[0]), CustomTag.tagFromName(args[1]));
+					if (!CustomTag.getTag(args[1]).contains("[NT]")) {
+						CoreUtils.setTag(Bukkit.getPlayer(args[0]), CustomTag.getTag(args[1]));
 					} else
 						sender.sendMessage(
 								CoreUtils.colorize(CoreUtils.prefixes("tags") + "Sorry, that tag doesn't exist."));

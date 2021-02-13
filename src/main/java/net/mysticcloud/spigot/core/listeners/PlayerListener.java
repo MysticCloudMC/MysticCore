@@ -140,8 +140,6 @@ public class PlayerListener implements Listener {
 //		}
 //	}
 
-	
-
 	@EventHandler
 	public void onSignEdit(SignChangeEvent e) {
 		for (int i = 0; i != e.getLines().length; i++) {
@@ -403,10 +401,9 @@ public class PlayerListener implements Listener {
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
 
-			for (CustomTag tag : CustomTag.values()) {
-				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())
-						.equalsIgnoreCase(tag.name())) {
-					CoreUtils.setTag((Player) e.getWhoClicked(), tag);
+			for (String key : CustomTag.keys()) {
+				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase(key)) {
+					CoreUtils.setTag((Player) e.getWhoClicked(), key);
 					GUIManager.closeInventory((Player) e.getWhoClicked());
 				}
 			}

@@ -14,6 +14,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
+import net.mysticcloud.spigot.core.utils.CustomTag;
+import net.mysticcloud.spigot.core.utils.DebugUtils;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
@@ -24,6 +26,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 	public AdminCommandTabCompleter() {
 		List<String> debugSubCmds = new ArrayList<>();
 		List<String> debugHolidaySubCmds = new ArrayList<>();
+		List<String> reloadables = new ArrayList<>();
 		debugSubCmds.add("holiday");
 		debugSubCmds.add("remove");
 		debugSubCmds.add("add");
@@ -33,6 +36,9 @@ public class AdminCommandTabCompleter implements TabCompleter {
 		debugSubCmds.add("time");
 		debugSubCmds.add("show");
 		debugSubCmds.add("hide");
+		debugSubCmds.add("reload");
+
+		reloadables.add("tags");
 
 		for (Holiday h : Holiday.values()) {
 			debugHolidaySubCmds.add(h.name());
@@ -40,6 +46,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 
 		cmds.put("debug", debugSubCmds);
 		cmds.put("debug.holiday", debugHolidaySubCmds);
+		cmds.put("debug.reload", reloadables);
 
 	}
 
@@ -98,6 +105,18 @@ public class AdminCommandTabCompleter implements TabCompleter {
 				if (args[0].equalsIgnoreCase("show") || args[0].equalsIgnoreCase("hide")) {
 					if (args.length <= 4)
 						StringUtil.copyPartialMatches(args[args.length - 1], getOnlinePlayers(), completions);
+				}
+				if (args[0].equalsIgnoreCase("reload")) {
+					if (args.length == 2) {
+						StringUtil.copyPartialMatches(args[1], cmds.get("debug.reload"), completions);
+					}
+					if (args.length == 3) {
+						if (args[1].equalsIgnoreCase("tags")) {
+							if (sender instanceof Player)
+								DebugUtils.addDebugger(((Player) sender).getUniqueId());
+							CustomTag.reloadTags();
+						}
+					}
 				}
 				if (args[0].equalsIgnoreCase("holiday"))
 					StringUtil.copyPartialMatches(args[1], cmds.get("debug.holiday"), completions);

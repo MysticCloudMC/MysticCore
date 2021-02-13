@@ -26,8 +26,8 @@ public class CommandTabCompleter implements TabCompleter {
 
 	public CommandTabCompleter() {
 
-		for (CustomTag tag : CustomTag.values()) {
-			tags.add(tag.name());
+		for (String key : CustomTag.keys()) {
+			tags.add(key);
 		}
 		tags.add("remove");
 

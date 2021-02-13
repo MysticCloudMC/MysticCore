@@ -316,13 +316,14 @@ public class CoreUtils {
 		return voidWorlds;
 	}
 
-	public static void setTag(Player player, CustomTag tag) {
+	public static void setTag(Player player, String key) {
 
 		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
-		group.setPrefix(tag.getTag(), null);
+		group.setPrefix(CustomTag.getTag(key), null);
 		if (!PermissionsEx.getUser(player).inGroup(group)) {
 			PermissionsEx.getUser(player).addGroup(group);
 		}
+		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag set."));
 	}
 
 	public static String getTag(Player player) {
@@ -340,8 +341,9 @@ public class CoreUtils {
 		if (PermissionsEx.getUser(player).inGroup(group)) {
 			PermissionsEx.getUser(player).removeGroup(group);
 		}
+		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag removed."));
 	}
-	
+
 	public static void addCoreMessage(String name, String message) {
 		messages.put(name, colorize(message));
 	}

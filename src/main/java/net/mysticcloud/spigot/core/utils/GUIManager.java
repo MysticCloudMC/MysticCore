@@ -267,20 +267,20 @@ public class GUIManager {
 
 		for (int i = 0; i != size; i++) {
 
-			if (i < (CustomTag.values().length - 1)) {
-				CustomTag tag = CustomTag.values()[i];
-				if (tag.equals(CustomTag.NONE)) {
+			if (i < (CustomTag.keys().length - 1)) {
+				String key = CustomTag.keys()[i];
+				String value = CustomTag.getTag(key);
+				if (value.contains("[NT]")) {
 //					i--;
 					continue;
 				}
-				String name = tag.name().substring(0, 1).toUpperCase()
-						+ tag.name().substring(1, tag.name().length()).toLowerCase();
-				if (player.hasPermission("mysticcloud.customtag." + tag.name())) {
+				String name = key.substring(0, 1).toUpperCase() + key.substring(1, key.length()).toLowerCase();
+				if (player.hasPermission("mysticcloud.customtag." + key.toLowerCase())) {
 					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e" + name), (char) i,
-							new String[] { PlaceholderUtils.emotify(tag.getTag()) }, false);
+							new String[] { PlaceholderUtils.emotify(value) }, false);
 				} else {
 					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), "&cLocked...", (char) i,
-							new String[] { PlaceholderUtils.emotify(tag.getTag()) }, false);
+							new String[] { PlaceholderUtils.emotify(value) }, false);
 				}
 				c.add((char) i);
 			} else {
