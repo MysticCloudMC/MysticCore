@@ -1,22 +1,21 @@
 package net.mysticcloud.spigot.core.utils;
 
 import java.io.File;
-import java.util.Collection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.utils.warps.Warp;
+import ru.tehkode.permissions.PermissionGroup;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CustomTag {
 
 	static Map<String, String> tags = new HashMap<>();
-
-	static File tags_dir = new File(Main.getPlugin().getDataFolder() + "/tags/");
 
 //	AVACADO("&2[AVACADO]"),
 //	BEAST("&6[%emoticon:SWORD%BEAST%emoticon:SWORD%] "),
@@ -45,21 +44,15 @@ public class CustomTag {
 
 	public static void registerTags() {
 
-		if (!tags_dir.exists()) {
-			tags_dir.mkdir();
-		}
-
-		for (File file : tags_dir.listFiles()) {
-			FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-//			try {
-			for (String key : config.getConfigurationSection("Tags").getKeys(false)) {
-				if (config.isSet("Tags." + key + ".value")) {
-					tags.put(key.toUpperCase(), CoreUtils.colorize(config.getString("Tags." + key + ".value")));
-				}
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM CustomTags");
+		try {
+			while (rs.next()) {
+				tags.put(rs.getString("NAME").toUpperCase(), CoreUtils.colorize(rs.getString("TAG")));
 			}
-//			} catch(NullPointerException ex) {
-			// skip
-//			}
+			rs.close();
+		} catch (SQLException ex) {
+			// Skip
+
 		}
 
 	}
@@ -78,6 +71,57 @@ public class CustomTag {
 		String[] r = new String[tags.keySet().size()];
 		r = tags.keySet().toArray(r);
 		return r;
+	}
+
+	public static void setTag(Player player, String key) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		group.setPrefix(CustomTag.getTag(key), null);
+		if (!PermissionsEx.getUser(player).inGroup(group)) {
+			PermissionsEx.getUser(player).addGroup(group);
+		}
+		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag set."));
+	}
+
+	public static String getTag(Player player) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		if (PermissionsEx.getUser(player).inGroup(group)) {
+			return group.getPrefix();
+		}
+		return "";
+	}
+
+	public static void removeTag(Player player) {
+
+		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
+		if (PermissionsEx.getUser(player).inGroup(group)) {
+			PermissionsEx.getUser(player).removeGroup(group);
+		}
+		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag removed."));
+	}
+
+	public static int removeTag(String key) {
+		key = key.toUpperCase();
+		if (tags.containsKey(key)) {
+			tags.remove(key);
+			return CoreUtils.sendUpdate("DELETE FROM CustomTags WHERE NAME='" + key.toUpperCase() + "';");
+		} else {
+			return -99;
+		}
+	}
+
+	public static int addTag(String key, String value) {
+		key = key.toUpperCase();
+		if (tags.containsKey(key)) {
+			tags.put(key, CoreUtils.colorize(value));
+			return CoreUtils.sendUpdate("UPDATE CustomTags SET TAG='" + value + "' WHERE NAME='" + key + "';");
+		} else {
+			tags.put(key, CoreUtils.colorize(value));
+			return CoreUtils.sendInsert("INSERT INTO CustomTags (NAME, TAG) VALUES ('" + key + "', '" + value + "');")
+					? -1000
+					: -1001;
+		}
 	}
 
 }

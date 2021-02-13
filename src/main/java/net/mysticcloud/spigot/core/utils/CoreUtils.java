@@ -317,31 +317,15 @@ public class CoreUtils {
 	}
 
 	public static void setTag(Player player, String key) {
-
-		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
-		group.setPrefix(CustomTag.getTag(key), null);
-		if (!PermissionsEx.getUser(player).inGroup(group)) {
-			PermissionsEx.getUser(player).addGroup(group);
-		}
-		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag set."));
+		CustomTag.setTag(player,key);
 	}
 
 	public static String getTag(Player player) {
-
-		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
-		if (PermissionsEx.getUser(player).inGroup(group)) {
-			return group.getPrefix();
-		}
-		return "";
+		return CustomTag.getTag(player);
 	}
 
 	public static void removeTag(Player player) {
-
-		PermissionGroup group = PermissionsEx.getPermissionManager().getGroup(player.getUniqueId().toString());
-		if (PermissionsEx.getUser(player).inGroup(group)) {
-			PermissionsEx.getUser(player).removeGroup(group);
-		}
-		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("root") + "Tag removed."));
+		CustomTag.removeTag(player);
 	}
 
 	public static void addCoreMessage(String name, String message) {

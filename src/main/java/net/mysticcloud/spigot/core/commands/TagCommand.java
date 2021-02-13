@@ -31,6 +31,24 @@ public class TagCommand implements CommandExecutor {
 			if (args.length == 0) {
 				GUIManager.openInventory(player, GUIManager.getTagsMenu(player), "tags");
 			}
+			if (args.length >= 2) {
+				if (args[0].equalsIgnoreCase("add")) {
+					if (args.length >= 3) {
+						String tag = args[2];
+						if (args.length > 3) {
+							for (int s = 3; s != args.length; s++)
+								tag = tag + " " + args[s];
+							CustomTag.addTag(args[1], tag);
+						}
+					} else {
+						player.sendMessage(
+								CoreUtils.colorize(CoreUtils.prefixes("tags") + "Try /tags add <name> <value>"));
+					}
+				}
+				if (args[0].equalsIgnoreCase("remove")) {
+					CustomTag.removeTag(args[1]);
+				}
+			}
 
 		} else {
 			if (args.length != 2) {
