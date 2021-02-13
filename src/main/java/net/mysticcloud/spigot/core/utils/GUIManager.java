@@ -254,6 +254,7 @@ public class GUIManager {
 
 		inv.addItem(new ItemStack(Material.GRAY_STAINED_GLASS_PANE), "&eComing Soon", 'x', (String[]) null);
 		inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), "&7Choose an option.", 'X', (String[]) null);
+		inv.addItem(new ItemStack(Material.BARRIER), "&cRemove Tag", 'X', (String[]) null);
 
 		c.add('X');
 		c.add('X');
@@ -291,11 +292,11 @@ public class GUIManager {
 
 		c.add('X');
 		c.add('X');
+		c.add('X');//
 		c.add('X');
+		c.add('Y');
 		c.add('X');
-		c.add('X');
-		c.add('X');
-		c.add('X');
+		c.add('X');//
 		c.add('X');
 		c.add('X');
 

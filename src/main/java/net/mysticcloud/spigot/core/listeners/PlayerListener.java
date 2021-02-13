@@ -407,6 +407,11 @@ public class PlayerListener implements Listener {
 					GUIManager.closeInventory((Player) e.getWhoClicked());
 				}
 			}
+			if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())
+					.equalsIgnoreCase("remove tag")) {
+				CoreUtils.removeTag(((Player) e.getWhoClicked()));
+				GUIManager.closeInventory((Player) e.getWhoClicked());
+			}
 			e.setCancelled(true);
 
 		}
