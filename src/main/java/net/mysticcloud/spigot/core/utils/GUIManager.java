@@ -268,7 +268,7 @@ public class GUIManager {
 
 		for (int i = 0; i != size; i++) {
 
-			if (i < (CustomTag.keys().length - 1)) {
+			if (i < (CustomTag.keys().length)) {
 				String key = CustomTag.keys()[i];
 				String value = CustomTag.getTag(key);
 				if (value.contains("[NT]")) {
