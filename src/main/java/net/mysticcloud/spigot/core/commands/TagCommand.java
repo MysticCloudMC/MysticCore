@@ -12,6 +12,7 @@ import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class TagCommand implements CommandExecutor {
 
@@ -43,6 +44,11 @@ public class TagCommand implements CommandExecutor {
 					} else {
 						player.sendMessage(
 								CoreUtils.colorize(CoreUtils.prefixes("tags") + "Try /tags add <name> <value>"));
+					}
+				}
+				if (args[0].equalsIgnoreCase("list")) {
+					for(String key : CustomTag.keys()) {
+						player.sendMessage(key + ": " + PlaceholderUtils.emotify(CustomTag.getTag(key)));
 					}
 				}
 				if (args[0].equalsIgnoreCase("remove")) {

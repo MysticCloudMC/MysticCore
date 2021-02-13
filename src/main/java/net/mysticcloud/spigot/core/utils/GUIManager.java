@@ -292,11 +292,11 @@ public class GUIManager {
 
 		c.add('X');
 		c.add('X');
-		c.add('X');//
+		c.add('X');
 		c.add('X');
 		c.add('Y');
 		c.add('X');
-		c.add('X');//
+		c.add('X');
 		c.add('X');
 		c.add('X');
 
