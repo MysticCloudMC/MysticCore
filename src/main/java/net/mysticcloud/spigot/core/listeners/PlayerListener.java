@@ -48,6 +48,7 @@ import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
@@ -66,6 +67,15 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent e) {
+		if (AFKUtils.isAFK(e.getPlayer())) {
+			if (!(AFKUtils.getAFKPacket(e.getPlayer()) == null)) {
+				if (!AFKUtils.getAFKPacket(e.getPlayer()).getLocation().getBlock().getLocation()
+						.equals(e.getPlayer().getLocation().getBlock().getLocation())) {
+					AFKUtils.afk(e.getPlayer(), false);
+				}
+			}
+
+		}
 		if (CoreUtils.getVoidWorlds().contains(e.getPlayer().getWorld().getName())) {
 			if (e.getPlayer().getLocation().getY() <= 0.5) {
 				TeleportUtils.teleport(e.getPlayer(), CoreUtils.getSpawnLocation(), false, true);
