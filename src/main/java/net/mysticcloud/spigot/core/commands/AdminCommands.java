@@ -19,6 +19,7 @@ import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.DebugUtils;
+import net.mysticcloud.spigot.core.utils.EmoticonType;
 import net.mysticcloud.spigot.core.utils.Emoticons;
 import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -108,7 +109,11 @@ public class AdminCommands implements CommandExecutor {
 							}
 							if (args.length == 2) {
 								for (Emoticons emote : Emoticons.values()) {
-									if (emote.name().contains(args[1].toUpperCase()))
+									if (EmoticonType.valueOf(args[1].toUpperCase()) != null) {
+										if (emote.getTypes().contains(EmoticonType.valueOf(args[1].toUpperCase()))) {
+											sender.sendMessage(emote.name() + ": " + emote);
+										}
+									} else if (emote.name().contains(args[1].toUpperCase()))
 										sender.sendMessage(emote.name() + ": " + emote);
 								}
 							}
