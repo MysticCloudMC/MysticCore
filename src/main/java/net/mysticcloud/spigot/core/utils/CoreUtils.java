@@ -1379,11 +1379,11 @@ public class CoreUtils {
 
 	public static void saveMysticPlayer(MysticPlayer player) {
 		String sql = "UPDATE MysticPlayers SET ";
-		sql = sql + "BALANCE='" + player.getBalance() + "',";
-		sql = sql + "GEMS='" + player.getGems() + "',";
-		sql = sql + "LEVEL='" + player.getXP() + "' ";
-		sql = sql + "EXTRA_DATA='" + player.getExtraData_JSON().toString().replaceAll("\"", "\\\"") + "' ";
-		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
+		sql = sql + "BALANCE=\"" + player.getBalance() + "\", ";
+		sql = sql + "GEMS=\"" + player.getGems() + "\",";
+		sql = sql + "LEVEL=\"" + player.getXP() + "\", ";
+		sql = sql + "EXTRA_DATA=\"" + player.getExtraData_JSON().toString().replaceAll("\"", "\'") + "\" ";
+		sql = sql + "WHERE UUID=\"" + player.getUUID() + "\";";
 		debug(sql);
 		CoreUtils.sendUpdate(sql);
 	}
