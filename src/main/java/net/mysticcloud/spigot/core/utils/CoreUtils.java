@@ -795,6 +795,7 @@ public class CoreUtils {
 	public static ResultSet sendQuery(String query) throws NullPointerException {
 		if (!connected)
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
+		Bukkit.broadcastMessage(query);
 		return db.query(query);
 	}
 
