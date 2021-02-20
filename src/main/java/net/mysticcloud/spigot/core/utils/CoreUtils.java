@@ -1382,7 +1382,7 @@ public class CoreUtils {
 		sql = sql + "BALANCE=\"" + player.getBalance() + "\", ";
 		sql = sql + "GEMS=\"" + player.getGems() + "\",";
 		sql = sql + "LEVEL=\"" + player.getXP() + "\", ";
-		sql = sql + "EXTRA_DATA=\"" + player.getExtraData_JSON().toString().replaceAll("\"", "\'") + "\" ";
+		sql = sql + "EXTRA_DATA=\"" + player.getExtraData_JSON().toString().replaceAll("\"", "\\\"") + "\" ";
 		sql = sql + "WHERE UUID=\"" + player.getUUID() + "\";";
 		debug(sql);
 		CoreUtils.sendUpdate(sql);
