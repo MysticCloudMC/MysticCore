@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -233,6 +234,15 @@ public class MysticPlayer {
 		}
 
 		return version;
+	}
+
+	public JSONObject getExtraData_JSON() {
+		JSONObject json = new JSONObject();
+		for (Entry<String, Object> e : extraData.entrySet()) {
+			json.put(e.getKey(), e.getValue());
+		}
+
+		return json;
 	}
 
 }

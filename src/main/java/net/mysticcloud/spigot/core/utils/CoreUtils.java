@@ -43,6 +43,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.json2.JSONObject;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -317,7 +318,7 @@ public class CoreUtils {
 	}
 
 	public static void setTag(Player player, String key) {
-		CustomTag.setTag(player,key);
+		CustomTag.setTag(player, key);
 	}
 
 	public static String getTag(Player player) {
@@ -1425,7 +1426,9 @@ public class CoreUtils {
 //		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
 //			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
 //		}
+
 		sql = sql + "LEVEL='" + player.getXP() + "' ";
+		sql = sql + "EXTRA_DATA='" + player.getExtraData_JSON().toString() + "' ";
 		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
 		debug(sql);
 		CoreUtils.sendUpdate(sql);

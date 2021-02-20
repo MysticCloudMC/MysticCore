@@ -46,6 +46,7 @@ public class SQLCommand implements CommandExecutor {
 					sender.sendMessage(CoreUtils.colorize("&6--------------------"));
 					
 				}
+				rs.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

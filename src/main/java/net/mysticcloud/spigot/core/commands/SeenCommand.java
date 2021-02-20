@@ -39,6 +39,7 @@ public class SeenCommand implements CommandExecutor {
 								break;
 							}
 						}
+						iprs.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
@@ -53,6 +54,8 @@ public class SeenCommand implements CommandExecutor {
 								break;
 							}
 						}
+						
+						srvrs.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
