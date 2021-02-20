@@ -1351,49 +1351,7 @@ public class CoreUtils {
 		if (mplayers.containsKey(uid)) {
 			return mplayers.get(uid);
 		}
-
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
-		int a = 0;
-		try {
-			while (rs.next()) {
-				a = a + 1;
-				MysticPlayer mp = new MysticPlayer(uid);
-				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
-				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
-				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
-				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
-
-				Map<String, Object> data = new HashMap<>();
-
-				for (int i = 1; i != rs.getMetaData().getColumnCount() + 1; i++) {
-					if (!rs.getMetaData().getColumnName(i).equalsIgnoreCase("BALANCE")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("UUID")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("GEMS")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("DISCORD_ID")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("FORUMS_NAME")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("DISCORD_BOOSTER")
-							&& !rs.getMetaData().getColumnName(i).equalsIgnoreCase("LEVEL")) {
-						data.put(rs.getMetaData().getColumnName(i), rs.getObject(rs.getMetaData().getColumnName(i)));
-
-					}
-					// sender.sendMessage(Utils.colorize("&6" +
-					// rs.getMetaData().getColumnName(i) + ": " +
-					// rs.getString(i)));
-				}
-				mp.setExtraData(data);
-				mplayers.put(uid, mp);
-				CoreUtils.debug("Registered MysticPlayer: " + uid);
-				return mp;
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (a == 0) {
-			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
-					+ "','0','0','1');");
-
-		}
+		updateMysticPlayer(uid);
 
 		if (Bukkit.getPlayer(uid) == null) {
 			Bukkit.getConsoleSender().sendMessage(
@@ -1423,10 +1381,6 @@ public class CoreUtils {
 		String sql = "UPDATE MysticPlayers SET ";
 		sql = sql + "BALANCE='" + player.getBalance() + "',";
 		sql = sql + "GEMS='" + player.getGems() + "',";
-//		for (Entry<String, Object> entry : player.getExtraData().entrySet()) {
-//			sql = sql + entry.getKey().toUpperCase() + "='" + entry.getValue().toString() + "',";
-//		}
-
 		sql = sql + "LEVEL='" + player.getXP() + "' ";
 		sql = sql + "EXTRA_DATA='" + player.getExtraData_JSON().toString() + "' ";
 		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
@@ -1438,7 +1392,7 @@ public class CoreUtils {
 		updateMysticPlayer(player.getUniqueId());
 	}
 
-	private static void updateMysticPlayer(UUID uid) {
+	private static int updateMysticPlayer(UUID uid) {
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
 		int a = 0;
 		try {
@@ -1448,6 +1402,13 @@ public class CoreUtils {
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
+				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
+				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
+				Map<String, Object> meta = new HashMap<>();
+				for (Entry<String, Object> e : json.toMap().entrySet()) {
+					meta.put(e.getKey(), e.getValue());
+				}
+				mp.setExtraData(meta);
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
@@ -1455,6 +1416,12 @@ public class CoreUtils {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if (a == 0) {
+			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
+					+ "','0','0','1');");
+			DebugUtils.debug("Created MysticPlayer: " + uid);
+		}
+		return a;
 	}
 
 	public static double getMoneyFormat(double amount) {
