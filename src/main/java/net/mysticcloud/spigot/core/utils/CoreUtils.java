@@ -795,7 +795,6 @@ public class CoreUtils {
 	public static ResultSet sendQuery(String query) throws NullPointerException {
 		if (!connected)
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
-		Bukkit.broadcastMessage(query);
 		return db.query(query);
 	}
 
@@ -1399,7 +1398,7 @@ public class CoreUtils {
 		try {
 			while (rs.next()) {
 				a = a + 1;
-				MysticPlayer mp = getMysticPlayer(uid);
+				MysticPlayer mp = mplayers.containsKey(uid) ? mplayers.get(uid) : new MysticPlayer(uid);
 				mp.setBalance(Double.parseDouble(rs.getString("BALANCE")));
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
