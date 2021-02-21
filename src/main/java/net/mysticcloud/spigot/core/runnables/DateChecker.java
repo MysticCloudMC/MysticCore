@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -23,6 +24,7 @@ import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 public class DateChecker implements Runnable {
 
 	int counter;
+	long lastcheck = 0;
 
 	public DateChecker(int counter) {
 		this.counter = counter;
@@ -34,7 +36,8 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
-		if (counter % 10 * 60 * 20 == 0) {
+		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
+			DebugUtils.debug("Updating punishments");
 			PunishmentUtils.updatePunishments();
 		}
 		try {
@@ -179,7 +182,7 @@ public class DateChecker implements Runnable {
 			ex.printStackTrace();
 		}
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new DateChecker(counter), 1);
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), this, 1);
 	}
 
 }
