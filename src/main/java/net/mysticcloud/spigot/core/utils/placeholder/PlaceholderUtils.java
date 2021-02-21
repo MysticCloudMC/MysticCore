@@ -79,4 +79,14 @@ public class PlaceholderUtils {
 		return tag;
 	}
 
+	public static String markup(String string) {
+		String tag = string + "";
+		while (tag.contains("%bold:")) {
+			String icon = tag.split("old:")[1].split("%")[0];
+			tag = tag.replaceAll("%old:" + icon + "%",
+					ChatColor.BOLD + icon + ChatColor.getLastColors(tag.split("%bold")[0]));
+		}
+		return tag;
+	}
+
 }
