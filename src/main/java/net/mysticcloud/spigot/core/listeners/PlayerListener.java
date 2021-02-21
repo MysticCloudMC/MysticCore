@@ -111,16 +111,19 @@ public class PlayerListener implements Listener {
 					CoreUtils.colorize("&3---------------------&7[&3&lHelp Menu&7]&3---------------------"));
 			e.getPlayer().sendMessage(CoreUtils.colorize(""));
 			e.getPlayer().sendMessage(CoreUtils.colorize(
-					"&f Need help with your current gamemode? There is always help posted at the /spawn of every gamemode"));
+					"&f Need help with your current gamemode? There is always help posted at the &7/spawn&f of every gamemode"));
 			e.getPlayer().sendMessage(CoreUtils.colorize(""));
 			e.getPlayer().sendMessage(CoreUtils
 					.colorize("&f Need to report player/staff abuse? Head onto the forums and let us know please! :)"));
 			e.getPlayer().sendMessage(CoreUtils.colorize(""));
 			e.getPlayer().sendMessage(
-					CoreUtils.colorize("&f Need a referesher on the rules? /rules should help you out. :)"));
+					CoreUtils.colorize("&f Need a referesher on the rules? &7/rules&f should help you out. :)"));
 			e.getPlayer().sendMessage(CoreUtils.colorize(""));
 			e.getPlayer().sendMessage(
 					CoreUtils.colorize("&f Want to apply for staff? You can do that on the forums as-well."));
+			e.getPlayer().sendMessage(CoreUtils.colorize(""));
+			e.getPlayer().sendMessage(
+					CoreUtils.colorize("&f Need to tweak something? &7/settings&f should have everything you need!"));
 			e.getPlayer().sendMessage(CoreUtils.colorize(""));
 			e.getPlayer().sendMessage(CoreUtils.colorize("&3-----------------------------------------------------"));
 		}
