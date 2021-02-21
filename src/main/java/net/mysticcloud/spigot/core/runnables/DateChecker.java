@@ -17,6 +17,7 @@ import net.mysticcloud.spigot.core.utils.TimedPerm;
 import net.mysticcloud.spigot.core.utils.events.Event;
 import net.mysticcloud.spigot.core.utils.events.EventUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
+import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class DateChecker implements Runnable {
@@ -33,6 +34,9 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
+		if (counter % 10 * 60 * 20 == 0) {
+			PunishmentUtils.updatePunishments();
+		}
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
 				if (!entry.getValue().populated())
@@ -48,8 +52,17 @@ public class DateChecker implements Runnable {
 			EventUtils.clearRemoveEvents();
 			counter = counter + 1;
 			if (counter % 40 == 0) {
-				counter = 0;
+
 				for (Punishment punishment : PunishmentUtils.getPunishments()) {
+					if (punishment.getType().equals(PunishmentType.BAN)) {
+						if (Bukkit.getPlayer(punishment.getUser()) != null) {
+							Bukkit.getPlayer(punishment.getUser())
+									.kickPlayer(CoreUtils.colorize("&cYou're are banned for "
+											+ CoreUtils.getSimpleTimeFormat(punishment.getDate()
+													+ punishment.getDuration() - new Date().getTime())
+											+ "\n&f[Reason] " + punishment.getNotes()));
+						}
+					}
 					if (punishment.getDate() + punishment.getDuration() - new Date().getTime() <= 1) {
 						PunishmentUtils.finishPunishment(punishment);
 					}

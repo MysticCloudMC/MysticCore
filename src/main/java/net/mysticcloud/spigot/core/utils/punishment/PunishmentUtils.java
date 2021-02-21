@@ -404,6 +404,11 @@ public class PunishmentUtils {
 		}
 		return false;
 	}
+
+	public static void updatePunishments() {
+		punishments.clear();
+		registerPunishments();
+	}
 	
 }
 						

@@ -93,6 +93,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
+			
 			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {
 				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
 //				e.getItem().teleport(new Location(e.getEntity().getWorld(),0,-1,0));
