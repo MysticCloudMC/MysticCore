@@ -11,10 +11,6 @@ import java.util.Properties;
 /**
  * The IDatabase is a simple class that adds all the utils you need to
  * communicate with an SQL server.
- *
- * @author Cameron Witcher
- * @version 1.0
- * @since 2016-12-09
  */
 public class IDatabase {
 
