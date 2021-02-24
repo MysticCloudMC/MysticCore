@@ -23,15 +23,15 @@ import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class DateChecker implements Runnable {
 
-	int counter;
+	int counter = 0;
 	long lastcheck = 0;
 
 	public DateChecker(int counter) {
-		this.counter = counter;
+		
 	}
 
 	public DateChecker() {
-		counter = 0;
+		
 	}
 
 	@Override
@@ -39,6 +39,7 @@ public class DateChecker implements Runnable {
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating punishments");
 			PunishmentUtils.updatePunishments();
+			lastcheck = new Date().getTime();
 		}
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
