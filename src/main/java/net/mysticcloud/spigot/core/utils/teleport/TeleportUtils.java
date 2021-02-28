@@ -139,9 +139,9 @@ public class TeleportUtils {
 					}
 
 				}
-			}, 10 * 20);
+			}, 5 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
-			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds. Don't move.");
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 5 seconds. Don't move.");
 			return;
 		}
 		player.removeMetadata("coreteleporting", Main.getPlugin());
