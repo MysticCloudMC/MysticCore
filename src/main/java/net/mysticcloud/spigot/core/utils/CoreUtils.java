@@ -1384,7 +1384,7 @@ public class CoreUtils {
 		sql = sql + "LEVEL=`" + player.getXP() + "`, ";
 		sql = sql + "EXTRA_DATA=`"
 				+ player.getExtraData_JSON().toString() + "` ";
-		sql = sql + "WHERE UUID=`" + player.getUUID() + "`;";
+		sql = sql + "WHERE UUID='" + player.getUUID() + "';";
 		debug(sql);
 		CoreUtils.sendUpdate(sql);
 	}
