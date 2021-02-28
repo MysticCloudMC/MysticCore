@@ -242,6 +242,8 @@ public class MysticPlayer {
 			json.put(e.getKey(), e.getValue());
 		}
 
+		CoreUtils.debug(json.toString());
+
 		return json;
 	}
 
