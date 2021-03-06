@@ -5,8 +5,26 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class HomeUtils {
+
+	public static Warp addHome(UUID uid, String name, Location location) {
+		name = name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
+		WarpBuilder warp = new WarpBuilder();
+		if (warp.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp() != null) {
+			if (Bukkit.getPlayer(uid) != null)
+				Bukkit.getPlayer(uid)
+						.sendMessage(CoreUtils.prefixes("homes") + CoreUtils.colorize("Home '&7" + name + "&f' set!"));
+		} else if (Bukkit.getPlayer(uid) != null)
+			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("homes") + "There was an error setting you home.");
+
+		return warp.getWarp();
+
+	}
 
 	public static List<Warp> getHomes(UUID uid) {
 		List<Warp> homes = new ArrayList<>();
