@@ -16,7 +16,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
 
 public class PunishmentUtils {
 

@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.admin;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +8,8 @@ import org.bukkit.OfflinePlayer;
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 
 public class VaultAPI extends AbstractEconomy {
 	
@@ -17,7 +19,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public boolean hasAccount(String uid) {
-		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
+		return MysticAccountManager.getMysticPlayer(UUID.fromString(uid)) != null;
 
 	}
 	
@@ -27,7 +29,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public double getBalance(String uid) {
-		return CoreUtils.getMysticPlayer(UUID.fromString(uid)).getBalance();
+		return MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).getBalance();
 	}
 	
 	@Override
@@ -61,7 +63,7 @@ public class VaultAPI extends AbstractEconomy {
 		}
 		balance = CoreUtils.getMoneyFormat(balance-amount);
 
-		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(balance);
+		MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).setBalance(balance);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
 				EconomyResponse.ResponseType.SUCCESS, "");
@@ -81,7 +83,7 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		CoreUtils.getMysticPlayer(UUID.fromString(uid)).setBalance(CoreUtils.getMoneyFormat(getBalance(uid) + amount),true);
+		MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).setBalance(CoreUtils.getMoneyFormat(getBalance(uid) + amount),true);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
@@ -92,7 +94,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public boolean createPlayerAccount(String uid) {
-		return CoreUtils.getMysticPlayer(UUID.fromString(uid)) != null;
+		return MysticAccountManager.getMysticPlayer(UUID.fromString(uid)) != null;
 	}
 
 	public String format(double summ) {

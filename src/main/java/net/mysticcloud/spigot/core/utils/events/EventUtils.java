@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_16_R2.Entity;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.entities.GoblinBoss;
 import net.mysticcloud.spigot.core.utils.entities.IronBoss;
@@ -35,7 +36,7 @@ public class EventUtils {
 
 	static List<Integer> events__remove = new ArrayList<>();
 
-	public static Entry<Integer,Event> createEvent(String name, EventType type) {
+	public static Entry<Integer, Event> createEvent(String name, EventType type) {
 		Event event = new Event(name, type);
 		int id = 0;
 		while (true) {
@@ -44,10 +45,10 @@ public class EventUtils {
 			id = id + 1;
 		}
 		events.put(id, event);
-		Entry<Integer,Event> entry = null;
-		while(entry == null) {
-			for(Entry<Integer,Event> e : events.entrySet()) {
-				if(e.getKey().equals(id) && e.getValue().equals(event)) {
+		Entry<Integer, Event> entry = null;
+		while (entry == null) {
+			for (Entry<Integer, Event> e : events.entrySet()) {
+				if (e.getKey().equals(id) && e.getValue().equals(event)) {
 					entry = e;
 					break;
 				}
@@ -56,8 +57,8 @@ public class EventUtils {
 
 		return entry;
 	}
-	
-	public static Entry<Integer,Event> registerExturnalEvent(Event event) {
+
+	public static Entry<Integer, Event> registerExturnalEvent(Event event) {
 		int id = 0;
 		while (true) {
 			if (!events.containsKey(id))
@@ -65,10 +66,10 @@ public class EventUtils {
 			id = id + 1;
 		}
 		events.put(id, event);
-		Entry<Integer,Event> entry = null;
-		while(entry == null) {
-			for(Entry<Integer,Event> e : events.entrySet()) {
-				if(e.getKey().equals(id) && e.getValue().equals(event)) {
+		Entry<Integer, Event> entry = null;
+		while (entry == null) {
+			for (Entry<Integer, Event> e : events.entrySet()) {
+				if (e.getKey().equals(id) && e.getValue().equals(event)) {
 					entry = e;
 					break;
 				}
@@ -76,7 +77,7 @@ public class EventUtils {
 		}
 
 		return entry;
-		
+
 	}
 
 	public static int getEventID(String name) {
@@ -127,8 +128,9 @@ public class EventUtils {
 			name = bosstype.getCallName().substring(0, 1).toUpperCase()
 					+ bosstype.getCallName().substring(1, bosstype.getCallName().length()).toLowerCase() + " Boss";
 		}
-		Event e = EventUtils.createEvent(name,
-				bosstype.equals(Bosses.GOBLIN_BOSS) ? EventType.TIMED : EventType.COMPLETION).getValue();
+		Event e = EventUtils
+				.createEvent(name, bosstype.equals(Bosses.GOBLIN_BOSS) ? EventType.TIMED : EventType.COMPLETION)
+				.getValue();
 		Entity boss;
 		switch (bosstype) {
 		case GOBLIN_BOSS:
@@ -165,14 +167,15 @@ public class EventUtils {
 
 			@Override
 			public boolean check() {
-				if(Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null) {
+				if (Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null) {
 					org.bukkit.entity.Entity bos = Bukkit.getEntity((UUID) e.getMetadata("UUID"));
-					for(org.bukkit.entity.Entity en : bos.getNearbyEntities(40, 40, 40)) {
-						if(en instanceof Player) {
-							((BossBar)e.getMetadata("BOSSBAR")).addPlayer((Player)en);
+					for (org.bukkit.entity.Entity en : bos.getNearbyEntities(40, 40, 40)) {
+						if (en instanceof Player) {
+							((BossBar) e.getMetadata("BOSSBAR")).addPlayer((Player) en);
 						}
 					}
-					((BossBar)e.getMetadata("BOSSBAR")).setProgress((double) (((LivingEntity)bos).getHealth() * ( 100 / ( (LivingEntity) bos ).getMaxHealth() )/100));
+					((BossBar) e.getMetadata("BOSSBAR")).setProgress((double) (((LivingEntity) bos).getHealth()
+							* (100 / ((LivingEntity) bos).getMaxHealth()) / 100));
 					e.overrideMetadata("LOCATION", Bukkit.getEntity((UUID) e.getMetadata("UUID")).getLocation());
 				}
 				if (e.getEventType().equals(EventType.TIMED))
@@ -190,11 +193,11 @@ public class EventUtils {
 
 			@Override
 			public void end() {
-				
-				((BossBar)e.getMetadata("BOSSBAR")).removeAll();
-				
+
+				((BossBar) e.getMetadata("BOSSBAR")).removeAll();
+
 				CoreUtils.spawnGem((Location) e.getMetadata("LOCATION"));
-				
+
 				if (e.getEventType().equals(EventType.TIMED) && Bukkit.getEntity((UUID) e.getMetadata("UUID")) != null)
 					((Entity) e.getMetadata("BOSS")).killEntity();
 				int z = MysticEntityUtils.damages.get(((Entity) e.getMetadata("BOSS")).getBukkitEntity().getUniqueId())
@@ -202,13 +205,13 @@ public class EventUtils {
 				for (Entry<UUID, Double> entry : MysticEntityUtils
 						.sortScores(((Entity) e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).entrySet()) {
 					if (z == 1) {
-						CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.5);
+						MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(0.5);
 						Bukkit.getPlayer(entry.getKey()).getInventory().addItem(new ItemStack(Material.DIAMOND, 3));
 						Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss")
 								+ "You did the most damage! You earned 50xp, and 3 diamonds!");
 					}
 					if (z == 2) {
-						CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.35);
+						MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(0.35);
 						Bukkit.getPlayer(entry.getKey())
 								.sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned 35xp.");
 					}

@@ -13,8 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
+import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
@@ -159,7 +162,7 @@ public class GUIManager {
 	}
 
 	public static Inventory createSettingsMenu(Player player) {
-		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
+		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 		InventoryCreator inv = new InventoryCreator("&6&lSettings Menu", null, 9);
 		inv.addItem(new ItemStack(Material.DIAMOND), "&aParticle Settings", 'A',
 				new String[] { "&7Click to open Particle Settings." });
@@ -170,7 +173,7 @@ public class GUIManager {
 	}
 
 	public static Inventory getParticleSettingsMenu(Player player) {
-		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
+		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 		InventoryCreator inv = new InventoryCreator("&a&lParticle Settings Menu", null, 9);
 		inv.addItem(new ItemStack(Material.FIREWORK_ROCKET), "&aHoliday Particles", 'A',
 				new String[] { "&7Currently is "

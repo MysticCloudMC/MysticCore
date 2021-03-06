@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.accounts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.json2.JSONObject;
 
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 
 public class MysticPlayer {
@@ -56,11 +58,11 @@ public class MysticPlayer {
 	public void setBalance(double balance, boolean save) {
 		this.balance = balance;
 		if (Bukkit.getPlayer(uid) != null && save) {
-			CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
+			MysticAccountManager.saveMysticPlayer(Bukkit.getPlayer(uid));
 		}
 	}
 
-	void setBalance(double balance) {
+	public void setBalance(double balance) {
 		setBalance(balance, false);
 
 	}
@@ -120,7 +122,7 @@ public class MysticPlayer {
 		if ((xp * 100) >= needed) {
 			levelUp(((long) LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
 		}
-		CoreUtils.saveMysticPlayer(Bukkit.getPlayer(uid));
+		MysticAccountManager.saveMysticPlayer(Bukkit.getPlayer(uid));
 	}
 
 	public void levelUp() {
@@ -167,6 +169,40 @@ public class MysticPlayer {
 
 	public boolean isFriends(int forumId) {
 		return isFriends(CoreUtils.lookupUsername(CoreUtils.LookupUUID(forumId)));
+	}
+
+	public void addFriend(String username) {
+
+	}
+
+	public void addFriend(UUID uid) {
+
+	}
+
+	public boolean addFriend(int forumId) {
+		if (!isFriends(forumId)) {
+			return CoreUtils.getForumsDatabase()
+					.input("INSERT INTO xf_user_follow (user_id, follow_user_id, follow_date) VALUES (" + getForumID()
+							+ "," + forumId + "," + new Date().getTime() + ")");
+		}
+		return true;
+	}
+
+	public int getForumID() {
+		try {
+			URL apiUrl = new URL("http://www.mysticcloud.net/api/player.php?uuid=" + getUUID());
+			URLConnection yc = apiUrl.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+			String inputLine;
+			JSONObject json = null;
+			while ((inputLine = in.readLine()) != null)
+				json = new JSONObject(inputLine);
+			return Integer.parseInt(json.getString("FORUMS_ID"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	public List<String> getFriends() {

@@ -38,6 +38,7 @@ import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
@@ -100,7 +101,7 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		CoreUtils.end();
 		for(Player player : Bukkit.getOnlinePlayers()) {
-			CoreUtils.saveMysticPlayer(player);
+			MysticAccountManager.saveMysticPlayer(player);
 		}
 	}
 

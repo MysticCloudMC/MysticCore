@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.placeholder;
 
 import java.util.ArrayList;
 import java.util.List;

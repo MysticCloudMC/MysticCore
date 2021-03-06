@@ -19,6 +19,7 @@ import net.minecraft.server.v1_16_R2.Entity;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.entities.IronBoss;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
@@ -74,12 +75,12 @@ public class BossCommand implements CommandExecutor {
 								int z = MysticEntityUtils.damages.get(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).size();
 								for (Entry<UUID, Double> entry : MysticEntityUtils.sortScores(((Entity)e.getMetadata("BOSS")).getBukkitEntity().getUniqueId()).entrySet()) {
 									if(z == 1) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.5);
+										MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(0.5);
 										Bukkit.getPlayer(entry.getKey()).getInventory().addItem(new ItemStack(Material.DIAMOND,3));
 										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You did the most damage! You earned 50xp, and 3 diamonds!");
 									}
 									if(z == 2) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(0.35);
+										MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(0.35);
 										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in second place. You earned 35xp.");
 									}
 									if(z == 3) Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.prefixes("boss") + "You came in 3rd place.");
@@ -113,15 +114,15 @@ public class BossCommand implements CommandExecutor {
 								int z = e.getScores().size();
 								for (Entry<UUID, Double> entry : e.sortScores().entrySet()) {
 									if(z == 1) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
 										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You did the most damage! You earned &7" + entry.getValue()*100 + "&fxp!"));
 									}
 									if(z == 2) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
 										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in second place. You earned &7" + entry.getValue()*100 + "&fxp!"));
 									}
 									if(z == 3) {
-										CoreUtils.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
+										MysticAccountManager.getMysticPlayer(entry.getKey()).gainXP(entry.getValue());
 										Bukkit.getPlayer(entry.getKey()).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("boss") + "You came in 3rd place. You earned &" + entry.getValue()*100 + "&fxp!"));
 									}
 								}

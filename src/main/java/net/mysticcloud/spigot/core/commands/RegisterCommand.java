@@ -12,8 +12,8 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.UID;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 
 public class RegisterCommand implements CommandExecutor {
 

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 
 public class FriendCommand implements CommandExecutor {
 
@@ -21,7 +22,7 @@ public class FriendCommand implements CommandExecutor {
 		if (sender instanceof Player) {
 
 			if (cmd.getName().equalsIgnoreCase("friends")) {
-				List<String> friendsl = CoreUtils.getMysticPlayer((Player) sender).getFriends();
+				List<String> friendsl = MysticAccountManager.getMysticPlayer((Player) sender).getFriends();
 				String friends = "";
 				for (String s : friendsl) {
 					friends = friends == "" ? s : friends + ", " + s;
@@ -32,8 +33,20 @@ public class FriendCommand implements CommandExecutor {
 						: friends)));
 			}
 			if (cmd.getName().equalsIgnoreCase("friend")) {
+				if(args.length == 0) {
+					
+					return true;
+				}
+				if(args[0].equalsIgnoreCase("add")) {
+					if(args.length != 2) {
+						
+						return true;
+					}
+					
+					return true;
+				}
 				if (CoreUtils.LookupUUID(args[0]) != null) {
-					if (CoreUtils.getMysticPlayer((Player) sender).isFriends(args[0])) {
+					if (MysticAccountManager.getMysticPlayer((Player) sender).isFriends(args[0])) {
 						sender.sendMessage(CoreUtils.prefixes("friends") + CoreUtils
 								.colorize("http://www.mysticcloud.net/stats/?u=" + CoreUtils.LookupUUID(args[0])));
 					} else {

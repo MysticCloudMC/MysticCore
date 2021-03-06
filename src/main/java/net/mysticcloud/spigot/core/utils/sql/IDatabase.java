@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.sql;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

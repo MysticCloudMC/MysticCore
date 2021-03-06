@@ -20,7 +20,6 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.entity.EntityPortalEnterEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -35,19 +34,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 
-import com.comphenix.protocol.ProtocolLibrary;
-
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
-import net.mysticcloud.spigot.core.utils.DebugUtils;
-import net.mysticcloud.spigot.core.utils.FoodInfo;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.MysticPlayer;
-import net.mysticcloud.spigot.core.utils.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
+import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
@@ -95,7 +93,7 @@ public class PlayerListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			
 			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {
-				CoreUtils.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+				MysticAccountManager.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
 //				e.getItem().teleport(new Location(e.getEntity().getWorld(),0,-1,0));
 				e.getItem().remove();
 				e.setCancelled(true);
@@ -163,7 +161,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		CoreUtils.saveMysticPlayer(e.getPlayer());
+		MysticAccountManager.saveMysticPlayer(e.getPlayer());
 		PetManager.removePets(e.getPlayer());
 		e.setQuitMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has left the game."));
 	}
@@ -267,10 +265,10 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 
-		CoreUtils.updateMysticPlayer(e.getPlayer());
+		MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &f"
-				+ CoreUtils.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
+				+ MysticAccountManager.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
 
 		CoreUtils.enableScoreboard(e.getPlayer());
 
@@ -431,7 +429,7 @@ public class PlayerListener implements Listener {
 		}
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Settings") {
-			MysticPlayer mp = CoreUtils.getMysticPlayer((Player) e.getWhoClicked());
+			MysticPlayer mp = MysticAccountManager.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.FIREWORK_ROCKET)) {
 				mp.setSetting(PlayerSettings.HOLIDAY_PARTICLES,
 						mp.getSetting(PlayerSettings.HOLIDAY_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
@@ -446,7 +444,7 @@ public class PlayerListener implements Listener {
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings Menu") {
-			MysticPlayer mp = CoreUtils.getMysticPlayer((Player) e.getWhoClicked());
+			MysticPlayer mp = MysticAccountManager.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.DIAMOND)) {
 				GUIManager.openInventory((Player) e.getWhoClicked(),
 						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");

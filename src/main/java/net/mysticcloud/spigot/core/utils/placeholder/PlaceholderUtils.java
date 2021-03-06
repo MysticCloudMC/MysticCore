@@ -5,14 +5,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.Emoticons;
-import net.mysticcloud.spigot.core.utils.Holiday;
-import net.mysticcloud.spigot.core.utils.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.admin.Holiday;
 
 public class PlaceholderUtils {
 
 	public static String replace(Player player, String string) {
-		MysticPlayer mp = CoreUtils.getMysticPlayer(player);
+		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 		if (string.contains("%lvl")) {
 			if (mp.getLevel() <= 49) {
 				string = string.replaceAll("%lvl", CoreUtils.colorize("&7[%level]"));
@@ -46,7 +46,7 @@ public class PlaceholderUtils {
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
-		if (CoreUtils.getMysticPlayer(player).isNitro()) // if nitro
+		if (MysticAccountManager.getMysticPlayer(player).isNitro()) // if nitro
 
 			string = string.replace("%nitro",
 					CoreUtils.colorize("&d\u25C6") + ChatColor.getLastColors(string.split("%nitro")[0]));

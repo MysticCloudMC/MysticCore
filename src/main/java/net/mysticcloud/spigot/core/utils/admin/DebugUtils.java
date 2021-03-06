@@ -1,10 +1,12 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.admin;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class DebugUtils {
 

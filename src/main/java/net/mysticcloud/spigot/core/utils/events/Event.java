@@ -15,8 +15,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.utils.AlertType;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.admin.AlertType;
 
 public class Event {
 

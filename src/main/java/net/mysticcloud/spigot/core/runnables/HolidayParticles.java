@@ -6,8 +6,9 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.Holiday;
-import net.mysticcloud.spigot.core.utils.PlayerSettings;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
+import net.mysticcloud.spigot.core.utils.admin.Holiday;
 
 public class HolidayParticles implements Runnable {
 
@@ -18,7 +19,7 @@ public class HolidayParticles implements Runnable {
 		switch (CoreUtils.getHoliday()) {
 		case CINCO_DE_MAYO:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					switch (CoreUtils.getRandom().nextInt(3)) {
 					case 1:
@@ -60,7 +61,7 @@ public class HolidayParticles implements Runnable {
 			break;
 		case AVACADO_DAY:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					player.spawnParticle(Particle.REDSTONE,
 							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
@@ -80,7 +81,7 @@ public class HolidayParticles implements Runnable {
 			break;
 		case VALENTINES:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					player.spawnParticle(Particle.REDSTONE,
 							player.getLocation().add(-0.5 + CoreUtils.getRandom().nextDouble(),
@@ -94,7 +95,7 @@ public class HolidayParticles implements Runnable {
 			break;
 		case CHRISTMAS:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					if (CoreUtils.getRandom().nextBoolean())
 						player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
@@ -117,7 +118,7 @@ public class HolidayParticles implements Runnable {
 
 		case NEW_YEARS:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					if (CoreUtils.getRandom().nextBoolean())
 						player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
@@ -140,7 +141,7 @@ public class HolidayParticles implements Runnable {
 
 		case HALLOWEEN:
 			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
+				if (MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.HOLIDAY_PARTICLES)
 						.equalsIgnoreCase("true")) {
 					player.spawnParticle(Particle.REDSTONE, player.getLocation().add(
 							-0.5 + CoreUtils.getRandom().nextDouble(),

@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.KitCooldownTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
 
 public class KitManager {
 

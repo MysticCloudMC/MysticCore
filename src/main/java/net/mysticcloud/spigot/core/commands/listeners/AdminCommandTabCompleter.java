@@ -15,8 +15,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
 import net.mysticcloud.spigot.core.utils.CustomTag;
-import net.mysticcloud.spigot.core.utils.DebugUtils;
-import net.mysticcloud.spigot.core.utils.Holiday;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
+import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class AdminCommandTabCompleter implements TabCompleter {

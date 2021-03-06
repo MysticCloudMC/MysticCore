@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import net.mysticcloud.spigot.core.utils.DebugUtils;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.AtomicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;

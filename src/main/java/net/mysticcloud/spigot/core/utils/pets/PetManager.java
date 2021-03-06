@@ -19,7 +19,7 @@ import net.minecraft.server.v1_16_R2.EntityPlayer;
 import net.minecraft.server.v1_16_R2.Vec3D;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 
 public class PetManager {

@@ -18,11 +18,11 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
-import net.mysticcloud.spigot.core.utils.DebugUtils;
-import net.mysticcloud.spigot.core.utils.EmoticonType;
-import net.mysticcloud.spigot.core.utils.Emoticons;
-import net.mysticcloud.spigot.core.utils.Holiday;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
+import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
+import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
 public class AdminCommands implements CommandExecutor {
 

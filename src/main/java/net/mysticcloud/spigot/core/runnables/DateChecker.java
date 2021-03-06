@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.DebugUtils;
-import net.mysticcloud.spigot.core.utils.Holiday;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
+import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
 import net.mysticcloud.spigot.core.utils.events.EventUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;

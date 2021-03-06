@@ -1,4 +1,4 @@
-package net.mysticcloud.spigot.core.utils;
+package net.mysticcloud.spigot.core.utils.admin;
 
 import org.bukkit.Material;
 
