@@ -16,13 +16,19 @@ public class HomeUtils {
 
 		return homes;
 	}
-
-	public static Warp getDefaultHome(UUID uid, String... strings) {
+	
+	public static Warp getHome(UUID uid) {
 		List<Warp> homes = getHomes(uid);
 		Warp thome = homes.get(0);
-		if (homes.size() > 1 && strings.length > 0) {
+		return thome;
+	}
+
+	public static Warp getHome(UUID uid, String name) {
+		List<Warp> homes = getHomes(uid);
+		Warp thome = homes.get(0);
+		if (homes.size() > 1) {
 			for (Warp home : homes) {
-				if (home.name().equalsIgnoreCase(strings[0])) {
+				if (home.name().equalsIgnoreCase(name)) {
 					return home;
 				}
 			}
