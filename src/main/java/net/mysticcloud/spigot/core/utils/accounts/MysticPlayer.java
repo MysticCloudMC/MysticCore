@@ -1,10 +1,5 @@
 package net.mysticcloud.spigot.core.utils.accounts;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +14,7 @@ import org.bukkit.Bukkit;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 
 public class MysticPlayer {
@@ -160,94 +156,72 @@ public class MysticPlayer {
 	}
 
 	public boolean isFriends(String username) {
-		return getFriends().contains(username);
+		return FriendUtils.isFriends(CoreUtils.LookupForumID(uid), CoreUtils.LookupForumID(username));
 	}
 
 	public boolean isFriends(UUID uid) {
-		return isFriends(CoreUtils.lookupUsername(uid));
+		return FriendUtils.isFriends(CoreUtils.LookupForumID(uid), CoreUtils.LookupForumID(uid));
 	}
 
 	public boolean isFriends(int forumId) {
-		return isFriends(CoreUtils.lookupUsername(CoreUtils.LookupUUID(forumId)));
-	}
-
-	public void addFriend(String username) {
-
-	}
-
-	public void addFriend(UUID uid) {
-
-	}
-
-	public boolean addFriend(int forumId) {
-		if (!isFriends(forumId)) {
-			return CoreUtils.getForumsDatabase()
-					.input("INSERT INTO xf_user_follow (user_id, follow_user_id, follow_date) VALUES (" + getForumID()
-							+ "," + forumId + "," + new Date().getTime() + ")");
-		}
-		return true;
+		return FriendUtils.isFriends(CoreUtils.LookupForumID(uid), forumId);
 	}
 
 	public int getForumID() {
-		try {
-			URL apiUrl = new URL("http://www.mysticcloud.net/api/player.php?uuid=" + getUUID());
-			URLConnection yc = apiUrl.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-			String inputLine;
-			JSONObject json = null;
-			while ((inputLine = in.readLine()) != null)
-				json = new JSONObject(inputLine);
-			return Integer.parseInt(json.getString("FORUMS_ID"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return -1;
+		return FriendUtils.getForumsID(uid);
 	}
 
 	public List<String> getFriends() {
 
 		List<String> friends = new ArrayList<>();
 
-		String id = "0";
-
-		try {
-			URL apiUrl = new URL("http://www.mysticcloud.net/api/friends.php?u=" + getUUID());
-			URLConnection yc = apiUrl.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-			String inputLine;
-			JSONObject json = null;
-			while ((inputLine = in.readLine()) != null)
-				json = new JSONObject(inputLine);
-
-			id = json.getString("FORUMS_ID");
-
-			for (Object o : json.getJSONArray("FRIENDS")) {
-				if (o.toString().equalsIgnoreCase("0"))
-					continue;
-				ResultSet rs = CoreUtils.getForumsDatabase()
-						.query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
-				while (rs.next()) {
-					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
-						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
-						URLConnection yc2 = apiUrl2.openConnection();
-						BufferedReader in2 = new BufferedReader(new InputStreamReader(yc2.getInputStream()));
-						String inputLine2;
-						JSONObject json2 = null;
-						while ((inputLine2 = in2.readLine()) != null)
-							json2 = new JSONObject(inputLine2);
-						if (json2.has("USERNAME"))
-							friends.add(json2.getString("USERNAME"));
-					}
-				}
-				rs.close();
-
+		for (UUID uid : FriendUtils.getFriends(uid)) {
+			if (Bukkit.getPlayer(uid) == null) {
+				friends.add(CoreUtils.lookupUsername(uid));
+			} else {
+				friends.add(Bukkit.getPlayer(uid).getName());
 			}
-
-		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+//
+//		String id = "0";
+//
+//		try {
+//			URL apiUrl = new URL("http://www.mysticcloud.net/api/friends.php?u=" + getUUID());
+//			URLConnection yc = apiUrl.openConnection();
+//			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+//			String inputLine;
+//			JSONObject json = null;
+//			while ((inputLine = in.readLine()) != null)
+//				json = new JSONObject(inputLine);
+//
+//			id = json.getString("FORUMS_ID");
+//
+//			for (Object o : json.getJSONArray("FRIENDS")) {
+//				if (o.toString().equalsIgnoreCase("0"))
+//					continue;
+//				ResultSet rs = CoreUtils.getForumsDatabase()
+//						.query("SELECT * FROM xf_user_follow WHERE user_id='" + o.toString() + "';");
+//				while (rs.next()) {
+//					if (rs.getInt("follow_user_id") == Integer.parseInt(id)) {
+//						URL apiUrl2 = new URL("http://www.mysticcloud.net/api/player.php?forumId=" + o.toString());
+//						URLConnection yc2 = apiUrl2.openConnection();
+//						BufferedReader in2 = new BufferedReader(new InputStreamReader(yc2.getInputStream()));
+//						String inputLine2;
+//						JSONObject json2 = null;
+//						while ((inputLine2 = in2.readLine()) != null)
+//							json2 = new JSONObject(inputLine2);
+//						if (json2.has("USERNAME"))
+//							friends.add(json2.getString("USERNAME"));
+//					}
+//				}
+//				rs.close();
+//
+//			}
+//
+//		} catch (IOException | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return friends;
 
 	}

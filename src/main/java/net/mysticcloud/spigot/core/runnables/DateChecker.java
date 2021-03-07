@@ -4,8 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
@@ -27,11 +28,11 @@ public class DateChecker implements Runnable {
 	long lastcheck = 0;
 
 	public DateChecker(int counter) {
-		
+
 	}
 
 	public DateChecker() {
-		
+
 	}
 
 	@Override
@@ -39,6 +40,8 @@ public class DateChecker implements Runnable {
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating punishments");
 			PunishmentUtils.updatePunishments();
+			DebugUtils.debug("Updating Friendships");
+			FriendUtils.update();
 			lastcheck = new Date().getTime();
 		}
 		try {

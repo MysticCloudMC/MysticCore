@@ -1,6 +1,7 @@
 package net.mysticcloud.spigot.core.commands;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 
 public class FriendCommand implements CommandExecutor {
 
@@ -33,16 +35,44 @@ public class FriendCommand implements CommandExecutor {
 						: friends)));
 			}
 			if (cmd.getName().equalsIgnoreCase("friend")) {
-				if(args.length == 0) {
-					
+				if (args.length == 0) {
+
 					return true;
 				}
-				if(args[0].equalsIgnoreCase("add")) {
-					if(args.length != 2) {
-						
+				if (args[0].equalsIgnoreCase("add")) {
+					if (args.length != 2) {
+
 						return true;
 					}
-					
+					switch (FriendUtils.addFriend(((Player) sender).getUniqueId(), CoreUtils.LookupUUID(args[0]))
+							.getStatus()) {
+					case FRIEND_NO_FORUMS:
+						sender.sendMessage(CoreUtils.prefixes("friends")
+								+ "Sorry, that player doesn't seem to have a forums account.");
+						break;
+					case FRIENDS:
+						sender.sendMessage(CoreUtils.prefixes("friends") + "Already friends.");
+						break;
+					case FRIENDS_NEW:
+						sender.sendMessage(CoreUtils.prefixes("friends") + "You are now friends!");
+						break;
+					case NOT_FRIENDS:
+						sender.sendMessage(CoreUtils.prefixes("friends") + "You are not friends with that player.");
+						break;
+					case PLAYER_NO_FORUMS:
+						sender.sendMessage(
+								CoreUtils.prefixes("friends") + "Sorry, you don't seem to have a forums account.");
+						break;
+					case REQUEST_SENT:
+						sender.sendMessage(CoreUtils.prefixes("friends") + "Friend request sent to " + args[0] + ".");
+						break;
+					case NONE:
+					default:
+						sender.sendMessage(CoreUtils.prefixes("friends")
+								+ "There was an error proccessing your request. Please try again later. The the problem continues, please contact a staff member.");
+						break;
+					}
+
 					return true;
 				}
 				if (CoreUtils.LookupUUID(args[0]) != null) {

@@ -39,6 +39,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
@@ -81,6 +82,8 @@ public class Main extends JavaPlugin {
 		startDateChecker();
 		
 		CustomTag.start();
+		
+		FriendUtils.start();
 		
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
