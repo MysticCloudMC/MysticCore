@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.commands;
 import java.util.List;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -41,10 +42,12 @@ public class FriendCommand implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("add")) {
 					if (args.length != 2) {
-
+						sender.sendMessage(CoreUtils.colorize("friends") + "Try \"/friend add <username>\".");
 						return true;
 					}
-					switch (FriendUtils.addFriend(((Player) sender).getUniqueId(), CoreUtils.LookupUUID(args[0]))
+					switch (FriendUtils.addFriend(((Player) sender).getUniqueId(),
+							Bukkit.getPlayer(args[1]) == null ? CoreUtils.LookupUUID(args[1])
+									: Bukkit.getPlayer(args[1]).getUniqueId())
 							.getStatus()) {
 					case FRIEND_NO_FORUMS:
 						sender.sendMessage(CoreUtils.prefixes("friends")

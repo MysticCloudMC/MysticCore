@@ -80,6 +80,7 @@ commands:
   friends: 
     description: Get your friends list.
   friend:
+    aliases: ['f','fr']
     description: Get stats on one of your friends.
   invsee:
     description: Admin tool to look at player inventories.

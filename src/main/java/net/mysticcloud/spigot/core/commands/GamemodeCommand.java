@@ -1,5 +1,6 @@
 package net.mysticcloud.spigot.core.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,52 +20,62 @@ public class GamemodeCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player) {
-			if(sender.hasPermission("mysticcloud.admin.cmd.gamemode")) {
+			if (sender.hasPermission("mysticcloud.admin.cmd.gamemode")) {
 				if (cmd.getName().equalsIgnoreCase("gamemode")) {
 					if (args.length == 0) {
 						sender.sendMessage(CoreUtils.prefixes("gamemode") + "Your current gamemode is "
 								+ ((Player) sender).getGameMode().name());
 						return true;
 					}
+					Player player = args.length == 1 ? ((Player) sender) : Bukkit.getPlayer(args[1]);
+					if (player == null) {
+						sender.sendMessage(CoreUtils.prefixes("That player isn't online."));
+						return true;
+					}
 					switch (args[0].toLowerCase()) {
 					case "creative":
 					case "c":
-						CoreUtils.setGameMode((Player) sender, GameMode.CREATIVE);
+						CoreUtils.setGameMode(player, GameMode.CREATIVE);
 						break;
 
 					case "survival":
 					case "s":
-						CoreUtils.setGameMode((Player) sender, GameMode.SURVIVAL);
+						CoreUtils.setGameMode(player, GameMode.SURVIVAL);
 						break;
 
 					case "adventure":
 					case "a":
-						CoreUtils.setGameMode((Player) sender, GameMode.ADVENTURE);
+						CoreUtils.setGameMode(player, GameMode.ADVENTURE);
 						break;
 
 					case "spectator":
 					case "sp":
-						CoreUtils.setGameMode((Player) sender, GameMode.SPECTATOR);
+						CoreUtils.setGameMode(player, GameMode.SPECTATOR);
 						break;
-						default:
-							sender.sendMessage(CoreUtils.prefixes("gamemode") + "Your current gamemode is "
-									+ ((Player) sender).getGameMode().name());
-							break;
+					default:
+						sender.sendMessage(CoreUtils.prefixes("gamemode") + "Your current gamemode is "
+								+ ((Player) sender).getGameMode().name());
+						break;
 					}
 					return true;
-					
+
+				}
+				Player player = args.length == 0 ? ((Player) sender) : Bukkit.getPlayer(args[0]);
+				if (player == null) {
+					sender.sendMessage(CoreUtils.prefixes("That player isn't online."));
+					return true;
 				}
 				if (cmd.getName().equalsIgnoreCase("gmc")) {
-					CoreUtils.setGameMode((Player) sender, GameMode.CREATIVE);
+					CoreUtils.setGameMode(player, GameMode.CREATIVE);
 				}
 				if (cmd.getName().equalsIgnoreCase("gms")) {
-					CoreUtils.setGameMode((Player) sender, GameMode.SURVIVAL);
+					CoreUtils.setGameMode(player, GameMode.SURVIVAL);
 				}
 				if (cmd.getName().equalsIgnoreCase("gmsp")) {
-					CoreUtils.setGameMode((Player) sender, GameMode.SPECTATOR);
+					CoreUtils.setGameMode(player, GameMode.SPECTATOR);
 				}
 				if (cmd.getName().equalsIgnoreCase("gma")) {
-					CoreUtils.setGameMode((Player) sender, GameMode.ADVENTURE);
+					CoreUtils.setGameMode(player, GameMode.ADVENTURE);
 				}
 			} else {
 				sender.sendMessage(CoreUtils.getCoreMessage("noperm"));
