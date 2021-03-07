@@ -32,6 +32,9 @@ public class GamemodeCommand implements CommandExecutor {
 						sender.sendMessage(CoreUtils.prefixes("That player isn't online."));
 						return true;
 					}
+					if (args.length == 2 && !sender.hasPermission("mysticcloud.admin.cmd.gamemode.others")) {
+						sender.sendMessage(CoreUtils.getCoreMessage("noperm"));
+					}
 					switch (args[0].toLowerCase()) {
 					case "creative":
 					case "c":
@@ -64,6 +67,9 @@ public class GamemodeCommand implements CommandExecutor {
 				if (player == null) {
 					sender.sendMessage(CoreUtils.prefixes("That player isn't online."));
 					return true;
+				}
+				if (args.length == 1 && !sender.hasPermission("mysticcloud.admin.cmd.gamemode.others")) {
+					sender.sendMessage(CoreUtils.getCoreMessage("noperm"));
 				}
 				if (cmd.getName().equalsIgnoreCase("gmc")) {
 					CoreUtils.setGameMode(player, GameMode.CREATIVE);
