@@ -61,16 +61,18 @@ public class FriendUtils {
 			request.setStatus(FriendRequestStatus.FRIENDS);
 			return request;
 		}
-		CoreUtils.getForumsDatabase().input("INSERT INTO xf_user_follow (user_id, follow_user_id, follow_date) VALUES ("
-				+ getForumsID(player) + "," + getForumsID(player) + "," + (new Date().getTime()) + ");");
+
 		if (!friends.containsKey(getForumsID(player))) {
+			CoreUtils.getForumsDatabase()
+					.input("INSERT INTO xf_user_follow (user_id, follow_user_id, follow_date) VALUES ("
+							+ getForumsID(player) + "," + getForumsID(player) + "," + (new Date().getTime()) + ");");
 			friends.put(getForumsID(player), new ArrayList<>());
 		}
 		friends.get(getForumsID(player)).add(getForumsID(friend));
 		request.setStatus(friends.containsKey(getForumsID(friend))
 				? (friends.get(getForumsID(friend)).contains(getForumsID(player)) ? FriendRequestStatus.FRIENDS_NEW
 						: FriendRequestStatus.REQUEST_SENT)
-				: FriendRequestStatus.FRIEND_NO_FORUMS);
+				: FriendRequestStatus.REQUEST_SENT);
 		return request;
 
 	}
