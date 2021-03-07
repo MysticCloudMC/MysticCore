@@ -19,8 +19,11 @@ public class FriendUtils {
 	public static void start() {
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE NOT FORUMS_NAME IS NULL;");
 		try {
-			while (rs.next())
+			while (rs.next()) {
+				System.out.println("Adding " + CoreUtils.lookupUsername(UUID.fromString(rs.getString("UUID"))) + " ("
+						+ rs.getString("FORUMS_NAME") + ")");
 				forumIds.put(UUID.fromString(rs.getString("UUID")), Integer.parseInt(rs.getString("FORUMS_NAME")));
+			}
 			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
