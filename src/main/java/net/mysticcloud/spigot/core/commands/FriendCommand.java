@@ -42,7 +42,7 @@ public class FriendCommand implements CommandExecutor {
 				}
 				if (args[0].equalsIgnoreCase("add")) {
 					if (args.length != 2) {
-						sender.sendMessage(CoreUtils.colorize("friends") + "Try \"/friend add <username>\".");
+						sender.sendMessage(CoreUtils.prefixes("friends") + "Try \"/friend add <username>\".");
 						return true;
 					}
 					switch (FriendUtils.addFriend(((Player) sender).getUniqueId(),
@@ -67,7 +67,7 @@ public class FriendCommand implements CommandExecutor {
 								CoreUtils.prefixes("friends") + "Sorry, you don't seem to have a forums account.");
 						break;
 					case REQUEST_SENT:
-						sender.sendMessage(CoreUtils.prefixes("friends") + "Friend request sent to " + args[0] + ".");
+						sender.sendMessage(CoreUtils.prefixes("friends") + "Friend request sent to " + args[1] + ".");
 						break;
 					case NONE:
 					default:

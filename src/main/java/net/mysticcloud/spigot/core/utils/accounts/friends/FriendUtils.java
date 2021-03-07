@@ -7,7 +7,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
@@ -101,12 +104,16 @@ public class FriendUtils {
 		return friends.get(player).contains(friend) && friends.get(friend).contains(player);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static List<UUID> getFriends(UUID uid) {
 		List<UUID> friends = new ArrayList<>();
 		if (getForumsID(uid) != null) {
 			for (Integer i : FriendUtils.friends.get(getForumsID(uid))) {
-				friends.add(CoreUtils.LookupUUID(i));
+				for (Entry<UUID, Integer> e : forumIds.entrySet()) {
+					if (e.getValue().equals(i)) {
+						friends.add(e.getKey());
+						break;
+					}
+				}
 			}
 		}
 		return friends;
