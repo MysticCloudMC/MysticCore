@@ -28,11 +28,11 @@ public class FriendUtils {
 		ResultSet rs2 = CoreUtils.getForumsDatabase().query("SELECT * FROM xf_user_follow");
 		try {
 			while (rs2.next()) {
-				if (friends.containsKey(rs.getInt("user_id"))) {
-					friends.get(rs.getInt("user_id")).add(rs.getInt("follow_user_id"));
+				if (friends.containsKey(rs2.getInt("user_id"))) {
+					friends.get(rs2.getInt("user_id")).add(rs2.getInt("follow_user_id"));
 				} else {
-					friends.put(rs.getInt("user_id"), new ArrayList<>());
-					friends.get(rs.getInt("user_id")).add(rs.getInt("follow_user_id"));
+					friends.put(rs2.getInt("user_id"), new ArrayList<>());
+					friends.get(rs2.getInt("user_id")).add(rs2.getInt("follow_user_id"));
 				}
 			}
 			rs2.close();
