@@ -49,11 +49,11 @@ public class FriendUtils {
 
 	public static FriendRequest addFriend(UUID player, UUID friend) {
 		FriendRequest request = new FriendRequest();
-		if (getForumsID(player) != null) {
+		if (getForumsID(player) == null) {
 			request.setStatus(FriendRequestStatus.PLAYER_NO_FORUMS);
 			return request;
 		}
-		if (getForumsID(friend) != null) {
+		if (getForumsID(friend) == null) {
 			request.setStatus(FriendRequestStatus.FRIEND_NO_FORUMS);
 			return request;
 		}
