@@ -58,7 +58,7 @@ public class MysticAccountManager {
 		sql = sql + "BALANCE=\"" + player.getBalance() + "\", ";
 		sql = sql + "GEMS=\"" + player.getGems() + "\",";
 		sql = sql + "LEVEL=\"" + player.getXP() + "\", ";
-		sql = sql + "EXTRA_DATA=\"" + player.getExtraData_JSON().toString().replaceAll("\"", "\\\\\"") + "\" ";
+		sql = sql + "EXTRA_DATA=\"" + player.getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
 		sql = sql + "WHERE UUID=\"" + player.getUUID() + "\";";
 		DebugUtils.debug(sql);
 		CoreUtils.sendUpdate(sql);
@@ -76,11 +76,7 @@ public class MysticAccountManager {
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
 				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
 				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
-				Map<String, Object> meta = new HashMap<>();
-				for (Entry<String, Object> e : json.toMap().entrySet()) {
-					meta.put(e.getKey(), e.getValue());
-				}
-				mp.setExtraData(meta);
+				mp.setExtraData(json);
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}

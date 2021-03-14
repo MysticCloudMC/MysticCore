@@ -23,7 +23,7 @@ public class MysticPlayer {
 	private double balance = 0;
 	private int gems = 0;
 	private double xp = 0.0;
-	private Map<String, Object> extraData = new HashMap<>();
+	private JSONObject extraData = new JSONObject();
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
 	private GameVersion version = null;
@@ -87,12 +87,12 @@ public class MysticPlayer {
 		return extraData.get(key);
 	}
 
-	public Map<String, Object> getExtraData() {
+	public JSONObject getExtraData() {
 		return extraData;
 	}
 
-	void setExtraData(Map<String, Object> extraData) {
-		this.extraData = extraData;
+	void setExtraData(JSONObject json) {
+		this.extraData = json;
 	}
 
 	public void addGems(int i) {
@@ -244,17 +244,6 @@ public class MysticPlayer {
 		}
 
 		return version;
-	}
-
-	public JSONObject getExtraData_JSON() {
-		JSONObject json = new JSONObject();
-		for (Entry<String, Object> e : extraData.entrySet()) {
-			json.put(e.getKey(), e.getValue());
-		}
-
-		CoreUtils.debug(json.toString());
-
-		return json;
 	}
 
 }

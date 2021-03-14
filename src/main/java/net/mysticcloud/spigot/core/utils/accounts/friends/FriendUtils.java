@@ -74,7 +74,8 @@ public class FriendUtils {
 							+ getForumsID(player) + "," + getForumsID(player) + "," + (new Date().getTime()) + ");");
 			friends.put(getForumsID(player), new ArrayList<>());
 		}
-		friends.get(getForumsID(player)).add(getForumsID(friend));
+		if (!friends.get(getForumsID(player)).contains(getForumsID(friend)))
+			friends.get(getForumsID(player)).add(getForumsID(friend));
 		request.setStatus(friends.containsKey(getForumsID(friend))
 				? (friends.get(getForumsID(friend)).contains(getForumsID(player)) ? FriendRequestStatus.FRIENDS_NEW
 						: FriendRequestStatus.REQUEST_SENT)
