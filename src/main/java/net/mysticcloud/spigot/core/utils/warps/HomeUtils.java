@@ -13,7 +13,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 public class HomeUtils {
 
 	public static Warp addHome(UUID uid, String name, Location location) {
-		name = name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
+		name = !name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
 		WarpBuilder warp = new WarpBuilder();
 		if (warp.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp() != null) {
 			if (Bukkit.getPlayer(uid) != null)
