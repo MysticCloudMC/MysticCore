@@ -41,13 +41,13 @@ public class HomeUtils {
 		return homes.size() >= 1 ? homes.get(0) : null;
 	}
 
-	public static Warp getHome(UUID uid, String name) {
+	public static List<Warp> getHome(UUID uid, String name) {
 		List<Warp> homes = getHomes(uid);
-		Warp thome = null;
+		List<Warp> thome = new ArrayList<>();
 		if (homes.size() > 1) {
 			for (Warp home : homes) {
 				if (home.name().equalsIgnoreCase(name)) {
-					return home;
+					thome.add(home);
 				}
 			}
 		}
