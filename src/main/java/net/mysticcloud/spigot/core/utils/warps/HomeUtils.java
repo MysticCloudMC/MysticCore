@@ -14,15 +14,16 @@ public class HomeUtils {
 
 	public static Warp addHome(UUID uid, String name, Location location) {
 		name = !name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
-		WarpBuilder warp = new WarpBuilder();
-		if (warp.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp() != null) {
+		WarpBuilder wb = new WarpBuilder();
+		Warp warp = wb.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp();
+		if (warp != null) {
 			if (Bukkit.getPlayer(uid) != null)
 				Bukkit.getPlayer(uid)
 						.sendMessage(CoreUtils.prefixes("homes") + CoreUtils.colorize("Home '&7" + name + "&f' set!"));
 		} else if (Bukkit.getPlayer(uid) != null)
 			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("homes") + "There was an error setting you home.");
 
-		return warp.getWarp();
+		return warp;
 
 	}
 
