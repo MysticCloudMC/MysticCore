@@ -14,6 +14,11 @@ public class HomeUtils {
 
 	public static Warp addHome(UUID uid, String name, Location location) {
 		name = !name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
+		for(Warp home : getHomes(uid)) {
+			if(home.name().equals(name)) {
+				return addHome(uid,name+"-1",location);
+			}
+		}
 		WarpBuilder wb = new WarpBuilder();
 		Warp warp = wb.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp();
 		if (warp != null) {
@@ -41,13 +46,13 @@ public class HomeUtils {
 		return homes.size() >= 1 ? homes.get(0) : null;
 	}
 
-	public static List<Warp> getHome(UUID uid, String name) {
+	public static Warp getHome(UUID uid, String name) {
 		List<Warp> homes = getHomes(uid);
-		List<Warp> thome = new ArrayList<>();
+		Warp thome = null;
 		if (homes.size() > 1) {
 			for (Warp home : homes) {
 				if (home.name().equalsIgnoreCase(name)) {
-					thome.add(home);
+					return home;
 				}
 			}
 		}
