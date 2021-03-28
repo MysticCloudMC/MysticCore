@@ -1,4 +1,4 @@
-	package net.mysticcloud.spigot.core;
+package net.mysticcloud.spigot.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -58,7 +58,7 @@ public class Main extends JavaPlugin {
 		new SQLCommand("sql", this);
 		new SettingsCommand("settings", this);
 		new PetCommand(this, "pet");
-		new AdminCommands(this, "debug","invsee");
+		new AdminCommands(this, "control", "speed", "debug", "invsee");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
@@ -72,38 +72,37 @@ public class Main extends JavaPlugin {
 		new UUIDCommand(this, "uuid");
 		new SeenCommand(this, "seen");
 		new FriendCommand(this, "friends", "friend");
-		new TeleportCommand(this,"tp","tpa","tpaccept","tpdeny","tphere","tpoff");
-		new BossCommand(this,"boss");
-		new GamemodeCommand(this,"gamemode","gmc","gms","gmsp","gma");
-		new ClearCommand(this,"clear");
-		new UpdateCommand(this,"update");
-		new TagCommand(this,"tags","tag");
-		new AFKCommand(this,"afk");
+		new TeleportCommand(this, "tp", "tpa", "tpaccept", "tpdeny", "tphere", "tpoff");
+		new BossCommand(this, "boss");
+		new GamemodeCommand(this, "gamemode", "gmc", "gms", "gmsp", "gma");
+		new ClearCommand(this, "clear");
+		new UpdateCommand(this, "update");
+		new TagCommand(this, "tags", "tag");
+		new AFKCommand(this, "afk");
 		startDateChecker();
-		
+
 		CustomTag.start();
-		
+
 		FriendUtils.start();
-		
+
 		GUIManager.init();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(
 					CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
 
 			player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
-			
+
 			player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 //			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
-			if(CoreUtils.useCoreScoreboard())CoreUtils.enableScoreboard(player);
+			if (CoreUtils.useCoreScoreboard())
+				CoreUtils.enableScoreboard(player);
 		}
-		
-		
-		
+
 	}
 
 	public void onDisable() {
 		CoreUtils.end();
-		for(Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			MysticAccountManager.saveMysticPlayer(player);
 		}
 	}

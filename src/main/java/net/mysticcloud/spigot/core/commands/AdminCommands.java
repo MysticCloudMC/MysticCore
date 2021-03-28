@@ -36,6 +36,29 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("speed")) {
+			if (sender instanceof Player) {
+				if (sender.hasPermission("mysticcloud.admin.speed")) {
+					if (args.length == 1) {
+						if (((Player) sender).isFlying()) {
+							((Player) sender).setFlySpeed(Float.parseFloat(args[0]));
+						} else {
+							((Player) sender).setWalkSpeed(Float.parseFloat(args[0]));
+						}
+					} else {
+						if (((Player) sender).isFlying()) {
+							sender.sendMessage("Your fly speed: " + ((Player) sender).getFlySpeed());
+						} else {
+							sender.sendMessage("Your walk speed: " + ((Player) sender).getWalkSpeed());
+						}
+					}
+				} else {
+					sender.sendMessage("No permissions.");
+				}
+			} else {
+				sender.sendMessage("Player only command! :)");
+			}
+		}
 		if (cmd.getName().equalsIgnoreCase("control")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage(CoreUtils.prefixes("error") + "Player only command.");
