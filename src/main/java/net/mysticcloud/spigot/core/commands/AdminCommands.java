@@ -56,7 +56,7 @@ public class AdminCommands implements CommandExecutor {
 					sender.sendMessage("No permissions.");
 				}
 			} else {
-				sender.sendMessage("Player only command! :)");
+				sender.sendMessage("Player only command! :))");
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("control")) {
