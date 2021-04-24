@@ -20,5 +20,8 @@
 		<exec dir="." executable="sh">
 			<arg line="-c 'cp target/${project.projectname}.jar /home/Minecraft/Plugins/${project.projectname}.jar'" />
 		</exec>
+		<exec dir="." executable="sh">
+			<arg line="-c 'cp target/${project.projectname}.jar /home/Minecraft/Dependencies/${project.projectname}.jar'" />
+		</exec>
 	</target>
 </project>
