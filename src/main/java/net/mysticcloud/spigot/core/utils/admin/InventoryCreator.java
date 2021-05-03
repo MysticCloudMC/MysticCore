@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+
 public class InventoryCreator {
 
 	String name;
@@ -29,51 +30,47 @@ public class InventoryCreator {
 		inv = Bukkit.createInventory(holder, size, CoreUtils.colorize(name));
 	}
 
-	
 	public void addItem(ItemStack item, String name, char identifier, List<String> lore) {
-		
-		addItem(item,name,identifier,((String[])lore.toArray()), false, true);
+
+		addItem(item, name, identifier, lore.toArray(new String[lore.size()]), false, true);
 	}
-	
-	
+
 	public void addItem(ItemStack item, String name, char identifier, String[] lore) {
-		addItem(item,name,identifier,lore, false, true);
+		addItem(item, name, identifier, lore, false, true);
 	}
-	
-	
 
 	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean showValues) {
-		addItem(item,name,identifier,(String[])lore.toArray(), false, showValues);
-	}
-	
-	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean showValues) {
-		addItem(item,name,identifier,lore,false,showValues);
+		addItem(item, name, identifier, lore.toArray(new String[lore.size()]), false, showValues);
 	}
 
-	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable, boolean showValues) {
-		addItem(item,name,identifier,(String[])lore.toArray(), unbreakable, showValues);
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean showValues) {
+		addItem(item, name, identifier, lore, false, showValues);
 	}
-	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable, boolean showValues) {
-		addItem(item,name,identifier,lore,unbreakable,showValues,(short)0);
+
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable,
+			boolean showValues) {
+		addItem(item, name, identifier, lore.toArray(new String[lore.size()]), unbreakable, showValues);
 	}
-	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable, boolean showValues, short data) {
-		addItem(
-				item,
-				name,
-				identifier,
-				lore.toArray(new String[lore.size()]),
-				unbreakable,
-				showValues,
-				data);
+
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable,
+			boolean showValues) {
+		addItem(item, name, identifier, lore, unbreakable, showValues, (short) 0);
 	}
-	
+
+	public void addItem(ItemStack item, String name, char identifier, List<String> lore, boolean unbreakable,
+			boolean showValues, short data) {
+		addItem(item, name, identifier, lore.toArray(new String[lore.size()]), unbreakable, showValues, data);
+	}
+
 	@SuppressWarnings("deprecation")
-	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable, boolean showValues, short data) {
+	public void addItem(ItemStack item, String name, char identifier, String[] lore, boolean unbreakable,
+			boolean showValues, short data) {
 
 		if (item != null && (item.getType() != Material.AIR)) {
 			ItemMeta im = item.getItemMeta();
-			if(data != (short)0) item.setDurability(data);
-			
+			if (data != (short) 0)
+				item.setDurability(data);
+
 			im.setDisplayName(CoreUtils.colorize(name));
 			if (lore != null) {
 
@@ -82,8 +79,8 @@ public class InventoryCreator {
 				im.setLore(null);
 			}
 			im.setUnbreakable(unbreakable);
-			if(!showValues) {
-				for(ItemFlag flag : ItemFlag.values()) {
+			if (!showValues) {
+				for (ItemFlag flag : ItemFlag.values()) {
 					im.addItemFlags(flag);
 				}
 //				im.addItemFlags(ItemFlag.values());
@@ -92,18 +89,15 @@ public class InventoryCreator {
 		}
 		this.identifier.put(identifier, item);
 	}
-	
-	
+
 	public void addItem(ItemStack item, String name, char identifier) {
-			addItem(item, name, identifier, (String[]) null);
+		addItem(item, name, identifier, (String[]) null);
 	}
-	
+
 	public void addItem(ItemStack item, char identifier) {
 		this.identifier.put(identifier, item);
 	}
 
-
-	
 	public void editItem(char identifier, ItemStack item, String name, List<String> lore, short value) {
 
 		if (item != null && (item.getType() != Material.AIR)) {
@@ -118,6 +112,7 @@ public class InventoryCreator {
 
 		this.identifier.put(identifier, item);
 	}
+
 	public void editItem(char identifier, ItemStack item, String name, String[] lore, short value) {
 
 		if (item != null && (item.getType() != Material.AIR)) {
@@ -155,7 +150,7 @@ public class InventoryCreator {
 	public Inventory getInventory() {
 		int a = 0;
 		for (ItemStack i : items) {
-			
+
 			inv.setItem(a, i);
 			a = a + 1;
 		}
@@ -171,7 +166,7 @@ public class InventoryCreator {
 	}
 
 	public void setConfiguration(ArrayList<Character> ids) {
-		for (Character ch : ids){
+		for (Character ch : ids) {
 			items.add(identifier.get(ch));
 		}
 	}
