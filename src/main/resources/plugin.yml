@@ -124,4 +124,6 @@ commands:
     description: Set away from keyboard status.
   level:
     aliases: ['lvl']
+  plugins:
+    aliases: ['pl']
   

@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -59,6 +60,19 @@ public class AdminCommands implements CommandExecutor {
 			} else {
 				sender.sendMessage("Player only command! :))");
 			}
+		}
+		if (cmd.getName().equalsIgnoreCase("plugins")) {
+			String msg = "&3Plugins (&f" + Bukkit.getPluginManager().getPlugins().length + "&3)&f: ";
+			String pls = "";
+			if (sender.hasPermission("mysticcloud.admin")) {
+				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
+					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&a" : "&c") + pl.getName();
+				}
+			}
+			if (pls.equals(""))
+				pls = "&aMysticCore";
+			sender.sendMessage(
+					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
 		}
 		if (cmd.getName().equalsIgnoreCase("level")) {
 			if (sender instanceof Player && sender.hasPermission("mysticcloud.admin.setlevel") && args.length == 1) {
