@@ -18,6 +18,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -57,6 +58,12 @@ public class AdminCommands implements CommandExecutor {
 				}
 			} else {
 				sender.sendMessage("Player only command! :))");
+			}
+		}
+		if (cmd.getName().equalsIgnoreCase("level")) {
+			if (sender instanceof Player && sender.hasPermission("mysticcloud.admin.setlevel") && args.length == 1) {
+				MysticAccountManager.getMysticPlayer(((Player) sender)).setXP(Double.parseDouble(args[0]));
+
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("control")) {

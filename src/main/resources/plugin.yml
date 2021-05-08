@@ -122,5 +122,6 @@ commands:
     description: Set a custom Tag.
   afk:
     description: Set away from keyboard status.
-  control:
+  level:
+    aliases: ['lvl']
   

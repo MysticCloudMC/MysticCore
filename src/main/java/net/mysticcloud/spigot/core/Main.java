@@ -58,7 +58,7 @@ public class Main extends JavaPlugin {
 		new SQLCommand("sql", this);
 		new SettingsCommand("settings", this);
 		new PetCommand(this, "pet");
-		new AdminCommands(this, "speed", "debug", "invsee", "control");
+		new AdminCommands(this, "speed", "debug", "invsee", "level");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
