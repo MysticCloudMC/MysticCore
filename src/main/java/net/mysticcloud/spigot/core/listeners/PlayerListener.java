@@ -30,6 +30,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -64,6 +65,14 @@ public class PlayerListener implements Listener {
 	}
 
 	@EventHandler
+	public void onPlayerTeleport(PlayerTeleportEvent e) {
+		if (e.getTo().distance(e.getFrom()) > 10
+				|| !e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
+			TeleportUtils.addToHistory(e.getPlayer(),e.getFrom());
+		}
+	}
+
+	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent e) {
 		if (AFKUtils.isAFK(e.getPlayer())) {
 			if (!(AFKUtils.getAFKPacket(e.getPlayer()) == null)) {
@@ -91,9 +100,10 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerPickUpItem(EntityPickupItemEvent e) {
 		if (e.getEntity() instanceof Player) {
-			
+
 			if (e.getItem().getItemStack().getItemMeta().equals(CoreUtils.getGemItem().getItemMeta())) {
-				MysticAccountManager.getMysticPlayer(((Player) e.getEntity())).addGems(e.getItem().getItemStack().getAmount());
+				MysticAccountManager.getMysticPlayer(((Player) e.getEntity()))
+						.addGems(e.getItem().getItemStack().getAmount());
 //				e.getItem().teleport(new Location(e.getEntity().getWorld(),0,-1,0));
 				e.getItem().remove();
 				e.setCancelled(true);

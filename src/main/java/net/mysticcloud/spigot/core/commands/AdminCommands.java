@@ -25,6 +25,7 @@ import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class AdminCommands implements CommandExecutor {
 
@@ -73,6 +74,18 @@ public class AdminCommands implements CommandExecutor {
 				pls = "&aMysticCore";
 			sender.sendMessage(
 					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
+		}
+		if (cmd.getName().equalsIgnoreCase("back")) {
+			if (sender instanceof Player) {
+				if (sender.hasPermission("mysticcloud.admin.cmd.back")) {
+					TeleportUtils.goBack(((Player) sender));
+				} else {
+					sender.sendMessage(
+							CoreUtils.prefixes("admin") + "Sorry you don't have permission to use that command.");
+				}
+			} else {
+				sender.sendMessage(CoreUtils.prefixes("admin") + "That is a player only command.");
+			}
 		}
 		if (cmd.getName().equalsIgnoreCase("level")) {
 			if (sender instanceof Player && sender.hasPermission("mysticcloud.admin.setlevel") && args.length == 1) {

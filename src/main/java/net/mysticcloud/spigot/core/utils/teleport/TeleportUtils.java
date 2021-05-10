@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.utils.teleport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class TeleportUtils {
 	private static Map<UUID, UUID> teleportRequests = new HashMap<>();
 	private static long requestTimeout = 90000;
 	private static List<UUID> disabledRequests = new ArrayList<>();
+	private static Map<UUID, Location> lastLoc = new HashMap<>();
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
 		if (teleportRequests.containsKey(other.getUniqueId())) {
@@ -219,6 +221,19 @@ public class TeleportUtils {
 			disabledRequests.add(player.getUniqueId());
 		}
 		return disabledRequests.contains(player.getUniqueId());
+	}
+
+	public static void addToHistory(Player player, Location from) {
+		lastLoc.put(player.getUniqueId(), from);
+	}
+	
+	public static void goBack(Player player) {
+		if(!lastLoc.containsKey(player.getUniqueId())) {
+			player.sendMessage(CoreUtils.prefixes("teleport") + "You don't have a teleport history.");
+			return;
+		}
+		teleport(player, lastLoc.get(player.getUniqueId()), true, false);
+		
 	}
 
 }

@@ -126,4 +126,6 @@ commands:
     aliases: ['lvl']
   plugins:
     aliases: ['pl']
+  back:
+    description: Teleport to your last saved location.
   
