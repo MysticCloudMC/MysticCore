@@ -116,6 +116,7 @@ public class PlayerListener implements Listener {
 	public void onPreCommand(PlayerCommandPreprocessEvent e) {
 		String[] args = e.getMessage().split(" ");
 		if (args[0].equalsIgnoreCase("/plugins") || args[0].equalsIgnoreCase("/pl")) {
+			e.setCancelled(true);
 			String msg = "&3Plugins (&f" + Bukkit.getPluginManager().getPlugins().length + "&3)&f: ";
 			String pls = "";
 			if (e.getPlayer().hasPermission("mysticcloud.admin")) {
