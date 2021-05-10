@@ -120,7 +120,7 @@ public class PlayerListener implements Listener {
 			String pls = "";
 			if (e.getPlayer().hasPermission("mysticcloud.admin")) {
 				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
-					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&a" : "&c") + pl.getName();
+					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&3" : "&9") + pl.getName();
 				}
 			}
 			if (pls.equals(""))
