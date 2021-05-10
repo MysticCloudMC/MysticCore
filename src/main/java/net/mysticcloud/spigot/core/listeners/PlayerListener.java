@@ -117,7 +117,7 @@ public class PlayerListener implements Listener {
 		String[] args = e.getMessage().split(" ");
 		if (args[0].equalsIgnoreCase("/plugins") || args[0].equalsIgnoreCase("/pl")) {
 			e.setCancelled(true);
-			String msg = "&ePlugins (&7" + Bukkit.getPluginManager().getPlugins().length + "&3)&f: ";
+			String msg = "&ePlugins (&7" + Bukkit.getPluginManager().getPlugins().length + "&e)&7: ";
 			String pls = "";
 			if (e.getPlayer().hasPermission("mysticcloud.admin")) {
 				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
