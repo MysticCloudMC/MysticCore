@@ -124,10 +124,11 @@ public class PlayerListener implements Listener {
 					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&3" : "&9") + pl.getName();
 				}
 			}
-			if (pls.equals(""))
-				pls = "&3MysticCore";
-			e.getPlayer().sendMessage(
-					CoreUtils.colorize(CoreUtils.formatMessage(msg, pls.equals("") ? "1" : Bukkit.getPluginManager().getPlugins().length + "") + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
+			e.getPlayer()
+					.sendMessage(CoreUtils.colorize(CoreUtils.formatMessage(msg,
+							pls.equals("") ? "1" : Bukkit.getPluginManager().getPlugins().length + "")
+							+ (pls.equals("") ? "&3MysticCore" : pls)
+							+ org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
 		}
 		if (args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")) {
 			e.setCancelled(true);
