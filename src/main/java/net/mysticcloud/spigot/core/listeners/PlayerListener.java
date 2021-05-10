@@ -33,6 +33,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 
 import net.mysticcloud.spigot.core.Main;
@@ -68,7 +69,7 @@ public class PlayerListener implements Listener {
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
 		if (e.getTo().distance(e.getFrom()) > 10
 				|| !e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
-			TeleportUtils.addToHistory(e.getPlayer(),e.getFrom());
+			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
 		}
 	}
 
@@ -114,6 +115,19 @@ public class PlayerListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPreCommand(PlayerCommandPreprocessEvent e) {
 		String[] args = e.getMessage().split(" ");
+		if (args[0].equalsIgnoreCase("/plugins") || args[0].equalsIgnoreCase("/pl")) {
+			String msg = "&3Plugins (&f" + Bukkit.getPluginManager().getPlugins().length + "&3)&f: ";
+			String pls = "";
+			if (e.getPlayer().hasPermission("mysticcloud.admin")) {
+				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
+					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&a" : "&c") + pl.getName();
+				}
+			}
+			if (pls.equals(""))
+				pls = "&aMysticCore";
+			e.getPlayer().sendMessage(
+					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
+		}
 		if (args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")) {
 			e.setCancelled(true);
 			e.getPlayer().sendMessage(
