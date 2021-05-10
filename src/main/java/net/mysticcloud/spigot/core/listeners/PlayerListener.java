@@ -125,7 +125,7 @@ public class PlayerListener implements Listener {
 				}
 			}
 			if (pls.equals(""))
-				pls = "&aMysticCore";
+				pls = "&3MysticCore";
 			e.getPlayer().sendMessage(
 					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
 		}
