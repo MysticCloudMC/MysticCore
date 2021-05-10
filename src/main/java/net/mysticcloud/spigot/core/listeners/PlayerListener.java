@@ -67,9 +67,13 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
-		if (e.getTo().distance(e.getFrom()) > 10
-				|| !e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
+		if (!e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
 			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
+			return;
+		}
+		if (e.getTo().distance(e.getFrom()) > 10) {
+			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
+			return;
 		}
 	}
 
