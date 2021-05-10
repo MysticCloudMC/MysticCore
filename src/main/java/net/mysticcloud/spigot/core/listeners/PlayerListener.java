@@ -117,7 +117,7 @@ public class PlayerListener implements Listener {
 		String[] args = e.getMessage().split(" ");
 		if (args[0].equalsIgnoreCase("/plugins") || args[0].equalsIgnoreCase("/pl")) {
 			e.setCancelled(true);
-			String msg = "&ePlugins (&7" + Bukkit.getPluginManager().getPlugins().length + "&e)&7: ";
+			String msg = "&ePlugins (&7@&e)&7: ";
 			String pls = "";
 			if (e.getPlayer().hasPermission("mysticcloud.admin")) {
 				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
@@ -127,7 +127,7 @@ public class PlayerListener implements Listener {
 			if (pls.equals(""))
 				pls = "&3MysticCore";
 			e.getPlayer().sendMessage(
-					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
+					CoreUtils.colorize(CoreUtils.formatMessage(msg, pls.equals("") ? "1" : Bukkit.getPluginManager().getPlugins().length + "") + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
 		}
 		if (args[0].equalsIgnoreCase("/help") || args[0].equalsIgnoreCase("/?")) {
 			e.setCancelled(true);
