@@ -1,37 +1,28 @@
 package net.mysticcloud.spigot.core.commands;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.PageResult;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
-import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
-import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
-import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
-import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
-import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
-import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
-import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class CoreCommands implements CommandExecutor {
+
+	List<String> rules = new ArrayList<>();
 
 	public CoreCommands(Main plugin, String... cmd) {
 		for (String s : cmd) {
@@ -39,13 +30,39 @@ public class CoreCommands implements CommandExecutor {
 			com.setExecutor(this);
 			com.setTabCompleter(new AdminCommandTabCompleter());
 		}
+		rules.add("Staff are trained, if they tell you something against the rules is allowed, go with what they say.");
+		rules.add("Don't use any hacks or game exploits to give you and advantage over other players.");
+		rules.add("Don't curse in public chat.");
+		rules.add("Use English in public chat.");
+		rules.add("Don't try and evade bans with alts.");
+		rules.add("Don't disrespect staff.");
+		rules.add("Be kind to others.");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (cmd.getName().equalsIgnoreCase("rules")) {
-			//Don't forget to add these commands to the list
-			sender.sendMessage(CoreUtils.colorize(""));
+			// Don't forget to add these commands to the list
+
+			int page = args.length == 0 ? 1 : Integer.parseInt(args[0]);
+			PageResult pr = CoreUtils.pagify(rules, page, 3);
+			String top = CoreUtils.colorize("&3---------------------&f[Page &7" + page + "&f of &7" + pr.maxPages
+					+ "&f]&3---------------------");
+			String bottom = "";
+			for (int i = 0; i != ChatColor.stripColor(top).length(); i++) {
+				bottom = bottom + "-";
+			}
+			bottom = CoreUtils.colorize("&3" + bottom);
+
+			sender.sendMessage(top);
+			sender.sendMessage("");
+
+			for (String s : pr.pages) {
+				sender.sendMessage(CoreUtils.colorize("&3 - " + s));
+			}
+			sender.sendMessage("");
+			sender.sendMessage(bottom);
+
 		}
 		if (cmd.getName().equalsIgnoreCase("plugins")) {
 
