@@ -43,7 +43,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
-import org.json2.JSONObject;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -1223,6 +1222,45 @@ public class CoreUtils {
 
 	public static boolean connected() {
 		return connected;
+	}
+
+	public static PageResult pagify(List<String> things, int items) {
+		return pagify(things, items, 1);
+	}
+
+	public static PageResult pagify(List<String> things, int items, int page) {
+
+		List<String> rtn = new ArrayList<>();
+		int totalposts = 0;
+		int pagetracker = ((page - 1) * items) - 1;
+
+		for (String s : things) {
+			// REFERENCE for (int i = (page - 1) * pageResult; i < page * pageResult; i++)
+			totalposts = totalposts + 1;
+			pagetracker = pagetracker + 1;
+			if (pagetracker < page * items && pagetracker > ((page - 1) * items) - 1) {
+				rtn.add(s);
+			}
+
+		}
+		int pages = ((int) (totalposts / items));
+//		if (pages > 1) {
+//			if (page == 1) {
+//				// can't go back
+//			} else {
+//				// can go back
+//			}
+//			// page / pages
+//			if (page == pages) {
+//				// can't go forward
+//			} else {
+//				// can go forward
+//			}
+//
+//		}
+
+		return new PageResult(rtn, page, pages);
+
 	}
 
 	public static String formatMessage(String message, String... values) {

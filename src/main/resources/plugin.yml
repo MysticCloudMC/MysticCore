@@ -5,127 +5,150 @@ description: Runs on all MysticCloud servers
 api-version: 1.15
 api: Spigot
 main: net.mysticcloud.spigot.core.Main
-dependencies: ['Vault']
-depend: ['Vault','PermissionsEx','Multiverse-Core']
+dependencies:
+- Vault
+depend:
+- Vault
+- PermissionsEx
+- Multiverse-Core
 commands:
-  sql:
-    usage: /sql [query]
-    description: Run SQL commands from inside Minecraft!
-  settings:
-    usage: /settings
-    description: Alter your settings.
-  speed:
-    usage: /speed
-    description: check or update your speed.
-  register:
-    usage: /register <web name>
-    description: Link your web Account and Minecraft account.
-  pet:
-    usage: /pet
-    description: Summon a pet to follow you!
-  sudo:
-    usage: /sudo <user> <command>
-    description: Troll your friends.
-  balance:
-    usage: /balance
-    aliases: ['bal']
-    description: Check your balance.
-  pay:
-    usage: /pay <user> <amount>
-    description: Pay another user.
-  punish:
-    usage: /punish
-    description: Punish a user
-  debug:
-    usage: /debug
-    description: Toggles debug messages
-  item:
-    usage: /item <item> [player|all]
-    description: Gives player a predefined custom item.
-  grl:
-    usage: /grl
-    description: Kicks all players from the server while reloading. HyverseBungeeCore reconnects all kicked players after the reload is complete.
-  kit:
-    description: Main kits command.
-  spawn:
-    usage: /spawn [player]
-    description: Teleport yourself or a player to the spawn point.
-  setspawn:
-    usage: /setspawn [<world> <x> <y> <z>]
-    description: Sets the spawn at your current location, or at a specified location.
-  particles:
-    usage: /particles
-    description: Shortcut to the Particle GUI
-    aliases: ['p']
-  playerlist:
-    usage: /playerlist
-    aliases: ['pl','list']
-    description: Edit or chech the Player List
-  warp:
-    usage: /warp [type|default=warp] <name> [selector]
-    description: Teleport to a location
-  addwarp:
-    aliases: ['createwarp']
-    usage: /addwarp [type|default=warp] <name>
-    description: Add a warp to the database
-  removewarp:
-    aliases: ['deletewarp']
-    usage: /deletewarp [type|default=warp] <name>
-    description: remove a warp from the database
-  uuid:
-    aliases: ['uid','idlookup']
-    usage: /uuid <player>
-    description: Look up the UUID of an offline player that has previously joined the network.
-  seen:
-    aliases: ['lastseen']
-    usage: /seen <player>
-    description: Look up when a player was last seen.
-  friends: 
-    description: Get your friends list.
-  friend:
-    aliases: ['f','fr']
-    description: Get stats on one of your friends.
-  invsee:
-    description: Admin tool to look at player inventories.
-  tp:
-    aliases: ['tele','teleport']
-    description: Teleport yourself or a player to another player
-  tpaccept:
-    description: Accept teleport requests
-  tpdeny:
-    description: Deny teleport requests
-  tpa:
-    description: Request to teleport to another player.
-  tphere:
-    description: Teleport someone to you.
-  tpoff:
-    description: Toggle teleportation requests.
-  boss:
-    description: spawn a boss.
-  gamemode:
-    description: Change your game mode.
-  gmc:
-    description: Shortcut to creative mode.
-  gms:
-    description: Shortcut to survival mode.
-  gma:
-    description: Shortcut to adventure mode.
-  gmsp:
-    description: Shortcut to spectator mode.
-  clear:
-    aliases: ['c']
-    description: clear your inventory.
-  update:
-    description: Update a plugin in our repository.
-  tags:
-    aliases: ['tag']
-    description: Set a custom Tag.
-  afk:
-    description: Set away from keyboard status.
-  level:
-    aliases: ['lvl']
-  plugins:
-    aliases: ['pl']
-  back:
-    description: Teleport to your last saved location.
-  
+   sql:
+      usage: /sql [query]
+      description: Run SQL commands from inside Minecraft!
+   settings:
+      usage: /settings
+      description: Alter your settings.
+   speed:
+      usage: /speed
+      description: check or update your speed.
+   register:
+      usage: /register <web name>
+      description: Link your web Account and Minecraft account.
+   pet:
+      usage: /pet
+      description: Summon a pet to follow you!
+   sudo:
+      usage: /sudo <user> <command>
+      description: Troll your friends.
+   balance:
+      usage: /balance
+      aliases:
+      - bal
+      description: Check your balance.
+   pay:
+      usage: /pay <user> <amount>
+      description: Pay another user.
+   punish:
+      usage: /punish
+      description: Punish a user
+   debug:
+      usage: /debug
+      description: Toggles debug messages
+   item:
+      usage: /item <item> [player|all]
+      description: Gives player a predefined custom item.
+   grl:
+      usage: /grl
+      description: Kicks all players from the server while reloading. HyverseBungeeCore reconnects all kicked players after
+         the reload is complete.
+   kit:
+      description: Main kits command.
+   spawn:
+      usage: /spawn [player]
+      description: Teleport yourself or a player to the spawn point.
+   setspawn:
+      usage: /setspawn [<world> <x> <y> <z>]
+      description: Sets the spawn at your current location, or at a specified location.
+   particles:
+      usage: /particles
+      description: Shortcut to the Particle GUI
+      aliases:
+      - p
+   playerlist:
+      usage: /playerlist
+      aliases:
+      - pl
+      - list
+      description: Edit or chech the Player List
+   warp:
+      usage: /warp [type|default=warp] <name> [selector]
+      description: Teleport to a location
+   addwarp:
+      aliases:
+      - createwarp
+      usage: /addwarp [type|default=warp] <name>
+      description: Add a warp to the database
+   removewarp:
+      aliases:
+      - deletewarp
+      usage: /deletewarp [type|default=warp] <name>
+      description: remove a warp from the database
+   uuid:
+      aliases:
+      - uid
+      - idlookup
+      usage: /uuid <player>
+      description: Look up the UUID of an offline player that has previously joined the network.
+   seen:
+      aliases:
+      - lastseen
+      usage: /seen <player>
+      description: Look up when a player was last seen.
+   friends:
+      description: Get your friends list.
+   friend:
+      aliases:
+      - f
+      - fr
+      description: Get stats on one of your friends.
+   invsee:
+      description: Admin tool to look at player inventories.
+   tp:
+      aliases:
+      - tele
+      - teleport
+      description: Teleport yourself or a player to another player
+   tpaccept:
+      description: Accept teleport requests
+   tpdeny:
+      description: Deny teleport requests
+   tpa:
+      description: Request to teleport to another player.
+   tphere:
+      description: Teleport someone to you.
+   tpoff:
+      description: Toggle teleportation requests.
+   boss:
+      description: spawn a boss.
+   gamemode:
+      description: Change your game mode.
+   gmc:
+      description: Shortcut to creative mode.
+   gms:
+      description: Shortcut to survival mode.
+   gma:
+      description: Shortcut to adventure mode.
+   gmsp:
+      description: Shortcut to spectator mode.
+   clear:
+      aliases:
+      - c
+      description: clear your inventory.
+   update:
+      description: Update a plugin in our repository.
+   tags:
+      aliases:
+      - tag
+      description: Set a custom Tag.
+   afk:
+      description: Set away from keyboard status.
+   level:
+      aliases:
+      - lvl
+   plugins:
+      aliases:
+      - pl
+   back:
+      description: Teleport to your last saved location.
+   rules:
+      description: Refresh yourself on the rules.

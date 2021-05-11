@@ -1,5 +1,9 @@
 package net.mysticcloud.spigot.core.commands;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -38,6 +42,83 @@ public class AdminCommands implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
+		if (cmd.getName().equalsIgnoreCase("setspawn")) {
+			// Spawn set code
+			if (args.length == 0)
+				if (sender instanceof Player) {
+					CoreUtils.setSpawnLocation(((Player) sender).getLocation());
+					sender.sendMessage(CoreUtils.prefixes("admin") + "Set spawn!");
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /setspawn <world> <x> <y> <x>");
+				}
+			return true;
+		}
+
+		if (cmd.getName().equalsIgnoreCase("seen")) {
+			if (sender.hasPermission("mysticcloud.admin.cmd.seen")) {
+				if (args.length == 1) {
+					UUID uid = CoreUtils.LookupUUID(args[0]);
+					if (uid != null) {
+						SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy hh:mm");
+
+						String server = "NaN";
+						String ip = "NaN";
+						String seen = "NaN";
+
+						ResultSet iprs = CoreUtils.sendQuery("SELECT IP,UUID FROM PlayerStats");
+						try {
+							while (iprs.next()) {
+								if (iprs.getString("UUID").equalsIgnoreCase(uid.toString())) {
+									ip = iprs.getString("IP");
+
+									break;
+								}
+							}
+							iprs.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						seen = sdf.format(new Date(CoreUtils.LookupLastSeen(uid)));
+						ResultSet srvrs = CoreUtils.sendQuery(
+								"SELECT SERVER FROM ServerStats WHERE UUID='" + uid + "' ORDER BY DATE DESC");
+						try {
+							while (srvrs.next()) {
+								if (!srvrs.getString("SERVER").equalsIgnoreCase("NaN")) {
+									server = srvrs.getString("SERVER");
+									break;
+								}
+							}
+							srvrs.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						sender.sendMessage(CoreUtils.colorize("&3&lMysticCore &7>&f " + args[0] + " was last seen &7"
+								+ (seen) + "&f, on &7" + server + "&f, with &7" + ip + "&f."));
+
+					} else {
+						sender.sendMessage(CoreUtils
+								.colorize("&3&lMysticCore &7>&f That player couldn't be found in the database."));
+					}
+
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("admin") + "/seen <user>");
+				}
+			}
+			return true;
+		}
+
+		if (cmd.getName().equalsIgnoreCase("uuid")) {
+			if (sender.hasPermission("mysticcloud.admin.cmd.uuid")) {
+				if (args.length == 1) {
+					sender.sendMessage(CoreUtils.colorize(
+							"&e&lUUID &7>&f Search result for \"" + args[0] + "\": " + CoreUtils.LookupUUID(args[0])));
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("admin") + "/uuid <user>");
+				}
+			}
+			return true;
+		}
 
 		if (cmd.getName().equalsIgnoreCase("speed")) {
 			if (sender instanceof Player) {
