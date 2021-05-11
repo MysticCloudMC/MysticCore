@@ -45,9 +45,9 @@ public class CoreCommands implements CommandExecutor {
 			// Don't forget to add these commands to the list
 
 			int page = args.length == 0 ? 1 : Integer.parseInt(args[0]);
-			PageResult pr = CoreUtils.pagify(rules, page, 3);
-			String top = CoreUtils.colorize("&3---------------------&f[Page &7" + page + "&f of &7" + pr.maxPages
-					+ "&f]&3---------------------");
+			PageResult pr = CoreUtils.pagify(rules, 3, page);
+			String top = CoreUtils.colorize("&3-------------------&f[Page &7" + page + "&f of &7" + pr.maxPages
+					+ "&f]&3-------------------");
 			String bottom = "";
 			for (int i = 0; i != ChatColor.stripColor(top).length(); i++) {
 				bottom = bottom + "-";
