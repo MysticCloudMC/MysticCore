@@ -1062,9 +1062,13 @@ public class CoreUtils {
 
 			if (item.isSet(name + ".Options.Enchantments")) {
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
-					a.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(b.split(":")[0])),  Integer.parseInt(b.split(":")[1]),
-							Boolean.getBoolean(b.split(":")[2]));
-					
+					for (Enchantment en : Enchantment.values()) {
+						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
+							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
+							break;
+						}
+					}
+
 				}
 			}
 
