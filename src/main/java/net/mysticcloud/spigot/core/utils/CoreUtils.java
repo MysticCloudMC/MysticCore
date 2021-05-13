@@ -23,6 +23,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -1061,7 +1062,7 @@ public class CoreUtils {
 
 			if (item.isSet(name + ".Options.Enchantments")) {
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
-					a.addEnchant(Enchantment.getByName(b.split(":")[0]), Integer.parseInt(b.split(":")[1]),
+					a.addEnchant(Enchantment.getByKey(NamespacedKey.minecraft(b.split(":")[0])),  Integer.parseInt(b.split(":")[1]),
 							Boolean.getBoolean(b.split(":")[2]));
 					
 				}
