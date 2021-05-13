@@ -1059,6 +1059,14 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
+			if (item.isSet(name + ".Options.Enchantments")) {
+				for (String b : item.getStringList(name + ".Options.Enchantments")) {
+					a.addEnchant(Enchantment.getByName(b.split(":")[0]), Integer.parseInt(b.split(":")[1]),
+							Boolean.getBoolean(b.split(":")[2]));
+					
+				}
+			}
+
 			if (item.isSet(name + ".Options.Lore")) {
 				List<String> lore = a.hasLore() ? a.getLore() : new ArrayList<>();
 				if (item.get(name + ".Options.Lore") instanceof List<?>) {
