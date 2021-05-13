@@ -1063,6 +1063,7 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Enchantments")) {
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
 					for (Enchantment en : Enchantment.values()) {
+						Bukkit.broadcastMessage(en.getName());
 						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
 							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
 							break;
