@@ -1068,6 +1068,7 @@ public class CoreUtils {
 							Bukkit.broadcastMessage("Adding enchantment...");
 							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
 //							i.addUnsafeEnchantment(en, amount);
+							i.setItemMeta(a);
 							break;
 						}
 					}
