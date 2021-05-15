@@ -78,10 +78,8 @@ public class ReportGUIListener implements Listener {
 						InfringementType.HACKING, InfringementSeverity.HIGH, "");
 				break;
 			case RED_DYE:
-				GUIManager.switchInventory(
-						(Player) e.getWhoClicked(), PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(),
-								CoreUtils.LookupUUID(name), InfringementType.HACKING, InfringementSeverity.EXTREME, ""),
-						"PunishmentNotes");
+				PunishmentUtils.getNotesGUI(e.getWhoClicked().getName(), CoreUtils.LookupUUID(name),
+						InfringementType.HACKING, InfringementSeverity.EXTREME, "");
 				break;
 			}
 

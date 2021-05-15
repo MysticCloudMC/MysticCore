@@ -152,11 +152,11 @@ public class PunishmentUtils {
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
-		CoreUtils.sendZachsMessage("&4STAFF REPORT &7(" + staff + ")", 
-				"&cInfringement&f: " + inf.name() +
-				" &3" + Emoticons.BAR_2 + " &cOffender&7: &f" + CoreUtils.lookupUsername(uid) + 
-				" &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes +
-				" &3" + Emoticons.BAR_2 + " &cResult&7: &7" + (warn ? "Warning" : type.name() + " &ffor&7 " + CoreUtils.formatDateTimeRaw(duration)));
+		CoreUtils.sendZachsMessage("&4STAFF REPORT &7(" + staff + ")",
+				"&cInfringement&f: " + inf.name() + " &3" + Emoticons.BAR_2 + " &cOffender&7: &f"
+						+ CoreUtils.lookupUsername(uid) + " &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes + " &3"
+						+ Emoticons.BAR_2 + " &cResult&7: &7"
+						+ (warn ? "Warning" : type.name() + " &ffor&7 " + CoreUtils.formatDateTimeRaw(duration)));
 		if (!staff.equals("CONSOLE")) {
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " "
 					+ CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8")));
@@ -337,11 +337,11 @@ public class PunishmentUtils {
 
 		if (!staff.equalsIgnoreCase("CONSOLE")) {
 			Bukkit.getPlayer(staff).closeInventory();
-			Bukkit.getPlayer(staff).sendMessage(CoreUtils.prefixes("punishments")
-					+ "Use the command \"/punish complete [extra notes]\" to file the punishment.");
+			Bukkit.getPlayer(staff).sendMessage(CoreUtils.prefixes("reports")
+					+ "Use the command \"/report complete [extra notes]\" to file the reprot.");
 		} else {
-			Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("punishments")
-					+ "Use the command \"/punish complete [extra notes]\" to file the punishment.");
+			Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("reports")
+					+ "Use the command \"/report complete [extra notes]\" to file the report.");
 		}
 
 		List<Object> punishInfo = new ArrayList<>();
@@ -429,11 +429,10 @@ public class PunishmentUtils {
 					}
 
 				}
-				CoreUtils.sendZachsMessage("&cREPORT &7(" + user + ")", 
-						"&cInfringement&f: " + type.name() +
-						" &3" + Emoticons.BAR_2 + " &cOffender&7: &f" + CoreUtils.lookupUsername(uid) + 
-						" &3" + Emoticons.BAR_2 + " &cSeverity&7: &f" + severity.name() +
-						" &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes);
+				CoreUtils.sendZachsMessage("&cREPORT &7(" + user + ")",
+						"&cInfringement&f: " + type.name() + " &3" + Emoticons.BAR_2 + " &cOffender&7: &f"
+								+ CoreUtils.lookupUsername(uid) + " &3" + Emoticons.BAR_2 + " &cSeverity&7: &f"
+								+ severity.name() + " &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes);
 
 				punishmentBuilder.remove(user);
 				return true;
