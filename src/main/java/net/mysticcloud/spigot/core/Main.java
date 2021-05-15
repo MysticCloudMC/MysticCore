@@ -14,8 +14,8 @@ import net.mysticcloud.spigot.core.commands.GamemodeCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.PlayerListCommand;
-import net.mysticcloud.spigot.core.commands.PunishCommand;
 import net.mysticcloud.spigot.core.commands.RegisterCommand;
+import net.mysticcloud.spigot.core.commands.ReportCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
 import net.mysticcloud.spigot.core.commands.TagCommand;
@@ -58,7 +58,7 @@ public class Main extends JavaPlugin {
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
 		new EconomyCommand(this, "balance", "pay");
-		new PunishCommand(this, "punish");
+		new ReportCommand(this, "report", "punish");
 		new WarpCommand(this, "warp", "addwarp", "removewarp");
 		new FriendCommand(this, "friends", "friend");
 		new TeleportCommand(this, "tp", "tpa", "tpaccept", "tpdeny", "tphere", "tpoff");

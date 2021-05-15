@@ -40,7 +40,10 @@ commands:
       description: Pay another user.
    punish:
       usage: /punish
-      description: Punish a user
+      description: Send a report on a player
+   report:
+      usage: /report <player>
+      description: Send a report about on a player.
    debug:
       usage: /debug
       description: Toggles debug messages
