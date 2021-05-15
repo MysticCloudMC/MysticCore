@@ -17,12 +17,12 @@ import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
-public class PunishmentGUIListener implements Listener {
-	
-	public PunishmentGUIListener(Main plugin) {
+public class ReportGUIListener implements Listener {
+
+	public ReportGUIListener(Main plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
-	
+
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 
@@ -135,14 +135,13 @@ public class PunishmentGUIListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
 			e.setCancelled(true);
-			for(PetType type : PetType.values()) {
-				if(e.getCurrentItem().getType().equals(type.getGUIMaterial())) {
-					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player)e.getWhoClicked()));
+			for (PetType type : PetType.values()) {
+				if (e.getCurrentItem().getType().equals(type.getGUIMaterial())) {
+					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player) e.getWhoClicked()));
 					e.getWhoClicked().closeInventory();
 				}
 			}
 		}
-		
 
 	}
 

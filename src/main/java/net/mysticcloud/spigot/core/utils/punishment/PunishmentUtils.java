@@ -375,6 +375,64 @@ public class PunishmentUtils {
 		}
 		return false;
 	}
+	public static boolean finishPunishment(String user, boolean staff) {
+		if (punishmentBuilder.containsKey(user)) {
+			if(staff) {
+				InfringementType type = null;
+				InfringementSeverity severity = null;
+				String notes = "";
+				UUID uid = null;
+
+				for (Object data : punishmentBuilder.get(user)) {
+					if (data instanceof InfringementType) {
+						type = (InfringementType) data;
+					}
+					if (data instanceof InfringementSeverity) {
+						severity = (InfringementSeverity) data;
+					}
+					if (data instanceof String) {
+						notes = "" + data;
+					}
+					if (data instanceof UUID) {
+						uid = (UUID) data;
+					}
+
+				}
+				punish(user, uid, type, severity, notes);
+				punishmentBuilder.remove(user);
+				return true;
+			} else {
+				InfringementType type = null;
+				InfringementSeverity severity = null;
+				String notes = "";
+				UUID uid = null;
+
+				for (Object data : punishmentBuilder.get(user)) {
+					if (data instanceof InfringementType) {
+						type = (InfringementType) data;
+					}
+					if (data instanceof InfringementSeverity) {
+						severity = (InfringementSeverity) data;
+					}
+					if (data instanceof String) {
+						notes = "" + data;
+					}
+					if (data instanceof UUID) {
+						uid = (UUID) data;
+					}
+
+				}
+				CoreUtils.sendZachsMessage("&cREPORT &7(" + user + ")", 
+						"&aType&f: " + type.name() +
+						"&aSeverity&f: " + severity.name() +
+						"Offender&f: " + CoreUtils.lookupUsername(uid));
+				
+				punishmentBuilder.remove(user);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static void updatePunishments() {
 		punishments.clear();

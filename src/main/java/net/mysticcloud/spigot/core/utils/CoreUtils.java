@@ -975,7 +975,7 @@ public class CoreUtils {
 
 	public static void sendZachsMessage(String sender, String message) {
 		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "MysticStaffChat",
-				CoreUtils.colorize("&7[&3&lzACHS&7] &6CONSOLE &7> &f" + message));
+				CoreUtils.colorize("&7[&3&lzACHS&7] &6" + sender + " &7> &f" + message));
 	}
 
 	public static void enableScoreboard(Player player) {
