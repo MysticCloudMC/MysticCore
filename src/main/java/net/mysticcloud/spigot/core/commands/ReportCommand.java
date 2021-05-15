@@ -163,6 +163,8 @@ public class ReportCommand implements CommandExecutor {
 					if (!PunishmentUtils.finishPunishment(reporter, false)) {
 						sender.sendMessage(
 								CoreUtils.prefixes("error") + "You aren't in a report editor. Try /report <player>");
+					} else {
+						sender.sendMessage(CoreUtils.prefixes("reports") + "Report send. Thank you.");
 					}
 
 					return true;
