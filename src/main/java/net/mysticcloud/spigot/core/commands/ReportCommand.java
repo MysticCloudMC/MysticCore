@@ -82,7 +82,7 @@ public class ReportCommand implements CommandExecutor {
 						uid = Bukkit.getPlayer(args[0]).getUniqueId();
 					}
 					if (uid != null) {
-						((Player) sender).setMetadata("punish", new FixedMetadataValue(Main.getPlugin(), args[0]));
+						((Player) sender).setMetadata("report", new FixedMetadataValue(Main.getPlugin(), args[0]));
 						GUIManager.openInventory(((Player) sender),
 
 								PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");
@@ -174,7 +174,7 @@ public class ReportCommand implements CommandExecutor {
 					uid = Bukkit.getPlayer(args[0]).getUniqueId();
 				}
 				if (uid != null) {
-					((Player) sender).setMetadata("report-player", new FixedMetadataValue(Main.getPlugin(), args[0]));
+					((Player) sender).setMetadata("report", new FixedMetadataValue(Main.getPlugin(), args[0]));
 					GUIManager.openInventory(((Player) sender),
 
 							PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");

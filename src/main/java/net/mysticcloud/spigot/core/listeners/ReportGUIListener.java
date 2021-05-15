@@ -57,7 +57,7 @@ public class ReportGUIListener implements Listener {
 			}
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "HackingSeverity") {
-			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			String name = e.getWhoClicked().getMetadata("report").get(0).value() + "";
 			switch (e.getCurrentItem().getType()) {
 			default:
 				break;
@@ -87,7 +87,7 @@ public class ReportGUIListener implements Listener {
 
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ThreatsSeverity") {
-			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			String name = e.getWhoClicked().getMetadata("report").get(0).value() + "";
 			switch (e.getCurrentItem().getType()) {
 			default:
 				break;
@@ -115,7 +115,7 @@ public class ReportGUIListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "ChatSeverity") {
 			e.setCancelled(true);
-			String name = e.getWhoClicked().getMetadata("punish").get(0).value() + "";
+			String name = e.getWhoClicked().getMetadata("report").get(0).value() + "";
 			switch (e.getCurrentItem().getType()) {
 			default:
 				break;

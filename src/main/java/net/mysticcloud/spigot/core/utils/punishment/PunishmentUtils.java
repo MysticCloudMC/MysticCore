@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
 public class PunishmentUtils {
 
@@ -151,6 +152,11 @@ public class PunishmentUtils {
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
+		CoreUtils.sendZachsMessage("&4STAFF REPORT &7(" + staff + ")", 
+				"&cInfringement&f: " + inf.name() +
+				" &3" + Emoticons.BAR_2 + " &cOffender&7: &f" + CoreUtils.lookupUsername(uid) + 
+				" &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes +
+				" &3" + Emoticons.BAR_2 + " &cResult&7: &7" + (warn ? "Warning" : type.name() + " &ffor&7 " + duration));
 		if (!staff.equals("CONSOLE")) {
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " "
 					+ CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8")));
@@ -375,9 +381,10 @@ public class PunishmentUtils {
 		}
 		return false;
 	}
+
 	public static boolean finishPunishment(String user, boolean staff) {
 		if (punishmentBuilder.containsKey(user)) {
-			if(staff) {
+			if (staff) {
 				InfringementType type = null;
 				InfringementSeverity severity = null;
 				String notes = "";
@@ -423,10 +430,11 @@ public class PunishmentUtils {
 
 				}
 				CoreUtils.sendZachsMessage("&cREPORT &7(" + user + ")", 
-						"&aType&f: " + type.name() +
-						"&aSeverity&f: " + severity.name() +
-						"Offender&f: " + CoreUtils.lookupUsername(uid));
-				
+						"&cInfringement&f: " + type.name() +
+						" &3" + Emoticons.BAR_2 + " &cOffender&7: &f" + CoreUtils.lookupUsername(uid) + 
+						" &3" + Emoticons.BAR_2 + " &cSeverity&7: &f" + severity.name() +
+						" &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes);
+
 				punishmentBuilder.remove(user);
 				return true;
 			}
