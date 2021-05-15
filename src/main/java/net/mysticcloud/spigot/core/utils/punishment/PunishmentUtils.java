@@ -156,7 +156,7 @@ public class PunishmentUtils {
 				"&cInfringement&f: " + inf.name() +
 				" &3" + Emoticons.BAR_2 + " &cOffender&7: &f" + CoreUtils.lookupUsername(uid) + 
 				" &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes +
-				" &3" + Emoticons.BAR_2 + " &cResult&7: &7" + (warn ? "Warning" : type.name() + " &ffor&7 " + duration));
+				" &3" + Emoticons.BAR_2 + " &cResult&7: &7" + (warn ? "Warning" : type.name() + " &ffor&7 " + CoreUtils.formatDateTimeRaw(duration)));
 		if (!staff.equals("CONSOLE")) {
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " "
 					+ CoreUtils.lookupUsername(uid) + " for " + CoreUtils.formatDate(duration, "&f", "&8")));

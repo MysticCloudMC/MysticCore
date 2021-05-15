@@ -160,7 +160,7 @@ public class ReportCommand implements CommandExecutor {
 
 					PunishmentUtils.punishmentBuilder.put(reporter, info);
 
-					if (!PunishmentUtils.finishPunishment(reporter)) {
+					if (!PunishmentUtils.finishPunishment(reporter, false)) {
 						sender.sendMessage(
 								CoreUtils.prefixes("error") + "You aren't in a report editor. Try /report <player>");
 					}
