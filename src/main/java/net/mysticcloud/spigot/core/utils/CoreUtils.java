@@ -966,12 +966,15 @@ public class CoreUtils {
 			JSONObject json = null;
 			for (String b : s.split(":")) {
 				if (b.contains("{") && b.contains("}")) {
+					Bukkit.broadcastMessage("Contains those things");
 					json = new JSONObject(b);
 				} else {
 					a = a == "" ? b : a + ":" + b;
 				}
 			}
+			Bukkit.broadcastMessage(a);
 			s = a;
+			Bukkit.broadcastMessage(s);
 			String[] d = s.split(":");
 			ItemStack i = d.length >= 2
 					? (d.length == 2 
