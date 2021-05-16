@@ -60,7 +60,7 @@ public class CoreCommands implements CommandExecutor {
 			sender.sendMessage("");
 
 			for (String s : CoreUtils.getPageResults(rules, page, 3)) {
-				sender.sendMessage(CoreUtils.colorize("&3 - &f/glist" + s));
+				sender.sendMessage(CoreUtils.colorize("&3 - &f" + s));
 			}
 			sender.sendMessage("");
 			sender.sendMessage(bottom);
