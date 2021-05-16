@@ -972,9 +972,10 @@ public class CoreUtils {
 						: new ItemStack(Material.valueOf(s));
 		ItemMeta m = i.getItemMeta();
 		String j = "";
-		for (int f = 3; f != d.length; f++) {
-			j = j == "" ? d[f] : j + ":" + d[f];
-		}
+		if (d.length >= 3)
+			for (int f = 3; f != d.length; f++) {
+				j = j == "" ? d[f] : j + ":" + d[f];
+			}
 		JSONObject json = new JSONObject("{}");
 		Bukkit.broadcastMessage("J: " + j);
 		if (j.contains("{") && j.contains("}")) {
