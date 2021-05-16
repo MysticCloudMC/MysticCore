@@ -2,11 +2,13 @@ package net.mysticcloud.spigot.core.utils.entities;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
 
@@ -52,6 +54,8 @@ public class IronBoss extends EntityIronGolem {
 	public void spawn(Location loc) {
 		armor = loc.getWorld().spawn(loc, ArmorStand.class);
 		armor.setGravity(false);
+		armor.setHelmet(new ItemStack(Material.EMERALD));
+		armor.setVisible(false);
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.particle(Particle.FLAME);
