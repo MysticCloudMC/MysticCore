@@ -3,6 +3,7 @@ package net.mysticcloud.spigot.core.utils.entities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -30,6 +31,8 @@ import net.mysticcloud.spigot.core.utils.particles.formats.SelectorFormat;
 public class IronBoss extends EntityIronGolem {
 
 	private int z = 1;
+	
+	private ArmorStand armor;
 
 	private SelectorFormat format = new SelectorFormat();
 
@@ -42,11 +45,12 @@ public class IronBoss extends EntityIronGolem {
 	}
 
 	public IronBoss(World world) {
+		
 		super(EntityTypes.IRON_GOLEM, world);
 	}
 
 	public void spawn(Location loc) {
-
+		armor = loc.getWorld().spawn(loc, ArmorStand.class);
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.particle(Particle.FLAME);
@@ -84,6 +88,7 @@ public class IronBoss extends EntityIronGolem {
 	public void movementTick() {
 		super.movementTick();
 		format.setLifetime(z);
+		armor.teleport(getBukkitEntity().getLocation().clone().add(0,2,0));
 		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()));
 
 		try {
