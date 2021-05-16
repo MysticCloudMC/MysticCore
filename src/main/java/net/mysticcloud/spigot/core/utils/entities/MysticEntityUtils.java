@@ -24,16 +24,17 @@ public class MysticEntityUtils {
 
 	public static void registerEntities() {
 		try {
-			new MysticEntityType<Snowman>("snowmanpet", Snowman.class, EntityTypes.SNOW_GOLEM, Snowman::new)
-			.register();
+			new MysticEntityType<Snowman>("snowmanpet", Snowman.class, EntityTypes.SNOW_GOLEM, Snowman::new).register();
 			new MysticEntityType<GoblinBoss>("goblinboss", GoblinBoss.class, EntityTypes.ZOMBIE, GoblinBoss::new)
-			.register();
+					.register();
 			new MysticEntityType<TestChicken>("testchicken", TestChicken.class, EntityTypes.CHICKEN, TestChicken::new)
 					.register();
 			new MysticEntityType<IronBoss>("ironboss", IronBoss.class, EntityTypes.IRON_GOLEM, IronBoss::new)
 					.register();
 			new MysticEntityType<SpiderQueenBoss>("spiderqueen", SpiderQueenBoss.class, EntityTypes.SPIDER,
 					SpiderQueenBoss::new).register();
+			new MysticEntityType<ReaperBoss>("reaper", ReaperBoss.class, EntityTypes.ZOMBIE, ReaperBoss::new)
+					.register();
 			new MysticEntityType<SpiderQueenMinion>("spiderqueenminion", SpiderQueenMinion.class,
 					EntityTypes.CAVE_SPIDER, SpiderQueenMinion::new).register();
 
@@ -100,6 +101,10 @@ public class MysticEntityUtils {
 		}
 		if (entity instanceof SpiderQueenMinion) {
 			((SpiderQueenMinion) entity).spawn(loc);
+			spawned = true;
+		}
+		if (entity instanceof ReaperBoss) {
+			((ReaperBoss) entity).spawn(loc);
 			spawned = true;
 		}
 		if (!spawned) {
