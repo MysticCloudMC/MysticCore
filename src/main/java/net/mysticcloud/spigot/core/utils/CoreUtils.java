@@ -23,7 +23,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -37,13 +36,17 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
+import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.potion.PotionType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.json2.JSONObject;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -959,14 +962,31 @@ public class CoreUtils {
 	@Deprecated
 	public static ItemStack decryptItemStack(String s) {
 		if (s.contains(":")) {
+			String a = "";
+			JSONObject json = null;
+			for (String b : s.split(":")) {
+				if (b.contains("{") && b.contains("}")) {
+					json = new JSONObject(b);
+				} else {
+					a = a == "" ? b : a + ":" + b;
+				}
+			}
 			String[] d = s.split(":");
-			if (d.length == 2) {
-				return new ItemStack(Material.valueOf(d[0]), 1, Short.parseShort(d[1]));
+			ItemStack i = d.length >= 2
+					? (d.length == 2 
+						? new ItemStack(Material.valueOf(d[0]), 1, Short.parseShort(d[1]))
+						: new ItemStack(Material.valueOf(d[0]), Integer.parseInt(d[1]), Short.parseShort(d[2])))
+					: new ItemStack(Material.valueOf(d[0]));
+			ItemMeta m = i.getItemMeta();
+			if(!json.isEmpty()) {
+				
+				if(json.has("PotionMeta")) {
+					PotionMeta meta = (PotionMeta) m;
+					meta.setBasePotionData(new PotionData(PotionType.valueOf(json.getString("PotionMeta"))));
+				}
 			}
-			if (d.length == 3) {
-				return new ItemStack(Material.valueOf(d[0]), Integer.parseInt(d[1]), Short.parseShort(d[2]));
-			}
-			return new ItemStack(Material.valueOf(d[0]));
+			i.setItemMeta(m);
+			return i;
 
 		} else {
 			return new ItemStack(Material.valueOf(s));
@@ -1067,6 +1087,7 @@ public class CoreUtils {
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
 			if (item.isSet(name + ".Options.Enchantments")) {
+
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
 					for (Enchantment en : Enchantment.values()) {
 						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
@@ -1252,7 +1273,6 @@ public class CoreUtils {
 		List<String> rtn = new ArrayList<>();
 		int totalposts = 0;
 		int pagetracker = ((page - 1) * items) - 1;
-		
 
 		for (String s : things) {
 			// REFERENCE for (int i = (page - 1) * pageResult; i < page * pageResult; i++)
