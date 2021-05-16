@@ -1075,7 +1075,11 @@ public class CoreUtils {
 //							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
 //							i.addUnsafeEnchantment(en, amount);
 //							i.setItemMeta(a);
-							i.addEnchantment(en, Integer.parseInt(b.split(":")[1]));
+							try {
+								i.addEnchantment(en, Integer.parseInt(b.split(":")[1]));
+							} catch (IllegalArgumentException ex) {
+								i.addUnsafeEnchantment(en, Integer.parseInt(b.split(":")[1]));
+							}
 							i.setItemMeta(a);
 							return i;
 //							break;
