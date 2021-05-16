@@ -977,9 +977,7 @@ public class CoreUtils {
 				j = j == "" ? d[f] : j + ":" + d[f];
 			}
 		JSONObject json = new JSONObject("{}");
-		Bukkit.broadcastMessage("J: " + j);
 		if (j.contains("{") && j.contains("}")) {
-			Bukkit.broadcastMessage("Contains those things");
 			json = new JSONObject(j);
 		}
 
