@@ -44,9 +44,16 @@ public class CoreCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("rules")) {
 			// Don't forget to add these commands to the list
 
-			double page = args.length == 0 ? 1 : Integer.parseInt(args[0]);
+			double page;
+			try {
+				page = args.length == 0 ? 1 : Integer.parseInt(args[0]);
+			} catch (NumberFormatException ex) {
+				sender.sendMessage(CoreUtils.prefixes("admin") + args[0] + " isn't an integer.");
+				return true;
+			}
+
 			double pages = (int) Math.ceil(rules.size() / 3);
-			if(page > pages)
+			if (page > pages)
 				page = pages;
 			String top = CoreUtils.colorize(
 					"&3-------------------&f[Page &7" + page + "&f of &7" + pages + "&f]&3-------------------");
@@ -59,14 +66,16 @@ public class CoreCommands implements CommandExecutor {
 			sender.sendMessage(top);
 			sender.sendMessage("");
 
-			for (String s : CoreUtils.getPageResults(rules, (int)page, 3)) {
+			for (String s : CoreUtils.getPageResults(rules, (int) page, 3)) {
 				sender.sendMessage(CoreUtils.colorize("&3 - &f" + s));
 			}
 			sender.sendMessage("");
 			sender.sendMessage(bottom);
 
 		}
-		if (cmd.getName().equalsIgnoreCase("plugins")) {
+		if (cmd.getName().equalsIgnoreCase("plugins"))
+
+		{
 
 		}
 		if (cmd.getName().equalsIgnoreCase("clear")) {
