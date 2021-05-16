@@ -131,6 +131,10 @@ public class ReaperBoss extends EntityZombie {
 
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
+		if(damagesource.equals(DamageSource.FIRE)) {
+			f=0;
+			return false;
+		}
 
 		return super.damageEntity(damagesource, f);
 	}
