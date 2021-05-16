@@ -35,7 +35,7 @@ public class ReaperBoss extends EntityZombie {
 	public void spawn(Location loc) {
 		armor = loc.getWorld().spawn(loc, ArmorStand.class);
 		armor.setGravity(false);
-		armor.setHelmet(new ItemStack(Material.EMERALD));
+		armor.setHelmet(new ItemStack(Material.ZOMBIE_HEAD));
 		armor.setVisible(false);
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
@@ -56,8 +56,8 @@ public class ReaperBoss extends EntityZombie {
 	public void movementTick() {
 		super.movementTick();
 		armor.teleport(getBukkitEntity().getLocation().clone().add(
-				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())), 0,
-				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw()))));
+				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw()) * 0.5), 0,
+				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5));
 		z = z + 1;
 	}
 
