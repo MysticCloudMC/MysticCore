@@ -34,6 +34,7 @@ public class CoreCommands implements CommandExecutor {
 		rules.add("Don't use any hacks or game exploits to give you and advantage over other players.");
 		rules.add("Don't curse in public chat.");
 		rules.add("Use English in public chat.");
+		rules.add("Don't steal or greif inside land claims on Survival; even if you're trusted.");
 		rules.add("Don't try and evade bans with alts.");
 		rules.add("Don't disrespect staff.");
 		rules.add("Be kind to others.");
@@ -58,7 +59,7 @@ public class CoreCommands implements CommandExecutor {
 			String top = CoreUtils.colorize(
 					"&3-------------------&f[Page &7" + page + "&f of &7" + pages + "&f]&3-------------------");
 			String bottom = "";
-			for (int i = 0; i != ChatColor.stripColor(top).length(); i++) {
+			for (int i = 0; i != ChatColor.stripColor(top).length()-2; i++) {
 				bottom = bottom + "-";
 			}
 			bottom = CoreUtils.colorize("&3" + bottom);
