@@ -51,6 +51,7 @@ public class IronBoss extends EntityIronGolem {
 
 	public void spawn(Location loc) {
 		armor = loc.getWorld().spawn(loc, ArmorStand.class);
+		armor.setGravity(false);
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 		format.particle(Particle.FLAME);
