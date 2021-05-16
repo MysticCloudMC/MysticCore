@@ -56,8 +56,8 @@ public class GoblinBoss extends EntityZombie {
 	public void movementTick() {
 		super.movementTick();
 		armor.teleport(
-				getBukkitEntity().getLocation().clone().add(Math.sin(getBukkitEntity().getLocation().getYaw()) * 0.5, 0,
-						Math.cos(getBukkitEntity().getLocation().getYaw()) * 0.5));
+				getBukkitEntity().getLocation().clone().add(Math.sin(getBukkitEntity().getLocation().getYaw()), 0,
+						Math.cos(getBukkitEntity().getLocation().getYaw())));
 		z = z + 1;
 	}
 	
