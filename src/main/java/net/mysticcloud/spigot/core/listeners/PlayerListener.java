@@ -19,6 +19,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -358,6 +359,11 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent e) {
+		if (e.getEntity() instanceof ReaperBoss) {
+			if (e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)) {
+				e.setCancelled(true);
+			}
+		}
 		if (e.getEntity().hasMetadata("pet")) {
 			e.setCancelled(true);
 			return;
@@ -368,7 +374,6 @@ public class PlayerListener implements Listener {
 	public void omPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent e) {
 		if (e.getRightClicked().hasMetadata("locked")) {
 			e.setCancelled(true);
-			((ReaperBoss)e.getRightClicked().getMetadata("locked")).damageEntity(DamageSource.DROWN, 5);
 		}
 	}
 
