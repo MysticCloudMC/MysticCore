@@ -1070,11 +1070,8 @@ public class CoreUtils {
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
 					for (Enchantment en : Enchantment.values()) {
 						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
-							a.addEnchant(Enchantment.KNOCKBACK, 4, true);
-							i.setItemMeta(a);
-							Bukkit.broadcastMessage("done.");
-							return i;
-//							break;
+							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), true);
+							break;
 						}
 					}
 
