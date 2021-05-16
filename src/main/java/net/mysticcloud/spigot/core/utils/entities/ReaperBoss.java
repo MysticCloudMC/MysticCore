@@ -19,6 +19,7 @@ public class ReaperBoss extends EntityZombie {
 	private int z = 0;
 
 	private ArmorStand armor;
+	private ArmorStand armor1;
 
 	public ReaperBoss(World world, EntityTypes<? extends EntityZombie> entityType) {
 		this(world);
@@ -37,6 +38,14 @@ public class ReaperBoss extends EntityZombie {
 		armor.setGravity(false);
 		armor.setHelmet(new ItemStack(Material.ZOMBIE_HEAD));
 		armor.setVisible(false);
+		armor.setSmall(true);
+
+		armor1 = loc.getWorld().spawn(loc, ArmorStand.class);
+		armor1.setGravity(false);
+		armor1.setHelmet(new ItemStack(Material.ZOMBIE_HEAD));
+		armor1.setVisible(false);
+		armor1.setSmall(true);
+
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
 //		setBaby(true);
@@ -56,8 +65,11 @@ public class ReaperBoss extends EntityZombie {
 	public void movementTick() {
 		super.movementTick();
 		armor.teleport(getBukkitEntity().getLocation().clone().add(
-				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())), 0,
-				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw()))));
+				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5, 0,
+				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5));
+		armor1.teleport(getBukkitEntity().getLocation().clone().add(
+				Math.cos(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5), 0,
+				Math.sin(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5)));
 		z = z + 1;
 	}
 
