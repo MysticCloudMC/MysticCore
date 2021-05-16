@@ -359,7 +359,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent e) {
-		if (e.getEntity() instanceof ReaperBoss) {
+		if (e.getEntity().hasMetadata("boss")
+				&& ((String) e.getEntity().getMetadata("boss").get(0).value()).equalsIgnoreCase("reaper")) {
 			if (e.getCause().equals(DamageCause.FIRE) || e.getCause().equals(DamageCause.FIRE_TICK)) {
 				e.setCancelled(true);
 			}

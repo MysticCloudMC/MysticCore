@@ -18,8 +18,10 @@ import org.bukkit.craftbukkit.v1_16_R2.CraftWorld;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import net.minecraft.server.v1_16_R2.Entity;
+import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.entities.Bosses;
@@ -147,6 +149,7 @@ public class EventUtils {
 			break;
 		case REAPER_BOSS:
 			boss = new ReaperBoss(((CraftWorld) (loc).getWorld()).getHandle());
+			boss.getBukkitEntity().setMetadata("boss", new FixedMetadataValue(Main.getPlugin(), "Reaper"));
 			break;
 		case IRON_BOSS:
 			boss = new IronBoss(((CraftWorld) (loc).getWorld()).getHandle());
@@ -157,8 +160,9 @@ public class EventUtils {
 			break;
 		default:
 			boss = new TestChicken(((CraftWorld) (loc).getWorld()).getHandle());
-			;
+			break;
 		}
+		
 		e.setMetadata("BOSS", boss);
 		e.setMetadata("UUID", boss.getUniqueID());
 		e.setMetadata("LOCATION", loc);
