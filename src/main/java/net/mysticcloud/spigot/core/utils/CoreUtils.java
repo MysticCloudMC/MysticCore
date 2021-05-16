@@ -1256,6 +1256,7 @@ public class CoreUtils {
 		List<String> rtn = new ArrayList<>();
 		int totalposts = 0;
 		int pagetracker = ((page - 1) * items) - 1;
+		
 
 		for (String s : things) {
 			// REFERENCE for (int i = (page - 1) * pageResult; i < page * pageResult; i++)
@@ -1411,11 +1412,11 @@ public class CoreUtils {
 
 	}
 
-	public static List<Object> getPageResults(List<Object> objects, int page, int pageResult) {
-		List<Object> rturn = new ArrayList<>();
+	public static List<String> getPageResults(List<String> rules, int page, int pageResult) {
+		List<String> rturn = new ArrayList<>();
 		for (int i = (page - 1) * pageResult; i < page * pageResult; i++) {
-			if (i < objects.size())
-				rturn.add(objects.get(i));
+			if (i < rules.size())
+				rturn.add(rules.get(i));
 		}
 		return rturn;
 	}
