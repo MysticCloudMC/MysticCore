@@ -1069,17 +1069,8 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Enchantments")) {
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
 					for (Enchantment en : Enchantment.values()) {
-						Bukkit.broadcastMessage(en.getName() + " - " + b.split(":")[0]);
 						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
-							Bukkit.broadcastMessage("Adding enchantment...");
-//							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
-//							i.addUnsafeEnchantment(en, amount);
-//							i.setItemMeta(a);
-							try {
-								i.addEnchantment(Enchantment.KNOCKBACK, Integer.parseInt(b.split(":")[1]));
-							} catch (IllegalArgumentException ex) {
-								i.addUnsafeEnchantment(Enchantment.KNOCKBACK, Integer.parseInt(b.split(":")[1]));
-							}
+							a.addEnchant(Enchantment.KNOCKBACK, 4, true);
 							i.setItemMeta(a);
 							Bukkit.broadcastMessage("done.");
 							return i;
