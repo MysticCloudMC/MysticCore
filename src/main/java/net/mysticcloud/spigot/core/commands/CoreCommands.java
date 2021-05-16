@@ -52,7 +52,7 @@ public class CoreCommands implements CommandExecutor {
 				return true;
 			}
 
-			double pages = (int) Math.ceil(rules.size() / 3);
+			double pages =  Math.ceil(rules.size() / 3);
 			if (page > pages)
 				page = pages;
 			String top = CoreUtils.colorize(
