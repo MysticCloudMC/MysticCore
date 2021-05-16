@@ -22,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -359,6 +360,12 @@ public class PlayerListener implements Listener {
 			e.setCancelled(true);
 			return;
 		}
+	}
+
+	@EventHandler
+	public void omPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent e) {
+		if (e.getRightClicked().hasMetadata("locked"))
+			e.setCancelled(true);
 	}
 
 	@SuppressWarnings("deprecation")

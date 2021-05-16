@@ -49,6 +49,7 @@ public class ReaperBoss extends EntityZombie {
 		armor.setBoots(new ItemStack(Material.LEATHER_BOOTS));
 		armor.setVisible(false);
 		armor.setSmall(true);
+		armor.setMetadata("locked", new FixedMetadataValue(Main.getPlugin(), "yes"));
 
 		armor1 = loc.getWorld().spawn(loc, ArmorStand.class);
 		armor1.setGravity(false);
@@ -58,6 +59,7 @@ public class ReaperBoss extends EntityZombie {
 		armor1.setBoots(new ItemStack(Material.LEATHER_BOOTS));
 		armor1.setVisible(false);
 		armor1.setSmall(true);
+		armor1.setMetadata("locked", new FixedMetadataValue(Main.getPlugin(), "yes"));
 
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
@@ -122,6 +124,7 @@ public class ReaperBoss extends EntityZombie {
 	@Override
 	protected void dropDeathLoot(DamageSource damagesource, int i, boolean flag) {
 		armor.remove();
+		armor1.remove();
 		// TODO Auto-generated method stub
 		super.dropDeathLoot(damagesource, i, flag);
 	}
