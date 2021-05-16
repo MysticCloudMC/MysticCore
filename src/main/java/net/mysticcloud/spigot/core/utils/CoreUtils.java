@@ -971,6 +971,7 @@ public class CoreUtils {
 					a = a == "" ? b : a + ":" + b;
 				}
 			}
+			s = a;
 			String[] d = s.split(":");
 			ItemStack i = d.length >= 2
 					? (d.length == 2 
