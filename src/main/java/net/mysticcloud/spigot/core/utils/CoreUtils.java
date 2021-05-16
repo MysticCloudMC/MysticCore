@@ -961,41 +961,34 @@ public class CoreUtils {
 
 	@Deprecated
 	public static ItemStack decryptItemStack(String s) {
-		if (s.contains(":")) {
-			String a = "";
-			JSONObject json = null;
-			for (String b : s.split(":")) {
-				Bukkit.broadcastMessage(b);
-				if (b.contains("\\{") && b.contains("\\}")) {
-					Bukkit.broadcastMessage("Contains those things");
-					json = new JSONObject(b);
-				} else {
-					a = a == "" ? b : a + ":" + b;
-				}
-			}
-			Bukkit.broadcastMessage(a);
-			s = a;
-			Bukkit.broadcastMessage(s);
-			String[] d = s.split(":");
-			ItemStack i = d.length >= 2
-					? (d.length == 2 
-						? new ItemStack(Material.valueOf(d[0]), 1, Short.parseShort(d[1]))
-						: new ItemStack(Material.valueOf(d[0]), Integer.parseInt(d[1]), Short.parseShort(d[2])))
-					: new ItemStack(Material.valueOf(d[0]));
-			ItemMeta m = i.getItemMeta();
-			if(!json.isEmpty()) {
-				
-				if(json.has("PotionMeta")) {
-					PotionMeta meta = (PotionMeta) m;
-					meta.setBasePotionData(new PotionData(PotionType.valueOf(json.getString("PotionMeta"))));
-				}
-			}
-			i.setItemMeta(m);
-			return i;
-
-		} else {
-			return new ItemStack(Material.valueOf(s));
+		String[] d = s.split(":");
+		ItemStack i = s
+				.contains(":")
+						? (d.length >= 2
+								? (d.length == 2 ? new ItemStack(Material.valueOf(d[0]), 1, Short.parseShort(d[1]))
+										: new ItemStack(Material.valueOf(d[0]), Integer.parseInt(d[1]),
+												Short.parseShort(d[2])))
+								: new ItemStack(Material.valueOf(d[0])))
+						: new ItemStack(Material.valueOf(s));
+		ItemMeta m = i.getItemMeta();
+		String j = "";
+		for (int f = 3; f != d.length; f++) {
+			j = j == "" ? d[f] : j + ":" + d[f];
 		}
+		JSONObject json = null;
+		if (j.contains("\\{") && j.contains("\\}")) {
+			Bukkit.broadcastMessage("Contains those things");
+			json = new JSONObject(j);
+		}
+
+		if (!json.isEmpty()) {
+			if (json.has("PotionMeta")) {
+				PotionMeta meta = (PotionMeta) m;
+				meta.setBasePotionData(new PotionData(PotionType.valueOf(json.getString("PotionMeta"))));
+			}
+		}
+		i.setItemMeta(m);
+		return i;
 
 	}
 
