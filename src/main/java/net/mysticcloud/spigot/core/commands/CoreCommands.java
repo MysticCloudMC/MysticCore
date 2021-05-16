@@ -44,7 +44,7 @@ public class CoreCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("rules")) {
 			// Don't forget to add these commands to the list
 
-			double page;
+			int page;
 			try {
 				page = args.length == 0 ? 1 : Integer.parseInt(args[0]);
 			} catch (NumberFormatException ex) {
@@ -52,7 +52,7 @@ public class CoreCommands implements CommandExecutor {
 				return true;
 			}
 
-			double pages =  Math.ceil(rules.size() / 3);
+			int pages = ((int) Math.ceil(rules.size() / 3)) + 1;
 			if (page > pages)
 				page = pages;
 			String top = CoreUtils.colorize(
@@ -66,7 +66,7 @@ public class CoreCommands implements CommandExecutor {
 			sender.sendMessage(top);
 			sender.sendMessage("");
 
-			for (String s : CoreUtils.getPageResults(rules, (int) page, 3)) {
+			for (String s : CoreUtils.getPageResults(rules, page, 3)) {
 				sender.sendMessage(CoreUtils.colorize("&3 - &f" + s));
 			}
 			sender.sendMessage("");
