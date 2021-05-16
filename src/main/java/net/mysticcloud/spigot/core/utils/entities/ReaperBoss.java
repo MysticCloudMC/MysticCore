@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.SmallFireball;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -82,20 +83,20 @@ public class ReaperBoss extends EntityZombie {
 		armor1.teleport(getBukkitEntity().getLocation().clone().add(
 				Math.cos(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5), 0,
 				Math.sin(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5)));
-		
+
 		try {
 
-			if (z % ((CoreUtils.getRandom().nextInt(4)*100)+50) == 0) {
+			if (z % ((CoreUtils.getRandom().nextInt(4) * 100) + 50) == 0) {
 
 				Player target = getTarget();
-
 
 				float X = (float) ((locX()) - (target.getLocation().getX()));
 				float Y = (float) ((locZ()) - (target.getLocation().getZ()));
 				float A = (float) (Math.sqrt(Math.pow(target.getLocation().getX() - (locX()), 2)));
 				float O = (float) (Math.sqrt(Math.pow(target.getLocation().getZ() - (locZ()), 2)));
-				Snowball fb = getBukkitEntity().getWorld().spawn((CoreUtils.getRandom().nextBoolean() ? armor : armor1).getLocation().add(0, 2, 0),
-						Snowball.class);
+				SmallFireball fb = getBukkitEntity().getWorld().spawn(
+						(CoreUtils.getRandom().nextBoolean() ? armor : armor1).getLocation().add(0, 0.5, 0),
+						SmallFireball.class);
 				fb.setMetadata("doesDamage", new FixedMetadataValue(Main.getPlugin(), "true"));
 				if (X < 0 && Y < 0) {
 					fb.setVelocity(rotateAroundAxisY(new Vector(1, 0, 0), (Math.toDegrees(Math.atan(O / A)))));
@@ -130,7 +131,7 @@ public class ReaperBoss extends EntityZombie {
 
 		return super.damageEntity(damagesource, f);
 	}
-	
+
 	private Player getTarget() {
 
 		while (true) {
@@ -142,7 +143,7 @@ public class ReaperBoss extends EntityZombie {
 		}
 
 	}
-	
+
 	protected Vector rotateAroundAxisX(Vector v, double angle) {
 		angle = Math.toRadians(angle);
 		double y, z, cos, sin;
