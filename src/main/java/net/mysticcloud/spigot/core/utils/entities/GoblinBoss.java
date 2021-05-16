@@ -1,24 +1,33 @@
 package net.mysticcloud.spigot.core.utils.entities;
 
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
+import org.bukkit.Particle;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_16_R2.DamageSource;
 import net.minecraft.server.v1_16_R2.EntityTypes;
 import net.minecraft.server.v1_16_R2.EntityZombie;
 import net.minecraft.server.v1_16_R2.EnumItemSlot;
+import net.minecraft.server.v1_16_R2.ItemStack;
 import net.minecraft.server.v1_16_R2.Items;
 import net.minecraft.server.v1_16_R2.World;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 
 public class GoblinBoss extends EntityZombie {
 
 	private int z = 0;
 
-	private ArmorStand armor;
+	private CircleFeetFormat format = new CircleFeetFormat();
+
+	private org.bukkit.inventory.ItemStack[] damageDrops = new org.bukkit.inventory.ItemStack[] {
+			new org.bukkit.inventory.ItemStack(Material.GOLD_INGOT),
+			new org.bukkit.inventory.ItemStack(Material.IRON_INGOT),
+			new org.bukkit.inventory.ItemStack(Material.GOLD_NUGGET),
+			new org.bukkit.inventory.ItemStack(Material.IRON_NUGGET) };
 
 	public GoblinBoss(World world, EntityTypes<? extends EntityZombie> entityType) {
 		this(world);
@@ -33,18 +42,19 @@ public class GoblinBoss extends EntityZombie {
 	}
 
 	public void spawn(Location loc) {
-		armor = loc.getWorld().spawn(loc, ArmorStand.class);
-		armor.setGravity(false);
-		armor.setHelmet(new ItemStack(Material.EMERALD));
-		armor.setVisible(false);
 		this.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 		this.world.addEntity(this, CreatureSpawnEvent.SpawnReason.CUSTOM);
-//		setBaby(true);
-		getBukkitEntity().setCustomName(CoreUtils.colorize("&6&l" + Bosses.REAPER_BOSS.getFormattedCallName()));
+		format.setHeight(1);
+		format.setRadius(0.5);
+		format.setSpots(20);
+		format.particle(Particle.REDSTONE);
+		format.setDustOptions(new DustOptions(Color.YELLOW, 1));
+		setBaby(true);
+		getBukkitEntity().setCustomName(CoreUtils.colorize("&6&l" + Bosses.GOBLIN_BOSS.getFormattedCallName()));
 		setCustomNameVisible(true);
-//		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
-//		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
-//		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+		setSlot(EnumItemSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+		setSlot(EnumItemSlot.OFFHAND, new ItemStack(Items.GOLDEN_SWORD));
+		setSlot(EnumItemSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
 	}
 
 	@Override
@@ -55,21 +65,22 @@ public class GoblinBoss extends EntityZombie {
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		armor.teleport(getBukkitEntity().getLocation().clone().add(
-				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())), 0,
-				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw()))));
+
+		if (z % 100 == 0) {
+			getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
+					damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
+		}
+		
+		format.setLifetime(z);
+		format.display(getBukkitEntity().getLocation());
 		z = z + 1;
 	}
 
 	@Override
-	protected void dropDeathLoot(DamageSource damagesource, int i, boolean flag) {
-		armor.remove();
-		// TODO Auto-generated method stub
-		super.dropDeathLoot(damagesource, i, flag);
-	}
-
-	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
+
+		getBukkitEntity().getWorld().dropItem(getBukkitEntity().getLocation(),
+				damageDrops[CoreUtils.getRandom().nextInt(damageDrops.length)]);
 
 		return super.damageEntity(damagesource, f);
 	}

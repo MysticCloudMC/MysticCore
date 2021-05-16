@@ -55,10 +55,17 @@ public class ReaperBoss extends EntityZombie {
 	@Override
 	public void movementTick() {
 		super.movementTick();
-		armor.teleport(
-				getBukkitEntity().getLocation().clone().add(Math.cos(getBukkitEntity().getLocation().getYaw()) * 0.5, 0,
-						Math.sin(getBukkitEntity().getLocation().getYaw()) * 0.5));
+		armor.teleport(getBukkitEntity().getLocation().clone().add(
+				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())), 0,
+				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw()))));
 		z = z + 1;
+	}
+
+	@Override
+	protected void dropDeathLoot(DamageSource damagesource, int i, boolean flag) {
+		armor.remove();
+		// TODO Auto-generated method stub
+		super.dropDeathLoot(damagesource, i, flag);
 	}
 
 	@Override

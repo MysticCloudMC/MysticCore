@@ -26,6 +26,7 @@ import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.entities.GoblinBoss;
 import net.mysticcloud.spigot.core.utils.entities.IronBoss;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.entities.ReaperBoss;
 import net.mysticcloud.spigot.core.utils.entities.SpiderQueenBoss;
 import net.mysticcloud.spigot.core.utils.entities.SpiderQueenMinion;
 import net.mysticcloud.spigot.core.utils.entities.TestChicken;
@@ -144,9 +145,12 @@ public class EventUtils {
 		case SPIDER_QUEEN_MINION:
 			boss = new SpiderQueenMinion(((CraftWorld) (loc).getWorld()).getHandle());
 			break;
+		case REAPER_BOSS:
+			boss = new ReaperBoss(((CraftWorld) (loc).getWorld()).getHandle());
+			break;
 		case IRON_BOSS:
 			boss = new IronBoss(((CraftWorld) (loc).getWorld()).getHandle());
-			e.setMetadata("DESCRIPTION", "Do the most damage to get the best rewards! Watch out for his rocks!");
+			e.setMetadata("DESCRIPTION", "Do the most damage to get the best rewards! Watch out for rocks!");
 			break;
 		case TEST_CHICKEN:
 			boss = new TestChicken(((CraftWorld) (loc).getWorld()).getHandle());
