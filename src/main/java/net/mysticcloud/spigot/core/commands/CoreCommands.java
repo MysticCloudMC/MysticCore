@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -77,7 +78,6 @@ public class CoreCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("plugins"))
 
 		{
-
 		}
 		if (cmd.getName().equalsIgnoreCase("clear")) {
 			if (sender.hasPermission("mysticcloud.admin.cmd.clear")) {

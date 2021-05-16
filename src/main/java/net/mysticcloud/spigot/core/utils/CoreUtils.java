@@ -54,7 +54,9 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.utils.accounts.GameVersion;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
@@ -65,6 +67,7 @@ import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.sql.IDatabase;
 import net.mysticcloud.spigot.core.utils.sql.SQLDriver;
@@ -79,7 +82,7 @@ public class CoreUtils {
 	static IDatabase fdb;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
-
+	static Map<UUID, Scoreboard> scoreboards = new HashMap<>();
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 
 	public static String prefix = "MysticCloud";
@@ -546,6 +549,65 @@ public class CoreUtils {
 		return economy;
 	}
 
+	public static void setScoreboard(Player pl) {
+		if (!useCoreScoreboard())
+			return;
+
+		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
+
+		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+
+		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
+				CoreUtils.colorize("        &3&lMystic&f&lCloud        "));
+		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(15);
+		obj.getScore(CoreUtils.colorize("&aGems")).setScore(14);
+
+		org.bukkit.scoreboard.Team gems = board.registerNewTeam("gemCounter");
+		gems.addEntry(ChatColor.RED + "" + ChatColor.BLUE);
+		gems.setPrefix(CoreUtils.colorize("&a" + Emoticons.N0 + "&f " + player.getGems()));
+		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(13);
+
+		obj.getScore(ChatColor.RED + "" + ChatColor.AQUA).setScore(12);
+		obj.getScore(CoreUtils.colorize("&6Balance")).setScore(11);
+
+		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
+		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
+		balance.setPrefix(CoreUtils.colorize("&6$ " + player.getBalance()));
+		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(10);
+
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_AQUA).setScore(9);
+		obj.getScore(CoreUtils.colorize("&cLevel")).setScore(8);
+
+		org.bukkit.scoreboard.Team level = board.registerNewTeam("levelCounter");
+		level.addEntry(ChatColor.RED + "" + ChatColor.DARK_BLUE);
+		level.setPrefix(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel()));
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(7);
+
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(6);
+
+		if (!getHoliday().equals(Holiday.NONE)) {
+			obj.getScore(CoreUtils.colorize("&a" + getHoliday().getName())).setScore(5);
+			obj.getScore(CoreUtils.colorize(getHoliday().getScoreboardLine())).setScore(4);
+		}
+
+		scoreboards.put(pl.getUniqueId(), board);
+		pl.setScoreboard(board);
+
+	}
+
+	public static void updateScoreboard(Player pl) {
+		Scoreboard board = scoreboards.get(pl.getUniqueId());
+		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
+
+		board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.N0 + "&f " + player.getGems()));
+		board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ " + player.getBalance())));
+		board.getTeam("levelCounter")
+				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
+
+	}
+
 	public static void setupEconomy() {
 		Main.getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(),
 				(Plugin) Main.getPlugin(), ServicePriority.Normal);
@@ -997,36 +1059,36 @@ public class CoreUtils {
 				CoreUtils.colorize("&7[&3&lzACHS&7] &6" + sender + " &7> &f" + message));
 	}
 
-	public static void enableScoreboard(Player player) {
-		if (coreBoard) {
-			if (!MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.SIDEBAR)
-					.equalsIgnoreCase("true")) {
-				return;
-			}
-			Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-			Objective objective = scoreboard.registerNewObjective("sidebar", "dummy",
-					colorize("        &3&lMystic&f&lCloud        "));
-			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-			registerSidebarList();
-			for (Entry<Integer, String> entry : sidebar.entrySet()) {
-
-				for (String s : scoreboard.getEntries()) {
-
-					if (entry.getKey() == objective.getScore(s).getScore()) {
-						if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
-							scoreboard.resetScores(s);
-						}
-					} else
-						continue;
-				}
-				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue())))
-						.setScore(entry.getKey());
-
-			}
-
-			player.setScoreboard(scoreboard);
-		}
-	}
+//	public static void enableScoreboard(Player player) {
+//		if (coreBoard) {
+//			if (!MysticAccountManager.getMysticPlayer(player).getSetting(PlayerSettings.SIDEBAR)
+//					.equalsIgnoreCase("true")) {
+//				return;
+//			}
+//			Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+//			Objective objective = scoreboard.registerNewObjective("sidebar", "dummy",
+//					colorize("        &3&lMystic&f&lCloud        "));
+//			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+//			registerSidebarList();
+//			for (Entry<Integer, String> entry : sidebar.entrySet()) {
+//
+//				for (String s : scoreboard.getEntries()) {
+//
+//					if (entry.getKey() == objective.getScore(s).getScore()) {
+//						if (!objective.getScore(s).getEntry().equals(colorize(entry.getValue()))) {
+//							scoreboard.resetScores(s);
+//						}
+//					} else
+//						continue;
+//				}
+//				objective.getScore(colorize(PlaceholderUtils.replace(player, entry.getValue())))
+//						.setScore(entry.getKey());
+//
+//			}
+//
+//			player.setScoreboard(scoreboard);
+//		}
+//	}
 
 	private static void registerSidebarList() {
 		sidebar.clear();

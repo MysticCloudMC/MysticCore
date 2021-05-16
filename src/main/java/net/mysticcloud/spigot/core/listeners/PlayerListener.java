@@ -300,7 +300,7 @@ public class PlayerListener implements Listener {
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &f"
 				+ MysticAccountManager.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
 
-		CoreUtils.enableScoreboard(e.getPlayer());
+		CoreUtils.setScoreboard(e.getPlayer());
 
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 

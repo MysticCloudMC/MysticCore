@@ -82,7 +82,7 @@ public class Main extends JavaPlugin {
 			player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 //			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
 			if (CoreUtils.useCoreScoreboard())
-				CoreUtils.enableScoreboard(player);
+				CoreUtils.setScoreboard(player);
 		}
 
 	}

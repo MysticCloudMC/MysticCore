@@ -38,10 +38,12 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
-			DebugUtils.debug("Updating punishments");
+			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();
-			DebugUtils.debug("Updating Friendships");
+			DebugUtils.debug("Updating friendships");
 			FriendUtils.update();
+			DebugUtils.debug("Updating permissions");
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/pex reload");
 			lastcheck = new Date().getTime();
 		}
 		try {
@@ -76,7 +78,9 @@ public class DateChecker implements Runnable {
 				}
 				PunishmentUtils.finishPunishments();
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					CoreUtils.enableScoreboard(player);
+					if(CoreUtils.useCoreScoreboard()) {
+						CoreUtils.updateScoreboard(player);
+					}
 				}
 			}
 
