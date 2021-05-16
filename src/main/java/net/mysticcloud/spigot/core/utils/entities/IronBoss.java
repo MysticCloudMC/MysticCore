@@ -93,7 +93,9 @@ public class IronBoss extends EntityIronGolem {
 	public void movementTick() {
 		super.movementTick();
 		format.setLifetime(z);
+
 		armor.teleport(getBukkitEntity().getLocation().clone().add(0,1.5,0));
+		armor.setRotation(0, z);
 		format.display(new Location(Bukkit.getWorld(world.getWorld().getName()), locX(), locY(), locZ()));
 
 		try {
