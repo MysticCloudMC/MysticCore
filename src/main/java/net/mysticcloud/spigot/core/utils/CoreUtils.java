@@ -574,7 +574,7 @@ public class CoreUtils {
 
 		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
 		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
-		balance.setPrefix(CoreUtils.colorize("&6$ " + player.getBalance()));
+		balance.setPrefix(CoreUtils.colorize("&6$ &f" + player.getBalance()));
 		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(10);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_AQUA).setScore(9);
@@ -602,7 +602,7 @@ public class CoreUtils {
 		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
 		board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.N0 + "&f " + player.getGems()));
-		board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ " + player.getBalance())));
+		board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
 		board.getTeam("levelCounter")
 				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
 
