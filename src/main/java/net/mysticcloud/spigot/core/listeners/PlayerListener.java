@@ -37,6 +37,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 
+import net.minecraft.server.v1_16_R2.DamageSource;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
@@ -51,6 +52,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
+import net.mysticcloud.spigot.core.utils.entities.ReaperBoss;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
@@ -364,8 +366,10 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void omPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent e) {
-		if (e.getRightClicked().hasMetadata("locked"))
+		if (e.getRightClicked().hasMetadata("locked")) {
 			e.setCancelled(true);
+			((ReaperBoss)e.getRightClicked().getMetadata("locked")).damageEntity(DamageSource.DROWN, 5);
+		}
 	}
 
 	@SuppressWarnings("deprecation")
