@@ -65,8 +65,8 @@ public class ReaperBoss extends EntityZombie {
 	public void movementTick() {
 		super.movementTick();
 		armor.teleport(getBukkitEntity().getLocation().clone().add(
-				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())* 0.5) , 0,
-				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw())* 0.5) ));
+				Math.cos(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5, 0,
+				Math.sin(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5));
 //		armor1.teleport(getBukkitEntity().getLocation().clone().add(
 //				Math.cos(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5), 0,
 //				Math.sin(-(Math.toRadians(getBukkitEntity().getLocation().getYaw())) * 0.5)));
