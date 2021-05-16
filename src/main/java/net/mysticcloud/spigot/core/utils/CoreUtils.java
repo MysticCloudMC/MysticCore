@@ -1076,7 +1076,9 @@ public class CoreUtils {
 //							i.addUnsafeEnchantment(en, amount);
 //							i.setItemMeta(a);
 							i.addEnchantment(en, Integer.parseInt(b.split(":")[1]));
-							break;
+							i.setItemMeta(a);
+							return i;
+//							break;
 						}
 					}
 
