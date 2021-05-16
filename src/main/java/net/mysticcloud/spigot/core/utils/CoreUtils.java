@@ -1076,11 +1076,12 @@ public class CoreUtils {
 //							i.addUnsafeEnchantment(en, amount);
 //							i.setItemMeta(a);
 							try {
-								i.addEnchantment(en, Integer.parseInt(b.split(":")[1]));
+								i.addEnchantment(Enchantment.KNOCKBACK, Integer.parseInt(b.split(":")[1]));
 							} catch (IllegalArgumentException ex) {
-								i.addUnsafeEnchantment(en, Integer.parseInt(b.split(":")[1]));
+								i.addUnsafeEnchantment(Enchantment.KNOCKBACK, Integer.parseInt(b.split(":")[1]));
 							}
 							i.setItemMeta(a);
+							Bukkit.broadcastMessage("done.");
 							return i;
 //							break;
 						}
