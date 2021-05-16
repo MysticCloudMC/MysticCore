@@ -1072,9 +1072,10 @@ public class CoreUtils {
 						Bukkit.broadcastMessage(en.getName() + " - " + b.split(":")[0]);
 						if (en.getName().equalsIgnoreCase(b.split(":")[0])) {
 							Bukkit.broadcastMessage("Adding enchantment...");
-							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
+//							a.addEnchant(en, Integer.parseInt(b.split(":")[1]), Boolean.getBoolean(b.split(":")[2]));
 //							i.addUnsafeEnchantment(en, amount);
-							i.setItemMeta(a);
+//							i.setItemMeta(a);
+							i.addEnchantment(en, Integer.parseInt(b.split(":")[1]));
 							break;
 						}
 					}
