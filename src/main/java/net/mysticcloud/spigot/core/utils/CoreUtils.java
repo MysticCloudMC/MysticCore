@@ -965,6 +965,7 @@ public class CoreUtils {
 			String a = "";
 			JSONObject json = null;
 			for (String b : s.split(":")) {
+				Bukkit.broadcastMessage(b);
 				if (b.contains("\\{") && b.contains("\\}")) {
 					Bukkit.broadcastMessage("Contains those things");
 					json = new JSONObject(b);
