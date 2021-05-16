@@ -60,6 +60,13 @@ public class GoblinBoss extends EntityZombie {
 						Math.cos(getBukkitEntity().getLocation().getYaw()) * 0.5));
 		z = z + 1;
 	}
+	
+	@Override
+	protected void dropDeathLoot(DamageSource damagesource, int i, boolean flag) {
+		armor.remove();
+		// TODO Auto-generated method stub
+		super.dropDeathLoot(damagesource, i, flag);
+	}
 
 	@Override
 	public boolean damageEntity(DamageSource damagesource, float f) {
