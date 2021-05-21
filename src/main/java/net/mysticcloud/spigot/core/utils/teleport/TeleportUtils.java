@@ -2,7 +2,6 @@ package net.mysticcloud.spigot.core.utils.teleport;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -12,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.scheduler.BukkitTask;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.TimeoutTeleportationRequest;
@@ -23,6 +23,7 @@ public class TeleportUtils {
 	private static long requestTimeout = 90000;
 	private static List<UUID> disabledRequests = new ArrayList<>();
 	private static Map<UUID, Location> lastLoc = new HashMap<>();
+	private static Map<UUID, TeleportWrapper> tasks = new HashMap<>();
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
 		if (teleportRequests.containsKey(other.getUniqueId())) {
@@ -127,7 +128,7 @@ public class TeleportUtils {
 				&& !overrideWait) {
 
 			Location holder = player.getLocation();
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+			BukkitTask task = Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -142,6 +143,9 @@ public class TeleportUtils {
 
 				}
 			}, 5 * 20);
+
+			TeleportWrapper wrap = new TeleportWrapper(player, player.getLocation(), task.getTaskId());
+			tasks.put(player.getUniqueId(), wrap);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 5 seconds. Don't move.");
 			return;
@@ -152,6 +156,22 @@ public class TeleportUtils {
 					CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
 							+ loc.getBlockX() + "&f, &7" + loc.getBlockY() + "&f, &7" + loc.getBlockZ() + "&f."));
 		player.teleport(loc);
+	}
+
+	public static void checkTeleport(Player player) {
+		if (tasks.containsKey(player.getUniqueId())) {
+			if (player.getLocation().getBlockX() == tasks.get(player.getUniqueId()).getStartingPoint().getBlockX()
+					&& player.getLocation().getBlockZ() == tasks.get(player.getUniqueId()).getStartingPoint()
+							.getBlockZ()) {
+				return;
+			} else {
+				player.removeMetadata("coreteleporting", Main.getPlugin());
+				Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()).getID());
+				player.sendMessage(
+						CoreUtils.prefixes("teleport") + "You've moved you so your teleportation has been cancelled.");
+
+			}
+		}
 	}
 
 	public static void teleportPlayer(String sender, Player player, Player other) {
@@ -226,14 +246,14 @@ public class TeleportUtils {
 	public static void addToHistory(Player player, Location from) {
 		lastLoc.put(player.getUniqueId(), from);
 	}
-	
+
 	public static void goBack(Player player) {
-		if(!lastLoc.containsKey(player.getUniqueId())) {
+		if (!lastLoc.containsKey(player.getUniqueId())) {
 			player.sendMessage(CoreUtils.prefixes("teleport") + "You don't have a teleport history.");
 			return;
 		}
 		teleport(player, lastLoc.get(player.getUniqueId()), true, false);
-		
+
 	}
 
 }

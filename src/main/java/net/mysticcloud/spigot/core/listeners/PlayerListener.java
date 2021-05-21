@@ -83,6 +83,9 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent e) {
+		if(e.getPlayer().hasMetadata("coreteleporting")) {
+			TeleportUtils.checkTeleport(e.getPlayer());
+		}
 		if (AFKUtils.isAFK(e.getPlayer())) {
 			if (!(AFKUtils.getAFKPacket(e.getPlayer()) == null)) {
 				if (!AFKUtils.getAFKPacket(e.getPlayer()).getLocation().getBlock().getLocation()
