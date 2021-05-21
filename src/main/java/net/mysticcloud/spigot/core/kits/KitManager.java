@@ -33,7 +33,6 @@ public class KitManager {
 	static File cooldownFile = new File(Main.getPlugin().getDataFolder() + "/kitcache/cooldowns.yml");
 
 	static Map<String, Kit> kitsManager = new HashMap<>();
-	static Map<UUID, KitWrapper> cooldown = new HashMap<>();
 	static List<Kit> kits = new ArrayList<>();
 
 	public static List<Kit> getKits() {
@@ -87,7 +86,7 @@ public class KitManager {
 			for (String uid : cc.getStringList("UUIDS")) {
 				for (String kit : cc.getStringList(uid + ".kits")) {
 					KitWrapper wrapper = new KitWrapper(cc.getString(uid + "." + kit), cc.getLong(uid + ".started"));
-					cooldown.put(UUID.fromString(uid), wrapper);
+					kitsManager.get(kit).cooldowns.put(UUID.fromString(uid), cc.getLong(uid + ".started"));
 					Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(),
 							new KitCooldownTimer(UUID.fromString(uid), wrapper), 20);
 				}
@@ -163,28 +162,22 @@ public class KitManager {
 		return kitsManager.containsKey(kit);
 	}
 
-	public static boolean isInCooldown(UUID uid, String kit) {
-		if (cooldown.containsKey(uid)) {
-			if (cooldown.get(uid).kit().equals(kit))
-				return true;
-		}
-		return false;
-	}
-
 	public static Kit getKit(String kit) {
 		return kitsManager.get(kit);
 	}
 
 	public static void applyKit(Player player, String kit) {
-		if (cooldown.containsKey(player.getUniqueId()) && !player.hasPermission("mysticcloud.admin.kit.override")) {
-			CoreUtils.debug((new Date().getTime() - cooldown.get(player.getUniqueId()).started()) + "");
-			player.sendMessage(
-					CoreUtils.prefixes().get("kits")
-							+ CoreUtils.colorize("You can't use that kit yet! You must wait &7"
-									+ getSimpleTimeFormat((getKit(kit).getCooldown() * 1000)
-											- (new Date().getTime() - cooldown.get(player.getUniqueId()).started()))
-									+ "&f."));
-			return;
+		if (kitsManager.get(kit).getCooldowns().containsKey(player.getUniqueId())
+				&& !player.hasPermission("mysticcloud.admin.kit.override")) {
+			if (getKit(kit).checkCooldown(player)) {
+				player.sendMessage(
+						CoreUtils.prefixes().get("kits")
+								+ CoreUtils.colorize("You can't use that kit yet! You must wait &7"
+										+ getSimpleTimeFormat((getKit(kit).getCooldown() * 1000)
+												- (new Date().getTime() - getKit(kit).getStartingTime(player)))
+										+ "&f."));
+				return;
+			}
 		}
 		for (ItemStack item : kitsManager.get(kit).getItems()) {
 			if (player.getInventory().firstEmpty() != -1) {
@@ -215,7 +208,7 @@ public class KitManager {
 			}
 		}
 		KitWrapper wrapper = new KitWrapper(kit, new Date().getTime());
-		cooldown.put(player.getUniqueId(), wrapper);
+		getKit(kit).cooldowns.put(player.getUniqueId(), wrapper.started());
 		Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(),
 				new KitCooldownTimer(player.getUniqueId(), wrapper), 20);
 	}
@@ -259,23 +252,24 @@ public class KitManager {
 	}
 
 	public static void removeFromCooldown(UUID uid, String kit) {
-		cooldown.remove(uid);
+		getKit(kit).cooldowns.remove(uid);
 	}
 
-//	@SuppressWarnings("unlikely-arg-type")
 	public static void unloadCooldowns() {
 		FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
 		Map<String, List<String>> uids = new HashMap<>();
-		for (Entry<UUID, KitWrapper> entry : cooldown.entrySet()) {
-			if (!uids.containsKey(entry.getKey() + "")) {
-				uids.put(entry.getKey().toString(), new ArrayList<>());
-				uids.get(entry.getKey().toString()).add(entry.getValue().kit());
+		for (Kit kit : getKits()) {
+			for (Entry<UUID, Long> entry : kit.cooldowns.entrySet()) {
+				if (!uids.containsKey(entry.getKey() + "")) {
+					uids.put(entry.getKey().toString(), new ArrayList<>());
+					uids.get(entry.getKey().toString()).add(kit.name);
 
-			} else {
-				uids.get(entry.getKey().toString()).add(entry.getValue().kit());
+				} else {
+					uids.get(entry.getKey().toString()).add(kit.name);
+				}
+
+				cc.set(entry.getKey() + "." + kit.name, entry.getValue());
 			}
-
-			cc.set(entry.getKey() + "." + entry.getValue().kit(), entry.getValue().started());
 		}
 
 		cc.set("UUIDS", uids.keySet());
