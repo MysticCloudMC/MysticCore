@@ -83,16 +83,16 @@ public class KitManager {
 		try {
 			FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
 
-			for (String uid : cc.getStringList("UUIDS")) {
-				for (String kit : cc.getStringList(uid + ".kits")) {
-					KitWrapper wrapper = new KitWrapper(cc.getString(uid + "." + kit), cc.getLong(uid + ".started"));
-					kitsManager.get(kit).cooldowns.put(UUID.fromString(uid), cc.getLong(uid + ".started"));
-					Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(),
-							new KitCooldownTimer(UUID.fromString(uid), wrapper), 20);
+			for (String uid : cc.getConfigurationSection("Cooldowns").getKeys(false)) {
+				for (Kit kit : kitsManager.values()) {
+					if (cc.isSet("Cooldowns." + uid + "." + kit.name)) {
+						KitWrapper wrapper = new KitWrapper(kit.name, cc.getLong("Cooldowns." + uid + "." + kit.name));
+						kit.cooldowns.put(UUID.fromString(uid), wrapper.started());
+						Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getPlugin(),
+								new KitCooldownTimer(UUID.fromString(uid), wrapper), 20);
+					}
 				}
-
 			}
-
 		} catch (NullPointerException ex) {
 			cooldownFile.getParentFile().mkdirs();
 			try {
@@ -257,26 +257,11 @@ public class KitManager {
 
 	public static void unloadCooldowns() {
 		FileConfiguration cc = YamlConfiguration.loadConfiguration(cooldownFile);
-		Map<String, List<String>> uids = new HashMap<>();
 		for (Kit kit : getKits()) {
 			for (Entry<UUID, Long> entry : kit.cooldowns.entrySet()) {
-				if (!uids.containsKey(entry.getKey() + "")) {
-					uids.put(entry.getKey().toString(), new ArrayList<>());
-					uids.get(entry.getKey().toString()).add(kit.name);
-
-				} else {
-					uids.get(entry.getKey().toString()).add(kit.name);
-				}
-
-				cc.set(entry.getKey() + "." + kit.name, entry.getValue());
+				cc.set("Cooldowns." + entry.getKey() + "." + kit.name, entry.getValue());
 			}
 		}
-
-		cc.set("UUIDS", uids.keySet());
-		for (Entry<String, List<String>> entry : uids.entrySet()) {
-			cc.set(entry + ".kits", entry.getValue());
-		}
-
 		try {
 			cc.save(cooldownFile);
 		} catch (IOException e) {
