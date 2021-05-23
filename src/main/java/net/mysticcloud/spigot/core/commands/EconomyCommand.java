@@ -26,7 +26,7 @@ public class EconomyCommand implements CommandExecutor {
 				return false;
 			if (Bukkit.getPlayer(args[0]) == null && CoreUtils.LookupUUID(args[0]) == null) {
 				sender.sendMessage(
-						CoreUtils.prefixes("eco") + "Sorry, the player you are trying to pay have played before.");
+						CoreUtils.prefixes("eco") + "Sorry, the player you are trying to pay hasn't played before.");
 				return true;
 			}
 			UUID uid = Bukkit.getPlayer(args[0]) == null ? CoreUtils.LookupUUID(args[0])
@@ -35,14 +35,16 @@ public class EconomyCommand implements CommandExecutor {
 				sender.sendMessage(CoreUtils.prefixes("eco") + "Value must be above 0.");
 				return true;
 			}
-			if (!(sender instanceof Player) || CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]))) {
+			if (!(sender instanceof Player) || CoreUtils.getEconomy().has(((Player) sender).getUniqueId().toString(),
+					Double.parseDouble(args[1]))) {
 
 				Economy eco = CoreUtils.getEconomy();
-				if(sender instanceof Player)eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
+				if (sender instanceof Player)
+					eco.withdrawPlayer(((Player) sender).getUniqueId().toString(), Double.parseDouble(args[1]));
 				eco.depositPlayer(uid.toString(), Double.parseDouble(args[1]));
 				sender.sendMessage(CoreUtils.prefixes("eco")
 						+ CoreUtils.colorize("You paid &6$" + args[1] + "&f to &7" + args[0] + "&f."));
-				if (Bukkit.getPlayer(args[0]) != null)
+				if (Bukkit.getPlayer(args[0]) != null && sender instanceof Player)
 					Bukkit.getPlayer(args[0]).sendMessage(CoreUtils.prefixes("eco")
 							+ CoreUtils.colorize("&7" + sender.getName() + "&f has sent you &6$" + args[1] + "&f."));
 			} else {
@@ -51,10 +53,10 @@ public class EconomyCommand implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("balance")) {
 			if (sender instanceof Player) {
-				
-				
+
 				if (args.length == 1 && sender.hasPermission("mysticcloud.admin.setbalance")) {
-					CoreUtils.getEconomy().withdrawPlayer(((Player) sender).getUniqueId().toString(),CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()));
+					CoreUtils.getEconomy().withdrawPlayer(((Player) sender).getUniqueId().toString(),
+							CoreUtils.getEconomy().getBalance(((Player) sender).getUniqueId().toString()));
 					CoreUtils.getEconomy().depositPlayer(((Player) sender).getUniqueId().toString(),
 							Double.parseDouble(args[0]));
 
