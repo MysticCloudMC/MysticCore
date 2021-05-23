@@ -178,14 +178,12 @@ public class AdminCommands implements CommandExecutor {
 				String a = args.length == 1 ? args[0] : args[1];
 				MysticPlayer mp = MysticAccountManager
 						.getMysticPlayer(args.length > 1 ? Bukkit.getPlayer(args[0]) : ((Player) sender));
-				if (a.contains("+") || a.contains("-")) {
-					a = a.replaceAll("+", "");
-					mp.gainXP(Double.parseDouble(a));
-				} else {
+				if (sender instanceof Player)
 					mp.setXP(Double.parseDouble(a));
-				}
-
+				else
+					mp.gainXP(Double.parseDouble(a));
 			}
+
 		}
 		if (cmd.getName().equalsIgnoreCase("control")) {
 			if (!(sender instanceof Player)) {
