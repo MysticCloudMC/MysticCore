@@ -63,7 +63,7 @@ public class MysticPlayer {
 
 	}
 
-	void setGems(int gems) {
+	public void setGems(int gems) {
 		this.gems = gems;
 	}
 
@@ -78,6 +78,7 @@ public class MysticPlayer {
 	public int getGems() {
 		return gems;
 	}
+	
 
 	public UUID getUUID() {
 		return uid;
