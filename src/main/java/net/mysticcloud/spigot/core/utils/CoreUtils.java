@@ -550,8 +550,7 @@ public class CoreUtils {
 	}
 
 	public static void setScoreboard(Player pl) {
-		if (!useCoreScoreboard())
-			return;
+		
 
 		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 

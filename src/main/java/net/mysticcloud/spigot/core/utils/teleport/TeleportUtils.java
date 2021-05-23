@@ -49,6 +49,7 @@ public class TeleportUtils {
 		other.sendMessage(CoreUtils.colorize("Type &7/tpdeny&f to &cdeny&f the request."));
 		other.sendMessage(CoreUtils.colorize(
 				"You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
+		player.sendMessage(CoreUtils.prefixes("teleport") + "You're teleport request has been sent.");
 		return TeleportResult.REQUESTED;
 	}
 
@@ -59,6 +60,10 @@ public class TeleportUtils {
 				if (Bukkit.getPlayer(player) != null) {
 					Bukkit.getPlayer(player).sendMessage(
 							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
+				}
+				if (Bukkit.getPlayer(other) != null) {
+					Bukkit.getPlayer(other).sendMessage(
+							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "The request has timed out."));
 				}
 			}
 		}
