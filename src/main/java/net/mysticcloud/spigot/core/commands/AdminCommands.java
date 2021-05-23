@@ -24,6 +24,7 @@ import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -169,8 +170,20 @@ public class AdminCommands implements CommandExecutor {
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("level")) {
-			if (sender instanceof Player && sender.hasPermission("mysticcloud.admin.setlevel") && args.length == 1) {
-				MysticAccountManager.getMysticPlayer(((Player) sender)).setXP(Double.parseDouble(args[0]));
+			if (sender.hasPermission("mysticcloud.admin.setlevel")) {
+				if (args.length > 1 && Bukkit.getPlayer(args[0]) == null)
+					return true;
+				if (args.length == 1 && !(sender instanceof Player))
+					return true;
+				String a = args.length == 1 ? args[0] : args[1];
+				MysticPlayer mp = MysticAccountManager
+						.getMysticPlayer(args.length > 1 ? Bukkit.getPlayer(args[0]) : ((Player) sender));
+				if (a.contains("+") || a.contains("-")) {
+					a = a.replaceAll("+", "");
+					mp.gainXP(Double.parseDouble(a));
+				} else {
+					mp.setXP(Double.parseDouble(a));
+				}
 
 			}
 		}
