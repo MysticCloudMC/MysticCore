@@ -338,7 +338,7 @@ public class PunishmentUtils {
 		if (!staff.equalsIgnoreCase("CONSOLE")) {
 			Bukkit.getPlayer(staff).closeInventory();
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.prefixes("reports")
-					+ "Use the command \"/report complete [extra notes]\" to file the reprot.");
+					+ "Use the command \"/report complete [extra notes]\" to file the report.");
 		} else {
 			Bukkit.getConsoleSender().sendMessage(CoreUtils.prefixes("reports")
 					+ "Use the command \"/report complete [extra notes]\" to file the report.");

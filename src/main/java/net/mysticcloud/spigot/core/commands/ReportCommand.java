@@ -87,7 +87,7 @@ public class ReportCommand implements CommandExecutor {
 
 								PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");
 					} else
-						sender.sendMessage("Player not online. Use the /opunish command to punish offline users.");
+						sender.sendMessage(CoreUtils.prefixes("reports") + "Sorry that player is no online, and we don't seem to have a record of them ever playing. (If this player has played before but is offline, please be sure to use their entire case-sensitive name.)");
 				}
 			}
 			if (args.length >= 3) {
