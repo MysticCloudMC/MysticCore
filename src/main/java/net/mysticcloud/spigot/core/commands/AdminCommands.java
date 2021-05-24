@@ -189,6 +189,8 @@ public class AdminCommands implements CommandExecutor {
 				user.removeGroup("voter");
 			}
 			for (String s : voters) {
+				if (PermissionsEx.getUser(s).inGroup("default"))
+					PermissionsEx.getUser(s).removeGroup("default");
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + " group add voter");
 			}
 
