@@ -50,7 +50,7 @@ public class Main extends JavaPlugin {
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
-		new AdminCommands(this, "seen", "uuid", "setspawn", "speed", "debug", "invsee", "level", "plugins", "back");
+		new AdminCommands(this, "votetest","seen", "uuid", "setspawn", "speed", "debug", "invsee", "level", "plugins", "back");
 		new CoreCommands(this, "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");

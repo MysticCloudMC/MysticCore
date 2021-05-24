@@ -3,7 +3,9 @@ package net.mysticcloud.spigot.core.commands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -31,6 +33,8 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class AdminCommands implements CommandExecutor {
 
@@ -156,6 +160,38 @@ public class AdminCommands implements CommandExecutor {
 				pls = "&aMysticCore";
 			sender.sendMessage(
 					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
+		}
+		if (cmd.getName().equalsIgnoreCase("votetest")) {
+			List<String> voters = new ArrayList<>();
+			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM VoteStats ORDER BY votes DESC");
+			try {
+				int i = 0;
+
+				while (rs.next()) {
+					i = i + 1;
+					if (i <= 10) {
+						voters.add(rs.getString("last_name"));
+					} else
+						break;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			for (PermissionUser user : PermissionsEx.getPermissionManager().getGroup("voter").getUsers()) {
+				user.removeGroup("voter");
+			}
+			for (String s : voters) {
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + "group add voter");
+			}
+
 		}
 		if (cmd.getName().equalsIgnoreCase("back")) {
 			if (sender instanceof Player) {

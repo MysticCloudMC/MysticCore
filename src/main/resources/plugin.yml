@@ -155,3 +155,5 @@ commands:
       description: Teleport to your last saved location.
    rules:
       description: Refresh yourself on the rules.
+   votetest:
+      description: Console only command.
