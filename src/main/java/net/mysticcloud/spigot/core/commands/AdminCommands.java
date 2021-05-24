@@ -189,7 +189,7 @@ public class AdminCommands implements CommandExecutor {
 				user.removeGroup("voter");
 			}
 			for (String s : voters) {
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + "group add voter");
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + " group add voter");
 			}
 
 		}
