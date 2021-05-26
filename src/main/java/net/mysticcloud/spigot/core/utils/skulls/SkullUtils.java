@@ -47,7 +47,7 @@ public class SkullUtils {
 
 			@Override
 			public String getID() {
-				return "[I;854160726,1555254121,-1159745984,75904377]";
+				return "[I;-566027055,-1373812234,-1824937619,-1364409557]";
 			}
 		});
 	}
