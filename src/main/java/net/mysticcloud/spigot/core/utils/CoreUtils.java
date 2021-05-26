@@ -1670,9 +1670,8 @@ public class CoreUtils {
 	public static ItemStack getHead(String value) {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 
-		UUID hashAsId = new UUID(value.hashCode(), value.hashCode());
 		return Bukkit.getUnsafe().modifyItemStack(skull,
-				"{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
+				"{SkullOwner:{Id:[I;-1378723443,16860374,-1385993333,-1763905967],Properties:{textures:[{Value:\"" + value + "\"}]}}}");
 	}
 
 }
