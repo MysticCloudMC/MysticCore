@@ -70,7 +70,9 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onTabComplete(TabCompleteEvent e) {
-		Bukkit.broadcastMessage("Buffer: " + e.getBuffer());
+		if(e.getBuffer().contains("/about")) {
+			e.setCancelled(true);
+		}
 	}
 
 	@EventHandler
