@@ -53,6 +53,9 @@ public class AdminCommandTabCompleter implements TabCompleter {
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		List<String> completions = new ArrayList<>();
+		if (cmd.getName().equalsIgnoreCase("about")) {
+			return completions;
+		}
 		if (cmd.getName().equalsIgnoreCase("invsee") || cmd.getName().equalsIgnoreCase("sudo")) {
 			if (args.length == 1)
 				StringUtil.copyPartialMatches(args[0], getOnlinePlayers(), completions);

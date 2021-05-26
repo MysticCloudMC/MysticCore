@@ -24,6 +24,9 @@ commands:
    register:
       usage: /register <web name>
       description: Link your web Account and Minecraft account.
+   about:
+      usage: /about
+      description: Attempt to override /about TAB
    pet:
       usage: /pet
       description: Summon a pet to follow you!
