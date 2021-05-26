@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -101,6 +103,7 @@ public class ReportCommand implements CommandExecutor {
 					InfringementType inf = null;
 					InfringementSeverity sev = null;
 					try {
+						
 						inf = InfringementType.valueOf(args[1].toUpperCase());
 						sev = InfringementSeverity.valueOf(args[2].toUpperCase());
 					} catch (NullPointerException ex) {

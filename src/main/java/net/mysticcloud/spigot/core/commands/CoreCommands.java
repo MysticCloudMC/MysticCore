@@ -60,7 +60,7 @@ public class CoreCommands implements CommandExecutor {
 			String top = CoreUtils.colorize(
 					"&3-------------------&f[Page &7" + page + "&f of &7" + pages + "&f]&3-------------------");
 			String bottom = "";
-			for (int i = 0; i != ChatColor.stripColor(top).length()-2; i++) {
+			for (int i = 0; i != ChatColor.stripColor(top).length() - 2; i++) {
 				bottom = bottom + "-";
 			}
 			bottom = CoreUtils.colorize("&3" + bottom);
@@ -138,7 +138,9 @@ public class CoreCommands implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("pets")) {
 			if (sender instanceof Player) {
-				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
+				((Player) sender).getInventory().addItem(CoreUtils.getHead(
+						"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODM1MWU1MDU5ODk4MzhlMjcyODdlN2FmYmM3Zjk3ZTc5NmNhYjVmMzU5OGE3NjE2MGMxMzFjOTQwZDBjNSJ9fX0="));
+//				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
 			}
 			return true;
 		}

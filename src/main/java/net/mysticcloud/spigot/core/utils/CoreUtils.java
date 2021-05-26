@@ -37,6 +37,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.potion.PotionData;
@@ -54,10 +55,8 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
-import net.mysticcloud.spigot.core.utils.accounts.GameVersion;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
-import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
@@ -68,7 +67,6 @@ import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
-import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.sql.IDatabase;
 import net.mysticcloud.spigot.core.utils.sql.SQLDriver;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
@@ -550,7 +548,6 @@ public class CoreUtils {
 	}
 
 	public static void setScoreboard(Player pl) {
-		
 
 		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
@@ -601,7 +598,8 @@ public class CoreUtils {
 		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
 		board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.N0 + "&f " + player.getGems()));
-		board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
+		board.getTeam("balanceCounter")
+				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
 		board.getTeam("levelCounter")
 				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
 
@@ -1667,6 +1665,14 @@ public class CoreUtils {
 
 	public static void useCoreScoreboard(boolean use) {
 		coreBoard = use;
+	}
+
+	public static ItemStack getHead(String value) {
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+
+		UUID hashAsId = new UUID(value.hashCode(), value.hashCode());
+		return Bukkit.getUnsafe().modifyItemStack(skull,
+				"{SkullOwner:{Id:\"" + hashAsId + "\",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
 	}
 
 }
