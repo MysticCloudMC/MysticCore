@@ -33,12 +33,12 @@ import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 
-import net.minecraft.server.v1_16_R2.DamageSource;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
@@ -53,7 +53,6 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
-import net.mysticcloud.spigot.core.utils.entities.ReaperBoss;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.pets.Pet;
 import net.mysticcloud.spigot.core.utils.pets.PetManager;
@@ -70,6 +69,11 @@ public class PlayerListener implements Listener {
 	}
 
 	@EventHandler
+	public void onTabComplete(TabCompleteEvent e) {
+		Bukkit.broadcastMessage("Buffer: " + e.getBuffer());
+	}
+
+	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
 		if (!e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
 			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
@@ -83,7 +87,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerMoveEvent(PlayerMoveEvent e) {
-		if(e.getPlayer().hasMetadata("coreteleporting")) {
+		if (e.getPlayer().hasMetadata("coreteleporting")) {
 			TeleportUtils.checkTeleport(e.getPlayer());
 		}
 		if (AFKUtils.isAFK(e.getPlayer())) {
