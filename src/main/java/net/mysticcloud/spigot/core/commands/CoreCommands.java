@@ -188,8 +188,6 @@ public class CoreCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("particles")) {
 			if (sender instanceof Player) {
-				((Player) sender).getInventory().addItem(CoreUtils.getHead(
-						"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODM1MWU1MDU5ODk4MzhlMjcyODdlN2FmYmM3Zjk3ZTc5NmNhYjVmMzU5OGE3NjE2MGMxMzFjOTQwZDBjNSJ9fX0="));
 				if (sender.hasPermission("mysticcloud.cmd.particles")) {
 					GUIManager.openInventory(((Player) sender), GUIManager.generateParticleFormatMenu((Player) sender),
 							"Particle Format");

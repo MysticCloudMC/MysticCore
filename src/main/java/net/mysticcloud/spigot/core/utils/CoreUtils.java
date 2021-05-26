@@ -1667,11 +1667,11 @@ public class CoreUtils {
 		coreBoard = use;
 	}
 
-	public static ItemStack getHead(String value) {
+	public static ItemStack getHead(String id, String value) {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
 
 		return Bukkit.getUnsafe().modifyItemStack(skull,
-				"{SkullOwner:{Id:[I;-1378723443,16860374,-1385993333,-1763905967],Properties:{textures:[{Value:\"" + value + "\"}]}}}");
+				"{SkullOwner:{Id:" + id + ",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
 	}
 
 }
