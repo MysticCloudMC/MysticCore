@@ -7,24 +7,20 @@ import org.bukkit.inventory.ItemStack;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public enum CustomHead {
-
-	DISCORD("[I;-566027055,-1373812234,-1824937619,-1364409557]",
-			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19"),
-	MONITOR("[I;1519558527,443829541,-2045951745,1395314622]",
-			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTg2ZjcyYzE2YjFlOWZlNmUwOTllNzZiNWY3YTg4NGZiNzgyY2ZjYzU4OGM5NWM0ZTM4M2RjNTI3ZDFiODQifX19"),
-	CHICKEN("[I;854160726,1555254121,-1159745984,75904377]",
-			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2YzN2Q1MjRjM2VlZDE3MWNlMTQ5ODg3ZWExZGVlNGVkMzk5OTA0NzI3ZDUyMTg2NTY4OGVjZTNiYWM3NWUifX19");
-
-	String id;
-	String value;
-
-	CustomHead(String id, String value) {
-		this.id = id;
-		this.value = value;
-	}
-
-	public ItemStack getHead() {
-		return CoreUtils.getHead(id, value);
-	}
+//
+//	DISCORD("[I;-566027055,-1373812234,-1824937619,-1364409557]",
+//			"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzg3M2MxMmJmZmI1MjUxYTBiODhkNWFlNzVjNzI0N2NiMzlhNzVmZjFhODFjYmU0YzhhMzliMzExZGRlZGEifX19"),
+//
+//	String id;
+//	String value;
+//
+//	CustomHead(String id, String value) {
+//		this.id = id;
+//		this.value = value;
+//	}
+//
+//	public ItemStack getHead() {
+//		return CoreUtils.getHead(id, value);
+//	}
 
 }
