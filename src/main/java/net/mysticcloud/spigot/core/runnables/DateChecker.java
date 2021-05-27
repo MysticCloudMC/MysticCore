@@ -49,15 +49,15 @@ public class DateChecker implements Runnable {
 				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
 				hourWarn = true;
 			}
-			if (calendar.get(Calendar.MINUTE) >= 35) {
+			if (calendar.get(Calendar.MINUTE) >= 30) {
 				if (!tmWarn) {
 					Bukkit.broadcastMessage(CoreUtils.colorize("&a&lThe network will be restarting in 30 minutes."));
 					tmWarn = true;
 				}
-				if (calendar.get(Calendar.MINUTE) >= 38) {
+				if (calendar.get(Calendar.MINUTE) >= 55) {
 					if (!fmWarn) {
 						Bukkit.broadcastMessage(
-								CoreUtils.colorize("&c&l&k|||&aThe network will be restarting in 5 minutes.&c&l&k|||"));
+								CoreUtils.colorize("&c&l&k|||&a&lThe network will be restarting in 5 minutes.&c&l&k|||"));
 						fmWarn = true;
 					}
 				}

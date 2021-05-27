@@ -1,6 +1,8 @@
 package net.mysticcloud.spigot.core.utils.skulls;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.bukkit.Material;
@@ -57,8 +59,16 @@ public class SkullUtils {
 				: new ItemStack(Material.SKELETON_SKULL);
 	}
 
-	public static Map<String,CustomSkull> getSkulls() {
+	public static Map<String, CustomSkull> getSkulls() {
 		return skulls;
+	}
+
+	public static List<String> getSkullNames() {
+		List<String> skls = new ArrayList<>();
+		for (String s : skulls.keySet()) {
+			skls.add(s);
+		}
+		return skls;
 	}
 
 }

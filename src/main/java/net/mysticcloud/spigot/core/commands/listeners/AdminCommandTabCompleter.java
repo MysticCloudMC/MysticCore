@@ -58,7 +58,7 @@ public class AdminCommandTabCompleter implements TabCompleter {
 			return completions;
 		}
 		if (cmd.getName().equalsIgnoreCase("skull")) {
-			StringUtil.copyPartialMatches(args[1], SkullUtils.getSkulls().keySet(), completions);
+			StringUtil.copyPartialMatches(args[1], SkullUtils.getSkullNames(), completions);
 		}
 		if (cmd.getName().equalsIgnoreCase("invsee") || cmd.getName().equalsIgnoreCase("sudo")) {
 			if (args.length == 1)
