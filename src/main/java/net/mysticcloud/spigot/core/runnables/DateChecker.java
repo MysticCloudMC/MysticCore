@@ -29,6 +29,7 @@ public class DateChecker implements Runnable {
 	boolean hourWarn = false;
 	boolean tmWarn = false;
 	boolean fmWarn = false;
+	Calendar calendar = Calendar.getInstance();
 
 	public DateChecker(int counter) {
 
@@ -40,17 +41,18 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
-		
-//		if(Calendar.HOUR_OF_DAY == 11) {
-//			if(!hourWarn) {
-//				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
-//				hourWarn = true;
-//			}
-//		}
-		
 
-		
-		DebugUtils.debug(Calendar.HOUR_OF_DAY + ":" + Calendar.MINUTE + ":" + Calendar.SECOND);
+		calendar = Calendar.getInstance();
+
+		if (calendar.get(Calendar.HOUR) == 11) {
+			if (!hourWarn) {
+				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
+				hourWarn = true;
+			}
+		}
+
+		DebugUtils.debug(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":"
+				+ calendar.get(Calendar.SECOND));
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();
@@ -92,7 +94,7 @@ public class DateChecker implements Runnable {
 				}
 				PunishmentUtils.finishPunishments();
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					if(CoreUtils.useCoreScoreboard()) {
+					if (CoreUtils.useCoreScoreboard()) {
 						CoreUtils.updateScoreboard(player);
 					}
 				}
