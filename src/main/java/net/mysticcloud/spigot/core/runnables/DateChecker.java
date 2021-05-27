@@ -56,8 +56,8 @@ public class DateChecker implements Runnable {
 				}
 				if (calendar.get(Calendar.MINUTE) >= 55) {
 					if (!fmWarn) {
-						Bukkit.broadcastMessage(
-								CoreUtils.colorize("&c&l&k|||&a&lThe network will be restarting in 5 minutes.&c&l&k|||"));
+						Bukkit.broadcastMessage(CoreUtils
+								.colorize("&c&l&k|||&a&lThe network will be restarting in 5 minutes.&c&l&k|||"));
 						fmWarn = true;
 					}
 				}
@@ -66,7 +66,9 @@ public class DateChecker implements Runnable {
 
 		DebugUtils.debug(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":"
 				+ calendar.get(Calendar.SECOND));
-		if (calendar.get(Calendar.HOUR) == 19) {
+		if (calendar.get(Calendar.HOUR) == 19 && calendar.get(Calendar.MINUTE) >= 0
+				&& calendar.get(Calendar.MINUTE) <= 3) {
+
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
 		}
 
