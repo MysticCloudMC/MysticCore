@@ -26,6 +26,9 @@ public class DateChecker implements Runnable {
 
 	int counter = 0;
 	long lastcheck = 0;
+	boolean hourWarn = false;
+	boolean tmWarn = false;
+	boolean fmWarn = false;
 
 	public DateChecker(int counter) {
 
@@ -38,8 +41,16 @@ public class DateChecker implements Runnable {
 	@Override
 	public void run() {
 		
-		DebugUtils.debug(java.util.Calendar.HOUR_OF_DAY + "");
+//		if(Calendar.HOUR_OF_DAY == 11) {
+//			if(!hourWarn) {
+//				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
+//				hourWarn = true;
+//			}
+//		}
 		
+
+		
+		DebugUtils.debug(Calendar.HOUR_OF_DAY + ":" + Calendar.MINUTE + ":" + Calendar.SECOND);
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();
