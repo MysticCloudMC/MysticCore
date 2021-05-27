@@ -35,6 +35,12 @@ public class CoreCommands implements CommandExecutor {
 		rules.add("Don't use any hacks or game exploits to give you and advantage over other players.");
 		rules.add("Don't curse in public chat.");
 		rules.add("Use English in public chat.");
+		rules.add("Don't use all caps in public chat.");
+		rules.add("No advertising of other servers or websites.");
+		rules.add(
+				"No referral links. While you can link to us or our partners, you may not use a 3rd party to generate that link");
+		rules.add(
+				"Players with names found to be offensive will be banned until they can prove their name is no longer offensive.");
 		rules.add("Don't steal or greif inside land claims on Survival; even if you're trusted.");
 		rules.add("Don't try and evade bans with alts.");
 		rules.add("Don't disrespect staff.");
@@ -54,7 +60,7 @@ public class CoreCommands implements CommandExecutor {
 				return true;
 			}
 
-			int pages = ((int) Math.ceil(rules.size() / 3)) + 1;
+			int pages = ((int) Math.ceil(rules.size() / 5)) + 1;
 			if (page > pages)
 				page = pages;
 			String top = CoreUtils.colorize(
@@ -68,7 +74,7 @@ public class CoreCommands implements CommandExecutor {
 			sender.sendMessage(top);
 			sender.sendMessage("");
 
-			for (String s : CoreUtils.getPageResults(rules, page, 3)) {
+			for (String s : CoreUtils.getPageResults(rules, page, 5)) {
 				sender.sendMessage(CoreUtils.colorize("&3 - &f" + s));
 			}
 			sender.sendMessage("");
