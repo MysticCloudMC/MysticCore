@@ -58,7 +58,7 @@ public class AdminCommands implements CommandExecutor {
 				return true;
 			}
 
-			if (sender.hasPermission("mysticcloud.staff.skull")) {
+			if (!sender.hasPermission("mysticcloud.staff.skull")) {
 				sender.sendMessage(CoreUtils.prefixes("admin") + "You don't have permission to use that command.");
 				return true;
 			}
