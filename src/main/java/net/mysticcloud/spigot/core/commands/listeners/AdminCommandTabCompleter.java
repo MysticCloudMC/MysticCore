@@ -18,6 +18,7 @@ import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
 public class AdminCommandTabCompleter implements TabCompleter {
 
@@ -55,6 +56,9 @@ public class AdminCommandTabCompleter implements TabCompleter {
 		List<String> completions = new ArrayList<>();
 		if (cmd.getName().equalsIgnoreCase("about")) {
 			return completions;
+		}
+		if (cmd.getName().equalsIgnoreCase("skull")) {
+			StringUtil.copyPartialMatches(args[1], SkullUtils.getSkulls().keySet(), completions);
 		}
 		if (cmd.getName().equalsIgnoreCase("invsee") || cmd.getName().equalsIgnoreCase("sudo")) {
 			if (args.length == 1)

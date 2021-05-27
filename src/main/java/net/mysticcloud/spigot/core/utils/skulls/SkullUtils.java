@@ -57,4 +57,8 @@ public class SkullUtils {
 				: new ItemStack(Material.SKELETON_SKULL);
 	}
 
+	public static Map<String,CustomSkull> getSkulls() {
+		return skulls;
+	}
+
 }
