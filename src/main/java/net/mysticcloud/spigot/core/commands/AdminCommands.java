@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
@@ -17,6 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
@@ -32,6 +34,7 @@ import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
@@ -48,16 +51,43 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("skull")) {
+
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(CoreUtils.prefixes("admin") + "Players only.");
+				return true;
+			}
+
+			if (sender.hasPermission("mysticcloud.staff.skull")) {
+				sender.sendMessage(CoreUtils.prefixes("admin") + "You don't have permission to use that command.");
+				return true;
+			}
+
+			if (args.length == 0) {
+				sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /skull <dbName>");
+				return true;
+			}
+			sender.sendMessage(CoreUtils.prefixes("admin") + "Searching for \"" + args[0] + "\" in the database...");
+			ItemStack item = SkullUtils.getSkull(args[0]);
+			sender.sendMessage(CoreUtils.prefixes("admin") + (item.getType().equals(Material.SKELETON_SKULL)
+					? "Could not find \"" + args[0] + "\" in the player head database."
+					: "Found \"" + args[0] + "\"!"));
+			((Player) sender).getInventory().addItem(item);
+		}
+
 		if (cmd.getName().equalsIgnoreCase("setspawn")) {
-			// Spawn set code
-			if (args.length == 0)
-				if (sender instanceof Player) {
-					CoreUtils.setSpawnLocation(((Player) sender).getLocation());
-					sender.sendMessage(CoreUtils.prefixes("admin") + "Set spawn!");
-				} else {
-					sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /setspawn <world> <x> <y> <x>");
-				}
-			return true;
+
+			if (sender.hasPermission("mysticcloud.admin.setspawn")) {
+				if (args.length == 0)
+					if (sender instanceof Player) {
+						CoreUtils.setSpawnLocation(((Player) sender).getLocation());
+						sender.sendMessage(CoreUtils.prefixes("admin") + "Set spawn!");
+					} else {
+						sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /setspawn <world> <x> <y> <x>");
+					}
+				return true;
+
+			}
 		}
 
 		if (cmd.getName().equalsIgnoreCase("seen")) {
