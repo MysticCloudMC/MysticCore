@@ -35,6 +35,7 @@ import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
+import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
 public class Main extends JavaPlugin {
 	static Main plugin;
@@ -42,11 +43,14 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 		CoreUtils.start();
+		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
+		
+		
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
