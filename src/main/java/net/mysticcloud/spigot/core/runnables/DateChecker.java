@@ -37,6 +37,9 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
+		
+		DebugUtils.debug(java.util.Calendar.HOUR_OF_DAY + "");
+		
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();

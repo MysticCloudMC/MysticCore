@@ -27,6 +27,9 @@ commands:
    about:
       usage: /about
       description: Attempt to override /about TAB
+   skull:
+      usage: /skull
+      description: Admin command to generate custom skulls.
    pet:
       usage: /pet
       description: Summon a pet to follow you!
