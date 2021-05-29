@@ -38,7 +38,7 @@ public class CoreCommands implements CommandExecutor {
 		rules.add("Don't use all caps in public chat.");
 		rules.add("No advertising of other servers or websites.");
 		rules.add(
-				"No referral links. While you can link to us or our partners, you may not use a 3rd party to generate that link");
+				"No referral links. While you can link to us or our partners, you may not use a 3rd party to generate that link.");
 		rules.add(
 				"Players with names found to be offensive will be banned until they can prove their name is no longer offensive.");
 		rules.add("Don't steal or greif inside land claims on Survival; even if you're trusted.");

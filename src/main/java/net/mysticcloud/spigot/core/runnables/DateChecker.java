@@ -44,7 +44,7 @@ public class DateChecker implements Runnable {
 
 		calendar = Calendar.getInstance();
 
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 18) {
+		if (calendar.get(Calendar.HOUR_OF_DAY) == 17) {
 			if (!hourWarn) {
 				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
 				hourWarn = true;
@@ -66,7 +66,7 @@ public class DateChecker implements Runnable {
 
 		DebugUtils.debug(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":"
 				+ calendar.get(Calendar.SECOND));
-		if (calendar.get(Calendar.HOUR) == 19 && calendar.get(Calendar.MINUTE) >= 0
+		if (calendar.get(Calendar.HOUR) == 18 && calendar.get(Calendar.MINUTE) >= 0
 				&& calendar.get(Calendar.MINUTE) <= 3) {
 
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
