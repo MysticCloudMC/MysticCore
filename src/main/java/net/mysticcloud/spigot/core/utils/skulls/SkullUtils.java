@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
@@ -67,8 +69,18 @@ public class SkullUtils {
 	}
 
 	public static ItemStack getSkull(String skull) {
-		return skulls.containsKey(skull) ? CoreUtils.getHead(skulls.get(skull).getID(), skulls.get(skull).getValue())
-				: new ItemStack(Material.SKELETON_SKULL);
+		ItemStack s;
+		if (skulls.containsKey(skull))
+			s = CoreUtils.getHead(skulls.get(skull).getID(), skulls.get(skull).getValue());
+		else {
+			if (CoreUtils.LookupUUID(skull) == null)
+				return new ItemStack(Material.SKELETON_SKULL);
+			s = new ItemStack(Material.PLAYER_HEAD);
+			SkullMeta meta = (SkullMeta) s.getItemMeta();
+			meta.setOwningPlayer(Bukkit.getOfflinePlayer(CoreUtils.LookupUUID(skull)));
+			s.setItemMeta(meta);
+		}
+		return s;
 	}
 
 	public static Map<String, CustomSkull> getSkulls() {

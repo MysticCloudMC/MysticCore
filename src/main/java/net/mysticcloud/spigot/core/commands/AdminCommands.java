@@ -64,7 +64,7 @@ public class AdminCommands implements CommandExecutor {
 			}
 
 			if (args.length == 0) {
-				sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /skull <dbName>");
+				sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /skull <dbName|player>");
 				return true;
 			}
 			sender.sendMessage(CoreUtils.prefixes("admin") + "Searching for \"" + args[0] + "\" in the database...");
