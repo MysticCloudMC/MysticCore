@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import net.mysticcloud.spigot.core.commands.AdminCommands;
@@ -38,19 +39,15 @@ import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
 public class Main extends JavaPlugin {
-	static Main plugin;
 
 	public void onEnable() {
-		plugin = this;
-		CoreUtils.start();
+		CoreUtils.start(this);
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
-		
-		
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
@@ -104,7 +101,7 @@ public class Main extends JavaPlugin {
 		Bukkit.getScheduler().runTaskLater(getPlugin(), new DateChecker(), 1);
 	}
 
-	public static Main getPlugin() {
-		return plugin;
+	public static Plugin getPlugin() {
+		return CoreUtils.getPlugin();
 	}
 }

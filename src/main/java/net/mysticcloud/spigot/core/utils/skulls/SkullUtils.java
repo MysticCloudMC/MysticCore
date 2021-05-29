@@ -52,6 +52,18 @@ public class SkullUtils {
 				return "[I;-566027055,-1373812234,-1824937619,-1364409557]";
 			}
 		});
+		skulls.put("chest", new CustomSkull() {
+
+			@Override
+			public String getValue() {
+				return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDVjNmRjMmJiZjUxYzM2Y2ZjNzcxNDU4NWE2YTU2ODNlZjJiMTRkNDdkOGZmNzE0NjU0YTg5M2Y1ZGE2MjIifX19";
+			}
+
+			@Override
+			public String getID() {
+				return "[I;866667617,641484425,-1507050624,1155661645]";
+			}
+		});
 	}
 
 	public static ItemStack getSkull(String skull) {
