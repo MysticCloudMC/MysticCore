@@ -124,15 +124,9 @@ public class CoreUtils {
 
 	public static float t = 0;
 	public static List<UUID> particles__remove = new ArrayList<>();
+	
 
-	private static Plugin plugin;
-
-	public static Plugin getPlugin() {
-		return plugin;
-	}
-
-	public static void start(Plugin main) {
-		plugin = main;
+	public static void start() {
 
 		df.setRoundingMode(RoundingMode.DOWN);
 
