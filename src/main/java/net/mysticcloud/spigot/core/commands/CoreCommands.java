@@ -31,6 +31,7 @@ public class CoreCommands implements CommandExecutor {
 			com.setExecutor(this);
 			com.setTabCompleter(new AdminCommandTabCompleter());
 		}
+		rules.add("Don't AFK spam.");
 		rules.add("Staff are trained, if they tell you something against the rules is allowed, go with what they say.");
 		rules.add("Don't use any hacks or game exploits to give you and advantage over other players.");
 		rules.add("Don't curse in public chat.");
