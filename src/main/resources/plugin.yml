@@ -141,7 +141,7 @@ commands:
       description: Shortcut to spectator mode.
    clear:
       aliases:
-      - c
+      - cl
       description: clear your inventory.
    update:
       description: Update a plugin in our repository.
