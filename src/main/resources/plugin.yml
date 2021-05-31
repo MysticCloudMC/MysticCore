@@ -19,6 +19,9 @@ commands:
    settings:
       usage: /settings
       description: Alter your settings.
+   vote:
+      usage: /vote
+      description: Generates a list of sites you can vote for the server on! :)
    speed:
       usage: /speed
       description: check or update your speed.

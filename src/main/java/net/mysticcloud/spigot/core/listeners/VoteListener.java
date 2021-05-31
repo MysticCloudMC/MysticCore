@@ -20,8 +20,9 @@ public class VoteListener implements Listener {
 	@EventHandler
 	public void onVote(final VotifierEvent e) {
 		MysticPlayer player = MysticAccountManager.getMysticPlayer(CoreUtils.LookupUUID(e.getVote().getUsername()));
-		player.setBalance(player.getBalance()+1000);
+		player.setBalance(player.getBalance() + 1000);
 		String cc = ChatColor.getLastColors(CoreUtils.prefixes("vote"));
-		player.sendMessage("vote", "Thank you for voting on &7" + e.getVote().getServiceName() + cc + "! Each vote earns you &7$1,000" + cc + ".");
+		player.sendMessage("vote", "Thank you for voting on &7" + e.getVote().getServiceName() + cc
+				+ "! Each vote earns you &7$1,000" + cc + ".");
 	}
 }

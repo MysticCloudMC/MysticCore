@@ -56,7 +56,7 @@ public class Main extends JavaPlugin {
 		new SQLCommand("sql", this);
 		new AdminCommands(this, "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug", "invsee", "level",
 				"plugins", "back");
-		new CoreCommands(this, "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
+		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
