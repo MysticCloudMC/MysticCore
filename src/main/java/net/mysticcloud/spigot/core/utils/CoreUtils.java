@@ -67,6 +67,8 @@ import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.skulls.CustomSkull;
+import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.sql.IDatabase;
 import net.mysticcloud.spigot.core.utils.sql.SQLDriver;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
@@ -1144,6 +1146,23 @@ public class CoreUtils {
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
+			if (i.getType().equals(Material.PLAYER_HEAD)) {
+				if (item.isSet(name + ".Options.SkullOwner")) {
+					if (item.isSet(name + ".Options.SkullOwner.Name")) {
+						i.setItemMeta(a);
+						CustomSkull cs = SkullUtils.getCustomSkull(item.getString(name + ".Options.SkullOwner.Name"));
+						i = modifyHead(i, cs.getID(), cs.getValue());
+						a = i.getItemMeta();
+					}
+					if (item.isSet(name + ".Options.SkullOwner.Value") && item.isSet(name + ".Options.SkullOwner.ID")) {
+						i.setItemMeta(a);
+						i = modifyHead(i, item.getString(name + ".Options.SkullOwner.ID"),
+								item.getString(name + ".Options.SkullOwner.Value"));
+						a = i.getItemMeta();
+					}
+				}
+			}
+
 			if (item.isSet(name + ".Options.Enchantments")) {
 
 				for (String b : item.getStringList(name + ".Options.Enchantments")) {
@@ -1670,6 +1689,12 @@ public class CoreUtils {
 
 	public static ItemStack getHead(String id, String value) {
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+
+		return Bukkit.getUnsafe().modifyItemStack(skull,
+				"{SkullOwner:{Id:" + id + ",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
+	}
+
+	public static ItemStack modifyHead(ItemStack skull, String id, String value) {
 
 		return Bukkit.getUnsafe().modifyItemStack(skull,
 				"{SkullOwner:{Id:" + id + ",Properties:{textures:[{Value:\"" + value + "\"}]}}}");

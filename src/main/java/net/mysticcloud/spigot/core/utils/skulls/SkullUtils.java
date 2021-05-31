@@ -66,6 +66,10 @@ public class SkullUtils {
 		skulls.put(name, createCustomSkull(value, id));
 	}
 
+	public static CustomSkull getCustomSkull(String name) {
+		return skulls.containsKey(name) ? skulls.get(name) : skulls.get("chicken");
+	}
+
 	public static ItemStack getSkull(String skull) {
 		ItemStack s;
 		if (skulls.containsKey(skull))
