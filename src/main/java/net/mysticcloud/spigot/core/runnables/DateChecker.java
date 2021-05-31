@@ -66,8 +66,8 @@ public class DateChecker implements Runnable {
 
 		DebugUtils.debug(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":"
 				+ calendar.get(Calendar.SECOND));
-		if (calendar.get(Calendar.HOUR) == 18 && calendar.get(Calendar.MINUTE) >= 0
-				&& calendar.get(Calendar.MINUTE) <= 3) {
+		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) >= 0
+				&& calendar.get(Calendar.MINUTE) <= 15) {
 
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
 		}
