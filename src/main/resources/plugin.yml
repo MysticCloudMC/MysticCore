@@ -11,6 +11,7 @@ depend:
 - Vault
 - PermissionsEx
 - Multiverse-Core
+- Votifier
 commands:
    sql:
       usage: /sql [query]
