@@ -70,7 +70,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onTabComplete(TabCompleteEvent e) {
-		if(e.getBuffer().contains("/about")) {
+		if (e.getBuffer().contains("/about")) {
 			e.setCancelled(true);
 		}
 	}
@@ -271,12 +271,14 @@ public class PlayerListener implements Listener {
 	public void onPlayerLogin(PlayerLoginEvent e) {
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			if (punish.getUser().toString().equals("" + e.getPlayer().getUniqueId())) {
-				if (punish.getType().equals(PunishmentType.BAN)) {
+				if (punish.getType().equals(PunishmentType.BAN)
+						&& punish.getDate() + punish.getDuration() >= new Date().getTime()) {
 					e.disallow(Result.KICK_BANNED,
 							CoreUtils.colorize("&cYou're are banned for "
 									+ CoreUtils.getSimpleTimeFormat(
 											punish.getDate() + punish.getDuration() - new Date().getTime())
 									+ "\n&f[Reason] " + punish.getNotes()));
+					return;
 
 				}
 			}

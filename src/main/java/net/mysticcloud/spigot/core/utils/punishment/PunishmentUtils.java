@@ -131,12 +131,12 @@ public class PunishmentUtils {
 
 		if (type.equals(PunishmentType.KICK) && !warn)
 			if (Bukkit.getPlayer(uid) != null)
-				Bukkit.getPlayer(uid).kickPlayer(CoreUtils.colorize("You've been kicked\n" + notes));
+				Bukkit.getPlayer(uid).kickPlayer(CoreUtils.colorize("%kick%You've been kicked\n" + notes));
 
 		if (type.equals(PunishmentType.BAN))
 			if (Bukkit.getPlayer(uid) != null)
 				Bukkit.getPlayer(uid).kickPlayer(CoreUtils.colorize(
-						"You've been banned for &4" + CoreUtils.getSimpleTimeFormat(duration) + "&f\n" + notes));
+						"%kick%You've been banned for &4" + CoreUtils.getSimpleTimeFormat(duration) + "&f\n" + notes));
 		if (type.equals(PunishmentType.MUTE) && !warn) {
 			if (Bukkit.getPlayer(uid) != null)
 				Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("punishments") + "You've been muted.");
@@ -145,7 +145,7 @@ public class PunishmentUtils {
 		if (type.equals(PunishmentType.WARN) || warn) {
 			if (Bukkit.getPlayer(uid) != null)
 				Bukkit.getPlayer(uid).sendMessage(
-						CoreUtils.prefixes("punishments") + "You've been warned: " + CoreUtils.colorize(notes));
+						CoreUtils.prefixes("punishments") + "%kick%You've been warned: " + CoreUtils.colorize(notes));
 
 		}
 
