@@ -26,6 +26,7 @@ import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.ParticleGUIListener;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.listeners.ReportGUIListener;
+import net.mysticcloud.spigot.core.listeners.VoteListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -49,8 +50,7 @@ public class Main extends JavaPlugin {
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
-		
-		
+		new VoteListener(this);
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
