@@ -185,7 +185,12 @@ public class KitManager {
 						|| item.getType().name().contains("_LEGGINGS") || item.getType().name().contains("_BOOTS")) {
 					switch (item.getType().name().split("_")[item.getType().name().split("_").length - 1]) {
 					case "HELMET":
-						player.getInventory().setItem(EquipmentSlot.HEAD, item);
+						if (player.getInventory().getItem(EquipmentSlot.HEAD).getType().equals(Material.AIR))
+							player.getInventory().setItem(EquipmentSlot.HEAD, item);
+						else {
+							player.getInventory().addItem(item);
+							break;
+						}
 						break;
 					case "CHESTPLATE":
 						player.getInventory().setItem(EquipmentSlot.CHEST, item);
