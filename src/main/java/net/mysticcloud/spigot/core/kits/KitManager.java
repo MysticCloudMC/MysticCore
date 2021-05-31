@@ -197,13 +197,34 @@ public class KitManager {
 						
 						break;
 					case "CHESTPLATE":
-						player.getInventory().setItem(EquipmentSlot.CHEST, item);
+						try {
+							if (player.getInventory().getItem(EquipmentSlot.CHEST).getType().equals(Material.AIR))
+								player.getInventory().setItem(EquipmentSlot.CHEST, item);
+							else 
+								player.getInventory().addItem(item);
+						} catch(NullPointerException ex) {
+							player.getInventory().setItem(EquipmentSlot.CHEST, item);
+						}
 						break;
 					case "LEGGINGS":
-						player.getInventory().setItem(EquipmentSlot.LEGS, item);
+						try {
+							if (player.getInventory().getItem(EquipmentSlot.LEGS).getType().equals(Material.AIR))
+								player.getInventory().setItem(EquipmentSlot.LEGS, item);
+							else 
+								player.getInventory().addItem(item);
+						} catch(NullPointerException ex) {
+							player.getInventory().setItem(EquipmentSlot.LEGS, item);
+						}
 						break;
 					case "BOOTS":
-						player.getInventory().setItem(EquipmentSlot.FEET, item);
+						try {
+							if (player.getInventory().getItem(EquipmentSlot.FEET).getType().equals(Material.AIR))
+								player.getInventory().setItem(EquipmentSlot.FEET, item);
+							else 
+								player.getInventory().addItem(item);
+						} catch(NullPointerException ex) {
+							player.getInventory().setItem(EquipmentSlot.FEET, item);
+						}
 						break;
 					default:
 						break;
