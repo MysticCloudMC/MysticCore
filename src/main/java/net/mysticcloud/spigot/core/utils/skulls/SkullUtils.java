@@ -117,6 +117,58 @@ public class SkullUtils {
 				return "[I;735751021,887703109,-1542100497,-2004956133]";
 			}
 		});
+		
+		skulls.put("crafting_bench", new CustomSkull() {
+
+			@Override
+			public String getValue() {
+				return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmNkYzBmZWI3MDAxZTJjMTBmZDUwNjZlNTAxYjg3ZTNkNjQ3OTMwOTJiODVhNTBjODU2ZDk2MmY4YmU5MmM3OCJ9fX0=";
+			}
+
+			@Override
+			public String getID() {
+				return "[I;-2038345071,1713324536,-1078486308,1585568499]";
+			}
+		});
+		
+		skulls.put("apple", new CustomSkull() {
+
+			@Override
+			public String getValue() {
+				return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzVlMmUwOTU5NzEyZGNkMzM1N2NjM2NlYTg1Zjk5YjNmZDgwOTc4NTVjNzU0YjliMTcxZjk2MzUxNDIyNWQifX19";
+			}
+
+			@Override
+			public String getID() {
+				return "[I;1480778329,316624888,-1611935903,1148907210]";
+			}
+		});
+		
+		skulls.put("green_apple", new CustomSkull() {
+
+			@Override
+			public String getValue() {
+				return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTZjMTVmYjRlOWEzMTE5MWYwY2I0ZGE1NmZlNjAzMzRkZDQ2ZWIzYTU4MjExMWI0ZjhmMjdlZGRiNzYwZTJjIn19fQ==";
+			}
+
+			@Override
+			public String getID() {
+				return "[I;-1494102527,1695042176,-1540297872,819027921]";
+			}
+		});
+		
+		skulls.put("golden_apple", new CustomSkull() {
+
+			@Override
+			public String getValue() {
+				return "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjI4NjhlYzZkYmRiYjZiZWNmNjk4ZGExMzZlN2E2Y2QyOGUxOTMxNDc5NmNlMjZhM2Y2N2Q2YWI2NTZlYjIxOSJ9fX0=";
+			}
+
+			@Override
+			public String getID() {
+				return "[I;784740009,403197228,-1987654855,1702013613]";
+			}
+		});
 	}
 
 	public static ItemStack getSkull(String skull) {
