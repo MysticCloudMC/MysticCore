@@ -124,7 +124,6 @@ public class CoreUtils {
 
 	public static float t = 0;
 	public static List<UUID> particles__remove = new ArrayList<>();
-	
 
 	public static void start() {
 
@@ -155,6 +154,7 @@ public class CoreUtils {
 		prefixes.put("punishments", colorize("&4&lInfringements &7>&f "));
 		prefixes.put("afk", colorize("&a&lAFK &f>&7 "));
 		prefixes.put("reports", colorize("&c&lReports &7>&f "));
+		prefixes.put("vote", colorize("&c&aVote &7>&a "));
 
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
