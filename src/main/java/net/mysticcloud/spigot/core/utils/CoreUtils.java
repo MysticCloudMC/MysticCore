@@ -1137,6 +1137,22 @@ public class CoreUtils {
 
 			if (item.isSet(name + ".Id"))
 				i.setType(Material.valueOf(item.getString(name + ".Id")));
+
+			if (i.getType().equals(Material.PLAYER_HEAD)) {
+				if (item.isSet(name + ".Options.SkullOwner")) {
+					if (item.isSet(name + ".Options.SkullOwner.Name")) {
+						CustomSkull cs = SkullUtils.getCustomSkull(item.getString(name + ".Options.SkullOwner.Name"));
+						i = modifyHead(i, cs.getID(), cs.getValue());
+						a = i.getItemMeta();
+					}
+					if (item.isSet(name + ".Options.SkullOwner.Value") && item.isSet(name + ".Options.SkullOwner.ID")) {
+						i = modifyHead(i, item.getString(name + ".Options.SkullOwner.ID"),
+								item.getString(name + ".Options.SkullOwner.Value"));
+						a = i.getItemMeta();
+					}
+				}
+			}
+
 			if (item.isSet(name + ".Data"))
 				i.setDurability(Short.parseShort(item.getString(name + ".Data")));
 			a.setDisplayName(colorize(item.getString(name + ".Options.Display",
@@ -1145,19 +1161,6 @@ public class CoreUtils {
 
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
-
-			if (i.getType().equals(Material.PLAYER_HEAD)) {
-				if (item.isSet(name + ".Options.SkullOwner")) {
-					if (item.isSet(name + ".Options.SkullOwner.Name")) {
-						CustomSkull cs = SkullUtils.getCustomSkull(item.getString(name + ".Options.SkullOwner.Name"));
-						i = modifyHead(i, cs.getID(), cs.getValue());
-					}
-					if (item.isSet(name + ".Options.SkullOwner.Value") && item.isSet(name + ".Options.SkullOwner.ID")) {
-						i = modifyHead(i, item.getString(name + ".Options.SkullOwner.ID"),
-								item.getString(name + ".Options.SkullOwner.Value"));
-					}
-				}
-			}
 
 			if (item.isSet(name + ".Options.Enchantments")) {
 
