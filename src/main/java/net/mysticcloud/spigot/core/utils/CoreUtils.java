@@ -1139,9 +1139,9 @@ public class CoreUtils {
 				i.setType(Material.valueOf(item.getString(name + ".Id")));
 			if (item.isSet(name + ".Data"))
 				i.setDurability(Short.parseShort(item.getString(name + ".Data")));
-			a.setDisplayName(item.isSet(name + ".Options.Display") ? colorize(item.getString(name + ".Options.Display"))
-					: ChatColor.RESET + (i.getType() + "").substring(0, 1).toUpperCase()
-							+ (i.getType() + "").substring(1, (i.getType() + "").length()).toLowerCase());
+			a.setDisplayName(colorize(item.getString(name + ".Options.Display",
+					ChatColor.RESET + (i.getType() + "").substring(0, 1).toUpperCase()
+							+ (i.getType() + "").substring(1, (i.getType() + "").length()).toLowerCase())));
 
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
@@ -1149,16 +1149,12 @@ public class CoreUtils {
 			if (i.getType().equals(Material.PLAYER_HEAD)) {
 				if (item.isSet(name + ".Options.SkullOwner")) {
 					if (item.isSet(name + ".Options.SkullOwner.Name")) {
-						i.setItemMeta(a);
 						CustomSkull cs = SkullUtils.getCustomSkull(item.getString(name + ".Options.SkullOwner.Name"));
 						i = modifyHead(i, cs.getID(), cs.getValue());
-						a = i.getItemMeta();
 					}
 					if (item.isSet(name + ".Options.SkullOwner.Value") && item.isSet(name + ".Options.SkullOwner.ID")) {
-						i.setItemMeta(a);
 						i = modifyHead(i, item.getString(name + ".Options.SkullOwner.ID"),
 								item.getString(name + ".Options.SkullOwner.Value"));
-						a = i.getItemMeta();
 					}
 				}
 			}
