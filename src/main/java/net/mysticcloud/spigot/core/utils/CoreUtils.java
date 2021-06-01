@@ -1692,7 +1692,7 @@ public class CoreUtils {
 
 	public static ItemStack modifyHead(ItemStack skull, String id, String value) {
 
-		return Bukkit.getUnsafe().modifyItemStack(skull,
+		return Bukkit.getUnsafe().modifyItemStack(skull.clone(),
 				"{SkullOwner:{Id:" + id + ",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
 	}
 
