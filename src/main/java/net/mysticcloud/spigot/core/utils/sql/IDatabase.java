@@ -113,6 +113,20 @@ public class IDatabase {
 
 	}
 
+	public boolean tableExist(String tableName) throws SQLException {
+		boolean tExists = false;
+		try (ResultSet rs = connection.getMetaData().getTables(null, null, tableName, null)) {
+			while (rs.next()) {
+				String tName = rs.getString("TABLE_NAME");
+				if (tName != null && tName.equals(tableName)) {
+					tExists = true;
+					break;
+				}
+			}
+		}
+		return tExists;
+	}
+
 	private PreparedStatement prepare(String query, Object... values) {
 		try {
 			if (!init()) {

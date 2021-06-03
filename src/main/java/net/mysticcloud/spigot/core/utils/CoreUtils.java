@@ -172,7 +172,6 @@ public class CoreUtils {
 				}
 			}
 		}
-
 		try {
 			connected = true;
 			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "mysql", "v4pob8LW");
