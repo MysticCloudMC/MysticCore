@@ -155,8 +155,7 @@ public class CoreCommands implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("pets")) {
 			if (sender instanceof Player) {
-
-//				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
+				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
 			}
 			return true;
 		}
