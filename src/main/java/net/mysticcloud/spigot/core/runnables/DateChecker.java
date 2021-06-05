@@ -64,10 +64,10 @@ public class DateChecker implements Runnable {
 			}
 		}
 
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) >= 0
+		if (calendar.get(Calendar.HOUR_OF_DAY) == 20 && calendar.get(Calendar.MINUTE) >= 0
 				&& calendar.get(Calendar.MINUTE) <= 3) {
 
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "restart");
+			Bukkit.getServer().shutdown();
 		}
 
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
