@@ -26,7 +26,7 @@ public class CoreChatUtils {
 
 	private static Map<CharSequence[], CharSequence> replacements = new LinkedHashMap<>();
 
-	public void start() {
+	public static void start() {
 		addChannel("default", "", false);
 		addChannel("staff", "&7[&3&lStaff&7] ", true);
 		addChannel("zachs", "&7[&c&lzACHS&7] ", true);
