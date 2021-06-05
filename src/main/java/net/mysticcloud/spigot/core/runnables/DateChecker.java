@@ -64,7 +64,7 @@ public class DateChecker implements Runnable {
 			}
 		}
 
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 20 && calendar.get(Calendar.MINUTE) >= 0
+		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) >= 0
 				&& calendar.get(Calendar.MINUTE) <= 3) {
 
 			Bukkit.getServer().shutdown();
