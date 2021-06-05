@@ -43,6 +43,9 @@ public class Main extends JavaPlugin {
 
 	public void onEnable() {
 		plugin = this;
+		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
+				"mystic:mystic");
+
 		CoreUtils.start();
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
