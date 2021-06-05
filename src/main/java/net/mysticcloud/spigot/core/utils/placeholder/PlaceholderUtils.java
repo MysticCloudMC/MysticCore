@@ -65,6 +65,24 @@ public class PlaceholderUtils {
 		}
 		return string;
 	}
+	
+	public static String replace(String player, String string) {
+		string = string.replaceAll("%player", player);
+		string = string.replaceAll("%pl", player);
+		string = string.replaceAll("%time", CoreUtils.getTime());
+		string = string.replaceAll("%realtime", CoreUtils.getTime());
+		string = string.replaceAll("%server", Bukkit.getName());
+		string = emotify(string);
+
+		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
+			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
+			string = string.replaceAll("%hdayline", CoreUtils.getHoliday().getScoreboardLine());
+		} else {
+			string = string.replaceAll("%holiday", "");
+			string = string.replaceAll("%hdayline", "");
+		}
+		return string;
+	}
 
 	public static String emotify(String string) {
 		String tag = string + "";

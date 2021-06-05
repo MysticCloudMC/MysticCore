@@ -127,7 +127,7 @@ public class CoreChatUtils {
 			format = getPlayerFormat();
 			break;
 		default:
-			format = getChannelFormat(getChannel(player.getUniqueId()));
+			format = getChannelFormat(channel);
 			break;
 		}
 		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
@@ -138,6 +138,32 @@ public class CoreChatUtils {
 			for (Player s : Bukkit.getOnlinePlayers()) {
 				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
 					s.sendMessage((replaceholders(player, format, message)));
+			}
+		}
+	}
+
+	public static void sendChannelChat(String channel, String message) {
+
+		String format;
+		switch (channel) {
+		case "staff":
+			format = getStaffFormat();
+			break;
+		case "default":
+			format = getPlayerFormat();
+			break;
+		default:
+			format = getChannelFormat(channel);
+			break;
+		}
+		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
+		if (getChannel(channel).isGlobal())
+			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
+					"MysticChat-" + channel, replaceholders("&6CONSOLE", format, message));
+		else {
+			for (Player s : Bukkit.getOnlinePlayers()) {
+				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
+					s.sendMessage((replaceholders("&6CONSOLE", format, message)));
 			}
 		}
 	}
@@ -208,6 +234,17 @@ public class CoreChatUtils {
 					player.hasPermission("mysticcloud.chat.color")
 							? CoreUtils.colorize(PlaceholderUtils.emotify(message))
 							: message);
+		format = PlaceholderUtils.replace(player, format);
+
+		return format;
+	}
+
+	public static String replaceholders(String player, String format, String message) {
+		format = CoreUtils.colorize(format);
+		message = censor(message);
+
+		if (format.contains("%message"))
+			format = format.replace("%message", CoreUtils.colorize(PlaceholderUtils.emotify(message)));
 		format = PlaceholderUtils.replace(player, format);
 
 		return format;

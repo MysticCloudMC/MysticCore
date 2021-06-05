@@ -1055,7 +1055,7 @@ public class CoreUtils {
 	}
 
 	public static void sendZachsMessage(String sender, String message) {
-		CoreChatUtils.sendChannelChat((Player) Bukkit.getOnlinePlayers().toArray()[0], sender,
+		CoreChatUtils.sendChannelChat(sender,
 				colorize("&6" + sender + " &7> &f" + message));
 	}
 
