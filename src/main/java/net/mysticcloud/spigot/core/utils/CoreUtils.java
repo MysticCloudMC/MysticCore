@@ -866,8 +866,10 @@ public class CoreUtils {
 	}
 
 	public static ResultSet sendQuery(String query) throws NullPointerException {
-		if (!connected)
+		if (!connected) {
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
+			
+		}
 		return db.query(query);
 	}
 
@@ -885,9 +887,8 @@ public class CoreUtils {
 
 	public static String toString(String[] args) {
 		String s = "";
-		for (String a : args) {
-			s = s + " " + a;
-		}
+		for (String a : args) 
+			s = s == "" ? a : s + " " + a;
 		return s;
 	}
 
@@ -1054,8 +1055,8 @@ public class CoreUtils {
 	}
 
 	public static void sendZachsMessage(String sender, String message) {
-		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "MysticStaffChat",
-				CoreUtils.colorize("&7[&3&lzACHS&7] &6" + sender + " &7> &f" + message));
+		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "MysticChat-zachs",
+				CoreUtils.colorize("&6" + sender + " &7> &f" + message));
 	}
 
 //	public static void enableScoreboard(Player player) {
