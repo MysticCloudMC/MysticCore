@@ -46,10 +46,10 @@ public class Main extends JavaPlugin {
 		plugin = this;
 		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
 				"mystic:mystic");
-		
+		CoreUtils.start();
+
 		CoreChatUtils.start();
 
-		CoreUtils.start();
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
