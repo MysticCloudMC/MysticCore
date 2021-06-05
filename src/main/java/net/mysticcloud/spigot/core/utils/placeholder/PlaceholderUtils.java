@@ -65,13 +65,34 @@ public class PlaceholderUtils {
 		}
 		return string;
 	}
-	
+
 	public static String replace(String player, String string) {
+		if (string.contains("%lvl"))
+			string = string.replaceAll("%lvl", "");
+
 		string = string.replaceAll("%player", player);
 		string = string.replaceAll("%pl", player);
+		string = string.replaceAll("%world", "");
 		string = string.replaceAll("%time", CoreUtils.getTime());
+		string = string.replaceAll("%balance", "");
+		string = string.replaceAll("%gems", "");
+		string = string.replaceAll("%g", "");
+		string = string.replaceAll("%level", "");
+		string = string.replaceAll("%rank", "%r");
+		string = string.replaceAll("%prefix", "%r");
+		string = string.replaceAll("%r", "");
+		string = string.replaceAll("%displayname", "");
+		string = string.replaceAll("%customname", "");
+		string = string.replaceAll("%time", "");
 		string = string.replaceAll("%realtime", CoreUtils.getTime());
+		string = string.replaceAll("%playertime", "");
+		string = string.replaceAll("%suffix", "");
 		string = string.replaceAll("%server", Bukkit.getName());
+
+		if (string.contains("%tag"))
+			string = string.replaceAll("%tag", "");
+		if (string.contains("%nitro"))
+			string = string.replace("%nitro", "");
 		string = emotify(string);
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
@@ -81,7 +102,7 @@ public class PlaceholderUtils {
 			string = string.replaceAll("%holiday", "");
 			string = string.replaceAll("%hdayline", "");
 		}
-		return string;
+		return CoreUtils.colorize(string);
 	}
 
 	public static String emotify(String string) {
