@@ -87,13 +87,11 @@ public class CoreChatUtils {
 
 			@Override
 			public String getTag() {
-				// TODO Auto-generated method stub
 				return tag;
 			}
 
 			@Override
 			public String getName() {
-				// TODO Auto-generated method stub
 				return name;
 			}
 		};
@@ -145,59 +143,60 @@ public class CoreChatUtils {
 	}
 
 	public static String censor(String message) {
-		String s = "";
-		String original = message;
-		int i = message.length();
-		for (int l = 0; l != i; l++) {
-			try {
-
-				if (message.substring(l, l + 1).equalsIgnoreCase(message.substring(l - 2, l - 1))
-						&& message.substring(l, l + 1).equalsIgnoreCase(message.substring(l - 1, l)))
-					continue;
-				s = s + (l == 0 ? message.substring(l, l + 1).toUpperCase() : message.substring(l, l + 1));
-				// Curses "try"
-				try {
-					for (CharSequence[] curses : replacements.keySet()) {
-						for (CharSequence curse : curses) {
-							if (s.length() < curse.length())
-								continue;
-
-							if (s.substring(s.length() - (curse.length()), s.length()).toLowerCase().contains(curse)) {
-								s = s.substring(0, s.length() - (curse.length()));
-								s = s + replacements.get(curses);
-								i = i + ((curse.length() - replacements.get(curses).length())); // Temp code. Should set
-																								// i to i +
-								// (difference in length in curse
-								// and
-								// replacement) but the try catch
-								// under the first loop catches this
-								// mistake for
-								// me.
-								original = original.replace(curse, replacements.get(curses));
-							}
-						}
-					}
-				} catch (IndexOutOfBoundsException ex) {
-					continue;
-				}
-
-			} catch (IndexOutOfBoundsException ex) {
-				if ((l + 1) < message.length())
-					s = s + (l == 0 ? message.substring(l, l + 1).toUpperCase() : message.substring(l, l + 1));
-			}
-
-		}
-		boolean tmp = false;
-		for (String p : puncuation)
-			if (s.endsWith(p)) {
-				tmp = true;
-				break;
-			}
-
-		if (!tmp)
-			s = s + ".";
-
-		return s;
+//		String s = "";
+//		String original = message;
+//		int i = message.length();
+//		for (int l = 0; l != i; l++) {
+//			try {
+//
+//				if (message.substring(l, l + 1).equalsIgnoreCase(message.substring(l - 2, l - 1))
+//						&& message.substring(l, l + 1).equalsIgnoreCase(message.substring(l - 1, l)))
+//					continue;
+//				s = s + (l == 0 ? message.substring(l, l + 1).toUpperCase() : message.substring(l, l + 1));
+//				// Curses "try"
+//				try {
+//					for (CharSequence[] curses : replacements.keySet()) {
+//						for (CharSequence curse : curses) {
+//							if (s.length() < curse.length())
+//								continue;
+//
+//							if (s.substring(s.length() - (curse.length()), s.length()).toLowerCase().contains(curse)) {
+//								s = s.substring(0, s.length() - (curse.length()));
+//								s = s + replacements.get(curses);
+//								i = i + ((curse.length() - replacements.get(curses).length())); // Temp code. Should set
+//																								// i to i +
+//								// (difference in length in curse
+//								// and
+//								// replacement) but the try catch
+//								// under the first loop catches this
+//								// mistake for
+//								// me.
+//								original = original.replace(curse, replacements.get(curses));
+//							}
+//						}
+//					}
+//				} catch (IndexOutOfBoundsException ex) {
+//					continue;
+//				}
+//
+//			} catch (IndexOutOfBoundsException ex) {
+//				if ((l + 1) < message.length())
+//					s = s + (l == 0 ? message.substring(l, l + 1).toUpperCase() : message.substring(l, l + 1));
+//			}
+//
+//		}
+//		boolean tmp = false;
+//		for (String p : puncuation)
+//			if (s.endsWith(p)) {
+//				tmp = true;
+//				break;
+//			}
+//
+//		if (!tmp)
+//			s = s + ".";
+//
+//		return s;
+		return message;
 	}
 
 	public static String replaceholders(Player player, String format, String message) {
