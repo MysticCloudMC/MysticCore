@@ -260,9 +260,13 @@ public class CoreChatUtils {
 
 	public static void setChannel(Player player, String channel) {
 		if (channels.containsKey(channel.toLowerCase())) {
-			currentChannel.put(player.getUniqueId(), channel);
-			player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("chat") + "You're now chatting in the &7"
-					+ channel.toLowerCase() + "&f channel."));
+			if (player.hasPermission("mysticcloud.channel." + channel.toLowerCase())) {
+				currentChannel.put(player.getUniqueId(), channel);
+				player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("chat") + "You're now chatting in the &7"
+						+ channel.toLowerCase() + "&f channel."));
+			} else {
+				player.sendMessage(CoreUtils.prefixes("chat") + "Sorry, you don't have permission to join that channel.");
+			}
 		} else {
 			player.sendMessage(CoreUtils.prefixes("chat") + "Sorry that channel doesn't exist.");
 		}
