@@ -37,7 +37,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.potion.PotionData;
@@ -53,7 +52,6 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
-import net.mysticcloud.spigot.chat.utils.ChatUtils;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
@@ -63,6 +61,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.admin.VaultAPI;
+import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
@@ -1056,12 +1055,8 @@ public class CoreUtils {
 	}
 
 	public static void sendZachsMessage(String sender, String message) {
-		if (Bukkit.getPluginManager().getPlugin("MysticChat") != null)
-			ChatUtils.sendChannelChat((Player) Bukkit.getOnlinePlayers().toArray()[0], sender,
-					colorize("&6" + sender + " &7> &f" + message));
-		else
-			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
-					"MysticChat-zachs", CoreUtils.colorize("&6" + sender + " &7> &f" + message));
+		CoreChatUtils.sendChannelChat((Player) Bukkit.getOnlinePlayers().toArray()[0], sender,
+				colorize("&6" + sender + " &7> &f" + message));
 	}
 
 //	public static void enableScoreboard(Player player) {
