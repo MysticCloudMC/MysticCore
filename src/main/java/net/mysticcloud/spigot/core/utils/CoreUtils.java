@@ -53,6 +53,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
+import net.mysticcloud.spigot.chat.utils.ChatUtils;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
@@ -868,7 +869,7 @@ public class CoreUtils {
 	public static ResultSet sendQuery(String query) throws NullPointerException {
 		if (!connected) {
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
-			
+
 		}
 		return db.query(query);
 	}
@@ -887,7 +888,7 @@ public class CoreUtils {
 
 	public static String toString(String[] args) {
 		String s = "";
-		for (String a : args) 
+		for (String a : args)
 			s = s == "" ? a : s + " " + a;
 		return s;
 	}
@@ -1055,8 +1056,12 @@ public class CoreUtils {
 	}
 
 	public static void sendZachsMessage(String sender, String message) {
-		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "MysticChat-zachs",
-				CoreUtils.colorize("&6" + sender + " &7> &f" + message));
+		if (Bukkit.getPluginManager().getPlugin("MysticChat") != null)
+			ChatUtils.sendChannelChat((Player) Bukkit.getOnlinePlayers().toArray()[0], sender,
+					colorize("&6" + sender + " &7> &f" + message));
+		else
+			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
+					"MysticChat-zachs", CoreUtils.colorize("&6" + sender + " &7> &f" + message));
 	}
 
 //	public static void enableScoreboard(Player player) {

@@ -5,8 +5,8 @@ description: Runs on all MysticCloud servers
 api-version: 1.15
 api: Spigot
 main: net.mysticcloud.spigot.core.Main
-dependencies:
-- Vault
+soft-depend:
+- ChatUtils
 depend:
 - Vault
 - PermissionsEx
