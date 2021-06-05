@@ -34,7 +34,10 @@ commands:
    skull:
       usage: /skull
       description: Admin command to generate custom skulls.
-   pet:
+   pets:
+      aliases:
+      - pet
+      - pal
       usage: /pet
       description: Summon a pet to follow you!
    sudo:
