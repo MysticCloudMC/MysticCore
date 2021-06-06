@@ -1,6 +1,5 @@
 package net.mysticcloud.spigot.core.listeners;
 
-
 import java.sql.Date;
 
 import org.bukkit.ChatColor;
@@ -29,6 +28,6 @@ public class VoteListener implements Listener {
 		player.sendMessage("vote", "Thank you for voting on &7" + e.getVote().getServiceName() + cc
 				+ "! Each vote earns you &7$1,000" + cc + ".");
 		DebugUtils.debug("" + CoreUtils.sendInsert("INSERT INTO Votes (UUID,Service,Day) VALUES ('" + player.getUUID()
-				+ "','" + e.getVote().getServiceName() + "'," + new Date(new java.util.Date().getTime()) + ");"));
+				+ "','" + e.getVote().getServiceName() + "'," + new Date(new java.util.Date().getTime())) + ");");
 	}
 }
