@@ -12,6 +12,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 
 public class VoteListener implements Listener {
 
@@ -26,7 +27,7 @@ public class VoteListener implements Listener {
 		String cc = ChatColor.getLastColors(CoreUtils.prefixes("vote"));
 		player.sendMessage("vote", "Thank you for voting on &7" + e.getVote().getServiceName() + cc
 				+ "! Each vote earns you &7$1,000" + cc + ".");
-		CoreUtils.sendInsert("INSERT INTO Votes (UUID,Service,Day) VALUES ('" + player.getUUID() + "','"
-				+ e.getVote().getServiceName() + "'," + new Date().getTime() + ");");
+		DebugUtils.debug("" + CoreUtils.sendInsert("INSERT INTO Votes (UUID,Service,Day) VALUES ('" + player.getUUID()
+				+ "','" + e.getVote().getServiceName() + "'," + new Date().getTime() + ");"));
 	}
 }
