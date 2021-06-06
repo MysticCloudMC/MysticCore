@@ -204,7 +204,7 @@ public class AdminCommands implements CommandExecutor {
 					if (new Date().getTime() - Long.parseLong(rs.getString("Day")) <= TimeUnit.MILLISECONDS.convert(30,
 							TimeUnit.DAYS)) {
 						UUID uid = UUID.fromString(rs.getString("UUID"));
-						votes.put(uid, (votes.containsKey(uid) ? votes.get(rs.getString("UUID")) : 0) + 1);
+						votes.put(uid, (votes.containsKey(uid) ? votes.get(uid) : 0) + 1);
 					} else
 						break;
 				}
