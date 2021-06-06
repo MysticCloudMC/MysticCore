@@ -5,8 +5,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -192,15 +197,14 @@ public class AdminCommands implements CommandExecutor {
 					CoreUtils.colorize(msg + pls + org.bukkit.ChatColor.getLastColors(CoreUtils.colorize(msg)) + "."));
 		}
 		if (cmd.getName().equalsIgnoreCase("votetest")) {
-			List<String> voters = new ArrayList<>();
-			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM VoteStats ORDER BY votes DESC");
+			Map<UUID, Integer> votes = new HashMap<>();
+			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Votes ORDER BY Day DESC");
 			try {
-				int i = 0;
-
 				while (rs.next()) {
-					i = i + 1;
-					if (i <= 10) {
-						voters.add(rs.getString("last_name"));
+					if (new Date().getTime() - Long.parseLong(rs.getString("Day")) <= TimeUnit.MILLISECONDS.convert(30,
+							TimeUnit.DAYS)) {
+						UUID uid = UUID.fromString(rs.getString("UUID"));
+						votes.put(uid, (votes.containsKey(uid) ? votes.get(rs.getString("UUID")) : 0) + 1);
 					} else
 						break;
 				}
@@ -218,10 +222,15 @@ public class AdminCommands implements CommandExecutor {
 			for (PermissionUser user : PermissionsEx.getPermissionManager().getGroup("voter").getUsers()) {
 				user.removeGroup("voter");
 			}
-			for (String s : voters) {
-				if (PermissionsEx.getUser(s).inGroup("default"))
-					PermissionsEx.getUser(s).removeGroup("default");
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + " group add voter");
+			int i = 0;
+			for (Entry<UUID, Integer> e : CoreUtils.sortByValue(votes).entrySet()) {
+				if (i < 5) {
+					String s = CoreUtils.lookupUsername(e.getKey());
+					if (PermissionsEx.getUser(s).inGroup("default"))
+						PermissionsEx.getUser(s).removeGroup("default");
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + " group add voter");
+				}
+				i = i + 1;
 			}
 
 		}

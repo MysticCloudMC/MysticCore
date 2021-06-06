@@ -9,14 +9,17 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -383,6 +386,17 @@ public class CoreUtils {
 		im.setLore(list);
 		i.setItemMeta(im);
 		return i;
+	}
+
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
+		list.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
+
+		Map<K, V> result = new LinkedHashMap<>();
+		for (Entry<K, V> entry : list) {
+			result.put(entry.getKey(), entry.getValue());
+		}
+		return result;
 	}
 
 	public static UUID LookupUUID(String player) {
