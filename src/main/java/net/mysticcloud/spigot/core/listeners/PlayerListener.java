@@ -312,7 +312,7 @@ public class PlayerListener implements Listener {
 
 		MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 
-		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &f"
+		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &3"
 				+ MysticAccountManager.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
 
 		CoreUtils.setScoreboard(e.getPlayer());
