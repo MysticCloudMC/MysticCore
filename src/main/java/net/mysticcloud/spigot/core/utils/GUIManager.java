@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -248,8 +249,13 @@ public class GUIManager {
 	}
 
 	public static Inventory getTagsMenu(Player player) {
+		return getTagsMenu(player, 1);
+	}
 
-		int size = (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9);
+	public static Inventory getTagsMenu(Player player, int page) {
+		boolean pages = CustomTag.values().length > 54;
+
+		int size = pages ? (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9) : 36;
 
 		InventoryCreator inv = new InventoryCreator("&e&lCustom Tags&7:", (null), size + 18);
 
@@ -259,6 +265,9 @@ public class GUIManager {
 		inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), "&7Choose an option.", 'X', (String[]) null);
 		inv.addItem(new ItemStack(Material.BARRIER), "&cRemove Tag", 'Y', (String[]) null);
 
+		inv.addItem(new ItemStack(Material.BARRIER), "&aNext Page", 'n', (String[]) null);
+		inv.addItem(new ItemStack(Material.BARRIER), "&aPrevious Page", 'p', (String[]) null);
+
 		c.add('X');
 		c.add('X');
 		c.add('X');
@@ -269,10 +278,13 @@ public class GUIManager {
 		c.add('X');
 		c.add('X');
 
-		for (int i = 0; i != size; i++) {
+		List<String> keys = new ArrayList<>();
+		for (String s : CustomTag.keys())
+			keys.add(s);
 
+		int i = 0;
+		for (String key : CoreUtils.getPageResults(keys, page, 36)) {
 			if (i < (CustomTag.keys().length)) {
-				String key = CustomTag.keys()[i];
 				String value = CustomTag.getTag(key);
 				if (value.contains("[NT]")) {
 //					i--;
@@ -290,17 +302,34 @@ public class GUIManager {
 			} else {
 				c.add('X');
 			}
+			i = i + 1;
 
 		}
 
 		c.add('X');
 		c.add('X');
 		c.add('X');
-		c.add('X');
+		if (pages) {
+			if (CustomTag.keys().length / 36 > page) {
+				c.add('p');
+			} else {
+				c.add('X');
+			}
+		} else {
+			c.add('X');
+		}
 		c.add('X');
 		c.add('Y');
 		c.add('X');
-		c.add('X');
+		if (pages) {
+			if (CustomTag.keys().length / 36 > page) {
+				c.add('n');
+			} else {
+				c.add('X');
+			}
+		} else {
+			c.add('X');
+		}
 		c.add('X');
 		c.add('X');
 
