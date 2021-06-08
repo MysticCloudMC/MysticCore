@@ -282,7 +282,32 @@ public class GUIManager {
 		for (String s : CustomTag.keys())
 			keys.add(s);
 
+		
+		for (int i = 0; i != size; i++) {
+
+			if (i < (CustomTag.keys().length)) {
+				String key = CoreUtils.getPageResults(keys, page, 36).get(i);
+				String value = CustomTag.getTag(key);
+				if (value.contains("[NT]")) {
+//					i--;
+					continue;
+				}
+				String name = key.substring(0, 1).toUpperCase() + key.substring(1, key.length()).toLowerCase();
+				if (player.hasPermission("mysticcloud.customtag." + key.toLowerCase())) {
+					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e" + name), (char) i,
+							new String[] { PlaceholderUtils.emotify(value) }, false);
+				} else {
+					inv.addItem(new ItemStack(Material.RED_STAINED_GLASS_PANE), "&cLocked...", (char) i,
+							new String[] { PlaceholderUtils.emotify(value) }, false);
+				}
+				c.add((char) i);
+			} else {
+				c.add('X');
+			}
+
+		}
 		int i = 0;
+		
 		for (String key : CoreUtils.getPageResults(keys, page, 36)) {
 			if (i < (CustomTag.keys().length)) {
 				String value = CustomTag.getTag(key);
