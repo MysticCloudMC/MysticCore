@@ -256,8 +256,10 @@ public class GUIManager {
 	public static Inventory getTagsMenu(Player player, int page) {
 		boolean pages = CustomTag.values().length / 36 > page;
 		DebugUtils.debug("Pages:" + pages);
-
-		int size = !pages ? (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9) : 36;
+		List<String> keys = new ArrayList<>();
+		for (String s : CustomTag.keys())
+			keys.add(s);
+		int size = !pages ? (int) ((((CoreUtils.getPageResults(keys, page, 36).size() - 1) / 9) + 1) * 9) : 36;
 		DebugUtils.debug("Size:" + size);
 
 		InventoryCreator inv = new InventoryCreator("&e&lCustom Tags&7:", (null), size + 18);
@@ -278,9 +280,6 @@ public class GUIManager {
 		c.add('X');
 		c.add('X');
 
-		List<String> keys = new ArrayList<>();
-		for (String s : CustomTag.keys())
-			keys.add(s);
 		int x = 0;
 
 		for (int i = 0; i != size; i++) {
