@@ -570,7 +570,7 @@ public class CoreUtils {
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize("        &3&lMystic&f&lCloud        "));
+				CoreUtils.colorize("    &3&lMystic&f&lCloud    "));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(15);
