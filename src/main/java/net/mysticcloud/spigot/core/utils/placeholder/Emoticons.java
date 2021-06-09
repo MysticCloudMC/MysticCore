@@ -26,7 +26,7 @@ public enum Emoticons {
 	N14("\u246D", EmoticonType.NUMBER), N15("\u246E", EmoticonType.NUMBER), N16("\u246F", EmoticonType.NUMBER),
 	N17("\u2470", EmoticonType.NUMBER), N18("\u2471", EmoticonType.NUMBER), N19("\u2472", EmoticonType.NUMBER),
 	N20("\u2473", EmoticonType.NUMBER), BAR_1("\u258C", EmoticonType.TEXT), BAR_2("\u258F", EmoticonType.TEXT),
-	GEMS("\u2743"), UNKNOWN("???");
+	GEMS("\u2743"), FLOWER1("\u273F"), FLOWER2("\u2740"), FLOWER3("\uD83E\uDD40"), UNKNOWN("???");
 
 	String unicode;
 	EmoticonType[] types;
