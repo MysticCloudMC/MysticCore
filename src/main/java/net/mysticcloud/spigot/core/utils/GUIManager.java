@@ -254,7 +254,7 @@ public class GUIManager {
 	}
 
 	public static Inventory getTagsMenu(Player player, int page) {
-		boolean pages = CustomTag.values().length > 36;
+		boolean pages = CustomTag.values().length / 36 > page;
 		DebugUtils.debug("Pages:" + pages);
 
 		int size = !pages ? (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9) : 36;
