@@ -472,11 +472,15 @@ public class PlayerListener implements Listener {
 		}
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
-			if(!e.getCurrentItem().hasItemMeta()) {
+			if (e.getCurrentItem() == null) {
 				e.setCancelled(true);
 				return;
 			}
-			if(!e.getCurrentItem().getItemMeta().hasDisplayName()) {
+			if (!e.getCurrentItem().hasItemMeta()) {
+				e.setCancelled(true);
+				return;
+			}
+			if (!e.getCurrentItem().getItemMeta().hasDisplayName()) {
 				e.setCancelled(true);
 				return;
 			}
