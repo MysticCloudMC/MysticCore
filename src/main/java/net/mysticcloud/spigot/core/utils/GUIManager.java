@@ -281,6 +281,7 @@ public class GUIManager {
 		c.add('X');
 
 		int x = 0;
+		DebugUtils.debug("Size 2: " + CoreUtils.getPageResults(keys, page, 36).size());
 
 		for (int i = 0; i != size; i++) {
 
