@@ -281,14 +281,15 @@ public class GUIManager {
 		List<String> keys = new ArrayList<>();
 		for (String s : CustomTag.keys())
 			keys.add(s);
+		int x = 0;
 
-		for (int i = 0; i != size; i++) {
+		for (int i = 0; i != size + x; i++) {
 
 			if (i < (CustomTag.keys().length)) {
 				String key = CoreUtils.getPageResults(keys, page, 36).get(i);
 				String value = CustomTag.getTag(key);
 				if (value.contains("[NT]")) {
-//					i--;
+					x = x + 1;
 					continue;
 				}
 				String name = key.substring(0, 1).toUpperCase() + key.substring(1, key.length()).toLowerCase();
