@@ -473,6 +473,15 @@ public class PlayerListener implements Listener {
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
 
+			if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).contains("Page ")) {
+				GUIManager.switchInventory((Player) e.getWhoClicked(),
+						GUIManager.getTagsMenu((Player) e.getWhoClicked(),
+								Integer.parseInt("" + ChatColor
+										.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).split("age "))),
+						"tags");
+				return;
+			}
+
 			for (String key : CustomTag.keys()) {
 				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase(key)) {
 					CoreUtils.setTag((Player) e.getWhoClicked(), key);
