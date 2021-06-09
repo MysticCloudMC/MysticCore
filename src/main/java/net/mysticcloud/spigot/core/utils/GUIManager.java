@@ -307,8 +307,8 @@ public class GUIManager {
 
 		}
 
-		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page + 1), (char) (size + 1), (String[]) null);
-		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page - 1), (char) (size + 2), (String[]) null);
+		inv.addItem(new ItemStack(Material.ARROW), "&aPage &7" + (page + 1), (char) (size + 1), (String[]) null);
+		inv.addItem(new ItemStack(Material.ARROW), "&aPage &7" + (page - 1), (char) (size + 2), (String[]) null);
 
 		c.add('X');
 		c.add('X');
