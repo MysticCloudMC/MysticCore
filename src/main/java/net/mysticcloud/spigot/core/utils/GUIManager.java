@@ -285,7 +285,7 @@ public class GUIManager {
 
 		for (int i = 0; i != size + x; i++) {
 
-			if (i < (CustomTag.keys().length)) {
+			if (i < (size)) {
 				String key = CoreUtils.getPageResults(keys, page, 36).get(i);
 				String value = CustomTag.getTag(key);
 				if (value.contains("[NT]")) {
