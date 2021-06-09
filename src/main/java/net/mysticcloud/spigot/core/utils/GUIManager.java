@@ -283,7 +283,7 @@ public class GUIManager {
 			keys.add(s);
 		int x = 0;
 
-		for (int i = 0; i != size + x; i++) {
+		for (int i = 0; i != size; i++) {
 
 			if (i < (size)) {
 				String key = CoreUtils.getPageResults(keys, page, 36).get(i);
