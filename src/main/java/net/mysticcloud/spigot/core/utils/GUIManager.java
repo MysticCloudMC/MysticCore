@@ -268,8 +268,8 @@ public class GUIManager {
 		inv.addItem(new ItemStack(Material.BLACK_STAINED_GLASS_PANE), "&7Choose an option.", 'X', (String[]) null);
 		inv.addItem(new ItemStack(Material.BARRIER), "&cRemove Tag", 'Y', (String[]) null);
 
-		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page + 1), 'n', (String[]) null);
-		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page - 1), 'p', (String[]) null);
+		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page + 1), (char) 564, (String[]) null);
+		inv.addItem(new ItemStack(Material.BARRIER), "&aPage &7" + (page - 1), (char) 564, (String[]) null);
 
 		c.add('X');
 		c.add('X');
