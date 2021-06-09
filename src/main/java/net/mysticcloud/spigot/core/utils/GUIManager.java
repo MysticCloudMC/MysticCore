@@ -18,6 +18,7 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -254,8 +255,10 @@ public class GUIManager {
 
 	public static Inventory getTagsMenu(Player player, int page) {
 		boolean pages = CustomTag.values().length > 36;
+		DebugUtils.debug("Pages:" + pages);
 
 		int size = !pages ? (int) ((((CustomTag.values().length - 1) / 9) + 1) * 9) : 36;
+		DebugUtils.debug("Size:" + size);
 
 		InventoryCreator inv = new InventoryCreator("&e&lCustom Tags&7:", (null), size + 18);
 
@@ -309,27 +312,21 @@ public class GUIManager {
 		c.add('X');
 		c.add('X');
 		c.add('X');
-		if (pages) {
-			if (CustomTag.keys().length / 36 > page) {
-				c.add('p');
-			} else {
-				c.add('X');
-			}
+		if (CustomTag.keys().length / 36 > page) {
+			c.add('p');
 		} else {
 			c.add('X');
 		}
+
 		c.add('X');
 		c.add('Y');
 		c.add('X');
-		if (pages) {
-			if (CustomTag.keys().length / 36 > page) {
-				c.add('n');
-			} else {
-				c.add('X');
-			}
+		if (CustomTag.keys().length / 36 > page) {
+			c.add('n');
 		} else {
 			c.add('X');
 		}
+
 		c.add('X');
 		c.add('X');
 
