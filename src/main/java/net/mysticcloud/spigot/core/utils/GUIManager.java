@@ -313,8 +313,8 @@ public class GUIManager {
 		c.add('X');
 		c.add('X');
 		c.add('X');
-		if (CustomTag.keys().length / 36 > page) {
-			c.add('p');
+		if (page != 1) {
+			c.add((char) (size + 2));
 		} else {
 			c.add('X');
 		}
@@ -323,7 +323,7 @@ public class GUIManager {
 		c.add('Y');
 		c.add('X');
 		if (CustomTag.keys().length / 36 > page) {
-			c.add('n');
+			c.add((char) (size + 1));
 		} else {
 			c.add('X');
 		}
