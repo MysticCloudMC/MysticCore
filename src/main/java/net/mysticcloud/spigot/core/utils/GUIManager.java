@@ -322,7 +322,8 @@ public class GUIManager {
 		c.add('X');
 		c.add('Y');
 		c.add('X');
-		if (CustomTag.keys().length / 36 > page) {
+		DebugUtils.debug("Double: " + ((float) CustomTag.keys().length / 36));
+		if (((float) CustomTag.keys().length / 36) > page) {
 			c.add((char) (size + 1));
 		} else {
 			c.add('X');
