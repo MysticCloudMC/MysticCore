@@ -472,12 +472,19 @@ public class PlayerListener implements Listener {
 		}
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
+			if(!e.getCurrentItem().hasItemMeta()) {
+				e.setCancelled(true);
+				return;
+			}
+			if(!e.getCurrentItem().getItemMeta().hasDisplayName()) {
+				e.setCancelled(true);
+				return;
+			}
 
 			if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).contains("Page ")) {
 				GUIManager.switchInventory((Player) e.getWhoClicked(),
-						GUIManager.getTagsMenu((Player) e.getWhoClicked(),
-								Integer.parseInt("" + ChatColor
-										.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).split("age "))),
+						GUIManager.getTagsMenu((Player) e.getWhoClicked(), Integer.parseInt(ChatColor
+								.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).split("age ")[1])),
 						"tags");
 				return;
 			}
