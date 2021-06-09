@@ -118,7 +118,7 @@ public class CoreChatUtils {
 
 	public static void sendBroadcast(String message) {
 		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
-				"MysticChat-default", message);
+				"MysticChat-broadcast", message);
 	}
 
 	public static void sendChannelChat(Player player, String channel, String message) {
