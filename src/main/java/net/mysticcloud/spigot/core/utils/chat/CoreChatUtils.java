@@ -116,6 +116,11 @@ public class CoreChatUtils {
 		return currentChannel.containsKey(uid) ? currentChannel.get(uid) : "default";
 	}
 
+	public static void sendBroadcast(String message) {
+		CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
+				"MysticChat-default", message);
+	}
+
 	public static void sendChannelChat(Player player, String channel, String message) {
 
 		String format;
@@ -265,7 +270,8 @@ public class CoreChatUtils {
 				player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("chat") + "You're now chatting in the &7"
 						+ channel.toLowerCase() + "&f channel."));
 			} else {
-				player.sendMessage(CoreUtils.prefixes("chat") + "Sorry, you don't have permission to join that channel.");
+				player.sendMessage(
+						CoreUtils.prefixes("chat") + "Sorry, you don't have permission to join that channel.");
 			}
 		} else {
 			player.sendMessage(CoreUtils.prefixes("chat") + "Sorry that channel doesn't exist.");
