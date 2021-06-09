@@ -150,8 +150,8 @@ public class InventoryCreator {
 	public Inventory getInventory() {
 		int a = 0;
 		for (ItemStack i : items) {
-
-			inv.setItem(a, i);
+			if (a < inv.getSize())
+				inv.setItem(a, i);
 			a = a + 1;
 		}
 		return inv;
