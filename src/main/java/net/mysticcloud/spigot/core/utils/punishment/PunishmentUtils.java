@@ -270,7 +270,7 @@ public class PunishmentUtils {
 			sender.sendMessage(CoreUtils.prefixes("admin") + "Player not online. Sending kick to proxy.");
 			reason = (reason.contains("%kick%") ? "" : "%kick%") + reason;
 			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "kick",
-					staff + " " + reason);
+					player + " " + reason);
 		} else {
 			Bukkit.getPlayer(player).kickPlayer(reason);
 		}
