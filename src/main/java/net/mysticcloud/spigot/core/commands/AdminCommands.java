@@ -72,7 +72,7 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.prefixes("admin") + "Player not online. Sending kick to proxy.");
 						a = "%kick%" + a;
 						CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
-								"kick", CoreUtils.LookupUUID(args[0]) + " " + a);
+								"kick", args[0] + " " + a);
 					} else {
 						Bukkit.getPlayer(args[0]).kickPlayer(a);
 					}
