@@ -1712,4 +1712,20 @@ public class CoreUtils {
 				"{SkullOwner:{Id:" + id + ",Properties:{textures:[{Value:\"" + value + "\"}]}}}");
 	}
 
+	public static void proxyKick(String p) {
+		String u = "";
+		String m = "";
+		int a = 0;
+		for (String b : p.split(" ")) {
+			if (a == 0)
+				u = b;
+			else
+				m = m == "" ? b : m + " " + b;
+			a = a + 1;
+		}
+		if(Bukkit.getPlayer(u) == null) 
+			return;
+		Bukkit.getPlayer(u).kickPlayer(m);
+	}
+
 }

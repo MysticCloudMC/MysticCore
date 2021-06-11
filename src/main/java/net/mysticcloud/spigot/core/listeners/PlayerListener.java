@@ -269,15 +269,6 @@ public class PlayerListener implements Listener {
 	}
 
 	@EventHandler
-	public void onPlayerKick(PlayerKickEvent e) {
-		if (e.getReason().equalsIgnoreCase("Kicked by an operator"))
-			e.setReason(CoreUtils.colorize("&cKicked by a staff member"));
-		CoreUtils.sendPluginMessage(e.getPlayer(), "mystic:bungee", "kick",
-				e.getPlayer().getUniqueId() + " " + e.getReason());
-		e.setCancelled(true);
-	}
-
-	@EventHandler
 	public void onPlayerLogin(PlayerLoginEvent e) {
 		for (Punishment punish : PunishmentUtils.getPunishments()) {
 			if (punish.getUser().toString().equals("" + e.getPlayer().getUniqueId())) {

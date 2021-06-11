@@ -23,6 +23,7 @@ import net.mysticcloud.spigot.core.commands.TeleportCommand;
 import net.mysticcloud.spigot.core.commands.UpdateCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
 import net.mysticcloud.spigot.core.kits.KitManager;
+import net.mysticcloud.spigot.core.listeners.MessageListener;
 import net.mysticcloud.spigot.core.listeners.ParticleGUIListener;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.listeners.ReportGUIListener;
@@ -48,6 +49,7 @@ public class Main extends JavaPlugin {
 				"mystic:mystic");
 		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
 				"mystic:bungee");
+		getServer().getMessenger().registerIncomingPluginChannel(this, "mystic:mystic", new MessageListener());
 		CoreUtils.start();
 
 		CoreChatUtils.start();
