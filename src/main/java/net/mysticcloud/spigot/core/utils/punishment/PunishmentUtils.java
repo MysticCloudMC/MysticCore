@@ -12,11 +12,14 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.admin.InventoryCreator;
+import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
 public class PunishmentUtils {
@@ -152,10 +155,10 @@ public class PunishmentUtils {
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
-		CoreUtils.sendZachsMessage("&4STAFF REPORT &7(" + staff + ")",
+		CoreChatUtils.sendChannelChat("punish",
 				"&cInfringement&f: " + inf.name() + " &3" + Emoticons.BAR_2 + " &cOffender&7: &f"
-						+ CoreUtils.lookupUsername(uid) + " &3" + Emoticons.BAR_2 + " &cNotes&7: &f" + notes + " &3"
-						+ Emoticons.BAR_2 + " &cResult&7: &7"
+						+ CoreUtils.lookupUsername(uid) + " &3" + Emoticons.BAR_2 + "&c Reporter&7:&f " + staff + " &3"
+						+ Emoticons.BAR_2 + " &cNotes&7: &f" + notes + " &3" + Emoticons.BAR_2 + " &cResult&7: &7"
 						+ (warn ? "Warning" : type.name() + " &ffor&7 " + CoreUtils.formatDateTimeRaw(duration)));
 		if (!staff.equals("CONSOLE")) {
 			Bukkit.getPlayer(staff).sendMessage(CoreUtils.colorize(CoreUtils.prefixes("admin") + type.name() + " "
@@ -258,6 +261,19 @@ public class PunishmentUtils {
 			punishments.remove(finish);
 		}
 		finished.clear();
+	}
+
+	public static void kick(String player, String staff, String reason) {
+		reason = reason == "" ? CoreUtils.colorize("&cYou've been kicked by &4" + staff + "&c.") : reason;
+		CommandSender sender = staff.equalsIgnoreCase("CONSOLE") ? Bukkit.getConsoleSender() : Bukkit.getPlayer(staff);
+		if (Bukkit.getPlayer(player) == null) {
+			sender.sendMessage(CoreUtils.prefixes("admin") + "Player not online. Sending kick to proxy.");
+			reason = (reason.contains("%kick%") ? "" : "%kick%") + reason;
+			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic", "kick",
+					staff + " " + reason);
+		} else {
+			Bukkit.getPlayer(player).kickPlayer(reason);
+		}
 	}
 
 	public static Inventory getPunishmentGUI(String string) {

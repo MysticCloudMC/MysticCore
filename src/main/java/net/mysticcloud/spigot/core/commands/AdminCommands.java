@@ -39,6 +39,7 @@ import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import ru.tehkode.permissions.PermissionUser;
@@ -68,14 +69,11 @@ public class AdminCommands implements CommandExecutor {
 							b = b + 1;
 						}
 					}
-					if (Bukkit.getPlayer(args[0]) == null) {
-						sender.sendMessage(CoreUtils.prefixes("admin") + "Player not online. Sending kick to proxy.");
-						a = "%kick%" + a;
-						CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
-								"kick", args[0] + " " + a);
-					} else {
-						Bukkit.getPlayer(args[0]).kickPlayer(a);
-					}
+					
+					PunishmentUtils.kick(args[0], sender instanceof Player ? sender.getName() : "CONSOLE", a);
+				} else {
+					sender.sendMessage(CoreUtils.prefixes("Usage: /kick <player> [reason]"));
+					return true;
 				}
 			} else {
 				sender.sendMessage(
