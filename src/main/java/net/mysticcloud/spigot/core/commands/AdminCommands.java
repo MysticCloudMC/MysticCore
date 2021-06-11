@@ -56,6 +56,33 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("kick")) {
+			if (sender.hasPermission("mysticcloud.admin.cmd.kick")) {
+				if (args.length > 0) {
+					String a = "";
+					if (args.length > 1) {
+						int b = 0;
+						for (String s : args) {
+							if (b != 0)
+								a = a == "" ? s : a + " " + s;
+							b = b + 1;
+						}
+					}
+					if (Bukkit.getPlayer(args[0]) == null) {
+						sender.sendMessage(CoreUtils.prefixes("admin") + "Player not online. Sending kick to proxy.");
+						a = "%kick%" + a;
+						CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:bungee",
+								"kick", CoreUtils.LookupUUID(args[0]) + " " + a);
+					} else {
+						Bukkit.getPlayer(args[0]).kickPlayer(a);
+					}
+				}
+			} else {
+				sender.sendMessage(
+						CoreUtils.colorize(CoreUtils.prefixes("admin") + "You don't have permission to do that."));
+			}
+		}
+
 		if (cmd.getName().equalsIgnoreCase("skull")) {
 
 			if (!(sender instanceof Player)) {

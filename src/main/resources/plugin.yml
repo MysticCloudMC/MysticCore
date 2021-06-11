@@ -13,6 +13,9 @@ depend:
 - Multiverse-Core
 - Votifier
 commands:
+   kick:
+      usage: /kick <user> [message]
+      description: Kick a player on the network.
    sql:
       usage: /sql [query]
       description: Run SQL commands from inside Minecraft!

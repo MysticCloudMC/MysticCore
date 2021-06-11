@@ -28,6 +28,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -265,6 +266,15 @@ public class PlayerListener implements Listener {
 							(predamage + e.getDamage()));
 				}
 			}
+	}
+
+	@EventHandler
+	public void onPlayerKick(PlayerKickEvent e) {
+		if (e.getReason().equalsIgnoreCase("Kicked by an operator"))
+			e.setReason(CoreUtils.colorize("&cKicked by a staff member"));
+		CoreUtils.sendPluginMessage(e.getPlayer(), "mystic:bungee", "kick",
+				e.getPlayer().getUniqueId() + " " + e.getReason());
+		e.setCancelled(true);
 	}
 
 	@EventHandler
