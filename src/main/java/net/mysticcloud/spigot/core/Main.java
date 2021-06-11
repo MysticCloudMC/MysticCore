@@ -46,6 +46,8 @@ public class Main extends JavaPlugin {
 		plugin = this;
 		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
 				"mystic:mystic");
+		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
+				"mystic:bungee");
 		CoreUtils.start();
 
 		CoreChatUtils.start();
@@ -60,8 +62,8 @@ public class Main extends JavaPlugin {
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
-		new AdminCommands(this, "kick", "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug", "invsee", "level",
-				"plugins", "back");
+		new AdminCommands(this, "kick", "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug", "invsee",
+				"level", "plugins", "back");
 		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
