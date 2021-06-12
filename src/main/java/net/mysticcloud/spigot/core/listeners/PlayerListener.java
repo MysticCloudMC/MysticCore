@@ -441,11 +441,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
-			if (GUIManager.getOpenInventory((Player) e.getPlayer()).equalsIgnoreCase("Particle Settings")) {
-				GUIManager.switchInventory((Player) e.getPlayer(), GUIManager.getSettingsMenu((Player) e.getPlayer()),
-						"Settings Menu");
-			} else
-				GUIManager.closeInventory((Player) e.getPlayer());
+			GUIManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
 			// this is stupid.
 			CoreUtils.debug("Inventories probably didn't update.");
