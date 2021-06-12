@@ -3,7 +3,7 @@ package net.mysticcloud.spigot.core.utils.accounts;
 public enum PlayerSettings {
 
 	HOLIDAY_PARTICLES("holidayParticles", "true"), REGIONAL_PARTICLES("regionalParticles", "true"),
-	SIDEBAR("sidebar", "true");
+	SIDEBAR("sidebar", "true"), COSMETIC_PARTICLES("cosmeticParticles", "true");
 
 	String setting;
 	String dvalue;

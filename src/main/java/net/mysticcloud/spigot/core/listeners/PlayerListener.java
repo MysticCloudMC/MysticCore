@@ -441,8 +441,11 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
-
-			GUIManager.closeInventory((Player) e.getPlayer());
+			if (GUIManager.getOpenInventory((Player) e.getPlayer()).equalsIgnoreCase("Particle Settings")) {
+				GUIManager.openInventory((Player) e.getPlayer(), GUIManager.getSettingsMenu((Player) e.getPlayer()),
+						"Settings Menu");
+			} else
+				GUIManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
 			// this is stupid.
 			CoreUtils.debug("Inventories probably didn't update.");
@@ -517,6 +520,12 @@ public class PlayerListener implements Listener {
 				GUIManager.openInventory((Player) e.getWhoClicked(),
 						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
+			if (e.getCurrentItem().getType().equals(Material.CHEST)) {
+				mp.setSetting(PlayerSettings.COSMETIC_PARTICLES,
+						mp.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
+				GUIManager.openInventory((Player) e.getWhoClicked(),
+						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+			}
 			if (e.getCurrentItem().getType().equals(Material.GRASS_BLOCK)) {
 				mp.setSetting(PlayerSettings.REGIONAL_PARTICLES,
 						mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
@@ -533,7 +542,7 @@ public class PlayerListener implements Listener {
 			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
 				mp.setSetting(PlayerSettings.SIDEBAR,
 						mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "false" : "true");
-				
+
 				GUIManager.openInventory(((Player) e.getWhoClicked()),
 						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}

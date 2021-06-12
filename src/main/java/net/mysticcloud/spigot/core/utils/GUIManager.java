@@ -185,7 +185,11 @@ public class GUIManager {
 		inv.addItem(new ItemStack(Material.GRASS_BLOCK), "&cRegional Particles", 'B', new String[] { "&7Currently is "
 				+ (mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff")
 				+ "&7." });
-		inv.setConfiguration(new char[] { 'A', 'B', 'X', 'X', 'X', 'X', 'X', 'X', 'X' });
+		
+		inv.addItem(new ItemStack(Material.CHEST), "&eCosmetic Particles", 'c', new String[] { "&7Currently is "
+				+ (mp.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff")
+				+ "&7." });
+		inv.setConfiguration(new char[] { 'A', 'B', 'C', 'X', 'X', 'X', 'X', 'X', 'X' });
 		return inv.getInventory();
 	}
 
