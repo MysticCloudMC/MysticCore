@@ -442,7 +442,7 @@ public class PlayerListener implements Listener {
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
 			if (GUIManager.getOpenInventory((Player) e.getPlayer()).equalsIgnoreCase("Particle Settings")) {
-				GUIManager.openInventory((Player) e.getPlayer(), GUIManager.getSettingsMenu((Player) e.getPlayer()),
+				GUIManager.switchInventory((Player) e.getPlayer(), GUIManager.getSettingsMenu((Player) e.getPlayer()),
 						"Settings Menu");
 			} else
 				GUIManager.closeInventory((Player) e.getPlayer());
