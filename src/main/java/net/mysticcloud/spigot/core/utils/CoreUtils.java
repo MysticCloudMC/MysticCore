@@ -610,15 +610,21 @@ public class CoreUtils {
 	}
 
 	public static void updateScoreboard(Player pl) {
-		Scoreboard board = scoreboards.get(pl.getUniqueId());
-		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
+		if (scoreboards.containsKey(pl.getUniqueId())) {
+			Scoreboard board = scoreboards.get(pl.getUniqueId());
+			MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
-		board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
-		board.getTeam("balanceCounter")
-				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
-		board.getTeam("levelCounter")
-				.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
+			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
+			board.getTeam("balanceCounter")
+					.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
+			board.getTeam("levelCounter").setPrefix(
+					CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
+		}
+	}
 
+	public static void removeScoreboard(Player pl) {
+		scoreboards.remove(pl.getUniqueId());
+		pl.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 
 	public static void setupEconomy() {
@@ -1723,7 +1729,7 @@ public class CoreUtils {
 				m = m == "" ? b : m + " " + b;
 			a = a + 1;
 		}
-		if(Bukkit.getPlayer(u) == null) 
+		if (Bukkit.getPlayer(u) == null)
 			return;
 		Bukkit.getPlayer(u).kickPlayer(m);
 	}

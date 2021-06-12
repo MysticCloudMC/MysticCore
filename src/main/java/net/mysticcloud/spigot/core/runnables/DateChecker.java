@@ -160,13 +160,17 @@ public class DateChecker implements Runnable {
 				}
 
 				if (CoreUtils.getMonth() == Calendar.MARCH) {
-					if (CoreUtils.getDay() <= 15 && CoreUtils.getDay() >= 20) {
+					if (CoreUtils.getDay() <= 13 && CoreUtils.getDay() >= 17) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.ST_PATRICKS);
 					}
 
 				}
 				if (CoreUtils.getMonth() == Calendar.MAY) {
+					if (CoreUtils.getDay() == 5) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.MAY_THE_FORTH);
+					}
 					if (CoreUtils.getDay() == 5) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.CINCO_DE_MAYO);
@@ -177,10 +181,18 @@ public class DateChecker implements Runnable {
 					}
 
 				}
-				if (CoreUtils.getMonth() == Calendar.JULY) {
-					if (CoreUtils.getDay() == 31) {
+				
+				if (CoreUtils.getMonth() == Calendar.JUNE) {
+					if (CoreUtils.getDay() >= 27) {
 						holiday = true;
-						CoreUtils.setHoliday(Holiday.AVACADO_DAY);
+						CoreUtils.setHoliday(Holiday.JULY_4TH);
+					}
+				}
+				
+				if (CoreUtils.getMonth() == Calendar.JULY) {
+					if (CoreUtils.getDay() >= 0 && CoreUtils.getDay() <= 4) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.JULY_4TH);
 					}
 
 				}

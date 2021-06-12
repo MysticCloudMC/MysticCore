@@ -12,10 +12,10 @@ public enum Holiday {
 	BIRTHDAY("Birthday"), 
 	ST_PATRICKS("St. Patrick's Day","&fHappy &a&lSt. Patrick's day&f"), 
 	CINCO_DE_MAYO("Cinco de Mayo","&c&lCinco &f&lDe &a&lMayo"), 
-	AVACADO_DAY("(USA) National Avacado Day", "&2&lAVACADO DAY!"), 
+	AVACADO_DAY("National Avacado Day (USA)", "&2&lAVACADO DAY!"), 
 	TEST("Test Holiday"),
 	MAY_THE_FORTH("May The Forth","&eMay The Forth Be With You"),
-	JULY_4TH("Forth of July (USA)","&fKeep your fingers safe!"),
+	JULY_4TH("Independence Day (USA)","&fKeep your fingers safe!"),
 	MEMORIAL_DAY("Memorial Day (USA)","&cThank &fYour &9Veterans");
 	
 	String name;

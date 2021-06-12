@@ -44,6 +44,18 @@ public class MysticPlayer {
 
 	public String setSetting(PlayerSettings setting, String value) {
 		settings.put(setting, value);
+		if (Bukkit.getPlayer(uid) != null)
+			switch (setting) {
+			case SIDEBAR:
+				if (value.equalsIgnoreCase("true")) {
+					CoreUtils.setScoreboard(Bukkit.getPlayer(uid));
+				} else {
+					CoreUtils.removeScoreboard(Bukkit.getPlayer(uid));
+				}
+				break;
+			default:
+				break;
+			}
 		return value;
 	}
 
@@ -78,7 +90,6 @@ public class MysticPlayer {
 	public int getGems() {
 		return gems;
 	}
-	
 
 	public UUID getUUID() {
 		return uid;

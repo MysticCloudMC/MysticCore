@@ -533,6 +533,7 @@ public class PlayerListener implements Listener {
 			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
 				mp.setSetting(PlayerSettings.SIDEBAR,
 						mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "false" : "true");
+				
 				GUIManager.openInventory(((Player) e.getWhoClicked()),
 						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}
