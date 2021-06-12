@@ -14,9 +14,9 @@ public class HomeUtils {
 
 	public static Warp addHome(UUID uid, String name, Location location) {
 		name = !name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
-		for(Warp home : getHomes(uid)) {
-			if(home.name().equals(name)) {
-				return addHome(uid,name+"-1",location);
+		for (Warp home : getHomes(uid)) {
+			if (home.name().equals(name)) {
+				return addHome(uid, name + "-1", location);
 			}
 		}
 		WarpBuilder wb = new WarpBuilder();

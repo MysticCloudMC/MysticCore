@@ -130,6 +130,8 @@ public class CoreUtils {
 	public static float t = 0;
 	public static List<UUID> particles__remove = new ArrayList<>();
 
+	private static boolean spawnDelay = false;
+
 	public static void start() {
 
 		df.setRoundingMode(RoundingMode.DOWN);
@@ -300,6 +302,14 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+
+	public static boolean spawnDelay() {
+		return spawnDelay;
+	}
+
+	public static void spawnDelay(boolean spawn) {
+		spawnDelay = spawn;
 	}
 
 	public static Set<UUID> getControllers() {
@@ -749,6 +759,7 @@ public class CoreUtils {
 			return;
 		}
 		try {
+			TeleportUtils.teleport(player, spawn, true, spawnDelay);
 			player.teleport(spawn);
 			player.sendMessage(fullPrefix + reason.message());
 		} catch (IllegalArgumentException ex) {
