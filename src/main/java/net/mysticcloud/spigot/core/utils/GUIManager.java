@@ -177,7 +177,7 @@ public class GUIManager {
 	public static Inventory getParticleSettingsMenu(Player player) {
 		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 		InventoryCreator inv = new InventoryCreator("&a&lParticle Settings Menu", null, 9);
-		inv.addItem(new ItemStack(Material.FIREWORK_ROCKET), "&aHoliday Particles", 'A',
+		inv.addItem(new ItemStack(Material.FIREWORK_ROCKET), "&aHoliday Particles", 'C',
 				new String[] { "&7Currently is "
 						+ (mp.getSetting(PlayerSettings.HOLIDAY_PARTICLES).equalsIgnoreCase("true") ? "&a&lon"
 								: "&c&loff")
@@ -186,7 +186,7 @@ public class GUIManager {
 				+ (mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff")
 				+ "&7." });
 		
-		inv.addItem(new ItemStack(Material.CHEST), "&eCosmetic Particles", 'c', new String[] { "&7Currently is "
+		inv.addItem(new ItemStack(Material.CHEST), "&eCosmetic Particles", 'A', new String[] { "&7Currently is "
 				+ (mp.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true") ? "&a&lon" : "&c&loff")
 				+ "&7." });
 		inv.setConfiguration(new char[] { 'A', 'B', 'C', 'X', 'X', 'X', 'X', 'X', 'X' });
