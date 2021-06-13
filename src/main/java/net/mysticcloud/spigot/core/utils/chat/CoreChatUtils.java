@@ -31,7 +31,7 @@ public class CoreChatUtils {
 		addChannel("staff", "&7[&3&lStaff&7] ", true);
 		addChannel("zachs", "&7[&c&lzACHS&7] ", true);
 		addChannel("punish", "&7[&6&lPunISH&7] ", true);
-		addChannel("vip", "&7[&3MysticChat&7] ", false);
+		addChannel("vip", "&7[&a&lVIP&7] ", false);
 		registerChannels();
 
 		if (!CoreUtils.getVariable("playerchat.format").equalsIgnoreCase("ERROR"))
