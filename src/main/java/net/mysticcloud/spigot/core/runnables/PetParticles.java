@@ -24,7 +24,7 @@ public class PetParticles implements Runnable {
 		format.display(pet.getLocation());
 		i = i + 1;
 
-		if (format.getLifetime() > -1 &&pet.getEntity().isAlive()) {
+		if (format.getLifetime() > -1 && pet.getEntity().isAlive()) {
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new PetParticles(pet, i, format), 1);
 		}
 	}

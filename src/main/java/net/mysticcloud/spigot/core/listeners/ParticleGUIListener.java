@@ -31,6 +31,7 @@ public class ParticleGUIListener implements Listener {
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
 				return;
+			e.setCancelled(true);
 			for (Particle particle : CoreUtils.particles(e.getWhoClicked().getUniqueId()).allowedParticles()) {
 				if (e.getCurrentItem().getItemMeta().getDisplayName()
 						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {

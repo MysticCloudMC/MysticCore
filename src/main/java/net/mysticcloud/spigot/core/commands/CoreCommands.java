@@ -54,9 +54,9 @@ public class CoreCommands implements CommandExecutor {
 			sender.sendMessage(CoreUtils
 					.colorize("&3Below is a list of sites you can vote for us at! Every vote gets you $1000."));
 			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraft-server-list.com/server/477580/vote/&f."));
-			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraftservers.org/vote/616194&f.\\r\\n"));
-			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraft-mp.com/server/287207/vote/&f.\\r\\n"));
-			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraft-server.net/vote/MysticCloud/&f.\\r\\n"));
+			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraftservers.org/vote/616194&f."));
+			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraft-mp.com/server/287207/vote/&f."));
+			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraft-server.net/vote/MysticCloud/&f."));
 			sender.sendMessage(CoreUtils.colorize("&3 - &f&nhttps://minecraftservers.biz/servers/150151/#vote_now&f."));
 		}
 
