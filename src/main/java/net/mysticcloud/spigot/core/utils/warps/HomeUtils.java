@@ -12,23 +12,28 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class HomeUtils {
 
-	public static Warp addHome(UUID uid, String name, Location location) {
-		name = !name.equals("") ? name : (HomeUtils.getHomes(uid).size() + 1) + "";
-		for (Warp home : getHomes(uid)) {
-			if (home.name().equals(name)) {
-				return addHome(uid, name + "-1", location);
+	public static Warp addHome(Player player, String name, Location location) {
+		int size = HomeUtils.getHomes(player.getUniqueId()).size();
+		if (player.hasPermission("mysticcloud.maxhomes." + (size + 1))) {
+			name = !name.equals("") ? name : (HomeUtils.getHomes(player.getUniqueId()).size() + 1) + "";
+			for (Warp home : getHomes(player.getUniqueId())) {
+				if (home.name().equals(name)) {
+					return addHome(player, name + "-1", location);
+				}
 			}
-		}
-		WarpBuilder wb = new WarpBuilder();
-		Warp warp = wb.createWarp().setType("home~" + uid.toString()).setName(name).setLocation(location).getWarp();
-		if (warp != null) {
-			if (Bukkit.getPlayer(uid) != null)
-				Bukkit.getPlayer(uid)
-						.sendMessage(CoreUtils.prefixes("homes") + CoreUtils.colorize("Home '&7" + name + "&f' set!"));
-		} else if (Bukkit.getPlayer(uid) != null)
-			Bukkit.getPlayer(uid).sendMessage(CoreUtils.prefixes("homes") + "There was an error setting you home.");
+			WarpBuilder wb = new WarpBuilder();
+			Warp warp = wb.createWarp().setType("home~" + player.getUniqueId().toString()).setName(name)
+					.setLocation(location).getWarp();
+			if (warp != null) {
+				player.sendMessage(CoreUtils.prefixes("homes") + CoreUtils.colorize("Home '&7" + name + "&f' set!"));
+			} else
+				player.sendMessage(CoreUtils.prefixes("homes") + "There was an error setting you home.");
 
-		return warp;
+			return warp;
+		}
+		player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("account") + "You've reached your max homes"));
+
+		return null;
 
 	}
 
