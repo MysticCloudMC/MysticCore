@@ -30,6 +30,8 @@ public class CoreChatUtils {
 		addChannel("default", "", false);
 		addChannel("staff", "&7[&3&lStaff&7] ", true);
 		addChannel("zachs", "&7[&c&lzACHS&7] ", true);
+		addChannel("punish", "&7[&6&lPunISH&7] ", true);
+		addChannel("vip", "&7[&3MysticChat&7] ", false);
 		registerChannels();
 
 		if (!CoreUtils.getVariable("playerchat.format").equalsIgnoreCase("ERROR"))
@@ -264,6 +266,10 @@ public class CoreChatUtils {
 	}
 
 	public static void setChannel(Player player, String channel) {
+		if ((channel.equalsIgnoreCase("zachs") || channel.equalsIgnoreCase("punish"))
+				&& !player.getUniqueId().toString().equals("60191757-427b-421e-bee0-399465d7e852")) {
+			return;
+		}
 		if (channels.containsKey(channel.toLowerCase())) {
 			if (player.hasPermission("mysticcloud.channel." + channel.toLowerCase())) {
 				currentChannel.put(player.getUniqueId(), channel);
