@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -235,6 +236,8 @@ public class CoreChatUtils {
 	public static String replaceholders(Player player, String format, String message) {
 		format = CoreUtils.colorize(format);
 		message = censor(message);
+		
+		
 
 		if (format.contains("%message"))
 			format = format.replace("%message",
@@ -242,7 +245,6 @@ public class CoreChatUtils {
 							? CoreUtils.colorize(PlaceholderUtils.emotify(message))
 							: message);
 		format = PlaceholderUtils.replace(player, format);
-
 		return format;
 	}
 

@@ -542,6 +542,13 @@ public class PlayerListener implements Listener {
 				GUIManager.openInventory(((Player) e.getWhoClicked()),
 						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}
+			if (e.getCurrentItem().getType().equals(Material.BOOK)) {
+				mp.setSetting(PlayerSettings.EXTRA_MESSAGES,
+						mp.getSetting(PlayerSettings.EXTRA_MESSAGES).equalsIgnoreCase("true") ? "false" : "true");
+
+				GUIManager.openInventory(((Player) e.getWhoClicked()),
+						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
+			}
 		}
 
 	}
