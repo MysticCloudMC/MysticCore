@@ -3,15 +3,12 @@ package net.mysticcloud.spigot.core.commands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,6 +33,7 @@ import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
+import net.mysticcloud.spigot.core.utils.admin.MysticPerms;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
@@ -58,7 +56,7 @@ public class AdminCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 		if (cmd.getName().equalsIgnoreCase("kick")) {
-			if (sender.hasPermission("mysticcloud.admin.cmd.kick")) {
+			if (sender.hasPermission(MysticPerms.CMD_KICK)) {
 				if (args.length > 0) {
 					String a = "";
 					if (args.length > 1) {
@@ -69,7 +67,7 @@ public class AdminCommands implements CommandExecutor {
 							b = b + 1;
 						}
 					}
-					
+
 					PunishmentUtils.kick(args[0], sender instanceof Player ? sender.getName() : "CONSOLE", a);
 				} else {
 					sender.sendMessage(CoreUtils.prefixes("Usage: /kick <player> [reason]"));
@@ -88,7 +86,7 @@ public class AdminCommands implements CommandExecutor {
 				return true;
 			}
 
-			if (!sender.hasPermission("mysticcloud.staff.skull")) {
+			if (!sender.hasPermission(MysticPerms.CMD_SKULL)) {
 				sender.sendMessage(CoreUtils.prefixes("admin") + "You don't have permission to use that command.");
 				return true;
 			}
@@ -107,7 +105,7 @@ public class AdminCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("setspawn")) {
 
-			if (sender.hasPermission("mysticcloud.admin.setspawn")) {
+			if (sender.hasPermission(MysticPerms.CMD_SETSPAWN)) {
 				if (args.length == 0)
 					if (sender instanceof Player) {
 						CoreUtils.setSpawnLocation(((Player) sender).getLocation());
@@ -121,7 +119,7 @@ public class AdminCommands implements CommandExecutor {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("seen")) {
-			if (sender.hasPermission("mysticcloud.admin.cmd.seen")) {
+			if (sender.hasPermission(MysticPerms.CMD_SPAWN)) {
 				if (args.length == 1) {
 					UUID uid = CoreUtils.LookupUUID(args[0]);
 					if (uid != null) {
@@ -174,7 +172,7 @@ public class AdminCommands implements CommandExecutor {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("uuid")) {
-			if (sender.hasPermission("mysticcloud.admin.cmd.uuid")) {
+			if (sender.hasPermission(MysticPerms.CMD_UUID)) {
 				if (args.length == 1) {
 					sender.sendMessage(CoreUtils.colorize(
 							"&e&lUUID &7>&f Search result for \"" + args[0] + "\": " + CoreUtils.LookupUUID(args[0])));
@@ -187,7 +185,7 @@ public class AdminCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("speed")) {
 			if (sender instanceof Player) {
-				if (sender.hasPermission("mysticcloud.admin.speed")) {
+				if (sender.hasPermission(MysticPerms.CMD_SPEED)) {
 					if (args.length == 1) {
 						if (((Player) sender).isFlying()) {
 							((Player) sender).setFlySpeed(Float.parseFloat(args[0]));
@@ -211,7 +209,7 @@ public class AdminCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("plugins")) {
 			String msg = "&3Plugins (&f" + Bukkit.getPluginManager().getPlugins().length + "&3)&f: ";
 			String pls = "";
-			if (sender.hasPermission("mysticcloud.admin")) {
+			if (sender.hasPermission(MysticPerms.ADMIN)) {
 				for (Plugin pl : Bukkit.getPluginManager().getPlugins()) {
 					pls = (!pls.equals("") ? pls + "&7,&3 " : "&3") + (pl.isEnabled() ? "&a" : "&c") + pl.getName();
 				}
@@ -261,7 +259,7 @@ public class AdminCommands implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("back")) {
 			if (sender instanceof Player) {
-				if (sender.hasPermission("mysticcloud.admin.cmd.back")) {
+				if (sender.hasPermission(MysticPerms.CMD_BACK)) {
 					TeleportUtils.goBack(((Player) sender));
 				} else {
 					sender.sendMessage(
@@ -272,7 +270,7 @@ public class AdminCommands implements CommandExecutor {
 			}
 		}
 		if (cmd.getName().equalsIgnoreCase("level")) {
-			if (sender.hasPermission("mysticcloud.admin.setlevel")) {
+			if (sender.hasPermission(MysticPerms.CMD_SETLEVEL)) {
 				if (args.length > 1 && Bukkit.getPlayer(args[0]) == null)
 					return true;
 				if (args.length == 1 && !(sender instanceof Player))
@@ -293,7 +291,7 @@ public class AdminCommands implements CommandExecutor {
 				return false;
 			}
 
-			if (sender.hasPermission("mysticcloud.admin.control")) {
+			if (sender.hasPermission(MysticPerms.CMD_CONTROL)) {
 				sender.sendMessage(CoreUtils.prefixes("error") + "No permission.");
 				return false;
 			}
@@ -337,7 +335,7 @@ public class AdminCommands implements CommandExecutor {
 
 		if (cmd.getName().equalsIgnoreCase("debug")) {
 			if (sender instanceof Player) {
-				if (sender.hasPermission("mysticcloud.admin.cmd.debug")) {
+				if (sender.hasPermission(MysticPerms.CMD_DEBUG)) {
 
 					if (args.length == 0) {
 						if (DebugUtils.isDebugger(((Player) sender).getUniqueId())) {

@@ -157,7 +157,7 @@ public class Event {
 
 		metadata.put(key, value);
 	}
-	
+
 	public Map<String, Object> getMetadata() {
 		return metadata;
 	}
@@ -179,6 +179,11 @@ public class Event {
 
 	public Object getMetadata(String key) {
 		return getMetadata(key, false);
+	}
+
+	public void removeMetadata(String key) {
+		if (metadata.containsKey(key))
+			metadata.remove(key);
 	}
 
 	public Map<UUID, Double> getScores() {
