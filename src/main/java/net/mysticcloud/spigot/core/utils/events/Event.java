@@ -168,6 +168,7 @@ public class Event {
 	}
 
 	public Object getMetadata(String key, boolean required) {
+		
 		if (metadata.containsKey(key))
 			return metadata.get(key);
 		else {

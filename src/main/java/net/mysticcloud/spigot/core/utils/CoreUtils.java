@@ -1697,7 +1697,7 @@ public class CoreUtils {
 
 	public static void setGameMode(Player pl, GameMode gm) {
 		pl.setGameMode(gm);
-		pl.sendMessage(prefixes("gamemode") + "Your current gamemode is " + gm.name());
+		pl.sendMessage(prefixes("gamemode") + colorize("Your current gamemode has been set to &7" + gm.name() + "&f."));
 	}
 
 	public static void coreHandleDamage(boolean handle) {
