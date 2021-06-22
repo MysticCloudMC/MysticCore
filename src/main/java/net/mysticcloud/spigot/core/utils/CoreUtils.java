@@ -70,6 +70,7 @@ import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.skulls.CustomSkull;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.sql.IDatabase;
@@ -584,35 +585,41 @@ public class CoreUtils {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(15);
-		obj.getScore(CoreUtils.colorize("&aGems")).setScore(14);
+		obj.getScore(CoreUtils.colorize("&6&lPLAYER&8:")).setScore(14);
 
-		org.bukkit.scoreboard.Team gems = board.registerNewTeam("gemCounter");
+		org.bukkit.scoreboard.Team gems = board.registerNewTeam("rankTracker");
 		gems.addEntry(ChatColor.RED + "" + ChatColor.BLUE);
-		gems.setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
+		gems.setPrefix(CoreUtils.colorize("&7 Rank&8: &7%prefix"));
 		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(13);
 
-		obj.getScore(ChatColor.RED + "" + ChatColor.AQUA).setScore(12);
-		obj.getScore(CoreUtils.colorize("&6Balance")).setScore(11);
+		org.bukkit.scoreboard.Team tag = board.registerNewTeam("tagTracker");
+		tag.addEntry(ChatColor.BLUE + "" + ChatColor.BLUE);
+		tag.setPrefix(CoreUtils.colorize("&7 Tag&8: &7%tag"));
+		obj.getScore(ChatColor.BLUE + "" + ChatColor.BLUE).setScore(12);
 
 		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
 		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
-		balance.setPrefix(CoreUtils.colorize("&6$ &f" + player.getBalance()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(10);
-
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_AQUA).setScore(9);
-		obj.getScore(CoreUtils.colorize("&cLevel")).setScore(8);
+		balance.setPrefix(CoreUtils.colorize("&6 Balance&8: &6$" + player.getBalance()));
+		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(11);
 
 		org.bukkit.scoreboard.Team level = board.registerNewTeam("levelCounter");
 		level.addEntry(ChatColor.RED + "" + ChatColor.DARK_BLUE);
-		level.setPrefix(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(7);
+		level.setPrefix(CoreUtils.colorize("&7 Level&8: &6 " + player.getLevel()));
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(10);
 
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(6);
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(9);
 
-		if (!getHoliday().equals(Holiday.NONE)) {
-			obj.getScore(CoreUtils.colorize("&a" + getHoliday().getName())).setScore(5);
-			obj.getScore(CoreUtils.colorize(getHoliday().getScoreboardLine())).setScore(4);
-		}
+		obj.getScore(colorize("&6&lSERVER&8:")).setScore(8);
+
+		org.bukkit.scoreboard.Team online = board.registerNewTeam("onlineCounter");
+		online.addEntry(ChatColor.BLUE + "" + ChatColor.DARK_BLUE);
+		online.setPrefix(CoreUtils.colorize("&7 Online&8: &6 " + Bukkit.getOnlinePlayers().size()));
+		obj.getScore(ChatColor.BLUE + "" + ChatColor.DARK_BLUE).setScore(9);
+
+//		if (!getHoliday().equals(Holiday.NONE)) {
+//			obj.getScore(CoreUtils.colorize("&a" + getHoliday().getName())).setScore(8);
+//			obj.getScore(CoreUtils.colorize(getHoliday().getScoreboardLine())).setScore(7);
+//		}
 
 		scoreboards.put(pl.getUniqueId(), board);
 		pl.setScoreboard(board);
@@ -624,11 +631,15 @@ public class CoreUtils {
 			Scoreboard board = scoreboards.get(pl.getUniqueId());
 			MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
-			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
-			board.getTeam("balanceCounter")
-					.setPrefix(CoreUtils.colorize(CoreUtils.colorize("&6$ &f" + player.getBalance())));
-			board.getTeam("levelCounter").setPrefix(
-					CoreUtils.colorize(CoreUtils.colorize("&c" + Emoticons.STAR_7 + "&f " + player.getLevel())));
+			board.getTeam("rankTracker")
+					.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &7%prefix")));
+			board.getTeam("tagTracker").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Tag&8: &7%tag")));
+
+//			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
+			board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize("&6 Balance&8: &6$" + player.getBalance()));
+			board.getTeam("levelCounter").setPrefix(CoreUtils.colorize("&7 Level&8: &6 " + player.getLevel()));
+			board.getTeam("onlineCounter")
+					.setPrefix(CoreUtils.colorize("&7 Online&8: &6 " + Bukkit.getOnlinePlayers().size()));
 		}
 	}
 
@@ -1697,7 +1708,8 @@ public class CoreUtils {
 
 	public static void setGameMode(Player pl, GameMode gm) {
 		pl.setGameMode(gm);
-		pl.sendMessage(prefixes("gamemode") + colorize("Your current gamemode has been set to &7" + gm.name() + "&f."));
+		pl.sendMessage(prefixes("gamemode")
+				+ colorize("Your current gamemode has been set to &7" + gm.name().toLowerCase() + "&f."));
 	}
 
 	public static void coreHandleDamage(boolean handle) {
