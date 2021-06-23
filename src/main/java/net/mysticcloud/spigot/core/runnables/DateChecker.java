@@ -80,14 +80,13 @@ public class DateChecker implements Runnable {
 			DebugUtils.debug("Updating friendships");
 			FriendUtils.update();
 			DebugUtils.debug("Updating permissions");
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/pex reload");
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex reload");
 			lastcheck = new Date().getTime();
 		}
 
-		if (new Date().getTime() - lastcheck2 >= TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS)) {
-			DebugUtils.debug("Scoreboard update");
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				if (CoreUtils.useCoreScoreboard()) {
+		if (new Date().getTime() - lastcheck2 >= TimeUnit.MILLISECONDS.convert(30, TimeUnit.SECONDS)) {
+			if (CoreUtils.useCoreScoreboard()) {
+				for (Player player : Bukkit.getOnlinePlayers()) {
 					CoreUtils.updateScoreboard(player);
 				}
 			}

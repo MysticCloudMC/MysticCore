@@ -132,6 +132,7 @@ public class CoreUtils {
 	public static List<UUID> particles__remove = new ArrayList<>();
 
 	private static boolean spawnDelay = false;
+	private static String serverName = "Server Name Here";
 
 	public static void start() {
 
@@ -264,6 +265,13 @@ public class CoreUtils {
 
 		}
 
+		if (Main.getPlugin().getConfig().isSet("Name")) {
+			serverName = Main.getPlugin().getConfig().getString("Name");
+		} else {
+			Main.getPlugin().getConfig().set("Name", serverName);
+			Main.getPlugin().saveConfig();
+		}
+
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 			@Override
@@ -303,6 +311,10 @@ public class CoreUtils {
 
 		MysticEntityUtils.registerEntities();
 
+	}
+
+	public static String getServerName() {
+		return serverName;
 	}
 
 	public static boolean spawnDelay() {
@@ -580,41 +592,41 @@ public class CoreUtils {
 
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
-		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize("    &3&lMystic&f&lCloud    "));
+		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(), CoreUtils.colorize(
+				"&3&lMystic&f&lCloud  ".toUpperCase() + Emoticons.BAR_2 + "  &7&l" + getServerName().toUpperCase()));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(9);
-		obj.getScore(CoreUtils.colorize("&6&lPLAYER&8:")).setScore(8);
+		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(10);
+		obj.getScore(CoreUtils.colorize("&6&lPLAYER&8:")).setScore(9);
 
 		org.bukkit.scoreboard.Team gems = board.registerNewTeam("rankTracker");
 		gems.addEntry(ChatColor.RED + "" + ChatColor.BLUE);
-		gems.setPrefix(CoreUtils.colorize("&7 Rank&8: &7%prefix"));
-		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(7);
+		gems.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &7%prefix")));
+		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(8);
 
 		org.bukkit.scoreboard.Team tag = board.registerNewTeam("tagTracker");
 		tag.addEntry(ChatColor.BLUE + "" + ChatColor.BLUE);
 		tag.setPrefix(CoreUtils.colorize("&7 Tag&8: &7%tag"));
-		obj.getScore(ChatColor.BLUE + "" + ChatColor.BLUE).setScore(6);
+		obj.getScore(ChatColor.BLUE + "" + ChatColor.BLUE).setScore(7);
 
 		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
 		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
 		balance.setPrefix(CoreUtils.colorize("&7 Balance&8: &6$" + player.getBalance()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(5);
+		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(6);
 
 		org.bukkit.scoreboard.Team level = board.registerNewTeam("levelCounter");
 		level.addEntry(ChatColor.RED + "" + ChatColor.DARK_BLUE);
 		level.setPrefix(CoreUtils.colorize("&7 Level&8: &6 " + player.getLevel()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(4);
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(5);
 
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(3);
+		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(4);
 
-		obj.getScore(colorize("&6&lSERVER&8:")).setScore(2);
+		obj.getScore(colorize("&6&lSERVER&8:")).setScore(3);
 
 		org.bukkit.scoreboard.Team online = board.registerNewTeam("onlineCounter");
 		online.addEntry(ChatColor.BLUE + "" + ChatColor.DARK_BLUE);
 		online.setPrefix(CoreUtils.colorize("&7 Online&8: &6 " + Bukkit.getOnlinePlayers().size()));
-		obj.getScore(ChatColor.BLUE + "" + ChatColor.DARK_BLUE).setScore(1);
+		obj.getScore(ChatColor.BLUE + "" + ChatColor.DARK_BLUE).setScore(2);
 
 		org.bukkit.scoreboard.Team time = board.registerNewTeam("timeTracker");
 		time.addEntry(ChatColor.BLUE + "" + ChatColor.RED);
@@ -646,7 +658,7 @@ public class CoreUtils {
 			board.getTeam("onlineCounter")
 					.setPrefix(CoreUtils.colorize("&7 Online&8: &6 " + Bukkit.getOnlinePlayers().size()));
 			board.getTeam("timeTracker")
-					.setPrefix(CoreUtils.colorize("&7 Time&8: &6 " + PlaceholderUtils.replace(pl, "%time")));
+					.setPrefix(CoreUtils.colorize("&7 Time&8: &6" + PlaceholderUtils.replace(pl, "%fulltime")));
 		}
 	}
 
