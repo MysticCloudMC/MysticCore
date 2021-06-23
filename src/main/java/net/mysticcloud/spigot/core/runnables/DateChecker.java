@@ -26,6 +26,7 @@ public class DateChecker implements Runnable {
 
 	int counter = 0;
 	long lastcheck = 0;
+	long lastcheck2 = 0;
 	boolean hourWarn = false;
 	boolean tmWarn = false;
 	boolean fmWarn = false;
@@ -82,6 +83,16 @@ public class DateChecker implements Runnable {
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "/pex reload");
 			lastcheck = new Date().getTime();
 		}
+
+		if (new Date().getTime() - lastcheck2 >= TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS)) {
+			DebugUtils.debug("Scoreboard update");
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (CoreUtils.useCoreScoreboard()) {
+					CoreUtils.updateScoreboard(player);
+				}
+			}
+			lastcheck2 = new Date().getTime();
+		}
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
 				if (!entry.getValue().populated())
@@ -113,11 +124,6 @@ public class DateChecker implements Runnable {
 					}
 				}
 				PunishmentUtils.finishPunishments();
-				for (Player player : Bukkit.getOnlinePlayers()) {
-					if (CoreUtils.useCoreScoreboard()) {
-						CoreUtils.updateScoreboard(player);
-					}
-				}
 			}
 
 			for (List<TimedPerm> perms : CoreUtils.timedPerms.values()) {
@@ -181,14 +187,14 @@ public class DateChecker implements Runnable {
 					}
 
 				}
-				
+
 				if (CoreUtils.getMonth() == Calendar.JUNE) {
 					if (CoreUtils.getDay() >= 27) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.JULY_4TH);
 					}
 				}
-				
+
 				if (CoreUtils.getMonth() == Calendar.JULY) {
 					if (CoreUtils.getDay() >= 0 && CoreUtils.getDay() <= 4) {
 						holiday = true;
