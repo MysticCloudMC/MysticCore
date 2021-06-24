@@ -36,7 +36,7 @@
 			<artifactId>server</artifactId>
 			<version>1.15.1</version>
 			<scope>system</scope>
-			<systemPath>${rootdir}home/Minecraft/Dependencies/spigot-1.16.2.jar</systemPath>
+			<systemPath>${rootdir}home/Minecraft/Dependencies/spigot.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>net.milkbowl</groupId>
