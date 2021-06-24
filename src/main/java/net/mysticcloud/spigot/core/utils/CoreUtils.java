@@ -19,7 +19,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -65,7 +64,6 @@ import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.admin.VaultAPI;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
-import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
@@ -309,7 +307,7 @@ public class CoreUtils {
 
 		WarpUtils.registerWarps();
 
-		MysticEntityUtils.registerEntities();
+//		MysticEntityUtils.registerEntities();
 
 	}
 
@@ -592,8 +590,9 @@ public class CoreUtils {
 
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
-		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(), CoreUtils.colorize(
-				"&3&lMystic&f&lCloud  ".toUpperCase() + Emoticons.BAR_2 + "  &7&l" + getServerName().toUpperCase()));
+		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
+				CoreUtils.colorize("   &3&lMystic&f&lCloud&7  ".toUpperCase() + Emoticons.BAR_2 + "  &6&l"
+						+ getServerName().toUpperCase() + "&r   "));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(10);

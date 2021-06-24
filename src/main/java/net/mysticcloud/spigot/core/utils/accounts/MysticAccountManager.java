@@ -34,7 +34,7 @@ public class MysticAccountManager {
 
 		mplayers.put(uid, player);
 
-		saveMysticPlayer(player);
+		updateMysticPlayer(player.getUUID());
 
 		return player;
 	}

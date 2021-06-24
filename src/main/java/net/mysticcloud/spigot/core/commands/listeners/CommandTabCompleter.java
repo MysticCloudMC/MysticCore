@@ -15,7 +15,6 @@ import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
-import net.mysticcloud.spigot.core.utils.entities.Bosses;
 import net.mysticcloud.spigot.core.utils.warps.Warp;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
@@ -31,9 +30,9 @@ public class CommandTabCompleter implements TabCompleter {
 		}
 		tags.add("remove");
 
-		for (Bosses boss : Bosses.values()) {
-			bosses.add(boss.getCallName());
-		}
+//		for (Bosses boss : Bosses.values()) {
+//			bosses.add(boss.getCallName());
+//		}
 
 	}
 

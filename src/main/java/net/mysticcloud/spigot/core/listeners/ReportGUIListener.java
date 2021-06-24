@@ -1,8 +1,6 @@
 package net.mysticcloud.spigot.core.listeners;
 
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Particle.DustOptions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,8 +9,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.pets.PetManager;
-import net.mysticcloud.spigot.core.utils.pets.PetType;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -131,15 +127,15 @@ public class ReportGUIListener implements Listener {
 				break;
 			}
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
-			e.setCancelled(true);
-			for (PetType type : PetType.values()) {
-				if (e.getCurrentItem().getType().equals(type.getGUIMaterial())) {
-					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player) e.getWhoClicked()));
-					e.getWhoClicked().closeInventory();
-				}
-			}
-		}
+//		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Pets") {
+//			e.setCancelled(true);
+//			for (PetType type : PetType.values()) {
+//				if (e.getCurrentItem().getType().equals(type.getGUIMaterial())) {
+//					PetManager.spawnPet(type, e.getWhoClicked().getLocation(), ((Player) e.getWhoClicked()));
+//					e.getWhoClicked().closeInventory();
+//				}
+//			}
+//		}
 
 	}
 

@@ -28,7 +28,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -53,10 +52,7 @@ import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
-import net.mysticcloud.spigot.core.utils.entities.MysticEntityUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
-import net.mysticcloud.spigot.core.utils.pets.Pet;
-import net.mysticcloud.spigot.core.utils.pets.PetManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
@@ -206,7 +202,6 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		MysticAccountManager.saveMysticPlayer(e.getPlayer());
-		PetManager.removePets(e.getPlayer());
 		e.setQuitMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has left the game."));
 	}
 
@@ -253,19 +248,19 @@ public class PlayerListener implements Listener {
 				e.setDamage(2);
 			}
 		}
-		if (e.getDamager() instanceof Player)
-			if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
-				if (!MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
-						.containsKey(e.getDamager().getUniqueId())) {
-					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
-							e.getDamage());
-				} else {
-					double predamage = MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
-							.get(e.getDamager().getUniqueId());
-					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
-							(predamage + e.getDamage()));
-				}
-			}
+//		if (e.getDamager() instanceof Player)
+//			if (MysticEntityUtils.damages.containsKey(e.getEntity().getUniqueId())) {
+//				if (!MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
+//						.containsKey(e.getDamager().getUniqueId())) {
+//					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
+//							e.getDamage());
+//				} else {
+//					double predamage = MysticEntityUtils.damages.get(e.getEntity().getUniqueId())
+//							.get(e.getDamager().getUniqueId());
+//					MysticEntityUtils.damages.get(e.getEntity().getUniqueId()).put(e.getDamager().getUniqueId(),
+//							(predamage + e.getDamage()));
+//				}
+//			}
 	}
 
 	@EventHandler
@@ -356,13 +351,13 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) {
-		if (e.getRightClicked().hasMetadata("pet")) {
-			Pet pet = PetManager.getPet(e.getPlayer().getUniqueId());
-			if (pet.isMountable() && pet.getPetOwner().equals(e.getPlayer().getName())) {
-				e.getRightClicked().addPassenger(e.getPlayer());
-			}
-
-		}
+//		if (e.getRightClicked().hasMetadata("pet")) {
+//			Pet pet = PetManager.getPet(e.getPlayer().getUniqueId());
+//			if (pet.isMountable() && pet.getPetOwner().equals(e.getPlayer().getName())) {
+//				e.getRightClicked().addPassenger(e.getPlayer());
+//			}
+//
+//		}
 		if (DebugUtils.isDebugger(e.getPlayer().getUniqueId())) {
 			CoreUtils.particles.put(e.getRightClicked().getUniqueId(), new CircleFeetFormat());
 			CoreUtils.debug("Added entity to particle list.");

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,10 +15,8 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
-import net.mysticcloud.spigot.core.utils.PageResult;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
-import net.mysticcloud.spigot.core.utils.pets.PetManager;
 
 public class CoreCommands implements CommandExecutor {
 
@@ -155,7 +152,7 @@ public class CoreCommands implements CommandExecutor {
 		}
 		if (cmd.getName().equalsIgnoreCase("pets")) {
 			if (sender instanceof Player) {
-				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
+//				GUIManager.openInventory(((Player) sender), PetManager.generatePetGUI(((Player) sender)), "Pets");
 			}
 			return true;
 		}
