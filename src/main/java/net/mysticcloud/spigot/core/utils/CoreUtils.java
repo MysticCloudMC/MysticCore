@@ -114,7 +114,6 @@ public class CoreUtils {
 	public static List<String> ecoaccounts = new ArrayList<>();
 	public static double startingBalance = 100.00;
 	private static Economy economy = null;
-	public static Map<Integer, String> sidebar = new HashMap<>();
 
 	private static DecimalFormat df = new DecimalFormat("0.00");
 
@@ -123,14 +122,8 @@ public class CoreUtils {
 
 	private static List<String> voidWorlds = new ArrayList<>();
 
-//	private static Scoreboard gemscorea = Bukkit.getScoreboardManager().getMainScoreboard();
-
-	public static Material testingblock = Material.DIAMOND;
-
-	public static float t = 0;
 	public static List<UUID> particles__remove = new ArrayList<>();
 
-	private static boolean spawnDelay = false;
 	private static String serverName = "Server Name Here";
 	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server   ";
 	private static List<String> scoreboardInfo = new ArrayList<>();
@@ -169,7 +162,6 @@ public class CoreUtils {
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
 
-		registerSidebarList();
 
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
@@ -342,13 +334,6 @@ public class CoreUtils {
 		return serverName;
 	}
 
-	public static boolean spawnDelay() {
-		return spawnDelay;
-	}
-
-	public static void spawnDelay(boolean spawn) {
-		spawnDelay = spawn;
-	}
 
 	public static Set<UUID> getControllers() {
 		return controllers.keySet();
@@ -615,8 +600,7 @@ public class CoreUtils {
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize("   &3&lMystic&7&lCloud&8  ".toUpperCase() + Emoticons.BAR_2 + "  &b&l"
-						+ getServerName().toUpperCase() + "&r   "));
+				CoreUtils.colorize(scoreboardTitle));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		List<String> usedColors = new ArrayList<>();
@@ -796,7 +780,7 @@ public class CoreUtils {
 			return;
 		}
 		try {
-			TeleportUtils.teleport(player, spawn, true, spawnDelay);
+			TeleportUtils.teleport(player, spawn, true, false);
 			player.teleport(spawn);
 			player.sendMessage(fullPrefix + reason.message());
 		} catch (IllegalArgumentException ex) {
@@ -1156,25 +1140,6 @@ public class CoreUtils {
 //			player.setScoreboard(scoreboard);
 //		}
 //	}
-
-	private static void registerSidebarList() {
-		sidebar.clear();
-//		sidebar.put(15, "&c");
-//		sidebar.put(14, "&eRank");
-//		sidebar.put(13, "%r");
-		sidebar.put(12, "&c&c");
-		sidebar.put(11, "&aGems");
-		sidebar.put(10, "&a\u2B50 &f%g");
-		sidebar.put(9, "&c&f&c");
-		sidebar.put(8, "&6Balance");
-		sidebar.put(7, "&6$&f %balance");
-		sidebar.put(6, "&c&c&c");
-		sidebar.put(5, "&cLevel");
-		sidebar.put(4, "&f%level");
-		sidebar.put(3, "&b");
-		sidebar.put(2, "&b%holiday");
-		sidebar.put(1, "&c%hdayline");
-	}
 
 	@SuppressWarnings("deprecation")
 	public static ItemStack getItem(String name) {

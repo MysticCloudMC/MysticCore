@@ -116,9 +116,6 @@ public class ParticleFormat {
 			return;
 		}
 
-		if (CoreUtils.testingblock != null) {
-			materialdata = new MaterialData(CoreUtils.testingblock);
-		}
 
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class) {
