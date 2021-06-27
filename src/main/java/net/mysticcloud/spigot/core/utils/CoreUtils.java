@@ -591,45 +591,45 @@ public class CoreUtils {
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize("   &3&lMystic&7&lCloud&8  ".toUpperCase() + Emoticons.BAR_2 + "  &e&l"
+				CoreUtils.colorize("   &3&lMystic&7&lCloud&8  ".toUpperCase() + Emoticons.BAR_2 + "  &b&l"
 						+ getServerName().toUpperCase() + "&r   "));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(10);
-		obj.getScore(CoreUtils.colorize("&e&lPLAYER&8:")).setScore(9);
+		obj.getScore(CoreUtils.colorize("&b&lPLAYER&8:")).setScore(9);
 
 		org.bukkit.scoreboard.Team gems = board.registerNewTeam("rankTracker");
 		gems.addEntry(ChatColor.RED + "" + ChatColor.BLUE);
-		gems.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &e%prefix")));
+		gems.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &b%prefix")));
 		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(8);
 
 		org.bukkit.scoreboard.Team tag = board.registerNewTeam("tagTracker");
 		tag.addEntry(ChatColor.BLUE + "" + ChatColor.BLUE);
-		tag.setPrefix(CoreUtils.colorize("&7 Tag&8: &e%tag"));
+		tag.setPrefix(CoreUtils.colorize("&7 Tag&8: &b%tag"));
 		obj.getScore(ChatColor.BLUE + "" + ChatColor.BLUE).setScore(7);
 
 		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
 		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
-		balance.setPrefix(CoreUtils.colorize("&7 Balance&8: &e$" + player.getBalance()));
+		balance.setPrefix(CoreUtils.colorize("&7 Balance&8: &b$" + player.getBalance()));
 		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(6);
 
 		org.bukkit.scoreboard.Team level = board.registerNewTeam("levelCounter");
 		level.addEntry(ChatColor.RED + "" + ChatColor.DARK_BLUE);
-		level.setPrefix(CoreUtils.colorize("&7 Level&8: &e " + player.getLevel()));
+		level.setPrefix(CoreUtils.colorize("&7 Level&8: &b " + player.getLevel()));
 		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(5);
 
 		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(4);
 
-		obj.getScore(colorize("&e&lSERVER&8:")).setScore(3);
+		obj.getScore(colorize("&b&lSERVER&8:")).setScore(3);
 
 		org.bukkit.scoreboard.Team online = board.registerNewTeam("onlineCounter");
 		online.addEntry(ChatColor.BLUE + "" + ChatColor.DARK_BLUE);
-		online.setPrefix(CoreUtils.colorize("&7 Online&8: &e " + Bukkit.getOnlinePlayers().size()));
+		online.setPrefix(CoreUtils.colorize("&7 Online&8: &b " + Bukkit.getOnlinePlayers().size()));
 		obj.getScore(ChatColor.BLUE + "" + ChatColor.DARK_BLUE).setScore(2);
 
 		org.bukkit.scoreboard.Team time = board.registerNewTeam("timeTracker");
 		time.addEntry(ChatColor.BLUE + "" + ChatColor.RED);
-		time.setPrefix(CoreUtils.colorize("&7 Time&8: &e " + PlaceholderUtils.replace("", "%time")));
+		time.setPrefix(CoreUtils.colorize("&7 Time&8: &b " + PlaceholderUtils.replace("", "%time")));
 		obj.getScore(ChatColor.BLUE + "" + ChatColor.RED).setScore(1);
 
 //		if (!getHoliday().equals(Holiday.NONE)) {
@@ -648,16 +648,16 @@ public class CoreUtils {
 			MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
 
 			board.getTeam("rankTracker")
-					.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &e%prefix")));
-			board.getTeam("tagTracker").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Tag&8: &e%tag")));
+					.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &b%prefix")));
+			board.getTeam("tagTracker").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Tag&8: &b%tag")));
 
 //			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
-			board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize("&7 Balance&8: &e$" + player.getBalance()));
-			board.getTeam("levelCounter").setPrefix(CoreUtils.colorize("&7 Level&8: &e " + player.getLevel()));
+			board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize("&7 Balance&8: &b$" + player.getBalance()));
+			board.getTeam("levelCounter").setPrefix(CoreUtils.colorize("&7 Level&8: &b " + player.getLevel()));
 			board.getTeam("onlineCounter")
-					.setPrefix(CoreUtils.colorize("&7 Online&8: &e " + Bukkit.getOnlinePlayers().size()));
+					.setPrefix(CoreUtils.colorize("&7 Online&8: &b " + Bukkit.getOnlinePlayers().size()));
 			board.getTeam("timeTracker")
-					.setPrefix(CoreUtils.colorize("&7 Time&8: &e" + PlaceholderUtils.replace(pl, "%fulltime")));
+					.setPrefix(CoreUtils.colorize("&7 Time&8: &b" + PlaceholderUtils.replace(pl, "%fulltime")));
 		}
 	}
 
