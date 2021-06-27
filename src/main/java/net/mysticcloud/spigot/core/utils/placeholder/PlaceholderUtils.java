@@ -43,6 +43,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
 		string = string.replaceAll("%server", CoreUtils.getServerName());
+		string = string.replaceAll("%online", Bukkit.getOnlinePlayers().size() + "");
 
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
