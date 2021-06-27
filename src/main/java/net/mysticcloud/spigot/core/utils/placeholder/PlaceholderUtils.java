@@ -128,7 +128,7 @@ public class PlaceholderUtils {
 					ChatColor.BOLD + icon + ChatColor.getLastColors(tag.split("%bold")[0]));
 		}
 		while (tag.contains("%upper:")) {
-			String icon = tag.split("pper")[1].split("%")[0];
+			String icon = tag.split("pper:")[1].split("%")[0];
 			tag = tag.replaceAll("%upper:" + icon + "%", icon.contains("%") ? replace("", icon) : icon);
 		}
 		return tag;
