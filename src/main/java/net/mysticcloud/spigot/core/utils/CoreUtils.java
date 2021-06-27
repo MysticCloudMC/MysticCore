@@ -48,6 +48,7 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.json2.JSONObject;
 
 import com.google.common.io.ByteArrayDataOutput;
@@ -131,6 +132,8 @@ public class CoreUtils {
 
 	private static boolean spawnDelay = false;
 	private static String serverName = "Server Name Here";
+	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server%   ";
+	private static List<String> scoreboardInfo = new ArrayList<>();
 
 	public static void start() {
 
@@ -263,12 +266,36 @@ public class CoreUtils {
 
 		}
 
+		if (Main.getPlugin().getConfig().isSet("Scoreboard.Title")) {
+			scoreboardTitle = Main.getPlugin().getConfig().getString("Scoreboard.Title");
+		} else {
+			Main.getPlugin().getConfig().set("Scoreboard.Title", scoreboardTitle);
+		}
+
+		if (Main.getPlugin().getConfig().isSet("Scoreboard.Info")) {
+			scoreboardTitle = Main.getPlugin().getConfig().getString("Scoreboard.Info");
+		} else {
+			scoreboardInfo.add("&f");
+			scoreboardInfo.add("&aP&lPLAYER&8:");
+			scoreboardInfo.add("&7 Rank&8: &a%prefix");
+			scoreboardInfo.add("&7 Tag&8: &a%tag");
+			scoreboardInfo.add("&7 Balance&8: &a$%bal");
+			scoreboardInfo.add("&7 Level&8: &a%lvl");
+			scoreboardInfo.add("&a");
+			scoreboardInfo.add("&b&lSERVER&8:");
+			scoreboardInfo.add("&7 Online&8: &a%online");
+			scoreboardInfo.add("&7 Time&8: &a%fulltime");
+			Main.getPlugin().getConfig().set("Scoreboard.Info", scoreboardInfo);
+		}
+
 		if (Main.getPlugin().getConfig().isSet("Name")) {
 			serverName = Main.getPlugin().getConfig().getString("Name");
 		} else {
 			Main.getPlugin().getConfig().set("Name", serverName);
-			Main.getPlugin().saveConfig();
+
 		}
+
+		Main.getPlugin().saveConfig();
 
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
@@ -585,9 +612,6 @@ public class CoreUtils {
 	}
 
 	public static void setScoreboard(Player pl) {
-
-		MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
-
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
@@ -595,47 +619,26 @@ public class CoreUtils {
 						+ getServerName().toUpperCase() + "&r   "));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-		obj.getScore(ChatColor.RED + "" + ChatColor.GREEN).setScore(10);
-		obj.getScore(CoreUtils.colorize("&b&lPLAYER&8:")).setScore(9);
+		List<String> usedColors = new ArrayList<>();
+		int i = scoreboardInfo.size() + 1;
+		for (String s : scoreboardInfo) {
+			String color = "";
+			boolean go = true;
+			while (go) {
+				color = org.bukkit.ChatColor.values()[new Random().nextInt(org.bukkit.ChatColor.values().length)] + ""
+						+ org.bukkit.ChatColor.values()[new Random().nextInt(org.bukkit.ChatColor.values().length)];
+				if (!usedColors.contains(color)) {
+					usedColors.add(color);
+					go = false;
+				}
+			}
+			Team team = board.registerNewTeam(i + "");
+			team.addEntry(color);
+			team.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, s)));
+			obj.getScore(color).setScore(i);
+			i = i - 1;
 
-		org.bukkit.scoreboard.Team gems = board.registerNewTeam("rankTracker");
-		gems.addEntry(ChatColor.RED + "" + ChatColor.BLUE);
-		gems.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &b%prefix")));
-		obj.getScore(ChatColor.RED + "" + ChatColor.BLUE).setScore(8);
-
-		org.bukkit.scoreboard.Team tag = board.registerNewTeam("tagTracker");
-		tag.addEntry(ChatColor.BLUE + "" + ChatColor.BLUE);
-		tag.setPrefix(CoreUtils.colorize("&7 Tag&8: &b%tag"));
-		obj.getScore(ChatColor.BLUE + "" + ChatColor.BLUE).setScore(7);
-
-		org.bukkit.scoreboard.Team balance = board.registerNewTeam("balanceCounter");
-		balance.addEntry(ChatColor.RED + "" + ChatColor.BLACK);
-		balance.setPrefix(CoreUtils.colorize("&7 Balance&8: &b$" + player.getBalance()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.BLACK).setScore(6);
-
-		org.bukkit.scoreboard.Team level = board.registerNewTeam("levelCounter");
-		level.addEntry(ChatColor.RED + "" + ChatColor.DARK_BLUE);
-		level.setPrefix(CoreUtils.colorize("&7 Level&8: &b " + player.getLevel()));
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_BLUE).setScore(5);
-
-		obj.getScore(ChatColor.RED + "" + ChatColor.DARK_GRAY).setScore(4);
-
-		obj.getScore(colorize("&b&lSERVER&8:")).setScore(3);
-
-		org.bukkit.scoreboard.Team online = board.registerNewTeam("onlineCounter");
-		online.addEntry(ChatColor.BLUE + "" + ChatColor.DARK_BLUE);
-		online.setPrefix(CoreUtils.colorize("&7 Online&8: &b " + Bukkit.getOnlinePlayers().size()));
-		obj.getScore(ChatColor.BLUE + "" + ChatColor.DARK_BLUE).setScore(2);
-
-		org.bukkit.scoreboard.Team time = board.registerNewTeam("timeTracker");
-		time.addEntry(ChatColor.BLUE + "" + ChatColor.RED);
-		time.setPrefix(CoreUtils.colorize("&7 Time&8: &b " + PlaceholderUtils.replace("", "%time")));
-		obj.getScore(ChatColor.BLUE + "" + ChatColor.RED).setScore(1);
-
-//		if (!getHoliday().equals(Holiday.NONE)) {
-//			obj.getScore(CoreUtils.colorize("&a" + getHoliday().getName())).setScore(8);
-//			obj.getScore(CoreUtils.colorize(getHoliday().getScoreboardLine())).setScore(7);
-//		}
+		}
 
 		scoreboards.put(pl.getUniqueId(), board);
 		pl.setScoreboard(board);
@@ -645,19 +648,24 @@ public class CoreUtils {
 	public static void updateScoreboard(Player pl) {
 		if (scoreboards.containsKey(pl.getUniqueId())) {
 			Scoreboard board = scoreboards.get(pl.getUniqueId());
-			MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
-
-			board.getTeam("rankTracker")
-					.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &b%prefix")));
-			board.getTeam("tagTracker").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Tag&8: &b%tag")));
-
-//			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
-			board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize("&7 Balance&8: &b$" + player.getBalance()));
-			board.getTeam("levelCounter").setPrefix(CoreUtils.colorize("&7 Level&8: &b " + player.getLevel()));
-			board.getTeam("onlineCounter")
-					.setPrefix(CoreUtils.colorize("&7 Online&8: &b " + Bukkit.getOnlinePlayers().size()));
-			board.getTeam("timeTracker")
-					.setPrefix(CoreUtils.colorize("&7 Time&8: &b" + PlaceholderUtils.replace(pl, "%fulltime")));
+			int i = scoreboardInfo.size() + 1;
+			for (String s : scoreboardInfo) {
+				board.getTeam(i + "").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, s)));
+				i = i - 1;
+			}
+//			MysticPlayer player = MysticAccountManager.getMysticPlayer(pl);
+//
+//			board.getTeam("rankTracker")
+//					.setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Rank&8: &b%prefix")));
+//			board.getTeam("tagTracker").setPrefix(CoreUtils.colorize(PlaceholderUtils.replace(pl, "&7 Tag&8: &b%tag")));
+//
+////			board.getTeam("gemCounter").setPrefix(CoreUtils.colorize("&a" + Emoticons.GEMS + "&f " + player.getGems()));
+//			board.getTeam("balanceCounter").setPrefix(CoreUtils.colorize("&7 Balance&8: &b$" + player.getBalance()));
+//			board.getTeam("levelCounter").setPrefix(CoreUtils.colorize("&7 Level&8: &b " + player.getLevel()));
+//			board.getTeam("onlineCounter")
+//					.setPrefix(CoreUtils.colorize("&7 Online&8: &b " + Bukkit.getOnlinePlayers().size()));
+//			board.getTeam("timeTracker")
+//					.setPrefix(CoreUtils.colorize("&7 Time&8: &b" + PlaceholderUtils.replace(pl, "%fulltime")));
 		}
 	}
 
