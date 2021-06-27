@@ -124,8 +124,12 @@ public class PlaceholderUtils {
 		String tag = string + "";
 		while (tag.contains("%bold:")) {
 			String icon = tag.split("old:")[1].split("%")[0];
-			tag = tag.replaceAll("%old:" + icon + "%",
+			tag = tag.replaceAll("%bold:" + icon + "%",
 					ChatColor.BOLD + icon + ChatColor.getLastColors(tag.split("%bold")[0]));
+		}
+		while (tag.contains("%upper:")) {
+			String icon = tag.split("pper")[1].split("%")[0];
+			tag = tag.replaceAll("%upper:" + icon + "%", icon.toUpperCase());
 		}
 		return tag;
 	}

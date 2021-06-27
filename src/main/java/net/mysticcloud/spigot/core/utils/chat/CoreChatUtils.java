@@ -141,7 +141,7 @@ public class CoreChatUtils {
 		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
 		if (getChannel(channel).isGlobal())
 			CoreUtils.sendPluginMessage(player, "mystic:mystic", "MysticChat-" + channel,
-					replaceholders(player, format, PlaceholderUtils.markup(message)));
+					replaceholders(player, format, message));
 		else {
 			for (Player s : Bukkit.getOnlinePlayers()) {
 				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
