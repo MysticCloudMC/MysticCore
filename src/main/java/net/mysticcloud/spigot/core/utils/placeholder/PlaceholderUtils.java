@@ -89,7 +89,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%realtime", CoreUtils.getTime());
 		string = string.replaceAll("%playertime", "");
 		string = string.replaceAll("%suffix", "");
-		string = string.replaceAll("%server", Bukkit.getName());
+		string = string.replaceAll("%server", CoreUtils.getServerName());
 
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag", "");
@@ -129,7 +129,7 @@ public class PlaceholderUtils {
 		}
 		while (tag.contains("%upper:")) {
 			String icon = tag.split("pper")[1].split("%")[0];
-			tag = tag.replaceAll("%upper:" + icon + "%", icon.toUpperCase());
+			tag = tag.replaceAll("%upper:" + icon + "%", icon.contains("%") ? replace("", icon) : icon);
 		}
 		return tag;
 	}
