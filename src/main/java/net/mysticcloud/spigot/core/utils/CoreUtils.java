@@ -273,7 +273,7 @@ public class CoreUtils {
 		}
 
 		if (Main.getPlugin().getConfig().isSet("Scoreboard.Info")) {
-			scoreboardTitle = Main.getPlugin().getConfig().getString("Scoreboard.Info");
+			scoreboardInfo = Main.getPlugin().getConfig().getStringList("Scoreboard.Info");
 		} else {
 			scoreboardInfo.add("&f");
 			scoreboardInfo.add("&a&lPLAYER&8:");

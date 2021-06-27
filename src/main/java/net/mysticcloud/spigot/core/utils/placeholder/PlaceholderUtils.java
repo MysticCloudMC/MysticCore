@@ -29,6 +29,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%world", player.getWorld().getName());
 		string = string.replaceAll("%time", CoreUtils.getTime());
 		string = string.replaceAll("%balance", "" + mp.getBalance());
+		string = string.replaceAll("%bal", "" + mp.getBalance());
 		string = string.replaceAll("%gems", "" + mp.getGems());
 		string = string.replaceAll("%g", "" + mp.getGems());
 		string = string.replaceAll("%level", "" + mp.getLevel());
@@ -41,7 +42,7 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%fulltime", CoreUtils.getTime());
 		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
 		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
-		string = string.replaceAll("%server", Bukkit.getName());
+		string = string.replaceAll("%server", CoreUtils.getServerName());
 
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
