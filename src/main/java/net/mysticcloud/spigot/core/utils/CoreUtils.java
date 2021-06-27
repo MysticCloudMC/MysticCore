@@ -598,7 +598,7 @@ public class CoreUtils {
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize(PlaceholderUtils.replace(pl, scoreboardTitle)));
+				CoreUtils.colorize(PlaceholderUtils.markup(PlaceholderUtils.replace(pl, scoreboardTitle))));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		List<String> usedColors = new ArrayList<>();
