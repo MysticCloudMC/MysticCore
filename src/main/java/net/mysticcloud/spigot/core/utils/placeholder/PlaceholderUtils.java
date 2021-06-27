@@ -28,7 +28,6 @@ public class PlaceholderUtils {
 		string = string.replaceAll("%pl", player.getName());
 		string = string.replaceAll("%world", player.getWorld().getName());
 		string = string.replaceAll("%time", CoreUtils.getTime());
-		string = string.replaceAll("%balance", "%bal");
 		string = string.replaceAll("%bal", "" + mp.getBalance());
 		string = string.replaceAll("%gems", "" + mp.getGems());
 		string = string.replaceAll("%g", "" + mp.getGems());

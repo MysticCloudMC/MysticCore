@@ -132,7 +132,7 @@ public class CoreUtils {
 
 	private static boolean spawnDelay = false;
 	private static String serverName = "Server Name Here";
-	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server%   ";
+	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server   ";
 	private static List<String> scoreboardInfo = new ArrayList<>();
 
 	public static void start() {
@@ -276,13 +276,13 @@ public class CoreUtils {
 			scoreboardTitle = Main.getPlugin().getConfig().getString("Scoreboard.Info");
 		} else {
 			scoreboardInfo.add("&f");
-			scoreboardInfo.add("&aP&lPLAYER&8:");
+			scoreboardInfo.add("&a&lPLAYER&8:");
 			scoreboardInfo.add("&7 Rank&8: &a%prefix");
 			scoreboardInfo.add("&7 Tag&8: &a%tag");
 			scoreboardInfo.add("&7 Balance&8: &a$%bal");
 			scoreboardInfo.add("&7 Level&8: &a%lvl");
 			scoreboardInfo.add("&a");
-			scoreboardInfo.add("&b&lSERVER&8:");
+			scoreboardInfo.add("&a&lSERVER&8:");
 			scoreboardInfo.add("&7 Online&8: &a%online");
 			scoreboardInfo.add("&7 Time&8: &a%fulltime");
 			Main.getPlugin().getConfig().set("Scoreboard.Info", scoreboardInfo);
