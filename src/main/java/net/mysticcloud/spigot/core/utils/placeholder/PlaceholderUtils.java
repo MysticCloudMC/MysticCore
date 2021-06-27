@@ -129,7 +129,8 @@ public class PlaceholderUtils {
 		}
 		while (tag.contains("%upper:")) {
 			String icon = tag.split("pper:")[1].split("%")[0];
-			tag = tag.replaceAll("%upper:" + icon + "%", icon.contains("%") ? replace("", icon) : icon);
+			tag = tag.replaceAll("%upper:" + icon + "%",
+					icon.contains("%") ? replace("", icon).toUpperCase() : icon.toUpperCase());
 		}
 		return tag;
 	}
