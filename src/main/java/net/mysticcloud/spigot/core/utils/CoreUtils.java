@@ -162,7 +162,6 @@ public class CoreUtils {
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
 
-
 		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
 			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
 				List<String> perms = Main.getPlugin().getConfig().getStringList("TimedPerm." + uid);
@@ -333,7 +332,6 @@ public class CoreUtils {
 	public static String getServerName() {
 		return serverName;
 	}
-
 
 	public static Set<UUID> getControllers() {
 		return controllers.keySet();
@@ -600,7 +598,7 @@ public class CoreUtils {
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
-				CoreUtils.colorize(scoreboardTitle));
+				CoreUtils.colorize(PlaceholderUtils.replace(pl, scoreboardTitle)));
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		List<String> usedColors = new ArrayList<>();
