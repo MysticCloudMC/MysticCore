@@ -681,7 +681,7 @@ public class CoreUtils {
 	public static void end() {
 		KitManager.unloadCooldowns();
 		WarpUtils.save();
-//		saveConfig();
+		saveConfig();
 	}
 
 	public static void saveConfig() {
