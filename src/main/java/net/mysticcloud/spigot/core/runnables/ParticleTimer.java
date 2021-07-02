@@ -35,10 +35,11 @@ public class ParticleTimer implements Runnable {
 		for (UUID uid : CoreUtils.particles__remove) {
 			CoreUtils.particles.remove(uid);
 		}
+		CoreUtils.particles__remove.clear();
 
 		i = i + 1;
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new ParticleTimer(i), 1);
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), this, 1);
 
 	}
 
