@@ -1619,7 +1619,7 @@ public class CoreUtils {
 
 	public static String formatDateTime(long ms, String ncolor, String tcolor) {
 
-		int milli = (int) (ms % 1000);
+		int sec60 = (int) (ms % 60);
 
 		int l = (int) (ms / 1000);
 
@@ -1634,27 +1634,27 @@ public class CoreUtils {
 		if (weeks > 0) {
 			return ncolor + format.format(weeks) + tcolor + ":" + ncolor + format.format(days) + tcolor + ":" + ncolor
 					+ format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor
-					+ format.format(sec) + tcolor + ":" + ncolor + format.format(milli) + tcolor;
+					+ format.format(sec) + tcolor + ":" + ncolor + format.format(sec60) + tcolor;
 
 		}
 		if (days > 0) {
 			return ncolor + format.format(days) + tcolor + ":" + ncolor + format.format(hours) + tcolor + ":" + ncolor
 					+ format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor + ":" + ncolor
-					+ format.format(milli) + tcolor;
+					+ format.format(sec60) + tcolor;
 		}
 		if (hours > 0) {
 			return ncolor + format.format(hours) + tcolor + ":" + ncolor + format.format(min) + tcolor + ":" + ncolor
-					+ format.format(sec) + tcolor + ":" + ncolor + format.format(milli) + tcolor;
+					+ format.format(sec) + tcolor + ":" + ncolor + format.format(sec60) + tcolor;
 		}
 		if (min > 0) {
 			return ncolor + format.format(min) + tcolor + ":" + ncolor + format.format(sec) + tcolor + ":" + ncolor
-					+ format.format(milli) + tcolor;
+					+ format.format(sec60) + tcolor;
 		}
 		if (sec > 0) {
-			return ncolor + format.format(sec) + tcolor + ":" + ncolor + format.format(milli) + tcolor;
+			return ncolor + format.format(sec) + tcolor + ":" + ncolor + format.format(sec60) + tcolor;
 		}
-		if (milli > 0) {
-			return ncolor + "00" + tcolor + ":" + ncolor + format.format(milli) + tcolor;
+		if (sec60 > 0) {
+			return ncolor + "00" + tcolor + ":" + ncolor + format.format(sec60) + tcolor;
 		}
 
 		return ncolor + "less than a millisecond" + tcolor + "";
