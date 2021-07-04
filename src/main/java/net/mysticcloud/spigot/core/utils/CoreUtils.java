@@ -1619,7 +1619,7 @@ public class CoreUtils {
 
 	public static String formatDateTime(long ms, String ncolor, String tcolor) {
 
-		int sec60 = (int) (ms % 60);
+		int sec60 = (int) (ms % 1000) / 10;
 
 		int l = (int) (ms / 1000);
 
