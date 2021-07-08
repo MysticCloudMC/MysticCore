@@ -56,7 +56,8 @@ public class WarpUtils {
 					
 				}
 			} catch(NullPointerException ex) {
-				//skip
+				Bukkit.broadcastMessage("There was an error registering one of the warps");
+				ex.printStackTrace();
 			}
 		}
 
