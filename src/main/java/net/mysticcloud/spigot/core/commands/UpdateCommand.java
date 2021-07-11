@@ -13,6 +13,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class UpdateCommand implements CommandExecutor {
 
@@ -31,11 +32,12 @@ public class UpdateCommand implements CommandExecutor {
 
 				try {
 					InputStream in = new URL(url).openStream();
-					Bukkit.broadcastMessage("downloading...");
+					sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
 					Files.copy(in, Paths
 							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
 							StandardCopyOption.REPLACE_EXISTING);
-					Bukkit.broadcastMessage("Done!");
+					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
+//					Bukkit.broadcastMessage("Done!");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
