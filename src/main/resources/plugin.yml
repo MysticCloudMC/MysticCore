@@ -173,3 +173,5 @@ commands:
       description: Refresh yourself on the rules.
    votetest:
       description: Console only command.
+   portal:
+      description: Admin only command to set up portals in-game.

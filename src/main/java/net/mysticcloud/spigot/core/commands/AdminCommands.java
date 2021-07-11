@@ -37,6 +37,7 @@ import net.mysticcloud.spigot.core.utils.admin.MysticPerms;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
@@ -55,6 +56,48 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("portal")) {
+			if (sender instanceof Player) {
+				if (sender.hasPermission(MysticPerms.CMD_PORTAL)) {
+					if (args.length == 0) {
+						PortalUtils.enterPortalEditor((Player) sender);
+						return true;
+					}
+					if (args[0].equalsIgnoreCase("create")) {
+						if (args.length == 2) {
+							PortalUtils.playerCreatePortal((Player) sender, args[1]);
+						} else {
+							sender.sendMessage(CoreUtils.prefixes("portals") + "Try /portal create <name>");
+						}
+					}
+					if (args[0].equalsIgnoreCase("link")) {
+						if (args.length == 3) {
+							if (PortalUtils.getPortal(args[1]) != null) {
+								if (PortalUtils.getPortal(args[2]) != null) {
+									sender.sendMessage(CoreUtils.prefixes("portals") + "Linking portal &f" + args[1]
+											+ "&7 with &f" + args[2] + "&7.");
+									PortalUtils.getPortal(args[1]).link(PortalUtils.getPortal(args[2]));
+								} else {
+									sender.sendMessage(CoreUtils.prefixes("portals")
+											+ "Sorry but we couldn't find any portals named &f" + args[2] + "&7.");
+								}
+							} else {
+								sender.sendMessage(CoreUtils.prefixes("portals")
+										+ "Sorry but we couldn't find any portals named &f" + args[1] + "&7.");
+							}
+							PortalUtils.playerCreatePortal((Player) sender, args[1]);
+						} else {
+							sender.sendMessage(CoreUtils.prefixes("portals")
+									+ "Try &f'/portal link <portal1> <portal2>'&7. Remember portals don't have to link to each other, so if you want them to be sure to run the command again, just flip the portal names.");
+						}
+					}
+
+				} else {
+					sender.sendMessage(
+							CoreUtils.prefixes("portals") + "Sorry you don't have permission to use that command.");
+				}
+			}
+		}
 		if (cmd.getName().equalsIgnoreCase("kick")) {
 			if (sender.hasPermission(MysticPerms.CMD_KICK)) {
 				if (args.length > 0) {

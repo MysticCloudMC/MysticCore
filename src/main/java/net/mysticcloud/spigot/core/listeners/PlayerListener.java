@@ -417,6 +417,23 @@ public class PlayerListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e) {
+		if (PortalUtils.isEditing(e.getPlayer())) {
+			if (e.getClickedBlock() != null) {
+				if (e.getAction().name().startsWith("LEFT_CLICK")) {
+					PortalUtils.setEditorData(e.getPlayer(), "x1", e.getClickedBlock().getX());
+					PortalUtils.setEditorData(e.getPlayer(), "y1", e.getClickedBlock().getY());
+					PortalUtils.setEditorData(e.getPlayer(), "z1", e.getClickedBlock().getZ());
+					PortalUtils.setEditorData(e.getPlayer(), "world", e.getPlayer().getWorld().getName());
+				}
+				if (e.getAction().name().startsWith("RIGHT_CLICK")) {
+					PortalUtils.setEditorData(e.getPlayer(), "x2", e.getClickedBlock().getX());
+					PortalUtils.setEditorData(e.getPlayer(), "y2", e.getClickedBlock().getY());
+					PortalUtils.setEditorData(e.getPlayer(), "z2", e.getClickedBlock().getZ());
+					PortalUtils.setEditorData(e.getPlayer(), "world", e.getPlayer().getWorld().getName());
+				}
+				return;
+			}
+		}
 		if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
 			if (e.getItem() == null)
 				return;
