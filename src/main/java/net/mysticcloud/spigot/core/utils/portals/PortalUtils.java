@@ -75,10 +75,6 @@ public class PortalUtils {
 			double z2 = json.getDouble("z1") > json.getDouble("z2") ? json.getDouble("z1") : json.getDouble("z2");
 
 			String world = json.getString("world");
-			x1 = x1 - 0.5;
-			y1 = y1 - 0.5;
-			z1 = z1 - 0.5;
-
 			x2 = x2 + 0.5;
 			y2 = y2 + 0.5;
 			z2 = z2 + 0.5;
@@ -112,6 +108,10 @@ public class PortalUtils {
 			editors.remove(player.getUniqueId());
 			return null;
 		}
+	}
+
+	public static JSONObject getEditingInfo(UUID uid) {
+		return editors.get(uid);
 	}
 
 }

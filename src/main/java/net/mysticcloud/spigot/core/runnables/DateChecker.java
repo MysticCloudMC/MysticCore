@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.Main;
@@ -18,6 +19,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
 import net.mysticcloud.spigot.core.utils.events.EventUtils;
+import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -88,6 +90,24 @@ public class DateChecker implements Runnable {
 			if (CoreUtils.useCoreScoreboard()) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					CoreUtils.updateScoreboard(player);
+//					if (PortalUtils.isEditing(player)) {
+//						if (PortalUtils.getEditingInfo(player.getUniqueId()).has("x1")
+//								&& PortalUtils.getEditingInfo(player.getUniqueId()).has("x2")) {
+//							double x1 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("x1");
+//							double y1 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("y1");
+//							double z1 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("z1");
+//							
+//							double x2 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("x2");
+//							double y2 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("y2");
+//							double z2 = PortalUtils.getEditingInfo(player.getUniqueId()).getDouble("z2");
+//							
+//							String world = PortalUtils.getEditingInfo(player.getUniqueId()).getString("world");
+//							
+//							for(int x=0;x!=Math.abs(x1-x2)*3;x++) {
+//								Bukkit.getWorld(world).spawnParticle(Particle.FLAME, x1, y1, z1, x, x2, y2, z2, x, null);
+//							}
+//						}
+//					}
 				}
 			}
 			lastcheck2 = new Date().getTime();
