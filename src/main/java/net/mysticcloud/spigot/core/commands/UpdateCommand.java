@@ -16,29 +16,32 @@ import net.mysticcloud.spigot.core.Main;
 
 public class UpdateCommand implements CommandExecutor {
 
-	public UpdateCommand(Main plugin, String cmd){
+	public UpdateCommand(Main plugin, String cmd) {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
-	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-		if(sender.hasPermission("mysticcloud.admin.cmd.update")){
-			if(args.length == 1) {
-				
+
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (sender.hasPermission("mysticcloud.admin.cmd.update")) {
+			if (args.length == 1) {
+
 				String plugin = args[0];
 				String filename = plugin + ".jar";
-				String url = "http://www.mysticcloud.net:4385/job/" + plugin + "/lastSuccessfulBuild/artifact/target/" + filename;
-				
+				String url = "http://www.mysticcloud.net:4385/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
+						+ filename;
+
 				try {
 					InputStream in = new URL(url).openStream();
 					Bukkit.broadcastMessage("downloading...");
-					Files.copy(in, Paths.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + filename), StandardCopyOption.REPLACE_EXISTING);
+					Files.copy(in, Paths
+							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
+							StandardCopyOption.REPLACE_EXISTING);
 					Bukkit.broadcastMessage("Done!");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 		return true;
 	}
