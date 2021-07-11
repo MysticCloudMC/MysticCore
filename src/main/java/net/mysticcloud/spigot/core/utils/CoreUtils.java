@@ -158,6 +158,7 @@ public class CoreUtils {
 		prefixes.put("afk", colorize("&a&lAFK &f>&7 "));
 		prefixes.put("reports", colorize("&c&lReports &7>&f "));
 		prefixes.put("vote", colorize("&a&lVote &7>&a "));
+		prefixes.put("portals", colorize("&9&lPortals &f> &7"));
 
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
