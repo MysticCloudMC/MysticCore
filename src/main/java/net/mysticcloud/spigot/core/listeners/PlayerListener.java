@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Fireball;
@@ -54,9 +55,12 @@ import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
+import net.mysticcloud.spigot.core.utils.portals.Portal;
+import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
+import net.mysticcloud.spigot.core.utils.regions.Region;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class PlayerListener implements Listener {
@@ -89,6 +93,22 @@ public class PlayerListener implements Listener {
 		if (e.getPlayer().hasMetadata("coreteleporting")) {
 			TeleportUtils.checkTeleport(e.getPlayer());
 		}
+		if (e.getPlayer().hasMetadata("portaling")) {
+			if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
+				e.getPlayer().removeMetadata("portaling", Main.getPlugin());
+			}
+		} else {
+			for (Portal portal : PortalUtils.getPortals()) {
+				if (portal.region().inside(e.getTo())) {
+					e.getPlayer()
+							.teleport(new Location(Bukkit.getWorld(portal.region().world()), portal.center().getX(),
+									portal.center().getY(), portal.center().getZ(),
+									e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
+					e.getPlayer().setMetadata("portaling", new FixedMetadataValue(Main.getPlugin(), portal.region()));
+				}
+			}
+		}
+
 		if (AFKUtils.isAFK(e.getPlayer())) {
 			if (!(AFKUtils.getAFKPacket(e.getPlayer()) == null)) {
 				if (!AFKUtils.getAFKPacket(e.getPlayer()).getLocation().getBlock().getLocation()

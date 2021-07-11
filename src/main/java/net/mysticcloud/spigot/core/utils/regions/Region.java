@@ -6,14 +6,14 @@ import org.bukkit.entity.Entity;
 public class Region {
 
 	String world;
-	double x1;
-	double y1;
-	double z1;
-	double x2;
-	double y2;
-	double z2;
+	public double x1;
+	public double y1;
+	public double z1;
+	public double x2;
+	public double y2;
+	public double z2;
 
-	public Region(String world, double x1, double y1, double z1, double x2, double y2, double z2) {
+	Region(String world, double x1, double y1, double z1, double x2, double y2, double z2) {
 		this.world = world;
 		this.x1 = x1;
 		this.x2 = x2;
@@ -39,5 +39,9 @@ public class Region {
 			}
 		}
 		return false;
+	}
+
+	public String world() {
+		return world;
 	}
 }
