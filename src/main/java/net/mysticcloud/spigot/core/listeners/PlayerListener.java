@@ -107,9 +107,13 @@ public class PlayerListener implements Listener {
 								new FixedMetadataValue(Main.getPlugin(), portal.region()));
 						return;
 					}
-					e.getPlayer().teleport(new Location(Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
-							PortalUtils.getPortal(portal.link()).center().getX(), PortalUtils.getPortal(portal.link()).center().getY(), PortalUtils.getPortal(portal.link()).center().getZ(),
-							e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
+					e.getPlayer()
+							.teleport(new Location(
+									Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
+									PortalUtils.getPortal(portal.link()).center().getX(),
+									PortalUtils.getPortal(portal.link()).center().getY(),
+									PortalUtils.getPortal(portal.link()).center().getZ(),
+									e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
 					e.getPlayer().setMetadata("portaling",
 							new FixedMetadataValue(Main.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
 				}
@@ -420,17 +424,20 @@ public class PlayerListener implements Listener {
 		if (PortalUtils.isEditing(e.getPlayer())) {
 			if (e.getClickedBlock() != null) {
 				if (e.getAction().name().startsWith("LEFT_CLICK")) {
+					e.getPlayer().sendMessage(CoreUtils.prefixes("portals") + CoreUtils.colorize("Position 1 set."));
 					PortalUtils.setEditorData(e.getPlayer(), "x1", e.getClickedBlock().getX());
 					PortalUtils.setEditorData(e.getPlayer(), "y1", e.getClickedBlock().getY());
 					PortalUtils.setEditorData(e.getPlayer(), "z1", e.getClickedBlock().getZ());
 					PortalUtils.setEditorData(e.getPlayer(), "world", e.getPlayer().getWorld().getName());
 				}
 				if (e.getAction().name().startsWith("RIGHT_CLICK")) {
+					e.getPlayer().sendMessage(CoreUtils.prefixes("portals") + CoreUtils.colorize("Position 2 set."));
 					PortalUtils.setEditorData(e.getPlayer(), "x2", e.getClickedBlock().getX());
 					PortalUtils.setEditorData(e.getPlayer(), "y2", e.getClickedBlock().getY());
 					PortalUtils.setEditorData(e.getPlayer(), "z2", e.getClickedBlock().getZ());
 					PortalUtils.setEditorData(e.getPlayer(), "world", e.getPlayer().getWorld().getName());
 				}
+				e.setCancelled(true);
 				return;
 			}
 		}
