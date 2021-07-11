@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.json2.JSONObject;
 
+import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.regions.Region;
 import net.mysticcloud.spigot.core.utils.regions.RegionUtils;
@@ -16,6 +17,23 @@ public class PortalUtils {
 
 	private static Map<String, Portal> portals = new HashMap<>();
 	private static Map<UUID, JSONObject> editors = new HashMap<>();
+
+	public static void start() {
+		for (String name : Main.getPlugin().getConfig().getConfigurationSection("Portal").getKeys(false)) {
+			Portal portal = createPortal(name,
+					RegionUtils.createRegion("portalregion-" + name,
+							Main.getPlugin().getConfig().getString("Portal." + name + ".world"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".x1"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".y1"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".z1"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".x2"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".y2"),
+							Main.getPlugin().getConfig().getDouble("Portal." + name + ".z2")));
+			if (Main.getPlugin().getConfig().isSet("Portal." + name + ".link")) {
+				portal.link(Main.getPlugin().getConfig().getString("Portal." + name + ".link"));
+			}
+		}
+	}
 
 	public static Portal createPortal(String name, Region region) {
 		Portal portal = new Portal(name, region);
@@ -67,6 +85,18 @@ public class PortalUtils {
 
 			player.sendMessage(CoreUtils.colorize(
 					CoreUtils.prefixes("portals") + "You've successfully created the portal &f" + name + "&7."));
+
+			Main.getPlugin().getConfig().set("Portal." + name + ".x1", x1);
+			Main.getPlugin().getConfig().set("Portal." + name + ".y1", y1);
+			Main.getPlugin().getConfig().set("Portal." + name + ".z1", z1);
+
+			Main.getPlugin().getConfig().set("Portal." + name + ".x2", x2);
+			Main.getPlugin().getConfig().set("Portal." + name + ".y2", y2);
+			Main.getPlugin().getConfig().set("Portal." + name + ".z2", z2);
+
+			Main.getPlugin().getConfig().set("Portal." + name + ".world", world);
+
+			Main.getPlugin().saveConfig();
 
 			return portal;
 

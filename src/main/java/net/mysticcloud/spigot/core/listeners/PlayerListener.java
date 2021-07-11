@@ -100,18 +100,18 @@ public class PlayerListener implements Listener {
 		} else {
 			for (Portal portal : PortalUtils.getPortals()) {
 				if (portal.region().inside(e.getTo())) {
-					if (portal.link() == null) {
+					if (PortalUtils.getPortal(portal.link()) == null) {
 						e.getPlayer().sendMessage(
 								CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
 						e.getPlayer().setMetadata("portaling",
 								new FixedMetadataValue(Main.getPlugin(), portal.region()));
 						return;
 					}
-					e.getPlayer().teleport(new Location(Bukkit.getWorld(portal.link().region().world()),
-							portal.link().center().getX(), portal.link().center().getY(), portal.link().center().getZ(),
+					e.getPlayer().teleport(new Location(Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
+							PortalUtils.getPortal(portal.link()).center().getX(), PortalUtils.getPortal(portal.link()).center().getY(), PortalUtils.getPortal(portal.link()).center().getZ(),
 							e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
 					e.getPlayer().setMetadata("portaling",
-							new FixedMetadataValue(Main.getPlugin(), portal.link().region()));
+							new FixedMetadataValue(Main.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
 				}
 			}
 		}

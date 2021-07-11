@@ -76,7 +76,9 @@ public class AdminCommands implements CommandExecutor {
 								if (PortalUtils.getPortal(args[2]) != null) {
 									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
 											+ "Linking portal &f" + args[1] + "&7 with &f" + args[2] + "&7."));
-									PortalUtils.getPortal(args[1]).link(PortalUtils.getPortal(args[2]));
+									PortalUtils.getPortal(args[1]).link(args[2]);
+									Main.getPlugin().getConfig().set("Portal." + args[1] + ".link", args[2]);
+									Main.getPlugin().saveConfig();
 								} else {
 									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
 											+ "Sorry but we couldn't find any portals named &f" + args[2] + "&7."));

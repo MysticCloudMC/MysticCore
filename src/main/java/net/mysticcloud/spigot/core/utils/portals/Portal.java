@@ -10,7 +10,7 @@ public class Portal {
 	String name;
 	Region rg;
 
-	Portal link = null;
+	String link = "";
 
 	public Portal(String name, Region region) {
 		this.name = name;
@@ -21,11 +21,11 @@ public class Portal {
 		return rg;
 	}
 
-	public Portal link() {
+	public String link() {
 		return link;
 	}
 
-	public void link(Portal portal) {
+	public void link(String portal) {
 		this.link = portal;
 	}
 
