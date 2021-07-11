@@ -30,8 +30,9 @@ public class UpdateCommand implements CommandExecutor {
 				
 				try {
 					InputStream in = new URL(url).openStream();
-					Bukkit.broadcastMessage(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath());
+					Bukkit.broadcastMessage("downloading...");
 					Files.copy(in, Paths.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + filename), StandardCopyOption.REPLACE_EXISTING);
+					Bukkit.broadcastMessage("Done!");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
