@@ -102,7 +102,7 @@ public class PlayerListener implements Listener {
 				if (portal.region().inside(e.getTo())) {
 					if (portal.link() == null) {
 						e.getPlayer().sendMessage(
-								CoreUtils.colorize("Portals") + "Sorry, that portal isn't linked to anything.");
+								CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
 						e.getPlayer().setMetadata("portaling",
 								new FixedMetadataValue(Main.getPlugin(), portal.region()));
 						return;

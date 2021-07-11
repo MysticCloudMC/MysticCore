@@ -65,8 +65,8 @@ public class PortalUtils {
 
 			editors.remove(player.getUniqueId());
 
-			player.sendMessage(
-					CoreUtils.prefixes("portals") + "You've successfully created the portal &f" + name + "&7.");
+			player.sendMessage(CoreUtils.colorize(
+					CoreUtils.prefixes("portals") + "You've successfully created the portal &f" + name + "&7."));
 
 			return portal;
 

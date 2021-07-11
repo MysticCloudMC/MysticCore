@@ -74,21 +74,20 @@ public class AdminCommands implements CommandExecutor {
 						if (args.length == 3) {
 							if (PortalUtils.getPortal(args[1]) != null) {
 								if (PortalUtils.getPortal(args[2]) != null) {
-									sender.sendMessage(CoreUtils.prefixes("portals") + "Linking portal &f" + args[1]
-											+ "&7 with &f" + args[2] + "&7.");
+									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+											+ "Linking portal &f" + args[1] + "&7 with &f" + args[2] + "&7."));
 									PortalUtils.getPortal(args[1]).link(PortalUtils.getPortal(args[2]));
 								} else {
-									sender.sendMessage(CoreUtils.prefixes("portals")
-											+ "Sorry but we couldn't find any portals named &f" + args[2] + "&7.");
+									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+											+ "Sorry but we couldn't find any portals named &f" + args[2] + "&7."));
 								}
 							} else {
-								sender.sendMessage(CoreUtils.prefixes("portals")
-										+ "Sorry but we couldn't find any portals named &f" + args[1] + "&7.");
+								sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+										+ "Sorry but we couldn't find any portals named &f" + args[1] + "&7."));
 							}
-							PortalUtils.playerCreatePortal((Player) sender, args[1]);
 						} else {
-							sender.sendMessage(CoreUtils.prefixes("portals")
-									+ "Try &f'/portal link <portal1> <portal2>'&7. Remember portals don't have to link to each other, so if you want them to be sure to run the command again, just flip the portal names.");
+							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+									+ "Try &f'/portal link <portal1> <portal2>'&7. Remember portals don't have to link to each other, so if you want them to be sure to run the command again, just flip the portal names."));
 						}
 					}
 
