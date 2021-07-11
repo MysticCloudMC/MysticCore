@@ -29,6 +29,10 @@ public class Portal {
 		this.link = portal;
 	}
 
+	public String name() {
+		return name;
+	}
+
 	public Location center() {
 		double x = (rg.x1 + rg.x2) / 2;
 		double z = (rg.z1 + rg.z2) / 2;
