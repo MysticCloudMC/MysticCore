@@ -13,7 +13,7 @@ public class RegionUtils {
 		regions.put(name, rg);
 		// TODO Make sure to tell whoever is creating the region that they will override
 		// if that name exists
-		return rg;
+		return regions.get(name);
 	}
 
 	public static Region getRegion(String name) {
