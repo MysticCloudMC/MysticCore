@@ -32,7 +32,9 @@ public class Portal {
 	public Location center() {
 		double x = (rg.x1 + rg.x2) / 2;
 		double z = (rg.z1 + rg.z2) / 2;
-		return new Location(Bukkit.getWorld(rg.world()), x, rg.y1, z);
+		Location loc = new Location(Bukkit.getWorld(rg.world()), x, rg.y1, z);
+		loc.setY(loc.getBlockY() + 1);
+		return loc;
 
 	}
 

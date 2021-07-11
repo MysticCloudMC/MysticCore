@@ -94,15 +94,12 @@ public class PlayerListener implements Listener {
 			TeleportUtils.checkTeleport(e.getPlayer());
 		}
 		if (e.getPlayer().hasMetadata("portaling")) {
-			Bukkit.broadcastMessage("Has metadata");
 			if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
-				Bukkit.broadcastMessage("Removing");
 				e.getPlayer().removeMetadata("portaling", Main.getPlugin());
 			}
 		} else {
 			for (Portal portal : PortalUtils.getPortals()) {
 				if (portal.region().inside(e.getTo())) {
-					Bukkit.broadcastMessage("Inside a portal!");
 					if (portal.link() == null) {
 						e.getPlayer().sendMessage(
 								CoreUtils.colorize("Portals") + "Sorry, that portal isn't linked to anything.");
