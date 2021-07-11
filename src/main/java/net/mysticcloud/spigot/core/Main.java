@@ -37,6 +37,7 @@ import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
+import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
@@ -88,6 +89,8 @@ public class Main extends JavaPlugin {
 		FriendUtils.start();
 
 		GUIManager.init();
+		
+		PortalUtils.start();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(
 					CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
