@@ -13,7 +13,7 @@ public class Region {
 	double y2;
 	double z2;
 
-	Region(String world, double x1, double y1, double z1, double x2, double y2, double z2) {
+	public Region(String world, double x1, double y1, double z1, double x2, double y2, double z2) {
 		this.world = world;
 		this.x1 = x1;
 		this.x2 = x2;
