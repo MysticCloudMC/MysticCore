@@ -28,7 +28,6 @@ public class UpdateCommand implements CommandExecutor {
 				String filename = plugin + ".jar";
 				String url = "http://www.mysticcloud.net:4385/job/" + plugin + "/lastSuccessfulBuild/artifact/target/" + filename;
 				
-				
 				try {
 					InputStream in = new URL(url).openStream();
 					Bukkit.broadcastMessage(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath());
