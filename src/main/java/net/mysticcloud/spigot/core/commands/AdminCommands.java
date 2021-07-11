@@ -60,15 +60,15 @@ public class AdminCommands implements CommandExecutor {
 			if (sender instanceof Player) {
 				if (sender.hasPermission(MysticPerms.CMD_PORTAL)) {
 					if (args.length == 0) {
-						sender.sendMessage(CoreUtils.prefixes("portals")
-								+ "Entering portal editor. Left and right click blocks to select a region, then run the command &7/portal create <name>&f.");
+						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+								+ "Entering portal editor. Left and right click blocks to select a region, then run the command &7/portal create <name>&f."));
 						PortalUtils.enterPortalEditor((Player) sender);
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("help")) {
 						sender.sendMessage(
 								CoreUtils.prefixes("portals") + "Below are some portal commands you can run.");
-						sender.sendMessage(CoreUtils.colorize("&9/porta &f- Enters the portal editor."));
+						sender.sendMessage(CoreUtils.colorize("&9/portal &f- Enters the portal editor."));
 						sender.sendMessage(CoreUtils.colorize("&9/portal create <name> &f- Creates a portal."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&9/portal link <portal1> <portal2> &f- Links a portal to another. &oThis is not 2 way. If you want portals to only link to each other you must run the command twice and switch the portal arguments."));
