@@ -13,6 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitTask;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.mysticcloud.spigot.core.Main;
@@ -44,17 +48,28 @@ public class TeleportUtils {
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
 				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
 				TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS) * 20);
+		BaseComponent[] accept =
+			    new ComponentBuilder("Type ").color(ChatColor.WHITE)
+			        .append("/tpaccept").color(ChatColor.GRAY)
+			        .append(" or click ").color(ChatColor.WHITE)
+			        .append("[Accept]").color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tpaccept")).create();
+		BaseComponent[] deny =
+			    new ComponentBuilder("Type ").color(ChatColor.WHITE)
+			        .append("/tpdeny").color(ChatColor.GRAY)
+			        .append(" or click ").color(ChatColor.WHITE)
+			        .append("[Deny]").color(ChatColor.RED).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tpdeny")).create();
+		
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
-		String accept = TextComponent.toLegacyText(ComponentSerializer.parse(
-				"{\"translate\":\"chat.type.text\",\"with\":[{\"color\":\"white\",\"text\":\"Type \"},{\"color\":\"gray\",\"text\":\"/tpaccept\"},{\"color\":\"white\",\"text\":\" or click \"},{\"text\":\"[Accept]\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tpaccept\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Click to accept teleport from "
-						+ player.getName() + "\",\"color\":\"green\"}}}]}"));
-		String deny = TextComponent.toLegacyText(ComponentSerializer.parse(
-				"{\"translate\":\"chat.type.text\",\"with\":[{\"color\":\"white\",\"text\":\"Type \"},{\"color\":\"gray\",\"text\":\"/tpdeny\"},{\"color\":\"white\",\"text\":\" or click \"},{\"text\":\"[Deny]\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tpdeny\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Click to deny teleport from "
-						+ player.getName() + "\",\"color\":\"red\"}}}]}"));
+//		String accept = TextComponent.toLegacyText(ComponentSerializer.parse(
+//				"{\"translate\":\"chat.type.text\",\"with\":[{\"color\":\"white\",\"text\":\"Type \"},{\"color\":\"gray\",\"text\":\"/tpaccept\"},{\"color\":\"white\",\"text\":\" or click \"},{\"text\":\"[Accept]\",\"color\":\"green\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tpaccept\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Click to accept teleport from "
+//						+ player.getName() + "\",\"color\":\"green\"}}}]}"));
+//		String deny = TextComponent.toLegacyText(ComponentSerializer.parse(
+//				"{\"translate\":\"chat.type.text\",\"with\":[{\"color\":\"white\",\"text\":\"Type \"},{\"color\":\"gray\",\"text\":\"/tpdeny\"},{\"color\":\"white\",\"text\":\" or click \"},{\"text\":\"[Deny]\",\"color\":\"red\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tpdeny\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"Click to deny teleport from "
+//						+ player.getName() + "\",\"color\":\"red\"}}}]}"));
 
-		other.sendMessage(accept);
-		other.sendMessage(deny);
+		other.spigot().sendMessage(accept);
+		other.spigot().sendMessage(deny);
 		other.sendMessage(CoreUtils.colorize(
 				"You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
 		player.sendMessage(CoreUtils.prefixes("teleport") + "You're teleport request has been sent.");
