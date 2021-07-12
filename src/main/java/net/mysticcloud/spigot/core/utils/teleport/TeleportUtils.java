@@ -74,7 +74,7 @@ public class TeleportUtils {
 		other.spigot().sendMessage(deny);
 		other.sendMessage(CoreUtils.colorize(
 				"You have " + CoreUtils.formatDate(requestTimeout, "&f", "&7") + "&f before this request times out."));
-		player.sendMessage(CoreUtils.prefixes("teleport") + "You're teleport request has been sent.");
+		player.sendMessage(CoreUtils.prefixes("teleport") + "Your teleport request has been sent.");
 		return TeleportResult.REQUESTED;
 	}
 
