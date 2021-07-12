@@ -78,9 +78,9 @@ public class PortalUtils {
 
 			y1 = y1 - 0.5;
 
-			x2 = x2 + 0.5;
-			y2 = y2 + 0.5;
-			z2 = z2 + 0.5;
+			x2 = x2 + 1;
+			y2 = y2 + 1;
+			z2 = z2 + 1;
 
 			Region rg = RegionUtils.createRegion("portalregion-" + name, world, x1, y1, z1, x2, y2, z2);
 
