@@ -94,8 +94,14 @@ public class PlayerListener implements Listener {
 			TeleportUtils.checkTeleport(e.getPlayer());
 		}
 		if (e.getPlayer().hasMetadata("portaling")) {
-			if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
-				e.getPlayer().removeMetadata("portaling", Main.getPlugin());
+			try {
+				if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
+					e.getPlayer().removeMetadata("portaling", Main.getPlugin());
+				}
+			} catch (Exception ex) {
+				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+					e.getPlayer().removeMetadata("portaling", plugin);
+				}
 			}
 		} else {
 			for (Portal portal : PortalUtils.getPortals()) {
