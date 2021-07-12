@@ -17,8 +17,8 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.TimeoutTeleportationRequest;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -48,17 +48,19 @@ public class TeleportUtils {
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
 				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
 				TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS) * 20);
-		BaseComponent[] accept =
-			    new ComponentBuilder("Type ").color(ChatColor.WHITE)
-			        .append("/tpaccept").color(ChatColor.GRAY)
-			        .append(" or click ").color(ChatColor.WHITE)
-			        .append("[Accept]").color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tpaccept")).create();
-		BaseComponent[] deny =
-			    new ComponentBuilder("Type ").color(ChatColor.WHITE)
-			        .append("/tpdeny").color(ChatColor.GRAY)
-			        .append(" or click ").color(ChatColor.WHITE)
-			        .append("[Deny]").color(ChatColor.RED).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "tpdeny")).create();
-		
+		BaseComponent[] accept = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpaccept")
+				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Accept]")
+				.color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept"))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+						new Text(CoreUtils.colorize("&aClick to accept request."))))
+				.create();
+		BaseComponent[] deny = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpdeny")
+				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Deny]").color(ChatColor.RED)
+				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpdeny"))
+				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+						new Text(CoreUtils.colorize("&cClick to deny request."))))
+				.create();
+
 		other.sendMessage(CoreUtils.colorize(
 				CoreUtils.prefixes("teleport") + "&7" + player.getName() + "&f is requesting to teleport to you."));
 //		String accept = TextComponent.toLegacyText(ComponentSerializer.parse(
