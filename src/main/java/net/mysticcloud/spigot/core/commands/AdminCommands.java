@@ -37,6 +37,7 @@ import net.mysticcloud.spigot.core.utils.admin.MysticPerms;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
+import net.mysticcloud.spigot.core.utils.portals.Portal;
 import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
@@ -72,6 +73,16 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize("&9/portal create <name> &f- Creates a portal."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&9/portal link <portal1> <portal2> &f- Links a portal to another. &oThis is not 2 way. If you want portals to only link to each other you must run the command twice and switch the portal arguments."));
+					}
+
+					if (args[0].equalsIgnoreCase("list")) {
+						sender.sendMessage(CoreUtils.colorize(
+								CoreUtils.prefixes("portals") + "Listed below are all the existing portals:"));
+						for (Portal p : PortalUtils.getPortals()) {
+							sender.sendMessage(CoreUtils.colorize("&7") + p.name()
+									+ (p.link() == "" ? "" : "&f -> &3" + p.link()));
+						}
+						return true;
 					}
 					if (args[0].equalsIgnoreCase("create")) {
 						if (args.length == 2) {
