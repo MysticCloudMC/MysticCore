@@ -24,7 +24,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -66,6 +70,36 @@ public class AdminCommands implements CommandExecutor {
 						PortalUtils.enterPortalEditor((Player) sender);
 						return true;
 					}
+					if (args[0].equalsIgnoreCase("info")) {
+						if (args.length == 2) {
+							if (PortalUtils.getPortal(args[1]) != null) {
+								Portal p = PortalUtils.getPortal(args[1]);
+								sender.sendMessage(CoreUtils.colorize(
+										CoreUtils.prefixes("portals") + "Info on portal &f" + p.name() + "&7:"));
+								sender.sendMessage(CoreUtils.colorize("&9Name&8:&7 " + p.name()));
+								sender.sendMessage(CoreUtils
+										.colorize("&9Link&8:&7 " + (p.link() == "" ? "Not linked." : p.link())));
+								sender.sendMessage(CoreUtils.colorize("&9Region&8:"));
+								sender.sendMessage(CoreUtils.colorize("&9 - Name&8:&7" + p.region().name()));
+
+								sender.sendMessage(CoreUtils.colorize("&9 - X1&8:&7" + p.region().x1));
+								sender.sendMessage(CoreUtils.colorize("&9 - Y1&8:&7" + p.region().y1));
+								sender.sendMessage(CoreUtils.colorize("&9 - Z1&8:&7" + p.region().z1));
+
+								sender.sendMessage(CoreUtils.colorize("&9 - X1&8:&7" + p.region().x2));
+								sender.sendMessage(CoreUtils.colorize("&9 - Y2&8:&7" + p.region().y2));
+								sender.sendMessage(CoreUtils.colorize("&9 - Z3&8:&7" + p.region().z2));
+
+							} else {
+								sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
+										+ "Sorry, couldn't find any information on portal &f" + args[1] + "&7."));
+							}
+						} else {
+							sender.sendMessage(CoreUtils
+									.colorize(CoreUtils.prefixes("portals") + "Usage: &f/portal info <portal>&7."));
+						}
+						return true;
+					}
 					if (args[0].equalsIgnoreCase("help")) {
 						sender.sendMessage(
 								CoreUtils.prefixes("portals") + "Below are some portal commands you can run.");
@@ -79,6 +113,21 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("portals") + "Listed below are all the existing portals:"));
 						for (Portal p : PortalUtils.getPortals()) {
+							ComponentBuilder list = new ComponentBuilder(p.name()).color(ChatColor.WHITE)
+									.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/portal info " + p.name()))
+									.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+											new Text(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
+													"&fClick for more info on &9" + p.name())).create())));
+							if (!p.name().equals(""))
+								list.append(" -> ").color(ChatColor.GRAY).append(p.link())
+										.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
+												"/portal info " + p.link()))
+										.color(ChatColor.BLUE)
+										.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+												new Text(
+														new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
+																"&fClick for more info on &9" + p.link())).create())));
+							sender.spigot().sendMessage(list.create());
 							sender.sendMessage(CoreUtils.colorize("&7") + p.name()
 									+ (p.link() == "" ? "" : "&f -> &3" + p.link()));
 						}
