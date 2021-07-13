@@ -118,7 +118,7 @@ public class AdminCommands implements CommandExecutor {
 									.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 											new Text(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
 													"&fClick for more info on &9" + p.name())).create())));
-							if (!p.name().equals(""))
+							if (!p.link().equals(""))
 								list.append(" -> ").color(ChatColor.GRAY).append(p.link())
 										.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 												"/portal info " + p.link()))
@@ -128,8 +128,6 @@ public class AdminCommands implements CommandExecutor {
 														new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
 																"&fClick for more info on &9" + p.link())).create())));
 							sender.spigot().sendMessage(list.create());
-							sender.sendMessage(CoreUtils.colorize("&7") + p.name()
-									+ (p.link() == "" ? "" : "&f -> &3" + p.link()));
 						}
 						return true;
 					}
