@@ -93,38 +93,38 @@ public class PlayerListener implements Listener {
 		if (e.getPlayer().hasMetadata("coreteleporting")) {
 			TeleportUtils.checkTeleport(e.getPlayer());
 		}
-		if (e.getPlayer().hasMetadata("portaling")) {
-			try {
-				if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
-					e.getPlayer().removeMetadata("portaling", Main.getPlugin());
-				}
-			} catch (Exception ex) {
-				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-					e.getPlayer().removeMetadata("portaling", plugin);
-				}
-			}
-		} else {
-			for (Portal portal : PortalUtils.getPortals()) {
-				if (portal.region().inside(e.getTo())) {
-					if (PortalUtils.getPortal(portal.link()) == null) {
-						e.getPlayer().sendMessage(
-								CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
-						e.getPlayer().setMetadata("portaling",
-								new FixedMetadataValue(Main.getPlugin(), portal.region()));
-						return;
-					}
-					e.getPlayer()
-							.teleport(new Location(
-									Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
-									PortalUtils.getPortal(portal.link()).center().getX(),
-									PortalUtils.getPortal(portal.link()).center().getY(),
-									PortalUtils.getPortal(portal.link()).center().getZ(),
-									e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
-					e.getPlayer().setMetadata("portaling",
-							new FixedMetadataValue(Main.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
-				}
-			}
-		}
+//		if (e.getPlayer().hasMetadata("portaling")) {
+//			try {
+//				if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
+//					e.getPlayer().removeMetadata("portaling", Main.getPlugin());
+//				}
+//			} catch (Exception ex) {
+//				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+//					e.getPlayer().removeMetadata("portaling", plugin);
+//				}
+//			}
+//		} else {
+//			for (Portal portal : PortalUtils.getPortals()) {
+//				if (portal.region().inside(e.getTo())) {
+//					if (PortalUtils.getPortal(portal.link()) == null) {
+//						e.getPlayer().sendMessage(
+//								CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
+//						e.getPlayer().setMetadata("portaling",
+//								new FixedMetadataValue(Main.getPlugin(), portal.region()));
+//						return;
+//					}
+//					e.getPlayer()
+//							.teleport(new Location(
+//									Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
+//									PortalUtils.getPortal(portal.link()).center().getX(),
+//									PortalUtils.getPortal(portal.link()).center().getY(),
+//									PortalUtils.getPortal(portal.link()).center().getZ(),
+//									e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
+//					e.getPlayer().setMetadata("portaling",
+//							new FixedMetadataValue(Main.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
+//				}
+//			}
+//		}
 
 		if (AFKUtils.isAFK(e.getPlayer())) {
 			if (!(AFKUtils.getAFKPacket(e.getPlayer()) == null)) {

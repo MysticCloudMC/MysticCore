@@ -8,8 +8,11 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -19,10 +22,12 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
 import net.mysticcloud.spigot.core.utils.events.EventUtils;
+import net.mysticcloud.spigot.core.utils.portals.Portal;
 import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
+import net.mysticcloud.spigot.core.utils.regions.Region;
 
 public class DateChecker implements Runnable {
 
@@ -90,6 +95,40 @@ public class DateChecker implements Runnable {
 			if (CoreUtils.useCoreScoreboard()) {
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					CoreUtils.updateScoreboard(player);
+
+					if (player.hasMetadata("portaling")) {
+						try {
+							if (!((Region) player.getMetadata("portaling").get(0).value())
+									.inside(player.getLocation())) {
+								player.removeMetadata("portaling", Main.getPlugin());
+							}
+						} catch (Exception ex) {
+							for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+								player.removeMetadata("portaling", plugin);
+							}
+						}
+					} else {
+						for (Portal portal : PortalUtils.getPortals()) {
+							if (portal.region().inside(player.getLocation())) {
+								if (PortalUtils.getPortal(portal.link()) == null) {
+									player.sendMessage(CoreUtils.prefixes("portals")
+											+ "Sorry, that portal isn't linked to anything.");
+									player.setMetadata("portaling",
+											new FixedMetadataValue(Main.getPlugin(), portal.region()));
+									return;
+								}
+								player.teleport(new Location(
+										Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
+										PortalUtils.getPortal(portal.link()).center().getX(),
+										PortalUtils.getPortal(portal.link()).center().getY(),
+										PortalUtils.getPortal(portal.link()).center().getZ(),
+										player.getLocation().getYaw(), player.getLocation().getPitch()));
+								player.setMetadata("portaling", new FixedMetadataValue(Main.getPlugin(),
+										PortalUtils.getPortal(portal.link()).region()));
+							}
+						}
+					}
+
 //					if (PortalUtils.isEditing(player)) {
 //						if (PortalUtils.getEditingInfo(player.getUniqueId()).has("x1")
 //								&& PortalUtils.getEditingInfo(player.getUniqueId()).has("x2")) {

@@ -52,15 +52,15 @@ public class TeleportUtils {
 				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Accept]")
 				.color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept"))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-						new Text(CoreUtils
-								.colorize("&fClick to &aaccept the\n&fteleport request from\n" + player.getName()))))
+						new Text(CoreUtils.colorize(
+								"&fClick to &aaccept&f the\n&fteleport request from\n&7" + player.getName()))))
 				.create();
 		BaseComponent[] deny = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpdeny")
 				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Deny]").color(ChatColor.RED)
 				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpdeny"))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 						new Text(CoreUtils.colorize(CoreUtils
-								.colorize("&fClick to &cdeny the\n&fteleport request from\n" + player.getName())))))
+								.colorize("&fClick to &cdeny&f the\n&fteleport request from\n&7" + player.getName())))))
 				.create();
 
 		other.sendMessage(CoreUtils.colorize(
@@ -84,14 +84,14 @@ public class TeleportUtils {
 		if (teleportRequests.containsKey(other)) {
 			if (teleportRequests.get(other).equals(player)) {
 				teleportRequests.remove(other);
-				if (Bukkit.getPlayer(player) != null) {
+				if (Bukkit.getPlayer(player) != null) 
 					Bukkit.getPlayer(player).sendMessage(
 							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
-				}
-				if (Bukkit.getPlayer(other) != null) {
+				
+				if (Bukkit.getPlayer(other) != null) 
 					Bukkit.getPlayer(other).sendMessage(
 							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "The request has timed out."));
-				}
+				
 			}
 		}
 	}
@@ -115,6 +115,12 @@ public class TeleportUtils {
 
 	public static TeleportResult denyTeleport(Player player) {
 		if (teleportRequests.containsKey(player.getUniqueId())) {
+			if (Bukkit.getPlayer(teleportRequests.get(player.getUniqueId())) != null)
+				Bukkit.getPlayer(teleportRequests.get(player.getUniqueId()))
+						.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request to &7"
+								+ player.getName() + "&f has been denied."));
+			player.sendMessage(
+					CoreUtils.colorize(CoreUtils.prefixes("teleport") + "You've denied the teleport request."));
 			teleportRequests.remove(player.getUniqueId());
 			return TeleportResult.DENIED;
 		} else {
