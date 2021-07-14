@@ -52,13 +52,15 @@ public class TeleportUtils {
 				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Accept]")
 				.color(ChatColor.GREEN).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpaccept"))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-						new Text(CoreUtils.colorize("&aClick to accept request."))))
+						new Text(CoreUtils
+								.colorize("&fClick to &aaccept the\n&fteleport request from\n" + player.getName()))))
 				.create();
 		BaseComponent[] deny = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpdeny")
 				.color(ChatColor.GRAY).append(" or click ").color(ChatColor.WHITE).append("[Deny]").color(ChatColor.RED)
 				.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tpdeny"))
 				.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-						new Text(CoreUtils.colorize("&cClick to deny request."))))
+						new Text(CoreUtils.colorize(CoreUtils
+								.colorize("&fClick to &cdeny the\n&fteleport request from\n" + player.getName())))))
 				.create();
 
 		other.sendMessage(CoreUtils.colorize(

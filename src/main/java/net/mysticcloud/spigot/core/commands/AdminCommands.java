@@ -115,18 +115,20 @@ public class AdminCommands implements CommandExecutor {
 						for (Portal p : PortalUtils.getPortals()) {
 							ComponentBuilder list = new ComponentBuilder(p.name()).color(ChatColor.WHITE)
 									.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/portal info " + p.name()))
-									.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-											new Text(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
-													"&fClick for more \ninfo on &9" + p.name())).create())));
-							if (!p.link().equals(""))
-								list.append(" -> ").color(ChatColor.GRAY).append(p.link())
+									.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(new ComponentBuilder(
+											ChatColor.translateAlternateColorCodes('&', "&fClick for more info."))
+													.create())));
+							if (!p.link().equals("")) {
+								list.append(" -> ").color(ChatColor.GRAY);
+								list.append(p.link())
 										.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
 												"/portal info " + p.link()))
 										.color(ChatColor.BLUE)
 										.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 												new Text(
 														new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
-																"&fClick for more info on &9" + p.link())).create())));
+																"&fClick for more info.")).create())));
+							}
 							sender.spigot().sendMessage(list.create());
 						}
 						return true;
