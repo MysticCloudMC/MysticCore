@@ -76,19 +76,19 @@ public class AdminCommands implements CommandExecutor {
 								Portal p = PortalUtils.getPortal(args[1]);
 								sender.sendMessage(CoreUtils.colorize(
 										CoreUtils.prefixes("portals") + "Info on portal &f" + p.name() + "&7:"));
-								sender.sendMessage(CoreUtils.colorize("&9Name&8:&7 " + p.name()));
+								sender.sendMessage(CoreUtils.colorize("&7Name&8:&9 " + p.name()));
 								sender.sendMessage(CoreUtils
-										.colorize("&9Link&8:&7 " + (p.link() == "" ? "Not linked." : p.link())));
-								sender.sendMessage(CoreUtils.colorize("&9Region&8:"));
-								sender.sendMessage(CoreUtils.colorize("&9 - Name&8:&7" + p.region().name()));
+										.colorize("&7Link&8:&9 " + (p.link() == "" ? "Not linked." : p.link())));
+								sender.sendMessage(CoreUtils.colorize("&7Region&8:"));
+								sender.sendMessage(CoreUtils.colorize("&7 - Name&8:&9 " + p.region().name()));
 
-								sender.sendMessage(CoreUtils.colorize("&9 - X1&8:&7" + p.region().x1));
-								sender.sendMessage(CoreUtils.colorize("&9 - Y1&8:&7" + p.region().y1));
-								sender.sendMessage(CoreUtils.colorize("&9 - Z1&8:&7" + p.region().z1));
+								sender.sendMessage(CoreUtils.colorize("&7 - X1&8:&9 " + p.region().x1));
+								sender.sendMessage(CoreUtils.colorize("&7 - Y1&8:&9 " + p.region().y1));
+								sender.sendMessage(CoreUtils.colorize("&7 - Z1&8:&9 " + p.region().z1));
 
-								sender.sendMessage(CoreUtils.colorize("&9 - X1&8:&7" + p.region().x2));
-								sender.sendMessage(CoreUtils.colorize("&9 - Y2&8:&7" + p.region().y2));
-								sender.sendMessage(CoreUtils.colorize("&9 - Z3&8:&7" + p.region().z2));
+								sender.sendMessage(CoreUtils.colorize("&7 - X2&8:&9 " + p.region().x2));
+								sender.sendMessage(CoreUtils.colorize("&7 - Y2&8:&9 " + p.region().y2));
+								sender.sendMessage(CoreUtils.colorize("&7 - Z2&8:&9 " + p.region().z2));
 
 							} else {
 								sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
