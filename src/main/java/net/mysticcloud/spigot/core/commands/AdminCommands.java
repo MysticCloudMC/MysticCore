@@ -117,7 +117,7 @@ public class AdminCommands implements CommandExecutor {
 									.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/portal info " + p.name()))
 									.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
 											new Text(new ComponentBuilder(ChatColor.translateAlternateColorCodes('&',
-													"&fClick for more info on &9" + p.name())).create())));
+													"&fClick for more \ninfo on &9" + p.name())).create())));
 							if (!p.link().equals(""))
 								list.append(" -> ").color(ChatColor.GRAY).append(p.link())
 										.event(new ClickEvent(ClickEvent.Action.RUN_COMMAND,
