@@ -91,43 +91,42 @@ public class DateChecker implements Runnable {
 			lastcheck = new Date().getTime();
 		}
 
-		if (new Date().getTime() - lastcheck2 >= TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS)) {
-			if (CoreUtils.useCoreScoreboard()) {
-				for (Player player : Bukkit.getOnlinePlayers()) {
-					CoreUtils.updateScoreboard(player);
+//		if (new Date().getTime() - lastcheck2 >= TimeUnit.MILLISECONDS.convert(1, TimeUnit.MILLISECONDS)) {
+		if (CoreUtils.useCoreScoreboard()) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				CoreUtils.updateScoreboard(player);
 
-					if (player.hasMetadata("portaling")) {
-						try {
-							if (!((Region) player.getMetadata("portaling").get(0).value())
-									.inside(player.getLocation())) {
-								player.removeMetadata("portaling", Main.getPlugin());
-							}
-						} catch (Exception ex) {
-							for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
-								player.removeMetadata("portaling", plugin);
-							}
+				if (player.hasMetadata("portaling")) {
+					try {
+						if (!((Region) player.getMetadata("portaling").get(0).value()).inside(player.getLocation())) {
+							player.removeMetadata("portaling", Main.getPlugin());
 						}
-					} else {
-						for (Portal portal : PortalUtils.getPortals()) {
-							if (portal.region().inside(player.getLocation())) {
-								if (PortalUtils.getPortal(portal.link()) == null) {
-									player.sendMessage(CoreUtils.prefixes("portals")
-											+ "Sorry, that portal isn't linked to anything.");
-									player.setMetadata("portaling",
-											new FixedMetadataValue(Main.getPlugin(), portal.region()));
-									return;
-								}
-								player.teleport(new Location(
-										Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
-										PortalUtils.getPortal(portal.link()).center().getX(),
-										PortalUtils.getPortal(portal.link()).center().getY(),
-										PortalUtils.getPortal(portal.link()).center().getZ(),
-										player.getLocation().getYaw(), player.getLocation().getPitch()));
-								player.setMetadata("portaling", new FixedMetadataValue(Main.getPlugin(),
-										PortalUtils.getPortal(portal.link()).region()));
-							}
+					} catch (Exception ex) {
+						for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+							player.removeMetadata("portaling", plugin);
 						}
 					}
+				} else {
+					for (Portal portal : PortalUtils.getPortals()) {
+						if (portal.region().inside(player.getLocation())) {
+							if (PortalUtils.getPortal(portal.link()) == null) {
+								player.sendMessage(
+										CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
+								player.setMetadata("portaling",
+										new FixedMetadataValue(Main.getPlugin(), portal.region()));
+								break;
+							}
+							player.teleport(
+									new Location(Bukkit.getWorld(PortalUtils.getPortal(portal.link()).region().world()),
+											PortalUtils.getPortal(portal.link()).center().getX(),
+											PortalUtils.getPortal(portal.link()).center().getY(),
+											PortalUtils.getPortal(portal.link()).center().getZ(),
+											player.getLocation().getYaw(), player.getLocation().getPitch()));
+							player.setMetadata("portaling", new FixedMetadataValue(Main.getPlugin(),
+									PortalUtils.getPortal(portal.link()).region()));
+						}
+					}
+				}
 
 //					if (PortalUtils.isEditing(player)) {
 //						if (PortalUtils.getEditingInfo(player.getUniqueId()).has("x1")
@@ -147,9 +146,9 @@ public class DateChecker implements Runnable {
 //							}
 //						}
 //					}
-				}
 			}
-			lastcheck2 = new Date().getTime();
+//			}
+//			lastcheck2 = new Date().getTime();
 		}
 		try {
 			for (Entry<Integer, Event> entry : EventUtils.getEvents().entrySet()) {
