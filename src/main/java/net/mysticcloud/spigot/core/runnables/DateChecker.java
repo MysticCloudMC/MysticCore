@@ -99,6 +99,7 @@ public class DateChecker implements Runnable {
 				if (player.hasMetadata("portaling")) {
 					try {
 						if (!((Region) player.getMetadata("portaling").get(0).value()).inside(player.getLocation())) {
+							
 							player.removeMetadata("portaling", Main.getPlugin());
 						}
 					} catch (Exception ex) {

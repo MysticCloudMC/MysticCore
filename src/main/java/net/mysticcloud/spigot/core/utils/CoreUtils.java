@@ -10,9 +10,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,6 +31,9 @@ import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -57,8 +62,7 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.kits.KitManager;
-import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
-import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
+import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
@@ -68,7 +72,6 @@ import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.skulls.CustomSkull;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
@@ -127,6 +130,8 @@ public class CoreUtils {
 	private static String serverName = "Server Name Here";
 	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server   ";
 	private static List<String> scoreboardInfo = new ArrayList<>();
+
+	static Map<String, List<UUID>> genericCooldowns = new HashMap<>();
 
 	public static void start() {
 
@@ -1753,6 +1758,61 @@ public class CoreUtils {
 		if (Bukkit.getPlayer(u) == null)
 			return;
 		Bukkit.getPlayer(u).kickPlayer(m);
+	}
+
+	public static void startGenericCooldown(Player p, String name, Runnable start, int cooldown, BossBar bar,
+			Runnable finish) {
+		if (!CoreUtils.getGenericCooldown(name).contains(p.getUniqueId())) {
+			CoreUtils.getGenericCooldown(name).add(p.getUniqueId());
+			start.run();
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
+					new GenericCooldownRunnable(bar, name, p.getUniqueId(), new Date().getTime(), cooldown, finish), 1);
+
+		}
+
+	}
+
+	public static void removeGenericCooldown(UUID uid, String name) {
+		if (!genericCooldowns.containsKey(name)) {
+			genericCooldowns.put(name, new ArrayList<>());
+			return;
+		}
+		if (genericCooldowns.get(name).contains(uid))
+			genericCooldowns.get(name).remove(uid);
+	}
+
+	public static Map<String, List<UUID>> getGenericCooldowns() {
+		return genericCooldowns;
+	}
+
+	public static List<UUID> getGenericCooldown(String name) {
+		if (!genericCooldowns.containsKey(name))
+			genericCooldowns.put(name, new ArrayList<UUID>());
+
+		return genericCooldowns.get(name);
+	}
+
+	public static void useGenericCooldown(String name, String display, Player player, BarColor color, int delay) {
+		useGenericCooldown(name, display, player, color, delay, new Runnable() {
+
+			@Override
+			public void run() {
+			}
+		});
+	}
+
+	public static void useGenericCooldown(String name, String display, Player player, BarColor color, int delay,
+			Runnable finish) {
+		if (!genericCooldowns.containsKey(name))
+			genericCooldowns.put(name, new ArrayList<>());
+
+		if (!genericCooldowns.get(name).contains(player.getUniqueId())) {
+			genericCooldowns.get(name).add(player.getUniqueId());
+			BossBar bar = Bukkit.createBossBar(CoreUtils.colorize(display), color, BarStyle.SOLID);
+			bar.addPlayer(player);
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new GenericCooldownRunnable(bar, name,
+					player.getUniqueId(), new Date().getTime(), delay * 5, finish), 1);
+		}
 	}
 
 }
