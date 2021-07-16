@@ -427,7 +427,7 @@ public class CoreUtils {
 
 	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
 		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
-		list.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
+		list.sort(/*Collections.reverseOrder*/(Map.Entry.comparingByValue()));
 
 		Map<K, V> result = new LinkedHashMap<>();
 		for (Entry<K, V> entry : list) {
