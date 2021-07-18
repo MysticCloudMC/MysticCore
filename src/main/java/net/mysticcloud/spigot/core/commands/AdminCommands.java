@@ -87,7 +87,9 @@ public class AdminCommands implements CommandExecutor {
 						format.particle(Particle.FLAME);
 						if (args.length >= 3)
 							for (int i = 3; i != args.length; i++) {
-								BlockParticleUtils.updateOptions(id, args[i]);
+								if (args[i].contains("=")) {
+									format.setOption(args[i].split("=")[0], args[i].split("=")[1]);
+								}
 							}
 						BlockParticleUtils.createBlockParticles(id,
 								((Player) sender).getLocation().getBlock().getLocation().clone().add(0.5, 0.5, 0.5),
