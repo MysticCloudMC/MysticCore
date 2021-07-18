@@ -61,7 +61,7 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("blockparticle")) {
+		if (cmd.getName().equalsIgnoreCase("blockparticles")) {
 			if (sender instanceof Player) {
 				if (sender.hasPermission(MysticPerms.CMD_BLOCK_PARTICLES)) {
 					if (args.length == 0 || (args.length > 0 && args[0].equalsIgnoreCase("help"))) {
