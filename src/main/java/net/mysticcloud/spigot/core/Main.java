@@ -92,7 +92,7 @@ public class Main extends JavaPlugin {
 
 		GUIManager.init();
 
-		PortalUtils.start();
+//		PortalUtils.start();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(
 					CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
