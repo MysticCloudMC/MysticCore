@@ -85,7 +85,7 @@ public class AdminCommands implements CommandExecutor {
 						ParticleFormat format = args.length >= 3 ? ParticleFormatEnum.valueOf(args[2]).formatter()
 								: new RandomFormat();
 						format.particle(Particle.FLAME);
-						if (args.length >= 3)
+						if (args.length >= 4)
 							for (int i = 3; i != args.length; i++) {
 								if (args[i].contains("=")) {
 									format.setOption(args[i].split("=")[0], args[i].split("=")[1]);
@@ -123,7 +123,7 @@ public class AdminCommands implements CommandExecutor {
 						}
 						String id = args[1];
 						if (args.length >= 3)
-							for (int i = 3; i != args.length; i++) {
+							for (int i = 2; i != args.length; i++) {
 								BlockParticleUtils.updateOptions(id, args[i]);
 							}
 					}
