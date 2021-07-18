@@ -52,12 +52,14 @@ public class BlockParticleUtils {
 	public static void createBlockParticles(String id, Location loc, ParticleFormat format) {
 		CoreUtils.blockparticles.put(loc, format);
 		blocks.put(id, loc);
+		end();
 	}
 
 	public static void updateFormat(String id, ParticleFormat format) {
 		if (!blocks.containsKey(id))
 			return;
 		CoreUtils.blockparticles.put(blocks.get(id), format);
+		end();
 	}
 
 	public static ParticleFormat getBlockParticleFormat(String id) {
@@ -76,6 +78,7 @@ public class BlockParticleUtils {
 				format.setOption(key, value);
 			}
 		}
+		end();
 	}
 
 //	public static Portal createPortal(String name, Region region) {
