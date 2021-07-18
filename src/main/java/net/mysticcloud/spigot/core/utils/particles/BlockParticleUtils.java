@@ -50,7 +50,7 @@ public class BlockParticleUtils {
 	}
 
 	public static void createBlockParticles(String id, Location loc, ParticleFormat format) {
-		CoreUtils.blockparticles__add.put(loc, format);
+		CoreUtils.blockparticles.put(loc, format);
 		blocks.put(id, loc);
 	}
 
