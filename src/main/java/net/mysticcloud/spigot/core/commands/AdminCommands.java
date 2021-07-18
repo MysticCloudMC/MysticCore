@@ -24,7 +24,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -33,13 +32,16 @@ import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
+import net.mysticcloud.spigot.core.utils.UID;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.admin.MysticPerms;
+import net.mysticcloud.spigot.core.utils.particles.BlockParticleUtils;
+import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
-import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 import net.mysticcloud.spigot.core.utils.portals.Portal;
@@ -69,21 +71,58 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("particles") + "Below are a list of commands you can use:"));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " create [id]&f - Creates a new block particle instance and enters you into the block particle editor."));
-						sender.sendMessage(CoreUtils
-								.colorize("&7/" + label + " edit [id]&f - Enters you into the block particle editor."));
+								+ " create [id] [format] [options]&f - Creates a new block particle instance."));
+						sender.sendMessage(CoreUtils.colorize("&7/" + label
+								+ " format <id> [format]&f - Enters you into the block particle editor."));
+						sender.sendMessage(CoreUtils.colorize("&7/" + label
+								+ " options <id> <optionKey> [value]&f - Enters you into the block particle editor."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&7/" + label + " delete <id>&f - Deletes all records of that block particle."));
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("create")) {
-						CircleFeetFormat format = new CircleFeetFormat();
-						format.particle(Particle.FLAME);
-						format.setOption("r", 4);
-						format.setOption("spots", 360/2);
-						CoreUtils.blockparticles__add.put(
+						String id = args.length >= 2 ? args[1] : "bp-" + new UID(5);
+						ParticleFormat format = args.length >= 3 ? ParticleFormatEnum.valueOf(args[2]).formatter()
+								: new RandomFormat();
+						if (args.length >= 3)
+							for (int i = 3; i != args.length; i++) {
+								BlockParticleUtils.updateOptions(id, args[i]);
+							}
+						BlockParticleUtils.createBlockParticles(id,
 								((Player) sender).getLocation().getBlock().getLocation().clone().add(0.5, 0.5, 0.5),
 								format);
+						sender.sendMessage(CoreUtils.colorize(
+								CoreUtils.prefixes("particles") + "You've created &7" + id + "&f block particle"));
+
+					}
+					if (args[0].equalsIgnoreCase("format")) {
+						if (args.length == 1) {
+							sender.sendMessage(CoreUtils.colorize(
+									CoreUtils.prefixes("particles") + "Usage: /" + label + " format <id> [format]"));
+							return true;
+						}
+						String id = args[1];
+						if (args.length >= 2) {
+							sender.sendMessage(CoreUtils.colorize(
+									CoreUtils.prefixes("particles") + "The format &7" + id + "&f is using is &7"
+											+ BlockParticleUtils.getBlockParticleFormat(id).name() + "&f."));
+							return true;
+						}
+						ParticleFormat format = ParticleFormatEnum.valueOf(args[2]).formatter();
+						BlockParticleUtils.updateFormat(id, format);
+					}
+
+					if (args[0].equalsIgnoreCase("options")) {
+						if (args.length >= 2) {
+							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label
+									+ " options <id> <option1=value1> [option2=value2]..."));
+							return true;
+						}
+						String id = args[1];
+						if (args.length >= 3)
+							for (int i = 3; i != args.length; i++) {
+								BlockParticleUtils.updateOptions(id, args[i]);
+							}
 					}
 
 				}

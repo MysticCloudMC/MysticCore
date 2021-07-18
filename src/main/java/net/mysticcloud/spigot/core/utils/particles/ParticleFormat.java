@@ -68,6 +68,10 @@ public class ParticleFormat {
 		options.put(key, value);
 	}
 
+	public void loadOptions(JSONObject options) {
+		this.options = options == null ? this.options : options;
+	}
+
 //	public void setHeight(double h) {
 //		this.h = h;
 //	}

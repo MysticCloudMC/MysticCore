@@ -1,39 +1,82 @@
 package net.mysticcloud.spigot.core.utils.particles;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Map.Entry;
 
-import org.bukkit.entity.Player;
+import org.bukkit.Location;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.regions.Region;
-import net.mysticcloud.spigot.core.utils.regions.RegionUtils;
+import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 
 public class BlockParticleUtils {
 
-//	private static Map<UUID, JSONObject> editors = new HashMap<>();
+	private static Map<String, Location> blocks = new HashMap<>();
+
 //
-//	public static void start() {
-//		for (String name : Main.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
-//			Portal portal = createPortal(name,
-//					RegionUtils.createRegion("portalregion-" + name,
-//							Main.getPlugin().getConfig().getString("Portal." + name + ".world"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".x1"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".y1"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".z1"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".x2"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".y2"),
-//							Main.getPlugin().getConfig().getDouble("Portal." + name + ".z2")));
-//			if (Main.getPlugin().getConfig().isSet("Portal." + name + ".link")) {
-//				portal.link(Main.getPlugin().getConfig().getString("Portal." + name + ".link"));
-//			}
-//		}
-//	}
-//
+	public static void start() {
+		for (String id : Main.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
+			ParticleFormat format = ParticleFormatEnum
+					.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".format")).formatter();
+			JSONObject options = new JSONObject(
+					Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
+			format.loadOptions(options);
+
+			CoreUtils.blockparticles__add.put(CoreUtils.decryptLocation(
+					Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location")), format);
+		}
+	}
+
+	public static void end() {
+		for (Entry<String, Location> e : blocks.entrySet()) {
+			ParticleFormat format = getBlockParticleFormat(e.getKey());
+			if (format == null)
+				continue;
+			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
+					ParticleFormatEnum.enumName(format));
+			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
+			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
+					CoreUtils.encryptLocation(e.getValue()));
+		}
+		Main.getPlugin().saveConfig();
+	}
+
+	public static void createBlockParticles(String id, Location loc) {
+		createBlockParticles(id, loc, new RandomFormat());
+	}
+
+	public static void createBlockParticles(String id, Location loc, ParticleFormat format) {
+		CoreUtils.blockparticles__add.put(loc, format);
+		blocks.put(id, loc);
+	}
+
+	public static void updateFormat(String id, ParticleFormat format) {
+		if (!blocks.containsKey(id))
+			return;
+		CoreUtils.blockparticles__remove.add(blocks.get(id));
+		CoreUtils.blockparticles__add.put(blocks.get(id), format);
+	}
+
+	public static ParticleFormat getBlockParticleFormat(String id) {
+		return blocks.containsKey(id)
+				? (CoreUtils.blockparticles.containsKey(blocks.get(id)) ? CoreUtils.blockparticles.get(blocks.get(id))
+						: null)
+				: null;
+	}
+
+	public static void updateOptions(String id, String... args) {
+		ParticleFormat format = getBlockParticleFormat(id);
+		for (String a : args) {
+			if (a.contains("=")) {
+				String key = a.split("=")[0];
+				String value = a.split("=")[1];
+				format.setOption(key, value);
+			}
+		}
+	}
+
 //	public static Portal createPortal(String name, Region region) {
 //		Portal portal = new Portal(name, region);
 //		portals.put(name, portal);

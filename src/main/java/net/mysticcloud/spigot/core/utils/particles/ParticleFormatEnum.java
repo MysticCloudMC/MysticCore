@@ -66,6 +66,49 @@ public enum ParticleFormatEnum {
 		return avalible;
 	}
 
+	@Override
+	public String toString() {
+		return name();
+	}
+
+	public static ParticleFormatEnum enumName(ParticleFormat format) {
+		if (format instanceof CircleHeadFormat)
+			return CIRCLE_HEAD;
+		if (format instanceof CircleFeetFormat)
+			return CIRCLE_FEET;
+		if (format instanceof HelixFormat)
+			return HELIX;
+		if (format instanceof HaloFormat)
+			return HALO;
+		if (format instanceof RandomFormat)
+			return RANDOM;
+		if (format instanceof LilyPadFormat)
+			return LILY_PAD;
+		if (format instanceof HatFormat)
+			return HAT;
+		if (format instanceof CapeFormat)
+			return CAPE;
+		if (format instanceof RainbowFormat)
+			return RAINBOW;
+		if (format instanceof RainCloudFormat)
+			return RAIN_CLOUD;
+		if (format instanceof AtomicFormat)
+			return ATOMIC;
+		if (format instanceof DoubleHelixFormat)
+			return DOUBLE_HELIX;
+		if (format instanceof SelectorFormat)
+			return SELECTOR;
+		if (format instanceof GemsFormat)
+			return GEMS;
+		if (format instanceof PopperFormat)
+			return POPPER;
+		if (format instanceof WingsFormat)
+			return WINGS;
+		if (format instanceof AngelicFormat)
+			return ANGELIC;
+		return CIRCLE_FEET;
+	}
+
 	public ParticleFormat formatter() {
 
 		switch (name) {
