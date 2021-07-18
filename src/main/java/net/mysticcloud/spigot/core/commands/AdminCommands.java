@@ -84,6 +84,7 @@ public class AdminCommands implements CommandExecutor {
 						String id = args.length >= 2 ? args[1] : "bp-" + new UID(5);
 						ParticleFormat format = args.length >= 3 ? ParticleFormatEnum.valueOf(args[2]).formatter()
 								: new RandomFormat();
+						format.particle(Particle.FLAME);
 						if (args.length >= 3)
 							for (int i = 3; i != args.length; i++) {
 								BlockParticleUtils.updateOptions(id, args[i]);
