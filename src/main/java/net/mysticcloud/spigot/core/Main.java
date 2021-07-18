@@ -65,7 +65,7 @@ public class Main extends JavaPlugin {
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
-		new AdminCommands(this, "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug",
+		new AdminCommands(this, "blockparticles", "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug",
 				"invsee", "level", "plugins", "back");
 		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");

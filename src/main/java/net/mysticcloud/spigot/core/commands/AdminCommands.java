@@ -61,6 +61,22 @@ public class AdminCommands implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
+		if (cmd.getName().equalsIgnoreCase("blockparticle")) {
+			if (sender instanceof Player) {
+				if (sender.hasPermission(MysticPerms.CMD_BLOCK_PARTICLES)) {
+					if (args.length == 0 || (args.length > 0 && args[0].equalsIgnoreCase("help"))) {
+						sender.sendMessage(CoreUtils.colorize(
+								CoreUtils.prefixes("particles") + "Below are a list of commands you can use:"));
+						sender.sendMessage(CoreUtils.colorize("&7/" + label
+								+ " create [id]&f - Creates a new block particle instance and enters you into the block particle editor."));
+						sender.sendMessage(CoreUtils
+								.colorize("&7/" + label + " edit [id]&f - Enters you into the block particle editor."));
+						sender.sendMessage(CoreUtils.colorize(
+								"&7/" + label + " delete <id>&f - Deletes all records of that block particle."));
+					}
+				}
+			}
+		}
 		if (cmd.getName().equalsIgnoreCase("portal")) {
 			if (sender instanceof Player) {
 				if (sender.hasPermission(MysticPerms.CMD_PORTAL)) {

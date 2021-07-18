@@ -14,5 +14,6 @@ public class MysticPerms {
 	public static final String CMD_CONTROL = ADMIN + ".control";
 	public static final String CMD_DEBUG = ADMIN + ".cmd.debug";
 	public static final String CMD_PORTAL = ADMIN + ".cmd.portal";
+	public static final String CMD_BLOCK_PARTICLES = ADMIN + ".cmd.blockparticles";
 
 }
