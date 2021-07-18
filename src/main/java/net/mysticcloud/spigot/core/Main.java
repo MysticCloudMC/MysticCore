@@ -36,6 +36,7 @@ import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
+import net.mysticcloud.spigot.core.utils.particles.BlockParticleUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -58,6 +59,7 @@ public class Main extends JavaPlugin {
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
 		KitManager.registerKits();
+		BlockParticleUtils.start();
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
@@ -65,8 +67,8 @@ public class Main extends JavaPlugin {
 
 		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
-		new AdminCommands(this, "blockparticles", "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn", "speed", "debug",
-				"invsee", "level", "plugins", "back");
+		new AdminCommands(this, "blockparticles", "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn",
+				"speed", "debug", "invsee", "level", "plugins", "back");
 		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
 		new GRLCommand(this, "grl");
@@ -89,7 +91,7 @@ public class Main extends JavaPlugin {
 		FriendUtils.start();
 
 		GUIManager.init();
-		
+
 		PortalUtils.start();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setPlayerListName(
@@ -110,6 +112,7 @@ public class Main extends JavaPlugin {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			MysticAccountManager.saveMysticPlayer(player);
 		}
+		BlockParticleUtils.end();
 	}
 
 	private static void startDateChecker() {

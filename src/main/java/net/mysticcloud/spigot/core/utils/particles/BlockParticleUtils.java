@@ -17,16 +17,18 @@ public class BlockParticleUtils {
 
 //
 	public static void start() {
-		for (String id : Main.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
-			ParticleFormat format = ParticleFormatEnum
-					.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".format")).formatter();
-			JSONObject options = new JSONObject(
-					Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
-			format.loadOptions(options);
+		if (Main.getPlugin().getConfig().isSet("BlockParticles"))
+			for (String id : Main.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
+				ParticleFormat format = ParticleFormatEnum
+						.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".format"))
+						.formatter();
+				JSONObject options = new JSONObject(
+						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
+				format.loadOptions(options);
 
-			CoreUtils.blockparticles__add.put(CoreUtils.decryptLocation(
-					Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location")), format);
-		}
+				CoreUtils.blockparticles__add.put(CoreUtils.decryptLocation(
+						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location")), format);
+			}
 	}
 
 	public static void end() {
