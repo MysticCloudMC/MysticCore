@@ -71,11 +71,11 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("particles") + "Below are a list of commands you can use:"));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " create [id] [format] [options]&f - Creates a new block particle instance."));
+								+ " create [id] [format] [option1=value1] [option2=value2]...&f - Creates a new block particle instance."));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
 								+ " format <id> [format]&f - Enters you into the block particle editor."));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " options <id> <optionKey> [value]&f - Enters you into the block particle editor."));
+								+ " options <id> <option1=value1> [option2=value2]...&f - Enters you into the block particle editor."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&7/" + label + " delete <id>&f - Deletes all records of that block particle."));
 						return true;

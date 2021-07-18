@@ -55,8 +55,7 @@ public class BlockParticleUtils {
 	public static void updateFormat(String id, ParticleFormat format) {
 		if (!blocks.containsKey(id))
 			return;
-		CoreUtils.blockparticles__remove.add(blocks.get(id));
-		CoreUtils.blockparticles__add.put(blocks.get(id), format);
+		CoreUtils.blockparticles.put(blocks.get(id), format);
 	}
 
 	public static ParticleFormat getBlockParticleFormat(String id) {
