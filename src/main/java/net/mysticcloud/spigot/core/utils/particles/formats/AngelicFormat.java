@@ -27,10 +27,10 @@ public class AngelicFormat extends ParticleFormat {
 		particle = Particle.REDSTONE;
 		halo.particle(particle);
 		wings.particle(particle);
-		halo.setDustOptions(new DustOptions(Color.YELLOW, halo.getParticleSize()));
-		wings.setDustOptions(new DustOptions(Color.WHITE, wings.getParticleSize()));
+		halo.setDustOptions(new DustOptions(Color.YELLOW, halo.getOptions().optFloat("size", 1f)));
+		wings.setDustOptions(new DustOptions(Color.WHITE, halo.getOptions().optFloat("size", 1f)));
 	}
-	
+
 	@Override
 	public void particle(Particle particle) {
 		super.particle(particle);

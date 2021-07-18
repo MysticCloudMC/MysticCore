@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -36,6 +37,25 @@ public class ParticleTimer implements Runnable {
 			CoreUtils.particles.remove(uid);
 		}
 		CoreUtils.particles__remove.clear();
+
+		for (Entry<Location, ParticleFormat> entry : CoreUtils.blockparticles__add.entrySet()) {
+			CoreUtils.blockparticles.put(entry.getKey(), entry.getValue());
+		}
+		CoreUtils.blockparticles__add.clear();
+
+		for (Entry<Location, ParticleFormat> entry : CoreUtils.blockparticles.entrySet()) {
+			try {
+				entry.getValue().setLifetime(i);
+				entry.getValue().display(entry.getKey());
+			} catch (NullPointerException ex) {
+				CoreUtils.blockparticles__remove.add(entry.getKey());
+			}
+
+		}
+		for (Location uid : CoreUtils.blockparticles__remove) {
+			CoreUtils.blockparticles.remove(uid);
+		}
+		CoreUtils.blockparticles__remove.clear();
 
 		i = i + 1;
 

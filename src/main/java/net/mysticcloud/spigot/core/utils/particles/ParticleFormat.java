@@ -14,11 +14,14 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
+import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 @SuppressWarnings("deprecation")
 public class ParticleFormat {
+
+	protected JSONObject options = new JSONObject("{}");
 
 	protected boolean changeParticle = false;
 	protected Particle particle = null;
@@ -27,18 +30,21 @@ public class ParticleFormat {
 	protected BlockData blockdata = null;
 	protected MaterialData materialdata = new MaterialData(Material.GOLD_BLOCK);
 	protected List<Particle> allowedParticles = new ArrayList<>();
-	protected double r = 1;
-	protected int cols = 2;
-	protected int spots = 40;
-	protected double h = 2;
-	protected double l = 1.5;
 	protected int i = 0;
-	protected float particleSize = 1f;
 	private boolean tmp = false;
 
 	protected String name = "Format Name";
 
 	protected ItemStack guiItem = new ItemStack(Material.GRASS_BLOCK);
+
+	public ParticleFormat() {
+		options.put("r", 1);
+		options.put("h", 2);
+		options.put("cols", 2);
+		options.put("spots", 40);
+		options.put("l", 1.5);
+		options.put("size", 1f);
+	}
 
 	public void display(UUID uid) throws IllegalArgumentException {
 		if (particle == null)
@@ -58,41 +64,45 @@ public class ParticleFormat {
 		return i;
 	}
 
-	public void setHeight(double h) {
-		this.h = h;
+	public void setOption(String key, Object value) {
+		options.put(key, value);
 	}
 
-	public void setRadius(double r) {
-		this.r = r;
-	}
-
-	public void setLength(double l) {
-		this.l = l;
-	}
-
-	public void setSpots(int spots) {
-		this.spots = spots;
-	}
-
-	public void setColumns(int cols) {
-		this.cols = cols;
-	}
-
-	public double getHeight() {
-		return h;
-	}
-
-	public double getCoumns() {
-		return cols;
-	}
-
-	public double getLength() {
-		return l;
-	}
-
-	public int getSpots() {
-		return spots;
-	}
+//	public void setHeight(double h) {
+//		this.h = h;
+//	}
+//
+//	public void setRadius(double r) {
+//		this.r = r;
+//	}
+//
+//	public void setLength(double l) {
+//		this.l = l;
+//	}
+//
+//	public void setSpots(int spots) {
+//		this.spots = spots;
+//	}
+//
+//	public void setColumns(int cols) {
+//		this.cols = cols;
+//	}
+//
+//	public double getHeight() {
+//		return h;
+//	}
+//
+//	public double getCoumns() {
+//		return cols;
+//	}
+//
+//	public double getLength() {
+//		return l;
+//	}
+//
+//	public int getSpots() {
+//		return spots;
+//	}
 
 	public void setDustOptions(DustOptions dustoptions) {
 		this.dustoptions = dustoptions;
@@ -116,13 +126,13 @@ public class ParticleFormat {
 			return;
 		}
 
-
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class) {
 				if (dustoptions.getSize() == 99) {
 					tmp = true;
 					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
-					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), particleSize);
+					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
+							options.getFloat("size"));
 				}
 				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
 				if (tmp) {
@@ -205,6 +215,10 @@ public class ParticleFormat {
 		return v.setX(x).setZ(z);
 	}
 
+	public JSONObject getOptions() {
+		return options;
+	}
+
 	protected Vector rotateAroundAxisZ(Vector v, double angle) {
 		angle = Math.toRadians(angle);
 		double x, y, cos, sin;
@@ -213,14 +227,6 @@ public class ParticleFormat {
 		x = v.getX() * cos - v.getY() * sin;
 		y = v.getX() * sin + v.getY() * cos;
 		return v.setX(x).setY(y);
-	}
-
-	public float getParticleSize() {
-		return particleSize;
-	}
-
-	public void setParticleSize(float particleSize) {
-		this.particleSize = particleSize;
 	}
 
 }

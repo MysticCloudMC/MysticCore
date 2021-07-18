@@ -24,10 +24,10 @@ public class LilyPadFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid) {
-		if (Bukkit.getPlayer(uid) != null) 
+		if (Bukkit.getPlayer(uid) != null)
 			display(Bukkit.getPlayer(uid).getLocation());
 	}
-	
+
 	@Override
 	public void display(Location loc) {
 		if (particle == null)
@@ -35,24 +35,29 @@ public class LilyPadFormat extends ParticleFormat {
 		cloc = loc.clone();
 
 		for (int t = 0; t != corners; t++) {
-			spawnParticle(particle, cloc.clone().add(
-					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians(i) * (360 / rspots) * (r))),
-					0.05, 
-					Math.sin(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians(i) * (360 / rspots) * (r)))));
+			spawnParticle(particle,
+					cloc.clone().add(
+							Math.cos(Math.toRadians(i + ((getOptions().getInt("spots") / (corners)) * t))
+									* (360 / getOptions().getInt("spots")))
+									* (Math.cos(Math.toRadians(i) * (360 / rspots) * (getOptions().getDouble("r")))),
+							0.05,
+							Math.sin(Math.toRadians(i + ((getOptions().getInt("spots") / (corners)) * t))
+									* (360 / getOptions().getInt("spots")))
+									* (Math.cos(Math.toRadians(i) * (360 / rspots) * (getOptions().getDouble("r"))))));
 		}
-		
+
 		for (int t = 0; t != corners; t++) {
-			spawnParticle(particle, cloc.clone().add(
-					Math.cos(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i + (rspots/4))) * (360 / rspots) * (r))),
-					0.05, 
-					Math.sin(Math.toRadians(i + ((spots / (corners)) * t)) * (360 / spots)) * (Math
-							.cos(Math.toRadians((i + (rspots/4))) * (360 / rspots) * (r)))));
+			spawnParticle(particle, cloc.clone().add(Math
+					.cos(Math.toRadians(i + ((getOptions().getInt("spots") / (corners)) * t))
+							* (360 / getOptions().getInt("spots")))
+					* (Math.cos(Math.toRadians((i + (rspots / 4))) * (360 / rspots) * (getOptions().getDouble("r")))),
+					0.05,
+					Math.sin(Math.toRadians(i + ((getOptions().getInt("spots") / (corners)) * t))
+							* (360 / getOptions().getInt("spots")))
+							* (Math.cos(Math.toRadians((i + (rspots / 4))) * (360 / rspots)
+									* (getOptions().getDouble("r"))))));
 		}
-		
-		
+
 	}
 
 }

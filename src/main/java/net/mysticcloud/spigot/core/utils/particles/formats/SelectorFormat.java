@@ -13,14 +13,12 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class SelectorFormat extends ParticleFormat {
 	Location loc = null;
-	
+
 	RandomFormat random = new RandomFormat();
-	
 
 	public SelectorFormat() {
 		changeParticle = true;
-		cols = 5;
-		
+		setOption("cols", 5);
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.DOLPHIN);
 		allowedParticles.add(Particle.FALLING_WATER);
@@ -35,27 +33,29 @@ public class SelectorFormat extends ParticleFormat {
 
 	@Override
 	public void display(UUID uid) {
-		
+
 		display(Bukkit.getPlayer(uid).getLocation());
 	}
-	
+
 	@Override
 	public void display(Location loc) {
-		if(particle == null) return;
+		if (particle == null)
+			return;
 		random.particle(particle);
 		random.setBlockData(blockdata);
 		random.setDustOptions(dustoptions);
 		random.setMaterialData(materialdata);
-		random.setLength(l);
-		random.setHeight(h);
+		random.setOption("l", getOptions().get("l"));
+		random.setOption("h", getOptions().get("h"));
 		this.loc = loc;
 		random.setLifetime(i);
 		random.display(loc);
-		for(int t=0;t!=cols;t++){
-			spawnParticle(particle,loc.clone().add(rotateAroundAxisY(new Vector(
-					Math.cos(Math.toRadians(t) * (360 / cols)) * (r),
+		for (int t = 0; t != getOptions().getInt("cols"); t++) {
+			spawnParticle(particle, loc.clone().add(rotateAroundAxisY(new Vector(
+					Math.cos(Math.toRadians(t) * (360 / getOptions().getInt("cols"))) * (getOptions().getDouble("l")),
 					0.05,
-					Math.sin(Math.toRadians(t) * (360 / cols)) * (r)),i*2)));
+					Math.sin(Math.toRadians(t) * (360 / getOptions().getInt("cols"))) * (getOptions().getDouble("l"))),
+					i * 2)));
 		}
 
 	}

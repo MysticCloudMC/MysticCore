@@ -23,10 +23,9 @@ public class RandomFormat extends ParticleFormat {
 		allowedParticles.add(Particle.COMPOSTER);
 		allowedParticles.add(Particle.FLAME);
 		allowedParticles.add(Particle.REDSTONE);
-		
+
 		guiItem = new ItemStack(Material.IRON_SWORD);
 		name = "&bRandom";
-
 
 	}
 
@@ -39,15 +38,17 @@ public class RandomFormat extends ParticleFormat {
 //								- (CoreUtils.getRandom().nextInt(2) + CoreUtils.getRandom().nextDouble()),
 //						-0.75 + (CoreUtils.getRandom().nextDouble()*1.5)));
 	}
-	
+
 	@Override
 	public void display(Location loc) {
-		if(particle!=null)
+		if (particle != null)
 			spawnParticle(particle,
-				loc.clone().add(-0.75 + (CoreUtils.getRandom().nextDouble()*1.5),
-						(l + CoreUtils.getRandom().nextDouble())
-								- (CoreUtils.getRandom().nextInt((int)h) + CoreUtils.getRandom().nextDouble()),
-						-(l/2) + (CoreUtils.getRandom().nextDouble()*l)));
+					loc.clone().add(-0.75 + (CoreUtils.getRandom().nextDouble() * 1.5),
+							(getOptions().getDouble("l") + CoreUtils.getRandom().nextDouble())
+									- (CoreUtils.getRandom().nextInt((int) getOptions().getDouble("h"))
+											+ CoreUtils.getRandom().nextDouble()),
+							-(getOptions().getDouble("l") / 2)
+									+ (CoreUtils.getRandom().nextDouble() * getOptions().getDouble("l"))));
 	}
 
 }

@@ -53,7 +53,7 @@ public class ParticleGUIListener implements Listener {
 		}
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Color") {
 			e.setCancelled(true);
-			float ps = CoreUtils.particles(e.getWhoClicked().getUniqueId()).getParticleSize();
+			float ps = CoreUtils.particles(e.getWhoClicked().getUniqueId()).getOptions().getFloat("size");
 			switch (e.getCurrentItem().getType()) {
 			case PINK_DYE:
 				CoreUtils.particles(e.getWhoClicked().getUniqueId())
@@ -115,18 +115,18 @@ public class ParticleGUIListener implements Listener {
 			AngelicFormat format = (AngelicFormat) CoreUtils.particles(e.getWhoClicked().getUniqueId());
 			switch (e.getCurrentItem().getType()) {
 			case WHITE_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.YELLOW, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
+				format.halo.setDustOptions(new DustOptions(Color.YELLOW, format.halo.getOptions().getFloat("size")));
+				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getOptions().getFloat("size")));
 				e.getWhoClicked().closeInventory();
 				break;
 			case RED_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.RED, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
+				format.halo.setDustOptions(new DustOptions(Color.RED, format.halo.getOptions().getFloat("size")));
+				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getOptions().getFloat("size")));
 				e.getWhoClicked().closeInventory();
 				break;
 			case BLACK_DYE:
-				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.RED, format.wings.getParticleSize()));
+				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getOptions().getFloat("size")));
+				format.wings.setDustOptions(new DustOptions(Color.RED, format.wings.getOptions().getFloat("size")));
 				e.getWhoClicked().closeInventory();
 				break;
 			case MAGMA_CREAM:
@@ -134,13 +134,13 @@ public class ParticleGUIListener implements Listener {
 				e.getWhoClicked().closeInventory();
 				break;
 			case FEATHER:
-				format.halo.setDustOptions(new DustOptions(Color.WHITE, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getParticleSize()));
+				format.halo.setDustOptions(new DustOptions(Color.WHITE, format.halo.getOptions().getFloat("size")));
+				format.wings.setDustOptions(new DustOptions(Color.WHITE, format.wings.getOptions().getFloat("size")));
 				e.getWhoClicked().closeInventory();
 				break;
 			case COAL:
-				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getParticleSize()));
-				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getParticleSize()));
+				format.halo.setDustOptions(new DustOptions(Color.BLACK, format.halo.getOptions().getFloat("size")));
+				format.wings.setDustOptions(new DustOptions(Color.BLACK, format.wings.getOptions().getFloat("size")));
 				e.getWhoClicked().closeInventory();
 				break;
 			default:

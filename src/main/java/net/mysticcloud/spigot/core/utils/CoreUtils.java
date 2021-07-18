@@ -91,6 +91,12 @@ public class CoreUtils {
 	static Map<UUID, Scoreboard> scoreboards = new HashMap<>();
 	public static Map<UUID, ParticleFormat> particles = new HashMap<>();
 
+	public static Map<Location, ParticleFormat> blockparticles = new HashMap<>();
+	public static Map<Location, ParticleFormat> blockparticles__add = new HashMap<>();
+
+	public static List<UUID> particles__remove = new ArrayList<>();
+	public static List<Location> blockparticles__remove = new ArrayList<>();
+
 	public static String prefix = "MysticCloud";
 	public static String fullPrefix = colorize("&3&l" + prefix + " &7>&f ");
 
@@ -124,8 +130,6 @@ public class CoreUtils {
 	static ItemStack gem = new ItemStack(Material.SUNFLOWER);
 
 	private static List<String> voidWorlds = new ArrayList<>();
-
-	public static List<UUID> particles__remove = new ArrayList<>();
 
 	private static String serverName = "Server Name Here";
 	private static String scoreboardTitle = "   &3&lMYSTIC&7&lCLOUD   &8%emoticon:BAR_2%   &a&l%server   ";
@@ -427,7 +431,7 @@ public class CoreUtils {
 
 	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
 		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
-		list.sort(/*Collections.reverseOrder*/(Map.Entry.comparingByValue()));
+		list.sort(/* Collections.reverseOrder */(Map.Entry.comparingByValue()));
 
 		Map<K, V> result = new LinkedHashMap<>();
 		for (Entry<K, V> entry : list) {

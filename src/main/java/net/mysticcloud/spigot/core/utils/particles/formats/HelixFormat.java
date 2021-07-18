@@ -27,22 +27,25 @@ public class HelixFormat extends ParticleFormat {
 		name = "&eHelix";
 		guiItem = new ItemStack(Material.REDSTONE);
 	}
-	
+
 	@Override
 	public void display(UUID uid) {
-		if (Bukkit.getPlayer(uid) != null) 
+		if (Bukkit.getPlayer(uid) != null)
 			display(Bukkit.getPlayer(uid).getLocation());
 	}
 
 	@Override
 	public void display(Location loc) {
-		if(particle == null) return;
-		for(int t=0;t!=cols;t++){
+		if (particle == null)
+			return;
+		for (int t = 0; t != getOptions().getInt("cols"); t++) {
 			cloc = loc.clone().add(
-					Math.cos(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots) * (r)),
-					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (r*2))),
-					Math.sin(Math.toRadians(i + ((spots/cols)*t)) * (360 / spots)) * (r));
-			spawnParticle(particle,cloc);
+					Math.cos(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
+							* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))),
+					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (getOptions().getDouble("r") * 2))),
+					Math.sin(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
+							* (360 / getOptions().getInt("spots"))) * (getOptions().getDouble("r")));
+			spawnParticle(particle, cloc);
 		}
 //		spawnParticle(uid, particle,
 //				Bukkit.getPlayer(uid).getLocation().clone().add(Math.cos(Math.toRadians(((i) * (360 / 20)) * (1))),

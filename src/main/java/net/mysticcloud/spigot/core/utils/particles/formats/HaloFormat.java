@@ -23,10 +23,10 @@ public class HaloFormat extends ParticleFormat {
 		name = "&cHalo";
 		guiItem = new ItemStack(Material.GOLDEN_HELMET);
 		allowedParticles.add(Particle.REDSTONE);
-		r = 0.5;
-		h = 2.25;
-		spots = spots/2;
-		particleSize = 0.4f;
+		setOption("r", 0.5);
+		setOption("h", 2.25);
+		setOption("spots", getOptions().optDouble("spots", 40) / 2);
+		setOption("size", 0.4f);
 	}
 
 	@Override
@@ -40,10 +40,16 @@ public class HaloFormat extends ParticleFormat {
 	public void display(Location loc) {
 		if (particle == null)
 			return;
-		for (int a = 1; a != spots + 1; a++) {
+		for (int a = 1; a != getOptions().getInt("spots") + 1; a++) {
 			spawnParticle(particle,
-					loc.clone().add(rotateAroundAxisY(new Vector(Math.cos(Math.toRadians(a) * ((360) / (spots))) * (r),
-							h, Math.sin(Math.toRadians(a) * ((360) / (spots))) * (r)), i)));
+					loc.clone()
+							.add(rotateAroundAxisY(new Vector(
+									Math.cos(Math.toRadians(a) * ((360) / (getOptions().getInt("spots"))))
+											* (getOptions().getDouble("r")),
+									getOptions().getDouble("h"),
+									Math.sin(Math.toRadians(a) * ((360) / (getOptions().getInt("spots"))))
+											* (getOptions().getDouble("r"))),
+									i)));
 
 		}
 

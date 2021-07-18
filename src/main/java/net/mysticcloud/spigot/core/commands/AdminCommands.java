@@ -39,6 +39,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.admin.MysticPerms;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
+import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.placeholder.EmoticonType;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 import net.mysticcloud.spigot.core.utils.portals.Portal;
@@ -73,7 +74,17 @@ public class AdminCommands implements CommandExecutor {
 								.colorize("&7/" + label + " edit [id]&f - Enters you into the block particle editor."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&7/" + label + " delete <id>&f - Deletes all records of that block particle."));
+						return true;
 					}
+					if (args[0].equalsIgnoreCase("create")) {
+						CircleFeetFormat format = new CircleFeetFormat();
+						format.particle(Particle.FLAME);
+						format.setOption("r", 4);
+						CoreUtils.blockparticles__add.put(
+								((Player) sender).getLocation().getBlock().getLocation().clone().add(0.5, 0.5, 0.5),
+								format);
+					}
+
 				}
 			}
 		}

@@ -22,7 +22,7 @@ public class RainCloudFormat extends ParticleFormat {
 
 	public RainCloudFormat() {
 
-		spots = 30;
+		setOption("spots", 30);
 		name = "&7Rain Cloud";
 		guiItem = new ItemStack(Material.GRAY_DYE);
 		particle = Particle.COMPOSTER;
@@ -43,20 +43,21 @@ public class RainCloudFormat extends ParticleFormat {
 		if (0.05 > CoreUtils.getRandom().nextDouble() * 100) {
 			for (int z = 0; z != 5 * scalar; i++) {
 				loc.add((CoreUtils.getRandom().nextDouble()
-						* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
-								: -(double) 1 / scalar)),
-						-1 / scalar,
-						(CoreUtils.getRandom().nextDouble()
-								* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar
-										: -(double) 1 / scalar)));
+						* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar : -(double) 1 / scalar)),
+						-1 / scalar, (CoreUtils.getRandom().nextDouble()
+								* (CoreUtils.getRandom().nextBoolean() ? (double) 1 / scalar : -(double) 1 / scalar)));
 				spawnParticle(Particle.END_ROD, loc);
 			}
 		}
 		if (i % 2 == 0)
 			for (int a = 0; a != 11; a++) {
-				for (int t = 0; t != spots + 1; t++) {
-						spawnParticle(Particle.CLOUD, cloc.clone().add(Math.cos(t * (360 / spots)) * (a * (r / 10)),
-								h + 1, Math.sin(t * (360 / spots)) * (a * (r / 10))));
+				for (int t = 0; t != getOptions().getInt("spots") + 1; t++) {
+					spawnParticle(Particle.CLOUD,
+							cloc.clone()
+									.add(Math.cos(t * (360 / getOptions().getInt("spots")))
+											* (a * (getOptions().getDouble("r") / 10)), getOptions().getDouble("h") + 1,
+											Math.sin(t * (360 / getOptions().getInt("spots")))
+													* (a * (getOptions().getDouble("r") / 10))));
 				}
 
 			}

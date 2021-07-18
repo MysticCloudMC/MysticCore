@@ -13,11 +13,8 @@ import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
 public class AtomicFormat extends ParticleFormat {
 
-	
-	
-
 	public AtomicFormat() {
-		spots = 40;
+		setOption("spots", 40);
 		changeParticle = true;
 		allowedParticles.add(Particle.SPELL_INSTANT);
 		allowedParticles.add(Particle.SPELL_MOB);
@@ -44,73 +41,69 @@ public class AtomicFormat extends ParticleFormat {
 		if (particle == null)
 			return;
 
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(
-												Math.cos(Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r))),
-												1 + ((Math.cos(
-														Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r)))
-														* -1)),
-												Math.sin(
-														Math.toRadians((i + ((spots / 6) * 1)) * (360 / spots) * (r)))),
-										loc.getYaw())));
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(
-												Math.cos(Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r))),
-												1 + Math.cos(
-														Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r))),
-												Math.sin(
-														Math.toRadians((i + ((spots / 6) * 2)) * (360 / spots) * (r)))),
-										loc.getYaw())));
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(Math
-												.cos(Math.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r))),
-												1,
-												Math.sin(Math
-														.toRadians((i + ((spots / 6) * 3)) * (360 / spots) * (r)))),
-										loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 1))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1 + ((Math
+										.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 1))
+												* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))
+										* -1)),
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 1))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 2))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1 + Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 2))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 2))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 3))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1,
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 3))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
 
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(
-												Math.cos(Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r))),
-												1 + ((Math.cos(
-														Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r)))
-														* -1)),
-												Math.sin(
-														Math.toRadians((i + ((spots / 6) * 4)) * (360 / spots) * (r)))),
-										loc.getYaw())));
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(
-												Math.cos(Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r))),
-												1 + Math.cos(
-														Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r))),
-												Math.sin(
-														Math.toRadians((i + ((spots / 6) * 5)) * (360 / spots) * (r)))),
-										loc.getYaw())));
-		spawnParticle(
-				particle, loc
-						.clone().add(
-								rotateAroundAxisY(
-										new Vector(Math
-												.cos(Math.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (r))),
-												1,
-												Math.sin(Math
-														.toRadians((i + ((spots / 6) * 6)) * (360 / spots) * (r)))),
-										loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 4))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1 + ((Math
+										.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 4))
+												* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))
+										* -1)),
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 4))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 5))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1 + Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 5))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 5))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
+		spawnParticle(particle,
+				loc.clone().add(rotateAroundAxisY(
+						new Vector(
+								Math.cos(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 6))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")))),
+								1,
+								Math.sin(Math.toRadians((i + ((getOptions().getInt("spots") / 6) * 6))
+										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))))),
+						loc.getYaw())));
 
 	}
 
