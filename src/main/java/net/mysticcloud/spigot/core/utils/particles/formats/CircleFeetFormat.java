@@ -44,12 +44,13 @@ public class CircleFeetFormat extends ParticleFormat {
 				Math.cos(Math.toRadians(((i) * (360 / getOptions().getInt("spots"))))) * (getOptions().getDouble("r")),
 				0.1,
 				Math.sin(Math.toRadians(i) * (360 / getOptions().getInt("spots"))) * (getOptions().getDouble("r"))));
-		spawnParticle(particle,
-				loc.clone()
-						.add(Math.cos(Math.toRadians(((i + 10) * (360 / getOptions().getInt("spots")))))
-								* (getOptions().getDouble("r")), 0.1,
-								Math.sin(Math.toRadians(i + 10) * (360 / getOptions().getInt("spots")))
-										* (getOptions().getDouble("r"))));
+		spawnParticle(particle, loc.clone().add(
+				Math.cos(Math
+						.toRadians(((i + (getOptions().getInt("spots") / 2)) * (360 / getOptions().getInt("spots")))))
+						* (getOptions().getDouble("r")),
+				0.1,
+				Math.sin(Math.toRadians(i + (getOptions().getInt("spots") / 2)) * (360 / getOptions().getInt("spots")))
+						* (getOptions().getDouble("r"))));
 
 	}
 

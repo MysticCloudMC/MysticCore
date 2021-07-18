@@ -80,7 +80,7 @@ public class AdminCommands implements CommandExecutor {
 						CircleFeetFormat format = new CircleFeetFormat();
 						format.particle(Particle.FLAME);
 						format.setOption("r", 4);
-						format.setOption("spots", 360);
+						format.setOption("spots", 360/2);
 						CoreUtils.blockparticles__add.put(
 								((Player) sender).getLocation().getBlock().getLocation().clone().add(0.5, 0.5, 0.5),
 								format);
