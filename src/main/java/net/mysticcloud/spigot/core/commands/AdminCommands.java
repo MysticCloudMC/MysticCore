@@ -114,7 +114,7 @@ public class AdminCommands implements CommandExecutor {
 					}
 
 					if (args[0].equalsIgnoreCase("options")) {
-						if (args.length >= 2) {
+						if (args.length <= 2) {
 							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label
 									+ " options <id> <option1=value1> [option2=value2]..."));
 							return true;
