@@ -25,9 +25,10 @@ public class BlockParticleUtils {
 				JSONObject options = new JSONObject(
 						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
 				format.loadOptions(options);
-
-				CoreUtils.blockparticles__add.put(CoreUtils.decryptLocation(
-						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location")), format);
+				Location loc = CoreUtils
+						.decryptLocation(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location"));
+				CoreUtils.blockparticles.put(loc, format);
+				blocks.put(id, loc);
 			}
 	}
 
