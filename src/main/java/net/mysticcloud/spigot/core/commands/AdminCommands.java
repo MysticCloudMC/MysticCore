@@ -103,7 +103,7 @@ public class AdminCommands implements CommandExecutor {
 							return true;
 						}
 						String id = args[1];
-						if (args.length >= 2) {
+						if (args.length <= 2) {
 							sender.sendMessage(CoreUtils.colorize(
 									CoreUtils.prefixes("particles") + "The format &7" + id + "&f is using is &7"
 											+ BlockParticleUtils.getBlockParticleFormat(id).name() + "&f."));
