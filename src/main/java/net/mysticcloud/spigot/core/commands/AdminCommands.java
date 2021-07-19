@@ -11,6 +11,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
@@ -70,6 +71,7 @@ public class AdminCommands implements CommandExecutor {
 					if (args.length == 0 || (args.length > 0 && args[0].equalsIgnoreCase("help"))) {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("particles") + "Below are a list of commands you can use:"));
+						sender.sendMessage(CoreUtils.colorize("&7/" + label + " list&f - Lists all block particles."));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
 								+ " create [id] [format] [option1=value1] [option2=value2]...&f - Creates a new block particle instance where you're standing."));
 						sender.sendMessage(CoreUtils.colorize(
@@ -99,6 +101,15 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("particles") + "You've created &7" + id + "&f block particle"));
 
+					}
+					if (args[0].equalsIgnoreCase("list")) {
+						String a = "";
+						sender.sendMessage(CoreUtils.colorize(
+								CoreUtils.prefixes("particles") + "All of the block particles are listed below"));
+						for (Entry<String, Location> e : BlockParticleUtils.getBlocks().entrySet()) {
+							a = a == "" ? "&f" + e.getKey() : a + "&7,&f " + e.getKey();
+						}
+						sender.sendMessage(CoreUtils.colorize(a + "&7."));
 					}
 					if (args[0].equalsIgnoreCase("format")) {
 						if (args.length == 1) {

@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.inventory.ItemStack;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.Main;
@@ -95,6 +96,10 @@ public class BlockParticleUtils {
 		blocks.remove(id);
 		Main.getPlugin().getConfig().set("BlockParticles." + id, null);
 		Main.getPlugin().saveConfig();
+	}
+
+	public static Map<String, Location> getBlocks() {
+		return blocks;
 	}
 
 //	public static Portal createPortal(String name, Region region) {
