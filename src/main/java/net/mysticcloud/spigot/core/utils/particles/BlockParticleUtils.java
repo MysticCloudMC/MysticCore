@@ -89,6 +89,11 @@ public class BlockParticleUtils {
 		end();
 	}
 
+	public static void deleteBlockParticle(String id) {
+		CoreUtils.blockparticles__remove.add(blocks.get(id));
+		blocks.remove(id);
+	}
+
 //	public static Portal createPortal(String name, Region region) {
 //		Portal portal = new Portal(name, region);
 //		portals.put(name, portal);

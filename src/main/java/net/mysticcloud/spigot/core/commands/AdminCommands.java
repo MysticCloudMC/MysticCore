@@ -71,11 +71,13 @@ public class AdminCommands implements CommandExecutor {
 						sender.sendMessage(CoreUtils.colorize(
 								CoreUtils.prefixes("particles") + "Below are a list of commands you can use:"));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " create [id] [format] [option1=value1] [option2=value2]...&f - Creates a new block particle instance."));
+								+ " create [id] [format] [option1=value1] [option2=value2]...&f - Creates a new block particle instance where you're standing."));
+						sender.sendMessage(CoreUtils.colorize(
+								"&7/" + label + " format <id> [format]&f - Updates and shows current format."));
 						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " format <id> [format]&f - Enters you into the block particle editor."));
-						sender.sendMessage(CoreUtils.colorize("&7/" + label
-								+ " options <id> <option1=value1> [option2=value2]...&f - Enters you into the block particle editor."));
+								+ " options <id> <option1=value1> [option2=value2]...&f - Updates options."));
+						sender.sendMessage(CoreUtils.colorize(
+								"&7/" + label + " particle <id> [particle]&f - Updates and shows particle type."));
 						sender.sendMessage(CoreUtils.colorize(
 								"&7/" + label + " delete <id>&f - Deletes all records of that block particle."));
 						return true;
@@ -105,14 +107,12 @@ public class AdminCommands implements CommandExecutor {
 							return true;
 						}
 						String id = args[1];
-						if (args.length <= 2) {
-							sender.sendMessage(CoreUtils.colorize(
-									CoreUtils.prefixes("particles") + "The format &7" + id + "&f is using is &7"
-											+ BlockParticleUtils.getBlockParticleFormat(id).name() + "&f."));
-							return true;
+						if (args.length >= 2) {
+							ParticleFormat format = ParticleFormatEnum.valueOf(args[2]).formatter();
+							BlockParticleUtils.updateFormat(id, format);
 						}
-						ParticleFormat format = ParticleFormatEnum.valueOf(args[2]).formatter();
-						BlockParticleUtils.updateFormat(id, format);
+						sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("particles") + "The format &7" + id
+								+ "&f is using is &7" + BlockParticleUtils.getBlockParticleFormat(id).name() + "&f."));
 					}
 
 					if (args[0].equalsIgnoreCase("options")) {
@@ -126,6 +126,30 @@ public class AdminCommands implements CommandExecutor {
 							for (int i = 2; i != args.length; i++) {
 								BlockParticleUtils.updateOptions(id, args[i]);
 							}
+					}
+
+					if (args[0].equalsIgnoreCase("particle")) {
+						if (args.length <= 2) {
+							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label
+									+ " particle <id> [particle]"));
+							return true;
+						}
+						String id = args[1];
+						if (args.length >= 3) {
+							BlockParticleUtils.getBlockParticleFormat(id).particle(Particle.valueOf(args[2]));
+						}
+						sender.sendMessage(CoreUtils
+								.colorize(CoreUtils.prefixes("particles") + "The particle &7" + id + "&f is using is &7"
+										+ BlockParticleUtils.getBlockParticleFormat(id).particle().name() + "&f."));
+					}
+					if (args[0].equalsIgnoreCase("delete")) {
+						if (args.length <= 1) {
+							sender.sendMessage(CoreUtils
+									.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label + " delete <id>"));
+							return true;
+						}
+						String id = args[1];
+						BlockParticleUtils.deleteBlockParticle(id);
 					}
 
 				}
