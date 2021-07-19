@@ -40,11 +40,17 @@ public class HelixFormat extends ParticleFormat {
 			return;
 		for (int t = 0; t != getOptions().getInt("cols"); t++) {
 			cloc = loc.clone().add(
-					Math.cos(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
-							* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))),
-					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (getOptions().getDouble("r") * 2))),
+					Math.cos(Math.toRadians(((i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
+							* (360 / getOptions().getInt("spots"))))) * (getOptions().getDouble("r")),
+					Math.cos(Math.toRadians(((i) * (360 / colspots)))) * (getOptions().getDouble("h")),
 					Math.sin(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
 							* (360 / getOptions().getInt("spots"))) * (getOptions().getDouble("r")));
+//			cloc = loc.clone().add(
+//					Math.cos(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
+//							* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))),
+//					1 + Math.cos(Math.toRadians(((i) * (360 / colspots)) * (getOptions().getDouble("r") * 2))),
+//					Math.sin(Math.toRadians(i + ((getOptions().getInt("spots") / getOptions().getInt("cols")) * t))
+//							* (360 / getOptions().getInt("spots"))) * (getOptions().getDouble("r")));
 			spawnParticle(particle, cloc);
 		}
 //		spawnParticle(uid, particle,
