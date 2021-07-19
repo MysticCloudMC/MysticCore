@@ -30,6 +30,7 @@ public class BlockParticleUtils {
 						.decryptLocation(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location"));
 				CoreUtils.blockparticles.put(loc, format);
 				blocks.put(id, loc);
+				Bukkit.broadcastMessage("Loaded " + id);
 			}
 	}
 
@@ -37,7 +38,6 @@ public class BlockParticleUtils {
 		for (Entry<String, Location> e : blocks.entrySet()) {
 			ParticleFormat format = getBlockParticleFormat(e.getKey());
 			if (format == null) {
-				Bukkit.broadcastMessage("There was an error");
 				continue;
 			}
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
@@ -45,8 +45,7 @@ public class BlockParticleUtils {
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
 					CoreUtils.encryptLocation(e.getValue()));
-			Bukkit.broadcastMessage("saved " + e.getKey() + ".");
-			
+
 		}
 		Main.getPlugin().saveConfig();
 	}
