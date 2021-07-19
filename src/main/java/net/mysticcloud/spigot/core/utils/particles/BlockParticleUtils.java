@@ -45,6 +45,7 @@ public class BlockParticleUtils {
 			}
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
 					ParticleFormatEnum.enumName(format).name());
+			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".particle", format.particle().name());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
 					CoreUtils.encryptLocation(e.getValue()));
