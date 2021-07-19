@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.Main;
@@ -25,12 +26,14 @@ public class BlockParticleUtils {
 						.formatter();
 				JSONObject options = new JSONObject(
 						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
+				format.particle(Main.getPlugin().getConfig().isSet("BlockParticles." + id + ".particle")
+						? Particle.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".particle"))
+						: Particle.FLAME);
 				format.loadOptions(options);
 				Location loc = CoreUtils
 						.decryptLocation(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location"));
 				CoreUtils.blockparticles.put(loc, format);
 				blocks.put(id, loc);
-				Bukkit.broadcastMessage("Loaded " + id);
 			}
 	}
 
