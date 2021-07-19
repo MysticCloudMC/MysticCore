@@ -92,6 +92,8 @@ public class BlockParticleUtils {
 	public static void deleteBlockParticle(String id) {
 		CoreUtils.blockparticles__remove.add(blocks.get(id));
 		blocks.remove(id);
+		Main.getPlugin().getConfig().set("BlockParticles." + id, null);
+		Main.getPlugin().saveConfig();
 	}
 
 //	public static Portal createPortal(String name, Region region) {
