@@ -107,7 +107,7 @@ public class AdminCommands implements CommandExecutor {
 							return true;
 						}
 						String id = args[1];
-						if (args.length >= 2) {
+						if (args.length >= 3) {
 							ParticleFormat format = ParticleFormatEnum.valueOf(args[2]).formatter();
 							BlockParticleUtils.updateFormat(id, format);
 						}
@@ -129,7 +129,7 @@ public class AdminCommands implements CommandExecutor {
 					}
 
 					if (args[0].equalsIgnoreCase("particle")) {
-						if (args.length <= 2) {
+						if (args.length == 1) {
 							sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label
 									+ " particle <id> [particle]"));
 							return true;
@@ -143,7 +143,7 @@ public class AdminCommands implements CommandExecutor {
 										+ BlockParticleUtils.getBlockParticleFormat(id).particle().name() + "&f."));
 					}
 					if (args[0].equalsIgnoreCase("delete")) {
-						if (args.length <= 1) {
+						if (args.length == 1) {
 							sender.sendMessage(CoreUtils
 									.colorize(CoreUtils.prefixes("particles") + "Usage: /" + label + " delete <id>"));
 							return true;
