@@ -45,6 +45,8 @@ public class BlockParticleUtils {
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
 					CoreUtils.encryptLocation(e.getValue()));
+			Bukkit.broadcastMessage("saved " + e.getKey() + ".");
+			
 		}
 		Main.getPlugin().saveConfig();
 	}
