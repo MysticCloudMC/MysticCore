@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.json2.JSONObject;
 
@@ -35,10 +36,12 @@ public class BlockParticleUtils {
 	public static void end() {
 		for (Entry<String, Location> e : blocks.entrySet()) {
 			ParticleFormat format = getBlockParticleFormat(e.getKey());
-			if (format == null)
+			if (format == null) {
+				Bukkit.broadcastMessage("There was an error");
 				continue;
+			}
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
-					ParticleFormatEnum.enumName(format));
+					ParticleFormatEnum.enumName(format).name());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
 			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
 					CoreUtils.encryptLocation(e.getValue()));
