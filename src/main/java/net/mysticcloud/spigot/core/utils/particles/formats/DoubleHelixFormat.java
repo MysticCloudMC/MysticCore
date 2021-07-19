@@ -41,17 +41,17 @@ public class DoubleHelixFormat extends HelixFormat {
 	public void display(Location loc) {
 
 		super.display(loc);
-		spawnParticle(particle, loc.clone().add(
-				Math.cos(Math.toRadians(((i)))) * (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")),
-				1 + Math.cos(Math.toRadians(((i) * (360 / 180)))) * (getOptions().getDouble("h")),
-				Math.sin(Math.toRadians(i)) * (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))));
-		spawnParticle(particle,
-				loc.clone()
-						.add(Math.cos(Math.toRadians(((i + (getOptions().getInt("spots") / 2)))))
-								* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")),
-								1 + Math.cos(Math.toRadians(((i)))) * (360 / 180) * (getOptions().getDouble("h")),
-								Math.sin(Math.toRadians(i + (getOptions().getInt("spots") / 2)))
-										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))));
+//		spawnParticle(particle, loc.clone().add(
+//				Math.cos(Math.toRadians(((i) * (360 / getOptions().getInt("spots"))))) * (getOptions().getDouble("r")),
+//				1 + Math.cos(Math.toRadians(((i) * (360 / 180)))) * (getOptions().getDouble("h")),
+//				Math.sin(Math.toRadians(i * (360 / getOptions().getInt("spots")))) * (getOptions().getDouble("r"))));
+//		spawnParticle(particle,
+//				loc.clone()
+//						.add(Math.cos(Math.toRadians(((i + (getOptions().getInt("spots") / 2)))))
+//								* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r")),
+//								1 + Math.cos(Math.toRadians(((i)))) * (360 / 180) * (getOptions().getDouble("h")),
+//								Math.sin(Math.toRadians(i + (getOptions().getInt("spots") / 2)))
+//										* (360 / getOptions().getInt("spots")) * (getOptions().getDouble("r"))));
 
 	}
 
