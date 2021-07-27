@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -27,18 +28,20 @@ public class UpdateCommand implements CommandExecutor {
 
 				String plugin = args[0];
 				String filename = plugin + ".jar";
-				String url = "http://www.mysticcloud.net:4385/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
+				String url = "http://jenkins.mysticcloud.net/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
 						+ filename;
-
+				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
 				try {
 					InputStream in = new URL(url).openStream();
-					sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
 					Files.copy(in, Paths
 							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
 							StandardCopyOption.REPLACE_EXISTING);
 					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
 //					Bukkit.broadcastMessage("Done!");
 				} catch (IOException e) {
+					sender.sendMessage(CoreUtils.prefixes("admin")
+							+ "There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
+							+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")");
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
