@@ -183,8 +183,8 @@ public class CoreUtils {
 		}
 		try {
 			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "localhost", "Minecraft", 3306, "admin", "v4pob8LW");
-			fdb = new IDatabase(SQLDriver.MYSQL, "localhost", "Forums", 3306, "admin", "v4pob8LW");
+			db = new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "Minecraft", 3306, "admin", "v4pob8LW");
+			fdb = new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "Forums", 3306, "admin", "v4pob8LW");
 			if (db.init() && fdb.init())
 				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
 		} catch (NullPointerException | SQLException ex) {
