@@ -39,9 +39,9 @@ public class UpdateCommand implements CommandExecutor {
 					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
 //					Bukkit.broadcastMessage("Done!");
 				} catch (IOException e) {
-					sender.sendMessage(CoreUtils.prefixes("admin")
-							+ "There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
-							+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")");
+					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
+							"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
+									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
