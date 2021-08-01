@@ -38,6 +38,7 @@ public class DateChecker implements Runnable {
 	boolean tmWarn = false;
 	boolean fmWarn = false;
 	Calendar calendar = Calendar.getInstance();
+	Runnable run = new HolidayParticles();
 
 	public DateChecker(int counter) {
 
@@ -260,6 +261,15 @@ public class DateChecker implements Runnable {
 					}
 
 				}
+				
+				if (CoreUtils.getMonth() == Calendar.JULY) {
+					if (CoreUtils.getDay() >= 0 && CoreUtils.getDay() <= 4) {
+						holiday = true;
+						CoreUtils.setHoliday(Holiday.SWISS_DAY);
+					}
+
+				}
+				
 
 				if (CoreUtils.getMonth() == Calendar.OCTOBER) {
 					if (CoreUtils.getDay() >= 20) {
@@ -293,7 +303,7 @@ public class DateChecker implements Runnable {
 //		CoreUtils.updateDate();
 
 				if (holiday)
-					Bukkit.getScheduler().runTaskAsynchronously(Main.getPlugin(), new HolidayParticles());
+					run.run();
 				else
 					CoreUtils.setHoliday(Holiday.NONE);
 			}

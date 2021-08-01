@@ -16,7 +16,7 @@ public enum Holiday {
 	TEST("Test Holiday"),
 	MAY_THE_FORTH("May The Forth","&eMay The Forth Be With You"),
 	JULY_4TH("Independence Day (USA)","&fKeep your fingers safe!"),
-	MEMORIAL_DAY("Memorial Day (USA)","&cThank &fYour &9Veterans");
+	MEMORIAL_DAY("Memorial Day (USA)","&cThank &fYour &9Veterans"), SWISS_DAY("Swiss Day (Switzerland)","&cSwiss &fNational &cDay");
 	
 	String name;
 	String line = "";
