@@ -1,13 +1,10 @@
 package net.mysticcloud.spigot.core.commands;
 
-import java.io.IOException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -28,23 +25,51 @@ public class UpdateCommand implements CommandExecutor {
 
 				String plugin = args[0];
 				String filename = plugin + ".jar";
-				String url = "http://jenkins.mysticcloud.net/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
+				String url = "/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
 						+ filename;
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
+				
 				try {
-					InputStream in = new URL(url).openStream();
-					Files.copy(in, Paths
-							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
-							StandardCopyOption.REPLACE_EXISTING);
-					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
-//					Bukkit.broadcastMessage("Done!");
-				} catch (IOException e) {
+					String website = "http://jenkins.mysticcloud.net" + url;
+					URL uri = new URL(website);
+					InputStream inputStream = uri.openStream();
+					OutputStream outputStream = new FileOutputStream(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename);
+					byte[] buffer = new byte[2048];
+
+					int length = 0;
+
+					while ((length = inputStream.read(buffer)) != -1) {
+						System.out.println("Buffer Read of length: " + length);
+						outputStream.write(buffer, 0, length);
+					}
+
+					inputStream.close();
+					outputStream.close();
+
+				} catch (Exception e1) {
 					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
 							"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
 									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
+				
+				
+				
+				
+//				try {
+//					InputStream in = new URL(url).openStream();
+//					Files.copy(in, Paths
+//							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
+//							StandardCopyOption.REPLACE_EXISTING);
+//					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
+////					Bukkit.broadcastMessage("Done!");
+//				} catch (IOException e) {
+//					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
+//							"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
+//									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 
 		}
