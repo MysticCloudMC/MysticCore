@@ -100,7 +100,7 @@ public class DateChecker implements Runnable {
 				if (player.hasMetadata("portaling")) {
 					try {
 						if (!((Region) player.getMetadata("portaling").get(0).value()).inside(player.getLocation())) {
-							
+
 							player.removeMetadata("portaling", Main.getPlugin());
 						}
 					} catch (Exception ex) {
@@ -261,15 +261,14 @@ public class DateChecker implements Runnable {
 					}
 
 				}
-				
-				if (CoreUtils.getMonth() == Calendar.JULY) {
+
+				if (CoreUtils.getMonth() == Calendar.AUGUST) {
 					if (CoreUtils.getDay() >= 0 && CoreUtils.getDay() <= 4) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.SWISS_DAY);
 					}
 
 				}
-				
 
 				if (CoreUtils.getMonth() == Calendar.OCTOBER) {
 					if (CoreUtils.getDay() >= 20) {
