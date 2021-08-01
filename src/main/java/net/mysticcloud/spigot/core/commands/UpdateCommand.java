@@ -25,15 +25,15 @@ public class UpdateCommand implements CommandExecutor {
 
 				String plugin = args[0];
 				String filename = plugin + ".jar";
-				String url = "/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
-						+ filename;
+				String url = "/job/" + plugin + "/lastSuccessfulBuild/artifact/target/" + filename;
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
-				
+
 				try {
 					String website = "http://jenkins.mysticcloud.net" + url;
 					URL uri = new URL(website);
 					InputStream inputStream = uri.openStream();
-					OutputStream outputStream = new FileOutputStream(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename);
+					OutputStream outputStream = new FileOutputStream(
+							Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename);
 					byte[] buffer = new byte[2048];
 
 					int length = 0;
@@ -52,10 +52,10 @@ public class UpdateCommand implements CommandExecutor {
 									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
 					e1.printStackTrace();
 				}
-				
-				
-				
-				
+
+				sender.sendMessage(
+						CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
+
 //				try {
 //					InputStream in = new URL(url).openStream();
 //					Files.copy(in, Paths
