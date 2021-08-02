@@ -47,29 +47,41 @@ public class UpdateCommand implements CommandExecutor {
 					outputStream.close();
 
 				} catch (Exception e1) {
-					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
-							"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
-									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
-					e1.printStackTrace();
+					sender.sendMessage(CoreUtils.prefixes("admin")
+							+ CoreUtils.colorize(CoreUtils.prefixes("admin") + CoreUtils.colorize(
+									"There was an error downloading that plugin. Attempting to download from alt site. (&ohttp://downloads.mysticcloud.net/"
+											+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")")));
+
+					try {
+						String website = "http://downloads.mysticcloud.net/" + filename;
+						URL uri = new URL(website);
+						InputStream inputStream = uri.openStream();
+						OutputStream outputStream = new FileOutputStream(
+								Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename);
+						byte[] buffer = new byte[2048];
+
+						int length = 0;
+
+						while ((length = inputStream.read(buffer)) != -1) {
+							System.out.println("Buffer Read of length: " + length);
+							outputStream.write(buffer, 0, length);
+						}
+
+						inputStream.close();
+						outputStream.close();
+
+					} catch (Exception e2) {
+						sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
+								"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
+										+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
+						e2.printStackTrace();
+					}
 				}
 
 				sender.sendMessage(
 						CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
-
-//				try {
-//					InputStream in = new URL(url).openStream();
-//					Files.copy(in, Paths
-//							.get(Main.getPlugin().getDataFolder().getParentFile().getAbsolutePath() + "/" + filename),
-//							StandardCopyOption.REPLACE_EXISTING);
-//					sender.sendMessage(CoreUtils.prefixes("admin") + "Done!");
-////					Bukkit.broadcastMessage("Done!");
-//				} catch (IOException e) {
-//					sender.sendMessage(CoreUtils.prefixes("admin") + CoreUtils.colorize(
-//							"There was an error downloading that plugin. Make sure it's on the Jenkins. (&ohttp://jenkins.mysticcloud.net/"
-//									+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")"));
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+			} else {
+				sender.sendMessage(CoreUtils.prefixes("admin") + "Usage: /update <plugin>");
 			}
 
 		}
