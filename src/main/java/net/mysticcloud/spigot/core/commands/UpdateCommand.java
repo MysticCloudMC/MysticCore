@@ -29,7 +29,7 @@ public class UpdateCommand implements CommandExecutor {
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
 
 				try {
-					String website = "http://jenkins.mysticcloud.net" + url;
+					String website = "https://jenkins.mysticcloud.net" + url;
 					URL uri = new URL(website);
 					InputStream inputStream = uri.openStream();
 					OutputStream outputStream = new FileOutputStream(
@@ -53,7 +53,7 @@ public class UpdateCommand implements CommandExecutor {
 											+ ChatColor.getLastColors(CoreUtils.prefixes("admin")) + ")")));
 
 					try {
-						String website = "http://downloads.mysticcloud.net/" + filename;
+						String website = "https://downloads.mysticcloud.net/" + filename;
 						URL uri = new URL(website);
 						InputStream inputStream = uri.openStream();
 						OutputStream outputStream = new FileOutputStream(
