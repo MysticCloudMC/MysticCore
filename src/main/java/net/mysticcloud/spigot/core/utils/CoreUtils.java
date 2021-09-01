@@ -77,6 +77,7 @@ import net.mysticcloud.spigot.core.utils.skulls.CustomSkull;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 import net.mysticcloud.spigot.core.utils.sql.IDatabase;
 import net.mysticcloud.spigot.core.utils.sql.SQLDriver;
+import net.mysticcloud.spigot.core.utils.sql.SQLUtils;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 import ru.tehkode.permissions.PermissionGroup;
@@ -84,8 +85,8 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class CoreUtils {
 
-	private static IDatabase db;
-	static IDatabase fdb;
+//	private static IDatabase db;
+//	static IDatabase fdb;
 	private static boolean connected = false;
 	private static Holiday holiday = Holiday.NONE;
 	static Map<UUID, Scoreboard> scoreboards = new HashMap<>();
@@ -182,30 +183,31 @@ public class CoreUtils {
 			}
 		}
 		try {
-			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "lewis.mysticcloud.net", "Minecraft", 3306, "blue", "g3&clly");
-			fdb = new IDatabase(SQLDriver.MYSQL, "lewis.mysticcloud.net", "Forums", 3306, "blue", "g3&clly");
-			if (db.init() && fdb.init())
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Successfully connected to MySQL.");
-		} catch (NullPointerException | SQLException ex) {
-			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to MySQL");
-			connected = true;
-			db = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Minecraft", 3306, "root", "@Dm1nUser");
-			fdb = new IDatabase(SQLDriver.MYSQL, "quickscythe.com", "Forums", 3306, "root", "@Dm1nUser");
-			try {
-				if (db.init() && fdb.init())
-					Bukkit.getConsoleSender()
-							.sendMessage(prefixes.get("sql") + "Successfully connected to contingency MySQL.");
-			} catch (SQLException e) {
-				connected = false;
-				Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Could not connect to QuickScythe MySQL");
+			if (SQLUtils.createDatabase("minecraft",
+					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "Minecraft", 3306, "blue", "g3&clly"))) {
+				System.out.println(prefixes.get("sql") + "Successfully connected to MySQL (Minecraft).");
+			} else {
+				System.out.println(prefixes.get("sql") + "Error connecting to MySQL (Minecraft).");
+				if (SQLUtils.createDatabase("forums", new IDatabase(SQLDriver.SQLITE, "Minecraft"))) {
+					System.out.println(prefixes.get("sql") + "Successfully connected to contingency SQL (Minecraft).");
+				} else {
+					connected = false;
+					System.out.println(prefixes.get("sql") + "Error connecting to contingency SQL (Minecraft).");
+				}
 			}
 
-//			connected = false;
-//			db = new IDatabase(SQLDriver.SQLITE, "Minecraft");
-//			fdb = new IDatabase(SQLDriver.SQLITE, "Website");
-//			Bukkit.getConsoleSender().sendMessage(prefixes.get("sql") + "Error connecting to MySQL. Using SQLite");
+			if (SQLUtils.createDatabase("forums",
+					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "xenforo", 3306, "blue", "g3&clly"))) {
+				System.out.println(prefixes.get("sql") + "Successfully connected to MySQL (Forums).");
+			} else {
+				connected = false;
+				System.out.println(prefixes.get("sql") + "Error connecting to MySQL (Forums).");
+			}
+		} catch (SQLException e1) {
+			System.out.println(prefixes.get("sql") + "Error connecting to SQL (Forums).");
+			e1.printStackTrace();
 		}
+
 		loadVariables();
 		if (!itemfile.exists()) {
 			itemfile.mkdirs();
@@ -570,15 +572,14 @@ public class CoreUtils {
 	}
 
 	public static IDatabase getForumsDatabase() {
-		return fdb;
+		return SQLUtils.getDatabase("forums");
 
 	}
 
 	public static String lookupWebname(UUID uid) {
 		String name = "";
 		try {
-			fdb.init();
-			ResultSet rs = fdb.query("SELECT * FROM Users WHERE REGISTERED='true'");
+			ResultSet rs = getForumsDatabase().query("SELECT * FROM Users WHERE REGISTERED='true'");
 			try {
 				while (rs.next()) {
 					if (rs.getString("MINECRAFT_UUID").equalsIgnoreCase(uid.toString())) {
@@ -925,24 +926,24 @@ public class CoreUtils {
 		return null;
 	}
 
-	public static ResultSet sendQuery(String query) throws NullPointerException {
+	public static ResultSet sendQuery(String query) {
 		if (!connected) {
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC001)");
 
 		}
-		return db.query(query);
+		return SQLUtils.getDatabase("minecraft").query(query);
 	}
 
 	public static Integer sendUpdate(String query) throws NullPointerException {
 		if (!connected)
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC002)");
-		return db.update(query);
+		return SQLUtils.getDatabase("minecraft").update(query);
 	}
 
 	public static boolean sendInsert(String query) throws NullPointerException {
 		if (!connected)
 			alert(AlertType.HIGH, "SQL Not Connected! &7(SNC003)");
-		return db.input(query);
+		return SQLUtils.getDatabase("minecraft").input(query);
 	}
 
 	public static String toString(String[] args) {

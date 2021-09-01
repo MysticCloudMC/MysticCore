@@ -32,7 +32,7 @@ public class IDatabase {
 		this.driver = driver;
 	}
 
-	public Boolean init() throws SQLException {
+	public Boolean init() {
 //		      String url = "jdbc:mysql://localhost:3306/test";
 //		      Properties info = new Properties();
 //		      info.put("user", "root");
@@ -48,18 +48,17 @@ public class IDatabase {
 				Class.forName("org.sqlite.JDBC");
 				connection = DriverManager.getConnection(url);
 			}
-		} catch (ClassNotFoundException e) {
+
+			if (connection != null) {
+				DatabaseMetaData meta = connection.getMetaData();
+				System.out.println("Successfully connected to database");
+				System.out.println("Driver: " + meta.getDriverName());
+				return true;
+			}
+		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		if (connection != null) {
-			DatabaseMetaData meta = connection.getMetaData();
-			System.out.println("Successfully connected to database");
-			System.out.println("Driver: " + meta.getDriverName());
-			return true;
-		}
-
 //		try {
 //			if (connection != null && !connection.isClosed()) {
 //				return true;
