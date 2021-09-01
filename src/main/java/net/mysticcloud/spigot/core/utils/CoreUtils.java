@@ -182,6 +182,7 @@ public class CoreUtils {
 				}
 			}
 		}
+		connected = true;
 		try {
 			if (SQLUtils.createDatabase("minecraft",
 					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "Minecraft", 3306, "blue", "g3&clly"))) {
