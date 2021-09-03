@@ -29,7 +29,7 @@ public class Event {
 	Map<UUID, Double> scores = new HashMap<>();
 	boolean populated = false;
 
-	public Event(String name, EventType type) {
+	protected Event(String name, EventType type) {
 		this.name = CoreUtils.colorize(name);
 		this.type = type;
 	}
