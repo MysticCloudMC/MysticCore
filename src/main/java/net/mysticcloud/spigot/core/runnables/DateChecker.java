@@ -72,7 +72,8 @@ public class DateChecker implements Runnable {
 			}
 		}
 
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) == 0) {
+		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) == 0
+				&& calendar.get(Calendar.SECOND) >= 20) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
 				player.kickPlayer("%kick%The network is restarting. Please join back in 15 minutes.");
 			}
