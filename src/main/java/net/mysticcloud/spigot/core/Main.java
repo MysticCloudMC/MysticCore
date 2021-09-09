@@ -34,11 +34,9 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
-import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.particles.BlockParticleUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
-import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
@@ -88,7 +86,7 @@ public class Main extends JavaPlugin {
 
 		CustomTag.start();
 
-		FriendUtils.start();
+//		FriendUtils.start();
 
 		GUIManager.init();
 

@@ -16,7 +16,6 @@ import org.bukkit.plugin.Plugin;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
-import net.mysticcloud.spigot.core.utils.accounts.friends.FriendUtils;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
@@ -85,7 +84,7 @@ public class DateChecker implements Runnable {
 			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();
 			DebugUtils.debug("Updating friendships");
-			FriendUtils.update();
+//			FriendUtils.update();
 			DebugUtils.debug("Updating permissions");
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex reload");
 			lastcheck = new Date().getTime();
