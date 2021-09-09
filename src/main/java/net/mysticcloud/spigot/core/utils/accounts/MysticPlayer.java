@@ -209,9 +209,8 @@ public class MysticPlayer {
 				Integer fn = Integer.parseInt(json.getString("forums_name"));
 				array.forEach(friend -> {
 					JSONObject fdata = (JSONObject) friend;
-					UUID tuid = CoreUtils.LookupUUID(fn);
-					if (fdata.getInt("accepted") == 1 && tuid != null) {
-						friends.add(tuid);
+					if (fdata.getInt("accepted") == 1 && CoreUtils.LookupUUID(fn) != null) {
+						friends.add(CoreUtils.LookupUUID(fn));
 					}
 				});
 			}
