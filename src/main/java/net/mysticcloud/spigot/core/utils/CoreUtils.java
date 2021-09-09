@@ -482,7 +482,6 @@ public class CoreUtils {
 		}
 
 		return uid;
-
 	}
 
 	@Deprecated
