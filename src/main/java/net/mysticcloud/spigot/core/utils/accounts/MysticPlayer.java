@@ -1,12 +1,20 @@
 package net.mysticcloud.spigot.core.utils.accounts;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.json2.JSONArray;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -22,6 +30,8 @@ public class MysticPlayer {
 	private boolean nitro = false;
 	private Map<PlayerSettings, String> settings = new HashMap<>();
 	private GameVersion version = null;
+
+	List<UUID> friends = new ArrayList<>();
 
 	long needed = 0;
 
@@ -178,7 +188,38 @@ public class MysticPlayer {
 //		return FriendUtils.getForumsID(uid);
 //	}
 //
-//	public List<String> getFriends() {
+	@SuppressWarnings("deprecation")
+	public void updateFriends() {
+		friends.clear();
+		JSONObject json = null;
+		try {
+			URL apiUrl = new URL("http://api.mysticcloud.net/player/" + getUUID());
+			URLConnection yc = apiUrl.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+			String inputLine;
+			while ((inputLine = in.readLine()) != null)
+				json = new JSONObject(inputLine);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (json != null) {
+			if (json.has("friends")) {
+				JSONArray array = json.getJSONArray("friends");
+				Integer fn = Integer.parseInt(json.getString("forums_name"));
+				array.forEach(friend -> {
+					JSONObject fdata = (JSONObject) friend;
+					UUID tuid = CoreUtils.LookupUUID(fn);
+					if (fdata.getInt("accepted") == 1 && tuid != null) {
+						friends.add(tuid);
+					}
+				});
+			}
+		}
+	}
+
+	public List<UUID> getFriends() {
+		return friends;
+	}
 //
 //		List<String> friends = new ArrayList<>();
 //
