@@ -217,6 +217,7 @@ public class MysticPlayer {
 	}
 
 	public List<UUID> getFriends() {
+		updateFriends();
 		return friends;
 	}
 //
