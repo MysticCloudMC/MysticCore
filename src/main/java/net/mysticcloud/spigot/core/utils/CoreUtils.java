@@ -491,7 +491,7 @@ public class CoreUtils {
 		ResultSet rs = sendQuery("SELECT * FROM MysticPlayers");
 		try {
 			while (rs.next()) {
-				if (rs.getString("FORUMS_NAME").equalsIgnoreCase(forumId + "")) {
+				if (rs.getString("FORUMS_NAME") != null && rs.getString("FORUMS_NAME").equalsIgnoreCase(forumId + "")) {
 					uid = UUID.fromString(rs.getString("UUID"));
 				}
 			}
