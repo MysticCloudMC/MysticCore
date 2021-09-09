@@ -38,7 +38,7 @@ public class RegisterCommand implements CommandExecutor {
 							CoreUtils.colorize("&e/register forums <email you used to create your forums account>"));
 					return true;
 				}
-				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM nl2_user;");
+				ResultSet rs = CoreUtils.getForumsDatabase().query("SELECT * FROM nl2_users;");
 
 				String id = "";
 				try {
