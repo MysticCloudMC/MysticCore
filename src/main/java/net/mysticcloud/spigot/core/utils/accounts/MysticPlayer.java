@@ -37,6 +37,7 @@ public class MysticPlayer {
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
+		updateFriends();
 	}
 
 	public void setNitro(boolean nitro) {
