@@ -191,7 +191,7 @@ public class CoreUtils {
 				System.out.println(prefixes.get("sql") + "Successfully connected to MySQL (Minecraft).");
 			} else {
 				System.out.println(prefixes.get("sql") + "Error connecting to MySQL (Minecraft).");
-				if (SQLUtils.createDatabase("forums", new IDatabase(SQLDriver.SQLITE, "Minecraft"))) {
+				if (SQLUtils.createDatabase("minecraft", new IDatabase(SQLDriver.SQLITE, "Minecraft"))) {
 					System.out.println(prefixes.get("sql") + "Successfully connected to contingency SQL (Minecraft).");
 				} else {
 					connected = false;
@@ -200,14 +200,14 @@ public class CoreUtils {
 			}
 
 			if (SQLUtils.createDatabase("forums",
-					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "xenforo", 3306, "blue", "g3&clly"))) {
+					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "forums", 3306, "blue", "g3&clly"))) {
 				System.out.println(prefixes.get("sql") + "Successfully connected to MySQL (Forums).");
 			} else {
 				connected = false;
 				System.out.println(prefixes.get("sql") + "Error connecting to MySQL (Forums).");
 			}
 		} catch (SQLException e1) {
-			System.out.println(prefixes.get("sql") + "Error connecting to SQL (Forums).");
+			System.out.println(prefixes.get("sql") + "Error connecting to SQL (ALL).");
 			e1.printStackTrace();
 		}
 
