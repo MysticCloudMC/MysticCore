@@ -206,10 +206,9 @@ public class MysticPlayer {
 		if (json != null) {
 			if (json.has("friends")) {
 				JSONArray array = json.getJSONArray("friends");
-				Integer fn = Integer.parseInt(json.getString("forums_name"));
 				array.forEach(friend -> {
 					JSONObject fdata = (JSONObject) friend;
-					if (fdata.getInt("accepted") == 1 && CoreUtils.LookupUUID(fn) != null) {
+					if (fdata.getInt("accepted") == 1 && CoreUtils.LookupUUID(fdata.getInt("forums_name")) != null) {
 						friends.add(CoreUtils.LookupUUID(fdata.getInt("forums_name")));
 					}
 				});
