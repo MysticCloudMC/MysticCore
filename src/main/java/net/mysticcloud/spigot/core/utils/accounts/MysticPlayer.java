@@ -194,7 +194,7 @@ public class MysticPlayer {
 		friends.clear();
 		JSONObject json = null;
 		try {
-			URL apiUrl = new URL("http://api.mysticcloud.net/player/" + getUUID());
+			URL apiUrl = new URL("https://api.mysticcloud.net/player/" + getUUID());
 			URLConnection yc = apiUrl.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 			String inputLine;
