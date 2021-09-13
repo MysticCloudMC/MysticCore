@@ -38,6 +38,9 @@ public class DateChecker implements Runnable {
 	Calendar calendar = Calendar.getInstance();
 	Runnable run = new HolidayParticles();
 
+	boolean justStarted = true;
+	long startedTime = new Date().getTime();
+
 	public DateChecker(int counter) {
 
 	}
@@ -48,36 +51,51 @@ public class DateChecker implements Runnable {
 
 	@Override
 	public void run() {
+		if (counter == 0) {
+			CoreUtils.debug("Starting cooldown for scheduled reboot.");
+			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
-		calendar = Calendar.getInstance();
-
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 17) {
-			if (!hourWarn) {
-				Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
-				hourWarn = true;
-			}
-			if (calendar.get(Calendar.MINUTE) >= 30) {
-				if (!tmWarn) {
-					Bukkit.broadcastMessage(CoreUtils.colorize("&a&lThe network will be restarting in 30 minutes."));
-					tmWarn = true;
+				@Override
+				public void run() {
+					justStarted = false;
+					CoreUtils.debug("Ending cooldown for scheduled reboot.");
 				}
-				if (calendar.get(Calendar.MINUTE) >= 55) {
-					if (!fmWarn) {
-						Bukkit.broadcastMessage(CoreUtils
-								.colorize("&c&l&k|||&a&lThe network will be restarting in 5 minutes.&c&l&k|||"));
-						fmWarn = true;
+
+			}, 120 * 20);
+		}
+
+		if (!justStarted) {
+			calendar = Calendar.getInstance();
+
+			if (calendar.get(Calendar.HOUR_OF_DAY) == 17) {
+				if (!hourWarn) {
+					Bukkit.broadcastMessage(CoreUtils.colorize("&aThe network will be restarting in 1 hour."));
+					hourWarn = true;
+				}
+				if (calendar.get(Calendar.MINUTE) >= 30) {
+					if (!tmWarn) {
+						Bukkit.broadcastMessage(
+								CoreUtils.colorize("&a&lThe network will be restarting in 30 minutes."));
+						tmWarn = true;
+					}
+					if (calendar.get(Calendar.MINUTE) >= 55) {
+						if (!fmWarn) {
+							Bukkit.broadcastMessage(CoreUtils
+									.colorize("&c&l&k|||&a&lThe network will be restarting in 5 minutes.&c&l&k|||"));
+							fmWarn = true;
+						}
 					}
 				}
 			}
-		}
 
-		if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) == 0
-				&& calendar.get(Calendar.SECOND) >= 20) {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.kickPlayer("%kick%The network is restarting. Please join back in 15 minutes.");
+			if (calendar.get(Calendar.HOUR_OF_DAY) == 18 && calendar.get(Calendar.MINUTE) == 0
+					&& calendar.get(Calendar.SECOND) >= 20) {
+				for (Player player : Bukkit.getOnlinePlayers()) {
+					player.kickPlayer("%kick%The network is restarting. Please join back in 15 minutes.");
+				}
+
+				Bukkit.getServer().shutdown();
 			}
-
-			Bukkit.getServer().shutdown();
 		}
 
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
