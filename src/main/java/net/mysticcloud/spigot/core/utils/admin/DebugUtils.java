@@ -12,7 +12,7 @@ public class DebugUtils {
 
 	static List<UUID> debuggers = new ArrayList<>();
 	private static List<UUID> debuggers__remove = new ArrayList<>();
-	
+
 	private static boolean holidayCheck = true;
 
 	public static void debug(String message) {
@@ -27,6 +27,7 @@ public class DebugUtils {
 			debuggers.remove(uid);
 		}
 		debuggers__remove.clear();
+		System.out.println(CoreUtils.prefixes("debug") + CoreUtils.colorize(message));
 	}
 
 	public static void addDebugger(UUID uid) {
@@ -40,11 +41,11 @@ public class DebugUtils {
 	public static void removeDebugger(UUID uid) {
 		debuggers.remove(uid);
 	}
-	
+
 	public static void holidayCheck(boolean b) {
 		holidayCheck = b;
 	}
-	
+
 	public static boolean holidayCheck() {
 		return holidayCheck;
 	}
