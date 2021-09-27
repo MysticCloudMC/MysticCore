@@ -10,8 +10,8 @@ import org.bukkit.entity.Player;
 import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.chat.CustomTag;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class TagCommand implements CommandExecutor {

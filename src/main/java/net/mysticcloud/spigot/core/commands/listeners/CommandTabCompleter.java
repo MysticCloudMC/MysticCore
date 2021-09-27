@@ -14,7 +14,7 @@ import org.bukkit.util.StringUtil;
 import net.mysticcloud.spigot.core.kits.Kit;
 import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.CustomTag;
+import net.mysticcloud.spigot.core.utils.chat.CustomTag;
 import net.mysticcloud.spigot.core.utils.warps.Warp;
 import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 

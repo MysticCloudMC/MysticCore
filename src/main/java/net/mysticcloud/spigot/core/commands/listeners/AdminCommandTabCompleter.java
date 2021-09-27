@@ -14,9 +14,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
-import net.mysticcloud.spigot.core.utils.CustomTag;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
+import net.mysticcloud.spigot.core.utils.chat.CustomTag;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 

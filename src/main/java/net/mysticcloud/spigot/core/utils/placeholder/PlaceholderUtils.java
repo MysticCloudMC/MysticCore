@@ -48,6 +48,7 @@ public class PlaceholderUtils {
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
+		
 		if (MysticAccountManager.getMysticPlayer(player).isNitro()) // if nitro
 
 			string = string.replace("%nitro",
