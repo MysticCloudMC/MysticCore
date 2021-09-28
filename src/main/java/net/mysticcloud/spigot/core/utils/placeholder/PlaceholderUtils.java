@@ -123,15 +123,15 @@ public class PlaceholderUtils {
 
 	public static String markup(String string) {
 		String tag = string + "";
-		while (tag.contains("^bold:")) {
+		while (tag.contains("%bold:")) {
 			String icon = tag.split("old:")[1].split("%")[0];
-			tag = tag.replaceAll("^bold:" + icon + "%",
-					ChatColor.BOLD + icon + ChatColor.getLastColors(tag.split("^bold")[0]));
+			tag = tag.replaceAll("%bold:" + icon + "%",
+					ChatColor.BOLD + icon + ChatColor.getLastColors(tag.split("%bold")[0]));
 		}
-		while (tag.contains("^upper:")) {
-			String icon = tag.split("pper:")[1].split("^")[0];
-			tag = tag.replaceAll("^upper:" + icon + "^",
-					icon.contains("^") ? replace("", icon).toUpperCase() : icon.toUpperCase());
+		while (tag.contains("%upper:")) {
+			String icon = tag.split("pper:")[1].split("%")[0];
+			tag = tag.replaceAll("%upper:" + icon + "%",
+					icon.contains("%") ? replace("", icon).toUpperCase() : icon.toUpperCase());
 		}
 		return tag;
 	}
