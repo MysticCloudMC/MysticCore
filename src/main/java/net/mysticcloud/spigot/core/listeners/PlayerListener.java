@@ -342,47 +342,50 @@ public class PlayerListener implements Listener {
 //			version = "1.9";
 //		if (v < 107)
 //			version = "1.8 or lower";
+		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), ()->{
+			MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 
-		MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
+			
 
-		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined in version &3"
-				+ MysticAccountManager.getMysticPlayer(e.getPlayer()).getGameVersion().getVersionName() + "&7."));
-
-		CoreUtils.setScoreboard(e.getPlayer());
-
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
-
-			@Override
-			public void run() {
-				Player player = e.getPlayer();
-
-				player.setPlayerListName(
-						CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
-
-				player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
-
-				player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
-			}
-
-		}, 20);
-
-		for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
+			CoreUtils.setScoreboard(e.getPlayer());
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
-					CoreUtils.offlineTimedUsers.remove(entry.getKey());
+					Player player = e.getPlayer();
 
+					player.setPlayerListName(
+							CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+
+					player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
+
+					player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 				}
 
 			}, 20);
 
-			if (!entry.getKey().equals(e.getPlayer().getUniqueId()))
-				continue;
+			for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
-			CoreUtils.removeTimedPermission(e.getPlayer(), entry.getValue());
-		}
+				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+
+					@Override
+					public void run() {
+						CoreUtils.offlineTimedUsers.remove(entry.getKey());
+
+					}
+
+				}, 20);
+
+				if (!entry.getKey().equals(e.getPlayer().getUniqueId()))
+					continue;
+
+				CoreUtils.removeTimedPermission(e.getPlayer(), entry.getValue());
+			}
+		}, 1*20);
+
+		
 
 	}
 
