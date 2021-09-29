@@ -77,6 +77,13 @@ public class MysticAccountManager {
 				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
 				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
 				mp.setExtraData(json);
+				if(json.has("settings")) {
+					JSONObject settings = json.getJSONObject("settings");
+					for(PlayerSettings s : PlayerSettings.values()) {
+						if(json.has(s.name()))
+							mp.setSetting(s, settings.getString(s.name()));
+					}
+				}
 				mplayers.put(uid, mp);
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
@@ -88,6 +95,8 @@ public class MysticAccountManager {
 			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
 					+ "','0','0','1');");
 			DebugUtils.debug("Created MysticPlayer: " + uid);
+			
+			//TODO save extra data as-well
 		}
 		return a;
 	}

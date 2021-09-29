@@ -28,7 +28,6 @@ public class MysticPlayer {
 	private double xp = 0.0;
 	private JSONObject extraData = new JSONObject();
 	private boolean nitro = false;
-	private Map<PlayerSettings, String> settings = new HashMap<>();
 	private GameVersion version = null;
 
 	List<UUID> friends = new ArrayList<>();
@@ -37,6 +36,7 @@ public class MysticPlayer {
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
+		extraData.put("settings", new JSONObject("{}"));
 		updateFriends();
 	}
 
@@ -49,7 +49,7 @@ public class MysticPlayer {
 	}
 
 	public String setSetting(PlayerSettings setting, String value) {
-		settings.put(setting, value);
+		extraData.getJSONObject("settings").put(setting.name(), value);
 		if (Bukkit.getPlayer(uid) != null)
 			switch (setting) {
 			case SIDEBAR:
@@ -66,7 +66,7 @@ public class MysticPlayer {
 	}
 
 	public String getSetting(PlayerSettings setting) {
-		return settings.containsKey(setting) ? settings.get(setting) : setting.getDefaultValue();
+		return extraData.getJSONObject("settings").has(setting.name()) ? (String) extraData.getJSONObject("settings").get(setting.name()) : setting.getDefaultValue();
 	}
 
 	public void setBalance(double balance, boolean save) {
@@ -114,6 +114,7 @@ public class MysticPlayer {
 	}
 
 	public void addGems(int i) {
+		sendMessage("","&9+" + i + " gems");
 		gems = gems + i;
 	}
 
