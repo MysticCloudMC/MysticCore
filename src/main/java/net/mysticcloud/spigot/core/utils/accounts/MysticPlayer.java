@@ -36,7 +36,6 @@ public class MysticPlayer {
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
-		extraData.put("settings", new JSONObject("{}"));
 		updateFriends();
 	}
 

@@ -73,18 +73,20 @@ public class GUIManager {
 	}
 
 	public static void closeInventory(Player player) {
-		if (invTracker.containsKey(player.getUniqueId())) {
-			if (invTracker.get(player.getUniqueId()) != "none") {
-				invTracker.put(player.getUniqueId(), "none");
-				player.closeInventory();
-			}
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+			if (invTracker.containsKey(player.getUniqueId())) {
+				if (invTracker.get(player.getUniqueId()) != "none") {
+					invTracker.put(player.getUniqueId(), "none");
+					player.closeInventory();
+				}
 
-		} else {
-			try {
-			} catch (Exception ex) {
+			} else {
+				try {
+				} catch (Exception ex) {
+				}
+				invTracker.put(player.getUniqueId(), "none");
 			}
-			invTracker.put(player.getUniqueId(), "none");
-		}
+		}, 2);
 
 	}
 
