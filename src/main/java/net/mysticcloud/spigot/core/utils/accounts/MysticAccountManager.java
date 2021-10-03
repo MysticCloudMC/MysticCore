@@ -75,7 +75,7 @@ public class MysticAccountManager {
 				mp.setGems(Integer.parseInt(rs.getString("GEMS")));
 				mp.setXP(Double.parseDouble(rs.getString("LEVEL")));
 				mp.setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
-				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
+				JSONObject json = mp.getExtraData();
 				mp.setExtraData(json);
 				if(json.has("settings")) {
 					JSONObject settings = json.getJSONObject("settings");
