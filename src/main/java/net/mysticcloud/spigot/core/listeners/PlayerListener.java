@@ -343,9 +343,9 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
-		MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
+		
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-			
+			MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
