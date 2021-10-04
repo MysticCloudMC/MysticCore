@@ -37,4 +37,10 @@ public class MysticAccountManager {
 		return getMysticPlayer(player.getUniqueId());
 	}
 
+	public static MysticPlayer updateMysticPlayer(UUID uid) {
+		MysticPlayer player = new MysticPlayer(uid);
+		mplayers.put(uid, player);
+		return player;
+	}
+
 }
