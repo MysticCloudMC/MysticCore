@@ -346,10 +346,6 @@ public class PlayerListener implements Listener {
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), ()->{
 			MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 
-			
-
-			CoreUtils.setScoreboard(e.getPlayer());
-
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override

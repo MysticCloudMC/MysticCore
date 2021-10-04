@@ -48,7 +48,7 @@ public class MysticPlayer {
 	}
 
 	public String setSetting(PlayerSettings setting, String value) {
-		extraData.getJSONObject("settings").put(setting.name(), value);
+		getSettings().put(setting.name(), value);
 		if (Bukkit.getPlayer(uid) != null)
 			switch (setting) {
 			case SIDEBAR:
@@ -65,7 +65,13 @@ public class MysticPlayer {
 	}
 
 	public String getSetting(PlayerSettings setting) {
-		return extraData.getJSONObject("settings").has(setting.name()) ? (String) extraData.getJSONObject("settings").get(setting.name()) : setting.getDefaultValue();
+		return getSettings().has(setting.name()) ? (String) getSettings().get(setting.name())
+				: setting.getDefaultValue();
+	}
+
+	public JSONObject getSettings() {
+		return extraData.has("settings") ? extraData.getJSONObject("settings")
+				: extraData.put("settings", new JSONObject("{}").get("settings"));
 	}
 
 	public void setBalance(double balance, boolean save) {
@@ -113,7 +119,7 @@ public class MysticPlayer {
 	}
 
 	public void addGems(int i) {
-		sendMessage("","&9+" + i + " gems");
+		sendMessage("", "&9+" + i + " gems");
 		gems = gems + i;
 	}
 
