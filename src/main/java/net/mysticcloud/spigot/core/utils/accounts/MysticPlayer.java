@@ -18,6 +18,7 @@ import org.json2.JSONArray;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.levels.LevelUtils;
 
 public class MysticPlayer {
@@ -36,6 +37,38 @@ public class MysticPlayer {
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
+		int a = 0;
+		try {
+			while (rs.next()) {
+				a = a + 1;
+				setBalance(Double.parseDouble(rs.getString("BALANCE")));
+				setGems(Integer.parseInt(rs.getString("GEMS")));
+				setXP(Double.parseDouble(rs.getString("LEVEL")));
+				setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
+				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
+				setExtraData(json);
+				if (json.has("settings")) {
+					JSONObject settings = json.getJSONObject("settings");
+					for (PlayerSettings s : PlayerSettings.values()) {
+						if (json.has(s.name()))
+							setSetting(s, settings.getString(s.name()));
+					}
+				}
+				CoreUtils.debug("Registered MysticPlayer: " + uid);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (a == 0) {
+			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
+					+ "','0','0','1');");
+			DebugUtils.debug("Created MysticPlayer: " + uid);
+
+			// TODO save extra data as-well
+		}
+
 		updateFriends();
 	}
 
@@ -77,7 +110,7 @@ public class MysticPlayer {
 	public void setBalance(double balance, boolean save) {
 		this.balance = balance;
 		if (Bukkit.getPlayer(uid) != null && save) {
-			MysticAccountManager.saveMysticPlayer(Bukkit.getPlayer(uid));
+			save();
 		}
 	}
 
@@ -142,7 +175,7 @@ public class MysticPlayer {
 		if ((xp * 100) >= needed) {
 			levelUp(((long) LevelUtils.getMainWorker().getLevel((long) (xp * 100))));
 		}
-		MysticAccountManager.saveMysticPlayer(Bukkit.getPlayer(uid));
+		save();
 	}
 
 	public void levelUp() {
@@ -279,6 +312,18 @@ public class MysticPlayer {
 //		return friends;
 //
 //	}
+
+	public void save() {
+		String sql = "UPDATE MysticPlayers SET ";
+		sql = sql + "BALANCE=\"" + getBalance() + "\", ";
+		sql = sql + "GEMS=\"" + getGems() + "\",";
+		sql = sql + "LEVEL=\"" + getXP() + "\", ";
+		sql = sql + "EXTRA_DATA=\"" + getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
+		sql = sql + "WHERE UUID=\"" + getUUID() + "\";";
+		DebugUtils.debug(sql);
+		CoreUtils.sendUpdate(sql);
+
+	}
 
 	public GameVersion getGameVersion() {
 		if (version == null) {

@@ -108,7 +108,7 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		CoreUtils.end();
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			MysticAccountManager.saveMysticPlayer(player);
+			MysticAccountManager.getMysticPlayer(player).save();
 		}
 		BlockParticleUtils.end();
 	}

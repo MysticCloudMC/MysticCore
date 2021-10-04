@@ -238,7 +238,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		MysticAccountManager.saveMysticPlayer(e.getPlayer());
+		MysticAccountManager.getMysticPlayer(e.getPlayer()).save();
 		e.setQuitMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has left the game."));
 	}
 
@@ -343,7 +343,7 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
-		MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
+		MysticAccountManager.getMysticPlayer(e.getPlayer().getUniqueId());
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), ()->{
 			
 
