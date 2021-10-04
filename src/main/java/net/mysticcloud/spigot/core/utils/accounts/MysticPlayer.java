@@ -98,8 +98,7 @@ public class MysticPlayer {
 	}
 
 	public String getSetting(PlayerSettings setting) {
-		return getSettings().has(setting.name()) ? (String) getSettings().get(setting.name())
-				: setting.getDefaultValue();
+		return getSettings().has(setting.name()) ? getSettings().getString(setting.name()) : setting.getDefaultValue();
 	}
 
 	public JSONObject getSettings() {

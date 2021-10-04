@@ -27,6 +27,7 @@ public class MysticAccountManager {
 
 		MysticPlayer player = new MysticPlayer(uid);
 
+		mplayers.put(uid, player);
 		return player;
 	}
 
@@ -35,6 +36,5 @@ public class MysticAccountManager {
 			return null;
 		return getMysticPlayer(player.getUniqueId());
 	}
-
 
 }
