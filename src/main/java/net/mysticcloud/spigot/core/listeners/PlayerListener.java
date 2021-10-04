@@ -343,9 +343,9 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
-		MysticAccountManager.getMysticPlayer(e.getPlayer().getUniqueId());
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), ()->{
-			
+
+		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+			MysticAccountManager.getMysticPlayer(e.getPlayer().getUniqueId());
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
@@ -380,9 +380,7 @@ public class PlayerListener implements Listener {
 
 				CoreUtils.removeTimedPermission(e.getPlayer(), entry.getValue());
 			}
-		}, 1*20);
-
-		
+		}, 1 * 20);
 
 	}
 
