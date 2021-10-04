@@ -345,12 +345,13 @@ public class PlayerListener implements Listener {
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
 		
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-			MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
+			
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
+					MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 					Player player = e.getPlayer();
 
 					player.setPlayerListName(
