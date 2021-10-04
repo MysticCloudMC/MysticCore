@@ -22,7 +22,6 @@ public class MysticAccountManager {
 		if (mplayers.containsKey(uid)) {
 			return mplayers.get(uid);
 		}
-		updateMysticPlayer(uid);
 
 		if (Bukkit.getPlayer(uid) == null) {
 			Bukkit.getConsoleSender().sendMessage(
@@ -31,8 +30,6 @@ public class MysticAccountManager {
 		}
 
 		MysticPlayer player = new MysticPlayer(uid);
-
-		mplayers.put(uid, player);
 
 		updateMysticPlayer(player.getUUID());
 
