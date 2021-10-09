@@ -78,6 +78,8 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
+		if(e.getPlayer().hasMetadata("dontsaveteleport"))
+			return;
 		if (!e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
 			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
 			return;
