@@ -7,7 +7,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Fireball;
@@ -41,8 +40,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 
 import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.kits.Kit;
-import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
@@ -55,12 +52,10 @@ import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.chat.CustomTag;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
-import net.mysticcloud.spigot.core.utils.portals.Portal;
 import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
 import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
-import net.mysticcloud.spigot.core.utils.regions.Region;
 import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class PlayerListener implements Listener {
@@ -78,7 +73,7 @@ public class PlayerListener implements Listener {
 
 	@EventHandler
 	public void onPlayerTeleport(PlayerTeleportEvent e) {
-		if(e.getPlayer().hasMetadata("dontsaveteleport"))
+		if (e.getPlayer().hasMetadata("dontsaveteleport"))
 			return;
 		if (!e.getTo().getWorld().getName().equals(e.getFrom().getWorld().getName())) {
 			TeleportUtils.addToHistory(e.getPlayer(), e.getFrom());
@@ -345,9 +340,8 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
-		
+
 		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
-			
 
 			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
 
@@ -508,21 +502,6 @@ public class PlayerListener implements Listener {
 			return;
 		if (e.getClickedInventory() == null)
 			return;
-
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Kits") {
-			e.setCancelled(true);
-			if (e.getCurrentItem().getType().equals(Material.AIR))
-				return;
-			if (!e.getCurrentItem().hasItemMeta())
-				return;
-			for (Kit kit : KitManager.getKits()) {
-				if (e.getCurrentItem().getItemMeta().getDisplayName().equals(kit.getDisplayName())) {
-					KitManager.applyKit(((Player) e.getWhoClicked()), kit.getName());
-				}
-			}
-
-			e.getWhoClicked().closeInventory();
-		}
 
 		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
 			if (e.getCurrentItem() == null) {

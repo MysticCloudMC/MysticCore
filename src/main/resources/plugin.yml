@@ -76,8 +76,6 @@ commands:
       usage: /grl
       description: Kicks all players from the server while reloading. HyverseBungeeCore reconnects all kicked players after
          the reload is complete.
-   kit:
-      description: Main kits command.
    spawn:
       usage: /spawn [player]
       description: Teleport yourself or a player to the spawn point.

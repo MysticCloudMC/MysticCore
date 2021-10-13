@@ -12,7 +12,6 @@ import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.GamemodeCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
-import net.mysticcloud.spigot.core.commands.KitCommand;
 import net.mysticcloud.spigot.core.commands.PlayerListCommand;
 import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.ReportCommand;
@@ -22,7 +21,6 @@ import net.mysticcloud.spigot.core.commands.TagCommand;
 import net.mysticcloud.spigot.core.commands.TeleportCommand;
 import net.mysticcloud.spigot.core.commands.UpdateCommand;
 import net.mysticcloud.spigot.core.commands.WarpCommand;
-import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.listeners.MessageListener;
 import net.mysticcloud.spigot.core.listeners.ParticleGUIListener;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
@@ -56,14 +54,12 @@ public class Main extends JavaPlugin {
 
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
-		KitManager.registerKits();
+		
 		BlockParticleUtils.start();
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
 		new VoteListener(this);
-
-		new KitCommand(this, "kit");
 		new SQLCommand("sql", this);
 		new AdminCommands(this, "blockparticles", "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn",
 				"speed", "debug", "invsee", "level", "plugins", "back");

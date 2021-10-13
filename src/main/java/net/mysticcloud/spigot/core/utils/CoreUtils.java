@@ -63,7 +63,6 @@ import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.Main;
-import net.mysticcloud.spigot.core.kits.KitManager;
 import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
@@ -693,7 +692,6 @@ public class CoreUtils {
 	}
 
 	public static void end() {
-		KitManager.unloadCooldowns();
 		WarpUtils.save();
 		saveConfig();
 	}
