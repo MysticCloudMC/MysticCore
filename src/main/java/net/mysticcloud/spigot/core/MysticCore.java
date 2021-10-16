@@ -31,6 +31,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.chat.CustomTag;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 import net.mysticcloud.spigot.core.utils.particles.BlockParticleUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
@@ -43,6 +44,8 @@ public class MysticCore extends JavaPlugin {
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "mystic:bungee");
 		getServer().getMessenger().registerIncomingPluginChannel(this, "mystic:mystic", new MessageListener());
 		CoreUtils.start(this);
+
+		GuiManager.init();
 
 		CoreChatUtils.start();
 

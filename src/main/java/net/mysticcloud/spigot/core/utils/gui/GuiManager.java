@@ -32,6 +32,14 @@ public class GuiManager {
 	private static Map<UUID, String> invTracker = new HashMap<>();
 	private static Map<String, GuiInventory> guis = new HashMap<>();
 
+	public static void init() {
+		GuiInventory gui = new GuiInventory("waiting", "&7Waiting...", 9, "XXXXXXXXX");
+		GuiItem item = new GuiItem("X");
+		item.setDisplayName("&7Waiting...");
+		gui.addItem("X", item);
+		guis.put("waiting", gui);
+	}
+
 	public static void openInventory(Player player, Inventory inventory, String title) {
 		if (inventory == null)
 			return;
