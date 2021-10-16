@@ -29,7 +29,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.UID;
@@ -55,7 +55,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class AdminCommands implements CommandExecutor {
 
-	public AdminCommands(Main plugin, String... cmd) {
+	public AdminCommands(MysticCore plugin, String... cmd) {
 		for (String s : cmd) {
 			PluginCommand com = plugin.getCommand(s);
 			com.setExecutor(this);
@@ -252,8 +252,8 @@ public class AdminCommands implements CommandExecutor {
 									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
 											+ "Linking portal &f" + args[1] + "&7 with &f" + args[2] + "&7."));
 									PortalUtils.getPortal(args[1]).link(args[2]);
-									Main.getPlugin().getConfig().set("Portal." + args[1] + ".link", args[2]);
-									Main.getPlugin().saveConfig();
+									CoreUtils.getPlugin().getConfig().set("Portal." + args[1] + ".link", args[2]);
+									CoreUtils.getPlugin().saveConfig();
 								} else {
 									sender.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("portals")
 											+ "Sorry but we couldn't find any portals named &f" + args[2] + "&7."));

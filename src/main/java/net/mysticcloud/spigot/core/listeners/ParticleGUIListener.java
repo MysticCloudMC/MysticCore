@@ -9,15 +9,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormatEnum;
 import net.mysticcloud.spigot.core.utils.particles.formats.AngelicFormat;
 
 public class ParticleGUIListener implements Listener {
 
-	public ParticleGUIListener(Main plugin) {
+	public ParticleGUIListener(MysticCore plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -28,7 +28,7 @@ public class ParticleGUIListener implements Listener {
 			return;
 		if (e.getClickedInventory() == null)
 			return;
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particles") {
 			if (CoreUtils.particles(e.getWhoClicked().getUniqueId()) == null)
 				return;
 			e.setCancelled(true);
@@ -37,10 +37,11 @@ public class ParticleGUIListener implements Listener {
 						.equalsIgnoreCase(CoreUtils.colorize(CoreUtils.particlesToString(particle)))) {
 					CoreUtils.particles(e.getWhoClicked().getUniqueId()).particle(particle);
 					if (particle.getDataType() != Void.class) {
-						if (particle.getDataType() == DustOptions.class)
-							GUIManager.switchInventory(((Player) e.getWhoClicked()),
-									GUIManager.generateParticleColorMenu(((Player) e.getWhoClicked()), particle),
-									"Particle Color");
+						if (particle.getDataType() == DustOptions.class) {
+//							GuiManager.switchInventory(((Player) e.getWhoClicked()),
+//									GuiManager.generateParticleColorMenu(((Player) e.getWhoClicked()), particle),
+//									"Particle Color");
+						}
 
 					}
 
@@ -51,7 +52,7 @@ public class ParticleGUIListener implements Listener {
 			}
 
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Color") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Color") {
 			e.setCancelled(true);
 			float ps = CoreUtils.particles(e.getWhoClicked().getUniqueId()).getOptions().getFloat("size");
 			switch (e.getCurrentItem().getType()) {
@@ -110,7 +111,7 @@ public class ParticleGUIListener implements Listener {
 			}
 
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Angelic Config") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Angelic Config") {
 			e.setCancelled(true);
 			AngelicFormat format = (AngelicFormat) CoreUtils.particles(e.getWhoClicked().getUniqueId());
 			switch (e.getCurrentItem().getType()) {
@@ -148,7 +149,7 @@ public class ParticleGUIListener implements Listener {
 			}
 
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Format") {
 			e.setCancelled(true);
 			if (e.getCurrentItem().getType().equals(Material.BARRIER)) {
 				CoreUtils.particlesOff(e.getWhoClicked().getUniqueId());
@@ -159,14 +160,14 @@ public class ParticleGUIListener implements Listener {
 				if (e.getCurrentItem().getType().equals(format.formatter().item().getType())) {
 					CoreUtils.particles(e.getWhoClicked().getUniqueId(), format);
 					if (format.equals(ParticleFormatEnum.ANGELIC)) {
-						GUIManager.switchInventory(((Player) e.getWhoClicked()),
-								GUIManager.generateAngelicConfigurations(((Player) e.getWhoClicked())),
+						GuiManager.switchInventory(((Player) e.getWhoClicked()),
+								GuiManager.generateAngelicConfigurations(((Player) e.getWhoClicked())),
 								"Angelic Config");
 						return;
 					}
 					if (format.formatter().changeParticle())
-						GUIManager.switchInventory(((Player) e.getWhoClicked()),
-								GUIManager.generateParticleMenu(((Player) e.getWhoClicked()), format.formatter()),
+						GuiManager.switchInventory(((Player) e.getWhoClicked()),
+								GuiManager.generateParticleMenu(((Player) e.getWhoClicked()), format.formatter()),
 								"Particles");
 					else {
 						e.getWhoClicked().closeInventory();

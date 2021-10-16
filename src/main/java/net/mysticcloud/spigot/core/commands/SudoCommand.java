@@ -9,13 +9,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class SudoCommand implements CommandExecutor {
 
-	public SudoCommand(Main plugin, String cmd) {
+	public SudoCommand(MysticCore plugin, String cmd) {
 		PluginCommand com = plugin.getCommand(cmd);
 		com.setExecutor(this);
 		com.setTabCompleter(new AdminCommandTabCompleter());

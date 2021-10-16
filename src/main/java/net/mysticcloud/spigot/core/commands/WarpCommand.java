@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.warps.Warp;
@@ -18,7 +18,7 @@ import net.mysticcloud.spigot.core.utils.warps.WarpUtils;
 
 public class WarpCommand implements CommandExecutor {
 
-	public WarpCommand(Main plugin, String... cmd) {
+	public WarpCommand(MysticCore plugin, String... cmd) {
 		for (String comd : cmd) {
 			PluginCommand com = plugin.getCommand(comd);
 			com.setExecutor(this);

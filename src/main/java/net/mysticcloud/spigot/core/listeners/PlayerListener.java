@@ -37,11 +37,10 @@ import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
@@ -50,6 +49,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
 import net.mysticcloud.spigot.core.utils.chat.CustomTag;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.portals.PortalUtils;
@@ -60,7 +60,7 @@ import net.mysticcloud.spigot.core.utils.teleport.TeleportUtils;
 
 public class PlayerListener implements Listener {
 
-	public PlayerListener(Main plugin) {
+	public PlayerListener(JavaPlugin plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -93,7 +93,7 @@ public class PlayerListener implements Listener {
 //		if (e.getPlayer().hasMetadata("portaling")) {
 //			try {
 //				if (!((Region) e.getPlayer().getMetadata("portaling").get(0).value()).inside(e.getFrom())) {
-//					e.getPlayer().removeMetadata("portaling", Main.getPlugin());
+//					e.getPlayer().removeMetadata("portaling", CoreUtils.getPlugin());
 //				}
 //			} catch (Exception ex) {
 //				for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
@@ -107,7 +107,7 @@ public class PlayerListener implements Listener {
 //						e.getPlayer().sendMessage(
 //								CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
 //						e.getPlayer().setMetadata("portaling",
-//								new FixedMetadataValue(Main.getPlugin(), portal.region()));
+//								new FixedMetadataValue(CoreUtils.getPlugin(), portal.region()));
 //						return;
 //					}
 //					e.getPlayer()
@@ -118,7 +118,7 @@ public class PlayerListener implements Listener {
 //									PortalUtils.getPortal(portal.link()).center().getZ(),
 //									e.getPlayer().getLocation().getYaw(), e.getPlayer().getLocation().getPitch()));
 //					e.getPlayer().setMetadata("portaling",
-//							new FixedMetadataValue(Main.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
+//							new FixedMetadataValue(CoreUtils.getPlugin(), PortalUtils.getPortal(portal.link()).region()));
 //				}
 //			}
 //		}
@@ -135,11 +135,11 @@ public class PlayerListener implements Listener {
 		if (CoreUtils.getVoidWorlds().contains(e.getPlayer().getWorld().getName())) {
 			if (e.getPlayer().getLocation().getY() <= 0.5) {
 				TeleportUtils.teleport(e.getPlayer(), CoreUtils.getSpawnLocation(), false, true);
-				e.getPlayer().setMetadata("fell", new FixedMetadataValue(Main.getPlugin(), "yup"));
-				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+				e.getPlayer().setMetadata("fell", new FixedMetadataValue(CoreUtils.getPlugin(), "yup"));
+				Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 					@Override
 					public void run() {
-						e.getPlayer().removeMetadata("fell", Main.getPlugin());
+						e.getPlayer().removeMetadata("fell", CoreUtils.getPlugin());
 					}
 				}, 10 * 20);
 			}
@@ -341,9 +341,9 @@ public class PlayerListener implements Listener {
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), () -> {
 
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -362,7 +362,7 @@ public class PlayerListener implements Listener {
 
 			for (Entry<UUID, String> entry : CoreUtils.offlineTimedUsers.entrySet()) {
 
-				Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+				Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 					@Override
 					public void run() {
@@ -488,7 +488,7 @@ public class PlayerListener implements Listener {
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
 		try {
-			GUIManager.closeInventory((Player) e.getPlayer());
+			GuiManager.closeInventory((Player) e.getPlayer());
 		} catch (Exception ex) {
 			// this is stupid.
 			CoreUtils.debug("Inventories probably didn't update.");
@@ -503,7 +503,7 @@ public class PlayerListener implements Listener {
 		if (e.getClickedInventory() == null)
 			return;
 
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "tags") {
 			if (e.getCurrentItem() == null) {
 				e.setCancelled(true);
 				return;
@@ -518,8 +518,8 @@ public class PlayerListener implements Listener {
 			}
 
 			if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).contains("Page ")) {
-				GUIManager.switchInventory((Player) e.getWhoClicked(),
-						GUIManager.getTagsMenu((Player) e.getWhoClicked(), Integer.parseInt(ChatColor
+				GuiManager.switchInventory((Player) e.getWhoClicked(),
+						GuiManager.getTagsMenu((Player) e.getWhoClicked(), Integer.parseInt(ChatColor
 								.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).split("age ")[1])),
 						"tags");
 				return;
@@ -528,58 +528,58 @@ public class PlayerListener implements Listener {
 			for (String key : CustomTag.keys()) {
 				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase(key)) {
 					CoreUtils.setTag((Player) e.getWhoClicked(), key);
-					GUIManager.closeInventory((Player) e.getWhoClicked());
+					GuiManager.closeInventory((Player) e.getWhoClicked());
 				}
 			}
 			if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName())
 					.equalsIgnoreCase("remove tag")) {
 				CoreUtils.removeTag(((Player) e.getWhoClicked()));
-				GUIManager.closeInventory((Player) e.getWhoClicked());
+				GuiManager.closeInventory((Player) e.getWhoClicked());
 			}
 			e.setCancelled(true);
 
 		}
 
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Settings") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Particle Settings") {
 			MysticPlayer mp = MysticAccountManager.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.FIREWORK_ROCKET)) {
 				mp.setSetting(PlayerSettings.HOLIDAY_PARTICLES,
 						mp.getSetting(PlayerSettings.HOLIDAY_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
-				GUIManager.openInventory((Player) e.getWhoClicked(),
-						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+				GuiManager.openInventory((Player) e.getWhoClicked(),
+						GuiManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
 			if (e.getCurrentItem().getType().equals(Material.CHEST)) {
 				mp.setSetting(PlayerSettings.COSMETIC_PARTICLES,
 						mp.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
-				GUIManager.openInventory((Player) e.getWhoClicked(),
-						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+				GuiManager.openInventory((Player) e.getWhoClicked(),
+						GuiManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
 			if (e.getCurrentItem().getType().equals(Material.GRASS_BLOCK)) {
 				mp.setSetting(PlayerSettings.REGIONAL_PARTICLES,
 						mp.getSetting(PlayerSettings.REGIONAL_PARTICLES).equalsIgnoreCase("true") ? "false" : "true");
-				GUIManager.openInventory((Player) e.getWhoClicked(),
-						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+				GuiManager.openInventory((Player) e.getWhoClicked(),
+						GuiManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
 		}
-		if (GUIManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings Menu") {
+		if (GuiManager.getOpenInventory(((Player) e.getWhoClicked())) == "Settings Menu") {
 			MysticPlayer mp = MysticAccountManager.getMysticPlayer((Player) e.getWhoClicked());
 			if (e.getCurrentItem().getType().equals(Material.DIAMOND)) {
-				GUIManager.openInventory((Player) e.getWhoClicked(),
-						GUIManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
+				GuiManager.openInventory((Player) e.getWhoClicked(),
+						GuiManager.getParticleSettingsMenu((Player) e.getWhoClicked()), "Particle Settings");
 			}
 			if (e.getCurrentItem().getType().equals(Material.PAPER)) {
 				mp.setSetting(PlayerSettings.SIDEBAR,
 						mp.getSetting(PlayerSettings.SIDEBAR).equalsIgnoreCase("true") ? "false" : "true");
 
-				GUIManager.openInventory(((Player) e.getWhoClicked()),
-						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
+				GuiManager.openInventory(((Player) e.getWhoClicked()),
+						GuiManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}
 			if (e.getCurrentItem().getType().equals(Material.BOOK)) {
 				mp.setSetting(PlayerSettings.EXTRA_MESSAGES,
 						mp.getSetting(PlayerSettings.EXTRA_MESSAGES).equalsIgnoreCase("true") ? "false" : "true");
 
-				GUIManager.openInventory(((Player) e.getWhoClicked()),
-						GUIManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
+				GuiManager.openInventory(((Player) e.getWhoClicked()),
+						GuiManager.getSettingsMenu(((Player) e.getWhoClicked())), "Settings Menu");
 			}
 		}
 

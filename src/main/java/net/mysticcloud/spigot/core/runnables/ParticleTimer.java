@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
@@ -59,7 +58,7 @@ public class ParticleTimer implements Runnable {
 
 		i = i + 1;
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), this, 1);
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), this, 1);
 
 	}
 

@@ -1,21 +1,15 @@
 package net.mysticcloud.spigot.core.commands;
 
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class UpdateCommand implements CommandExecutor {
 
-	public UpdateCommand(Main plugin, String cmd) {
+	public UpdateCommand(MysticCore plugin, String cmd) {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
 

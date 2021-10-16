@@ -7,12 +7,11 @@ import org.bukkit.OfflinePlayer;
 
 import net.milkbowl.vault.economy.AbstractEconomy;
 import net.milkbowl.vault.economy.EconomyResponse;
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 
 public class VaultAPI extends AbstractEconomy {
-	
+
 	@Override
 	public boolean hasAccount(OfflinePlayer player) {
 		return hasAccount(player.getUniqueId().toString());
@@ -22,7 +21,7 @@ public class VaultAPI extends AbstractEconomy {
 		return MysticAccountManager.getMysticPlayer(UUID.fromString(uid)) != null;
 
 	}
-	
+
 	@Override
 	public double getBalance(OfflinePlayer player) {
 		return getBalance(player.getUniqueId().toString());
@@ -31,7 +30,7 @@ public class VaultAPI extends AbstractEconomy {
 	public double getBalance(String uid) {
 		return MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).getBalance();
 	}
-	
+
 	@Override
 	public boolean has(OfflinePlayer player, double amount) {
 		return has(player.getUniqueId().toString(), amount);
@@ -43,7 +42,7 @@ public class VaultAPI extends AbstractEconomy {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
 		return withdrawPlayer(player.getUniqueId().toString(), amount);
@@ -61,14 +60,14 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, balance, EconomyResponse.ResponseType.FAILURE,
 					"The value is more than the player's balance!");
 		}
-		balance = CoreUtils.getMoneyFormat(balance-amount);
+		balance = CoreUtils.getMoneyFormat(balance - amount);
 
 		MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).setBalance(balance);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), CoreUtils.getMoneyFormat(balance),
 				EconomyResponse.ResponseType.SUCCESS, "");
 	}
-	
+
 	@Override
 	public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
 		return depositPlayer(player.getUniqueId().toString(), amount);
@@ -83,11 +82,12 @@ public class VaultAPI extends AbstractEconomy {
 			return new EconomyResponse(0.0D, 0.0D, EconomyResponse.ResponseType.FAILURE, "Value is less than zero!");
 		}
 
-		MysticAccountManager.getMysticPlayer(UUID.fromString(uid)).setBalance(CoreUtils.getMoneyFormat(getBalance(uid) + amount),true);
+		MysticAccountManager.getMysticPlayer(UUID.fromString(uid))
+				.setBalance(CoreUtils.getMoneyFormat(getBalance(uid) + amount), true);
 
 		return new EconomyResponse(CoreUtils.getMoneyFormat(amount), 0.0D, EconomyResponse.ResponseType.SUCCESS, "");
 	}
-	
+
 	@Override
 	public boolean createPlayerAccount(OfflinePlayer player) {
 		return createPlayerAccount(player.getUniqueId().toString());
@@ -100,7 +100,7 @@ public class VaultAPI extends AbstractEconomy {
 	public String format(double summ) {
 		return String.valueOf(summ);
 	}
-	
+
 	@Override
 	public boolean hasAccount(OfflinePlayer player, String worldName) {
 		return hasAccount(player.getUniqueId().toString(), worldName);
@@ -109,7 +109,7 @@ public class VaultAPI extends AbstractEconomy {
 	public boolean hasAccount(String uid, String world) {
 		return hasAccount(uid);
 	}
-	
+
 	@Override
 	public boolean has(OfflinePlayer player, String worldName, double amount) {
 		return has(player.getUniqueId().toString(), worldName, amount);
@@ -118,7 +118,7 @@ public class VaultAPI extends AbstractEconomy {
 	public boolean has(String uid, String world, double amount) {
 		return has(uid, amount);
 	}
-	
+
 	@Override
 	public double getBalance(OfflinePlayer player, String world) {
 		return getBalance(player.getUniqueId().toString(), world);
@@ -127,7 +127,7 @@ public class VaultAPI extends AbstractEconomy {
 	public double getBalance(String uid, String world) {
 		return CoreUtils.getMoneyFormat(getBalance(uid));
 	}
-	
+
 	@Override
 	public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
 		return withdrawPlayer(player.getUniqueId().toString(), worldName, amount);
@@ -136,7 +136,7 @@ public class VaultAPI extends AbstractEconomy {
 	public EconomyResponse withdrawPlayer(String uid, String world, double amount) {
 		return withdrawPlayer(uid, amount);
 	}
-	
+
 	@Override
 	public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
 		return depositPlayer(player.getUniqueId().toString(), worldName, amount);
@@ -182,7 +182,7 @@ public class VaultAPI extends AbstractEconomy {
 	public EconomyResponse isBankMember(String s, String s1) {
 		return null;
 	}
-	
+
 	@Override
 	public boolean createPlayerAccount(OfflinePlayer player, String worldName) {
 		return createPlayerAccount(player.getUniqueId().toString(), worldName);
@@ -201,7 +201,7 @@ public class VaultAPI extends AbstractEconomy {
 	}
 
 	public boolean isEnabled() {
-		return (Main.getPlugin() != null);
+		return (CoreUtils.getPlugin() != null);
 	}
 
 	public String getName() {

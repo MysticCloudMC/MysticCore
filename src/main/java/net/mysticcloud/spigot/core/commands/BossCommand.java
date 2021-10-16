@@ -5,12 +5,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 
 public class BossCommand implements CommandExecutor {
 
-	public BossCommand(Main plugin, String... cmds) {
+	public BossCommand(MysticCore plugin, String... cmds) {
 		for (String cmd : cmds) {
 			PluginCommand com = plugin.getCommand(cmd);
 			com.setExecutor(this);

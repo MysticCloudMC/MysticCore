@@ -4,20 +4,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.UID;
-import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 
 public class RegisterCommand implements CommandExecutor {
 
-	public RegisterCommand(Main plugin, String cmd) {
+	public RegisterCommand(MysticCore plugin, String cmd) {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
 

@@ -9,7 +9,6 @@ import net.mysticcloud.spigot.core.commands.BossCommand;
 import net.mysticcloud.spigot.core.commands.CoreCommands;
 import net.mysticcloud.spigot.core.commands.EconomyCommand;
 import net.mysticcloud.spigot.core.commands.FriendCommand;
-import net.mysticcloud.spigot.core.commands.GRLCommand;
 import net.mysticcloud.spigot.core.commands.GamemodeCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.PlayerListCommand;
@@ -29,7 +28,6 @@ import net.mysticcloud.spigot.core.listeners.VoteListener;
 import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 import net.mysticcloud.spigot.core.utils.chat.CustomTag;
@@ -38,34 +36,29 @@ import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.skulls.SkullUtils;
 
-public class Main extends JavaPlugin {
-	static Main plugin;
+public class MysticCore extends JavaPlugin {
 
 	public void onEnable() {
-		plugin = this;
-		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
-				"mystic:mystic");
-		getServer().getMessenger().registerOutgoingPluginChannel(net.mysticcloud.spigot.core.Main.getPlugin(),
-				"mystic:bungee");
+		getServer().getMessenger().registerOutgoingPluginChannel(this, "mystic:mystic");
+		getServer().getMessenger().registerOutgoingPluginChannel(this, "mystic:bungee");
 		getServer().getMessenger().registerIncomingPluginChannel(this, "mystic:mystic", new MessageListener());
-		CoreUtils.start();
+		CoreUtils.start(this);
 
 		CoreChatUtils.start();
 
 		SkullUtils.start();
 		PunishmentUtils.registerPunishments();
-		
+
 		BlockParticleUtils.start();
 		new PlayerListener(this);
 		new ReportGUIListener(this);
 		new ParticleGUIListener(this);
 		new VoteListener(this);
-		new SQLCommand("sql", this);
+		new SQLCommand(this, "sql");
 		new AdminCommands(this, "blockparticles", "portal", "kick", "skull", "votetest", "seen", "uuid", "setspawn",
 				"speed", "debug", "invsee", "level", "plugins", "back");
 		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
-		new GRLCommand(this, "grl");
 		new RegisterCommand(this, "register");
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
@@ -83,8 +76,6 @@ public class Main extends JavaPlugin {
 		CustomTag.start();
 
 //		FriendUtils.start();
-
-		GUIManager.init();
 
 //		PortalUtils.start();
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -110,11 +101,7 @@ public class Main extends JavaPlugin {
 	}
 
 	private static void startDateChecker() {
-		Bukkit.getScheduler().runTaskLater(getPlugin(), new ParticleTimer(1), 1);
-		Bukkit.getScheduler().runTaskLater(getPlugin(), new DateChecker(), 1);
-	}
-
-	public static Main getPlugin() {
-		return plugin;
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new ParticleTimer(1), 1);
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new DateChecker(), 1);
 	}
 }

@@ -7,12 +7,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class SQLCommand implements CommandExecutor {
 
-	public SQLCommand(String cmd, Main plugin) {
+	public SQLCommand(MysticCore plugin, String cmd) {
 		plugin.getCommand(cmd).setExecutor(this);
 	}
 

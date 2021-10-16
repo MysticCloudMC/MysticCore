@@ -11,18 +11,18 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.AdminCommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.SpawnReason;
 import net.mysticcloud.spigot.core.utils.afk.AFKUtils;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 
 public class CoreCommands implements CommandExecutor {
 
 	List<String> rules = new ArrayList<>();
 
-	public CoreCommands(Main plugin, String... cmd) {
+	public CoreCommands(MysticCore plugin, String... cmd) {
 		for (String s : cmd) {
 			PluginCommand com = plugin.getCommand(s);
 			com.setExecutor(this);
@@ -193,7 +193,7 @@ public class CoreCommands implements CommandExecutor {
 				Player player = ((Player) sender);
 				if (args.length == 0) {
 
-					GUIManager.openInventory(player, GUIManager.getSettingsMenu(player), "Settings Menu");
+					GuiManager.openInventory(player, GuiManager.getSettingsMenu(player), "Settings Menu");
 				}
 			}
 			return true;
@@ -202,7 +202,7 @@ public class CoreCommands implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("particles")) {
 			if (sender instanceof Player) {
 				if (sender.hasPermission("mysticcloud.cmd.particles")) {
-					GUIManager.openInventory(((Player) sender), GUIManager.generateParticleFormatMenu((Player) sender),
+					GuiManager.openInventory(((Player) sender), GuiManager.generateParticleFormatMenu((Player) sender),
 							"Particle Format");
 				} else {
 					sender.sendMessage(CoreUtils.getCoreMessage("noperm"));

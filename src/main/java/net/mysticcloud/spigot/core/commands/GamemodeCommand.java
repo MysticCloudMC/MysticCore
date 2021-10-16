@@ -7,13 +7,12 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 
 public class GamemodeCommand implements CommandExecutor {
 
-	public GamemodeCommand(Main plugin, String... cmds) {
+	public GamemodeCommand(MysticCore plugin, String... cmds) {
 		for (String cmd : cmds)
 			plugin.getCommand(cmd).setExecutor(this);
 	}

@@ -10,7 +10,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
@@ -103,7 +102,7 @@ public class CoreChatUtils {
 	public static void registerChannels() {
 		try {
 
-			FileConfiguration conf = Main.getPlugin().getConfig();
+			FileConfiguration conf = CoreUtils.getPlugin().getConfig();
 			for (String idstr : conf.getConfigurationSection("Channels").getKeys(false)) {
 				addChannel(idstr, conf.getString("Channels." + idstr + ".tag", "&a&l[%channel]&7 "),
 						conf.getBoolean("Channels." + idstr + ".global", false));

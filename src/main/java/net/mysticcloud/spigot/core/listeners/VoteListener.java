@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 
 import com.vexsoftware.votifier.model.VotifierEvent;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
@@ -17,7 +17,7 @@ import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 
 public class VoteListener implements Listener {
 
-	public VoteListener(Main plugin) {
+	public VoteListener(MysticCore plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 

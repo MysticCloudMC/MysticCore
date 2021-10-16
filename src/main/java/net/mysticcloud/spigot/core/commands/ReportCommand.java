@@ -4,24 +4,22 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementSeverity;
 import net.mysticcloud.spigot.core.utils.punishment.InfringementType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 
 public class ReportCommand implements CommandExecutor {
 
-	public ReportCommand(Main plugin, String... cmd) {
+	public ReportCommand(MysticCore plugin, String... cmd) {
 		for (String s : cmd)
 			plugin.getCommand(s).setExecutor(this);
 	}
@@ -84,8 +82,8 @@ public class ReportCommand implements CommandExecutor {
 						uid = Bukkit.getPlayer(args[0]).getUniqueId();
 					}
 					if (uid != null) {
-						((Player) sender).setMetadata("report", new FixedMetadataValue(Main.getPlugin(), args[0]));
-						GUIManager.openInventory(((Player) sender),
+						((Player) sender).setMetadata("report", new FixedMetadataValue(CoreUtils.getPlugin(), args[0]));
+						GuiManager.openInventory(((Player) sender),
 
 								PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");
 					} else
@@ -179,8 +177,8 @@ public class ReportCommand implements CommandExecutor {
 					uid = Bukkit.getPlayer(args[0]).getUniqueId();
 				}
 				if (uid != null) {
-					((Player) sender).setMetadata("report", new FixedMetadataValue(Main.getPlugin(), args[0]));
-					GUIManager.openInventory(((Player) sender),
+					((Player) sender).setMetadata("report", new FixedMetadataValue(CoreUtils.getPlugin(), args[0]));
+					GuiManager.openInventory(((Player) sender),
 
 							PunishmentUtils.getPunishmentGUI(""), "OffenceTypes");
 				} else

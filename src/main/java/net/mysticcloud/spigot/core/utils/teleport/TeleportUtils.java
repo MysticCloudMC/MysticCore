@@ -19,7 +19,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.runnables.TimeoutTeleportationRequest;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
@@ -45,7 +44,7 @@ public class TeleportUtils {
 		}
 		teleportRequests.put(other.getUniqueId(), player.getUniqueId());
 		// TODO put a timer here
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(),
 				new TimeoutTeleportationRequest(player.getUniqueId(), other.getUniqueId()),
 				TimeUnit.SECONDS.convert(requestTimeout, TimeUnit.MILLISECONDS) * 20);
 		BaseComponent[] accept = new ComponentBuilder("Type ").color(ChatColor.WHITE).append("/tpaccept")
@@ -166,7 +165,7 @@ public class TeleportUtils {
 				&& !overrideWait) {
 
 			Location holder = player.getLocation();
-			BukkitTask task = Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+			BukkitTask task = Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -174,7 +173,7 @@ public class TeleportUtils {
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportLocation(player, loc, message, overrideWait);
 					else {
-						player.removeMetadata("coreteleporting", Main.getPlugin());
+						player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
 								+ "You've moved you so your teleportation has been cancelled.");
 					}
@@ -184,11 +183,11 @@ public class TeleportUtils {
 
 			TeleportWrapper wrap = new TeleportWrapper(player, player.getLocation(), task.getTaskId());
 			tasks.put(player.getUniqueId(), wrap);
-			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
+			player.setMetadata("coreteleporting", new FixedMetadataValue(CoreUtils.getPlugin(), "yup"));
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 5 seconds. Don't move.");
 			return;
 		}
-		player.removeMetadata("coreteleporting", Main.getPlugin());
+		player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 		if (message)
 			player.sendMessage(CoreUtils.colorize(
 					CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
@@ -203,7 +202,7 @@ public class TeleportUtils {
 							.getBlockZ()) {
 				return;
 			} else {
-				player.removeMetadata("coreteleporting", Main.getPlugin());
+				player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 				Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()).getID());
 				player.sendMessage(
 						CoreUtils.prefixes("teleport") + "You've moved you so your teleportation has been cancelled.");
@@ -230,7 +229,7 @@ public class TeleportUtils {
 		if ((!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting"))
 				&& !overrideWait) {
 			Location holder = player.getLocation();
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -238,17 +237,17 @@ public class TeleportUtils {
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
 						teleportPlayer(player, other, sender, overrideWait);
 					else {
-						player.removeMetadata("coreteleporting", Main.getPlugin());
+						player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
 								+ "You've moved you so your teleportation has been cancelled.");
 					}
 				}
 			}, 10 * 20);
-			player.setMetadata("coreteleporting", new FixedMetadataValue(Main.getPlugin(), "yup"));
+			player.setMetadata("coreteleporting", new FixedMetadataValue(CoreUtils.getPlugin(), "yup"));
 			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
 			return;
 		}
-		player.removeMetadata("coreteleporting", Main.getPlugin());
+		player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 		player.teleport(other);
 		if (!sender)
 			player.sendMessage(CoreUtils

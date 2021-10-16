@@ -11,7 +11,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.ParticleFormat;
 
@@ -63,7 +62,7 @@ public class GemsFormat extends ParticleFormat {
 			public void run() {
 				item.remove();
 			}
-		}.runTaskLater(Main.getPlugin(), 13);
+		}.runTaskLater(CoreUtils.getPlugin(), 13);
 
 	}
 

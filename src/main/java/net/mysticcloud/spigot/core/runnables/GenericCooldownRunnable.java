@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BossBar;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class GenericCooldownRunnable implements Runnable {
@@ -45,12 +44,12 @@ public class GenericCooldownRunnable implements Runnable {
 			CoreUtils.removeGenericCooldown(uid, name);
 			bar.setProgress(0);
 			bar.removeAll();
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), finish, 1);
+			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), finish, 1);
 			return;
 		}
 		bar.setProgress((float) ((100 - percent) / 100));
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(),
 				new GenericCooldownRunnable(bar, name, uid, started, cooldown, finish), 1);
 
 	}

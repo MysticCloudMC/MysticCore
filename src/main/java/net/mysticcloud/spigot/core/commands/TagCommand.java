@@ -7,16 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.mysticcloud.spigot.core.utils.GUIManager;
 import net.mysticcloud.spigot.core.utils.chat.CustomTag;
+import net.mysticcloud.spigot.core.utils.gui.GuiManager;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class TagCommand implements CommandExecutor {
 
-	public TagCommand(Main plugin, String... cmds) {
+	public TagCommand(MysticCore plugin, String... cmds) {
 		for (String cmd : cmds) {
 			PluginCommand com = plugin.getCommand(cmd);
 			com.setExecutor(this);
@@ -30,7 +30,7 @@ public class TagCommand implements CommandExecutor {
 
 			Player player = (Player) sender;
 			if (args.length == 0) {
-				GUIManager.openInventory(player, GUIManager.getTagsMenu(player), "tags");
+				GuiManager.openInventory(player, GuiManager.getTagsMenu(player), "tags");
 			}
 			if (args.length >= 2) {
 				if (args[0].equalsIgnoreCase("add")) {

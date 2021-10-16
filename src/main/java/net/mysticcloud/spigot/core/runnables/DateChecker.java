@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
@@ -53,7 +52,7 @@ public class DateChecker implements Runnable {
 	public void run() {
 		if (counter == 0) {
 			CoreUtils.debug("Starting cooldown for scheduled reboot.");
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
@@ -117,7 +116,7 @@ public class DateChecker implements Runnable {
 					try {
 						if (!((Region) player.getMetadata("portaling").get(0).value()).inside(player.getLocation())) {
 
-							player.removeMetadata("portaling", Main.getPlugin());
+							player.removeMetadata("portaling", CoreUtils.getPlugin());
 						}
 					} catch (Exception ex) {
 						for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
@@ -131,7 +130,7 @@ public class DateChecker implements Runnable {
 								player.sendMessage(
 										CoreUtils.prefixes("portals") + "Sorry, that portal isn't linked to anything.");
 								player.setMetadata("portaling",
-										new FixedMetadataValue(Main.getPlugin(), portal.region()));
+										new FixedMetadataValue(CoreUtils.getPlugin(), portal.region()));
 								break;
 							}
 							player.teleport(
@@ -140,7 +139,7 @@ public class DateChecker implements Runnable {
 											PortalUtils.getPortal(portal.link()).center().getY(),
 											PortalUtils.getPortal(portal.link()).center().getZ(),
 											player.getLocation().getYaw(), player.getLocation().getPitch()));
-							player.setMetadata("portaling", new FixedMetadataValue(Main.getPlugin(),
+							player.setMetadata("portaling", new FixedMetadataValue(CoreUtils.getPlugin(),
 									PortalUtils.getPortal(portal.link()).region()));
 						}
 					}
@@ -327,7 +326,7 @@ public class DateChecker implements Runnable {
 			ex.printStackTrace();
 		}
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), this, 1);
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), this, 1);
 	}
 
 }

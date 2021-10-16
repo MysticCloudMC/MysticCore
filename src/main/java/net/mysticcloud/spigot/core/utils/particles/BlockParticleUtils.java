@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.inventory.ItemStack;
 import org.json2.JSONObject;
 
-import net.mysticcloud.spigot.core.Main;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.particles.formats.RandomFormat;
 
@@ -20,19 +17,19 @@ public class BlockParticleUtils {
 
 //
 	public static void start() {
-		if (Main.getPlugin().getConfig().isSet("BlockParticles"))
-			for (String id : Main.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
+		if (CoreUtils.getPlugin().getConfig().isSet("BlockParticles"))
+			for (String id : CoreUtils.getPlugin().getConfig().getConfigurationSection("BlockParticles").getKeys(false)) {
 				ParticleFormat format = ParticleFormatEnum
-						.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".format"))
+						.valueOf(CoreUtils.getPlugin().getConfig().getString("BlockParticles." + id + ".format"))
 						.formatter();
 				JSONObject options = new JSONObject(
-						Main.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
-				format.particle(Main.getPlugin().getConfig().isSet("BlockParticles." + id + ".particle")
-						? Particle.valueOf(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".particle"))
+						CoreUtils.getPlugin().getConfig().getString("BlockParticles." + id + ".json", "{}"));
+				format.particle(CoreUtils.getPlugin().getConfig().isSet("BlockParticles." + id + ".particle")
+						? Particle.valueOf(CoreUtils.getPlugin().getConfig().getString("BlockParticles." + id + ".particle"))
 						: Particle.FLAME);
 				format.loadOptions(options);
 				Location loc = CoreUtils
-						.decryptLocation(Main.getPlugin().getConfig().getString("BlockParticles." + id + ".location"));
+						.decryptLocation(CoreUtils.getPlugin().getConfig().getString("BlockParticles." + id + ".location"));
 				CoreUtils.blockparticles.put(loc, format);
 				blocks.put(id, loc);
 			}
@@ -44,15 +41,15 @@ public class BlockParticleUtils {
 			if (format == null) {
 				continue;
 			}
-			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
+			CoreUtils.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".format",
 					ParticleFormatEnum.enumName(format).name());
-			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".particle", format.particle().name());
-			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
-			Main.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
+			CoreUtils.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".particle", format.particle().name());
+			CoreUtils.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".json", format.getOptions().toString());
+			CoreUtils.getPlugin().getConfig().set("BlockParticles." + e.getKey() + ".location",
 					CoreUtils.encryptLocation(e.getValue()));
 
 		}
-		Main.getPlugin().saveConfig();
+		CoreUtils.getPlugin().saveConfig();
 	}
 
 	public static void createBlockParticles(String id, Location loc) {
@@ -94,8 +91,8 @@ public class BlockParticleUtils {
 	public static void deleteBlockParticle(String id) {
 		CoreUtils.blockparticles__remove.add(blocks.get(id));
 		blocks.remove(id);
-		Main.getPlugin().getConfig().set("BlockParticles." + id, null);
-		Main.getPlugin().saveConfig();
+		CoreUtils.getPlugin().getConfig().set("BlockParticles." + id, null);
+		CoreUtils.getPlugin().saveConfig();
 	}
 
 	public static Map<String, Location> getBlocks() {
@@ -158,17 +155,17 @@ public class BlockParticleUtils {
 //			player.sendMessage(CoreUtils.colorize(
 //					CoreUtils.prefixes("portals") + "You've successfully created the portal &f" + name + "&7."));
 //
-//			Main.getPlugin().getConfig().set("Portal." + name + ".x1", x1);
-//			Main.getPlugin().getConfig().set("Portal." + name + ".y1", y1);
-//			Main.getPlugin().getConfig().set("Portal." + name + ".z1", z1);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".x1", x1);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".y1", y1);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".z1", z1);
 //
-//			Main.getPlugin().getConfig().set("Portal." + name + ".x2", x2);
-//			Main.getPlugin().getConfig().set("Portal." + name + ".y2", y2);
-//			Main.getPlugin().getConfig().set("Portal." + name + ".z2", z2);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".x2", x2);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".y2", y2);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".z2", z2);
 //
-//			Main.getPlugin().getConfig().set("Portal." + name + ".world", world);
+//			CoreUtils.getPlugin().getConfig().set("Portal." + name + ".world", world);
 //
-//			Main.getPlugin().saveConfig();
+//			CoreUtils.getPlugin().saveConfig();
 //
 //			return portal;
 //

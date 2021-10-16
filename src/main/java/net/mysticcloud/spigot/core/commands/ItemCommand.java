@@ -8,14 +8,14 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import net.mysticcloud.spigot.core.Main;
+import net.md_5.bungee.api.ChatColor;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.commands.listeners.CommandTabCompleter;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
-import net.md_5.bungee.api.ChatColor;
 
 public class ItemCommand implements CommandExecutor {
 
-	public ItemCommand(Main plugin, String cmd) {
+	public ItemCommand(MysticCore plugin, String cmd) {
 		PluginCommand com = plugin.getCommand(cmd);
 		com.setExecutor(this);
 		com.setTabCompleter(new CommandTabCompleter());

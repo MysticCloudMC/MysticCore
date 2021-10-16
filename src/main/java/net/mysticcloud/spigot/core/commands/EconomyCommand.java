@@ -9,12 +9,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import net.milkbowl.vault.economy.Economy;
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class EconomyCommand implements CommandExecutor {
 
-	public EconomyCommand(Main plugin, String... cmds) {
+	public EconomyCommand(MysticCore plugin, String... cmds) {
 		for (String cmd : cmds)
 			plugin.getCommand(cmd).setExecutor(this);
 	}

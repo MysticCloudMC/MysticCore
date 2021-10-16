@@ -11,7 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 public class AFKRunnable implements Runnable {
 
@@ -48,7 +48,7 @@ public class AFKRunnable implements Runnable {
 			locs.remove(uid);
 		}
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new AFKRunnable(locs), 5 * 20 * 60);
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new AFKRunnable(locs), 5 * 20 * 60);
 	}
 
 }

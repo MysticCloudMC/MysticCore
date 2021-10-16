@@ -62,7 +62,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
-import net.mysticcloud.spigot.core.Main;
+import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
@@ -113,7 +113,7 @@ public class CoreUtils {
 
 	private static boolean coreBoard = true;
 
-	private static File itemfile = new File(Main.getPlugin().getDataFolder() + "/Items");
+	private static File itemfile = null;
 	private static List<FileConfiguration> itemFiles = new ArrayList<>();
 	private static Map<String, ItemStack> items = new HashMap<>();
 	private static Map<String, ItemStack> foods = new HashMap<>();
@@ -140,8 +140,11 @@ public class CoreUtils {
 
 	static Map<String, List<UUID>> genericCooldowns = new HashMap<>();
 
-	public static void start() {
+	private static MysticCore plugin;
 
+	public static void start(MysticCore main) {
+		plugin = main;
+		itemfile = new File(plugin.getDataFolder() + "/Items");
 		df.setRoundingMode(RoundingMode.DOWN);
 
 		ItemMeta gemeta = gem.getItemMeta();
@@ -175,9 +178,9 @@ public class CoreUtils {
 		messages.put("noperm", prefixes("root") + "You don't have permission to use that command.");
 		messages.put("onlyplayer", prefixes("root") + "That is a player only command.");
 
-		if (Main.getPlugin().getConfig().isSet("TimedUsers")) {
-			for (String uid : Main.getPlugin().getConfig().getStringList("TimedUsers")) {
-				List<String> perms = Main.getPlugin().getConfig().getStringList("TimedPerm." + uid);
+		if (getPlugin().getConfig().isSet("TimedUsers")) {
+			for (String uid : getPlugin().getConfig().getStringList("TimedUsers")) {
+				List<String> perms = getPlugin().getConfig().getStringList("TimedPerm." + uid);
 				for (String data : perms) {
 					addExistingTimedPermission(UUID.fromString(uid), data.split(":")[2], data.split(":")[3],
 							Long.parseLong(data.split(":")[0]), Long.parseLong(data.split(":")[1]));
@@ -272,14 +275,14 @@ public class CoreUtils {
 
 		}
 
-		if (Main.getPlugin().getConfig().isSet("Scoreboard.Title")) {
-			scoreboardTitle = Main.getPlugin().getConfig().getString("Scoreboard.Title");
+		if (getPlugin().getConfig().isSet("Scoreboard.Title")) {
+			scoreboardTitle = getPlugin().getConfig().getString("Scoreboard.Title");
 		} else {
-			Main.getPlugin().getConfig().set("Scoreboard.Title", scoreboardTitle);
+			getPlugin().getConfig().set("Scoreboard.Title", scoreboardTitle);
 		}
 
-		if (Main.getPlugin().getConfig().isSet("Scoreboard.Info")) {
-			scoreboardInfo = Main.getPlugin().getConfig().getStringList("Scoreboard.Info");
+		if (getPlugin().getConfig().isSet("Scoreboard.Info")) {
+			scoreboardInfo = getPlugin().getConfig().getStringList("Scoreboard.Info");
 		} else {
 			scoreboardInfo.add("&f");
 			scoreboardInfo.add("&a&lPLAYER&8:");
@@ -291,38 +294,37 @@ public class CoreUtils {
 			scoreboardInfo.add("&a&lSERVER&8:");
 			scoreboardInfo.add("&7 Online&8: &a%online");
 			scoreboardInfo.add("&7 Time&8: &a%fulltime");
-			Main.getPlugin().getConfig().set("Scoreboard.Info", scoreboardInfo);
+			getPlugin().getConfig().set("Scoreboard.Info", scoreboardInfo);
 		}
 
-		if (Main.getPlugin().getConfig().isSet("Name")) {
-			serverName = Main.getPlugin().getConfig().getString("Name");
+		if (getPlugin().getConfig().isSet("Name")) {
+			serverName = getPlugin().getConfig().getString("Name");
 		} else {
-			Main.getPlugin().getConfig().set("Name", serverName);
+			getPlugin().getConfig().set("Name", serverName);
 
 		}
 
-		Main.getPlugin().saveConfig();
+		getPlugin().saveConfig();
 
-		Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new Runnable() {
+		Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
 
 			@Override
 			public void run() {
 
-				if (Main.getPlugin().getConfig().isSet("SPAWN")
-						&& Main.getPlugin().getConfig().getString("SPAWN") != "")
-					spawn = decryptLocation(Main.getPlugin().getConfig().getString("SPAWN"));
+				if (getPlugin().getConfig().isSet("SPAWN") && getPlugin().getConfig().getString("SPAWN") != "")
+					spawn = decryptLocation(getPlugin().getConfig().getString("SPAWN"));
 
-				if (Main.getPlugin().getConfig().isSet("PlayerList.Header")) {
+				if (getPlugin().getConfig().isSet("PlayerList.Header")) {
 					playerlist.put("header",
-							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Header")));
+							CoreUtils.colorize(getPlugin().getConfig().getString("PlayerList.Header")));
 				}
-				if (Main.getPlugin().getConfig().isSet("PlayerList.PlayerName")) {
+				if (getPlugin().getConfig().isSet("PlayerList.PlayerName")) {
 					playerlist.put("name",
-							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.PlayerName")));
+							CoreUtils.colorize(getPlugin().getConfig().getString("PlayerList.PlayerName")));
 				}
-				if (Main.getPlugin().getConfig().isSet("PlayerList.Footer")) {
+				if (getPlugin().getConfig().isSet("PlayerList.Footer")) {
 					playerlist.put("footer",
-							CoreUtils.colorize(Main.getPlugin().getConfig().getString("PlayerList.Footer")));
+							CoreUtils.colorize(getPlugin().getConfig().getString("PlayerList.Footer")));
 				}
 			}
 
@@ -344,6 +346,10 @@ public class CoreUtils {
 
 	}
 
+	public static MysticCore getPlugin() {
+		return plugin;
+	}
+
 	public static String getServerName() {
 		return serverName;
 	}
@@ -360,7 +366,7 @@ public class CoreUtils {
 	public static void control(Player controller, Player player) {
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.hidePlayer(Main.getPlugin(), controller);
+			p.hidePlayer(getPlugin(), controller);
 		}
 		controllers.put(controller.getUniqueId(), player.getUniqueId());
 	}
@@ -369,7 +375,7 @@ public class CoreUtils {
 		controllers.remove(controller.getUniqueId());
 		controller.teleport(CoreUtils.getSpawnLocation());
 		for (Player p : Bukkit.getOnlinePlayers()) {
-			p.showPlayer(Main.getPlugin(), controller);
+			p.showPlayer(getPlugin(), controller);
 		}
 	}
 
@@ -670,8 +676,8 @@ public class CoreUtils {
 	}
 
 	public static void setupEconomy() {
-		Main.getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(),
-				(Plugin) Main.getPlugin(), ServicePriority.Normal);
+		getPlugin().getServer().getServicesManager().register(Economy.class, new VaultAPI(), (Plugin) getPlugin(),
+				ServicePriority.Normal);
 		economy = (Economy) new VaultAPI();
 	}
 
@@ -699,13 +705,13 @@ public class CoreUtils {
 	public static void saveConfig() {
 
 		if (spawn != null)
-			Main.getPlugin().getConfig().set("SPAWN", encryptLocation(spawn));
+			getPlugin().getConfig().set("SPAWN", encryptLocation(spawn));
 		if (playerlist.containsKey("header"))
-			Main.getPlugin().getConfig().set("PlayerList.Header", playerList("header"));
+			getPlugin().getConfig().set("PlayerList.Header", playerList("header"));
 		if (playerlist.containsKey("name"))
-			Main.getPlugin().getConfig().set("PlayerList.PlayerName", playerList("name"));
+			getPlugin().getConfig().set("PlayerList.PlayerName", playerList("name"));
 		if (playerlist.containsKey("footer"))
-			Main.getPlugin().getConfig().set("PlayerList.Footer", playerList("footer"));
+			getPlugin().getConfig().set("PlayerList.Footer", playerList("footer"));
 		Map<String, List<String>> storage = new HashMap<>();
 		List<String> users = new ArrayList<>();
 		for (Entry<UUID, List<TimedPerm>> entry : timedPerms.entrySet()) {
@@ -719,11 +725,11 @@ public class CoreUtils {
 
 		}
 		for (Entry<String, List<String>> estorage : storage.entrySet()) {
-			Main.getPlugin().getConfig().set("TimedPerm." + estorage.getKey(), estorage.getValue());
+			getPlugin().getConfig().set("TimedPerm." + estorage.getKey(), estorage.getValue());
 		}
-		Main.getPlugin().getConfig().set("TimedUsers", users);
+		getPlugin().getConfig().set("TimedUsers", users);
 
-		Main.getPlugin().saveConfig();
+		getPlugin().saveConfig();
 
 	}
 
@@ -820,7 +826,7 @@ public class CoreUtils {
 		for (String s : arguments) {
 			out.writeUTF(s);
 		}
-		player.sendPluginMessage(Main.getPlugin(), channel, out.toByteArray());
+		player.sendPluginMessage(getPlugin(), channel, out.toByteArray());
 	}
 
 	@SuppressWarnings("unused")
@@ -1771,7 +1777,7 @@ public class CoreUtils {
 		if (!CoreUtils.getGenericCooldown(name).contains(p.getUniqueId())) {
 			CoreUtils.getGenericCooldown(name).add(p.getUniqueId());
 			start.run();
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(),
+			Bukkit.getScheduler().runTaskLater(getPlugin(),
 					new GenericCooldownRunnable(bar, name, p.getUniqueId(), new Date().getTime(), cooldown, finish), 1);
 
 		}
@@ -1816,8 +1822,8 @@ public class CoreUtils {
 			genericCooldowns.get(name).add(player.getUniqueId());
 			BossBar bar = Bukkit.createBossBar(CoreUtils.colorize(display), color, BarStyle.SOLID);
 			bar.addPlayer(player);
-			Bukkit.getScheduler().runTaskLater(Main.getPlugin(), new GenericCooldownRunnable(bar, name,
-					player.getUniqueId(), new Date().getTime(), delay * 5, finish), 1);
+			Bukkit.getScheduler().runTaskLater(getPlugin(), new GenericCooldownRunnable(bar, name, player.getUniqueId(),
+					new Date().getTime(), delay * 5, finish), 1);
 		}
 	}
 
