@@ -4,7 +4,7 @@ version: 3.5.1
 description: Runs on all MysticCloud servers
 api-version: 1.15
 api: Spigot
-main: net.mysticcloud.spigot.core.Main
+main: net.mysticcloud.spigot.core.MysticCore
 soft-depend:
 - ChatUtils
 depend:
