@@ -155,7 +155,7 @@ public class PunishmentUtils {
 		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
-		CoreChatUtils.sendChannelChat("punish",
+		CoreChatUtils.sendChannelChat(Bukkit.getPlayer(staff), "punish",
 				"&cInfringement&f: " + inf.name() + " &3" + Emoticons.BAR_2 + " &cOffender&7: &f"
 						+ CoreUtils.lookupUsername(uid) + " &3" + Emoticons.BAR_2 + "&c Reporter&7:&f " + staff + " &3"
 						+ Emoticons.BAR_2 + " &cNotes&7: &f" + notes + " &3" + Emoticons.BAR_2 + " &cResult&7: &7"

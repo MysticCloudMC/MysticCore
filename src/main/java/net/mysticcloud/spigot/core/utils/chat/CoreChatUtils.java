@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
@@ -79,7 +79,11 @@ public class CoreChatUtils {
 		return channels.put(name, createChannel(name, tag, global));
 	}
 
-	public static Channel createChannel(String name, String tag, boolean global) {
+	public static Channel addChannel(String name, Channel channel) {
+		return channels.put(name, channel);
+	}
+
+	public static Channel createChannel(String name, String tag, boolean global, boolean local, int distance) {
 		return new Channel() {
 
 			@Override
@@ -96,7 +100,21 @@ public class CoreChatUtils {
 			public String getName() {
 				return name;
 			}
+
+			@Override
+			public boolean isLocal() {
+				return local;
+			}
+
+			@Override
+			public int getDistance() {
+				return distance;
+			}
 		};
+	}
+
+	public static Channel createChannel(String name, String tag, boolean global) {
+		return createChannel(name, tag, global, false, -1);
 	}
 
 	public static void registerChannels() {
@@ -137,11 +155,24 @@ public class CoreChatUtils {
 			format = getChannelFormat(channel);
 			break;
 		}
+		Channel ch = getChannel(channel);
 		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
-		if (getChannel(channel).isGlobal())
+		if (ch.isGlobal())
 			CoreUtils.sendPluginMessage(player, "mystic:mystic", "MysticChat-" + channel,
 					replaceholders(player, format, message));
-		else {
+		else if (ch.isLocal()) {
+			if (ch.getDistance() == -1) {
+				for (Player pl : player.getWorld().getPlayers()) {
+					pl.sendMessage((replaceholders(player, format, message)));
+				}
+			} else {
+				for (Entity e : player.getNearbyEntities(ch.getDistance(), ch.getDistance(), ch.getDistance())) {
+					if (e instanceof Player) {
+						((Player) e).sendMessage((replaceholders((Player) e, format, message)));
+					}
+				}
+			}
+		} else {
 			for (Player s : Bukkit.getOnlinePlayers()) {
 				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
 					s.sendMessage((replaceholders(player, format, message)));
@@ -149,31 +180,37 @@ public class CoreChatUtils {
 		}
 	}
 
-	public static void sendChannelChat(String channel, String message) {
-
-		String format;
-		switch (channel) {
-		case "staff":
-			format = getStaffFormat();
-			break;
-		case "default":
-			format = getPlayerFormat();
-			break;
-		default:
-			format = getChannelFormat(channel);
-			break;
-		}
-		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
-		if (getChannel(channel).isGlobal())
-			CoreUtils.sendPluginMessage((Player) Bukkit.getOnlinePlayers().toArray()[0], "mystic:mystic",
-					"MysticChat-" + channel, replaceholders("&6CONSOLE", format, message));
-		else {
-			for (Player s : Bukkit.getOnlinePlayers()) {
-				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
-					s.sendMessage((replaceholders("&6CONSOLE", format, message)));
-			}
-		}
-	}
+//	public static void sendChannelChat(Player player, String channel, String message) {
+//
+//		String format;
+//		switch (channel) {
+//		case "staff":
+//			format = getStaffFormat();
+//			break;
+//		case "default":
+//			format = getPlayerFormat();
+//			break;
+//		default:
+//			format = getChannelFormat(channel);
+//			break;
+//		}
+//		format = CoreUtils.colorize(getChannel(channel).getTag() + "&7") + format;
+//		if (getChannel(channel).isGlobal())
+//			CoreUtils.sendPluginMessage(player, "mystic:mystic", "MysticChat-" + channel,
+//					replaceholders("&6CONSOLE", format, message));
+//		else if (getChannel(channel).isLocal()) {
+//			if (getChannel(channel).getDistance() == -1) {
+//				for(Player pl : player.getWorld().getPlayers()) {
+//					pl.sendMessage((replaceholders("&6CONSOLE", format, message)));
+//				}
+//			}
+//		} else {
+//			for (Player s : Bukkit.getOnlinePlayers()) {
+//				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
+//					s.sendMessage((replaceholders("&6CONSOLE", format, message)));
+//			}
+//		}
+//	}
 
 	public static String censor(String message) {
 //		String s = "";

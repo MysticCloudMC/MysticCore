@@ -7,4 +7,8 @@ public interface Channel {
 	public boolean isGlobal();
 
 	public String getTag();
+
+	public boolean isLocal();
+
+	public int getDistance();
 }

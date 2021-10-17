@@ -1123,7 +1123,7 @@ public class CoreUtils {
 	}
 
 	public static void sendZachsMessage(String sender, String message) {
-		CoreChatUtils.sendChannelChat("zachs", message);
+		CoreChatUtils.sendChannelChat((Player) Bukkit.getOnlinePlayers().toArray()[0], "zachs", message);
 	}
 
 //	public static void enableScoreboard(Player player) {
