@@ -161,16 +161,9 @@ public class CoreChatUtils {
 			CoreUtils.sendPluginMessage(player, "mystic:mystic", "MysticChat-" + channel,
 					replaceholders(player, format, message));
 		else if (ch.isLocal()) {
-			if (ch.getDistance() == -1) {
-				for (Player pl : player.getWorld().getPlayers()) {
+			for (Player pl : player.getWorld().getPlayers()) {
+				if (player.getLocation().distance(pl.getLocation()) <= ch.getDistance() || ch.getDistance() == -1)
 					pl.sendMessage((replaceholders(player, format, message)));
-				}
-			} else {
-				for (Entity e : player.getNearbyEntities(ch.getDistance(), ch.getDistance(), ch.getDistance())) {
-					if (e instanceof Player) {
-						((Player) e).sendMessage((replaceholders((Player) e, format, message)));
-					}
-				}
 			}
 		} else {
 			for (Player s : Bukkit.getOnlinePlayers()) {
