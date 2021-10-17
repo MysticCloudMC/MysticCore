@@ -319,7 +319,9 @@ public class GuiManager {
 				if (name.contains("_")) {
 					String tmp = "";
 					for (String s : name.split("_")) {
-						tmp = tmp + s.substring(0, 1).toUpperCase() + s.substring(1, s.length()).toLowerCase();
+						tmp = tmp == "" ? s.substring(0, 1).toUpperCase() + s.substring(1, s.length()).toLowerCase()
+								: tmp + " " + s.substring(0, 1).toUpperCase()
+										+ s.substring(1, s.length()).toLowerCase();
 					}
 					name = tmp;
 				}
