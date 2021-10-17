@@ -95,9 +95,9 @@ public class GuiManager {
 	}
 
 	/*
-	 * * * * * * * * * * * * * * * * * * * * * * * * * * * * Generators for Core
-	 * Inventories * * however these may no * longer be needed.. * * * * * * * * * *
-	 * * * * * * * * * * * * * * * * * *
+	 * * * * * * * * * * * * * * * * * * * * * * Generators for Core Inventories *
+	 * however these may no longer be needed.. * * * * * * * * * * * * * * * * * * *
+	 * * *
 	 */
 
 	public static Inventory generateParticleFormatMenu(Player player) {
@@ -316,6 +316,13 @@ public class GuiManager {
 					continue;
 				}
 				String name = key.substring(0, 1).toUpperCase() + key.substring(1, key.length()).toLowerCase();
+				if (name.contains("_")) {
+					String tmp = "";
+					for (String s : name.split("_")) {
+						tmp = tmp + s.substring(0, 1).toUpperCase() + s.substring(1, s.length()).toLowerCase();
+					}
+					name = tmp;
+				}
 				if (player.hasPermission("mysticcloud.customtag." + key.toLowerCase())) {
 					inv.addItem(new ItemStack(Material.NAME_TAG), CoreUtils.colorize("&e" + name), (char) i,
 							new String[] { PlaceholderUtils.emotify(value) }, false);
