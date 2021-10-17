@@ -526,6 +526,7 @@ public class PlayerListener implements Listener {
 			}
 
 			for (String key : CustomTag.keys()) {
+				key = key.replaceAll(" ", "_");
 				if (ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName()).equalsIgnoreCase(key)) {
 					CoreUtils.setTag((Player) e.getWhoClicked(), key);
 					GuiManager.closeInventory((Player) e.getWhoClicked());
