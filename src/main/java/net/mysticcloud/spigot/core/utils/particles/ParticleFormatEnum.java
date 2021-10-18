@@ -10,6 +10,7 @@ import net.mysticcloud.spigot.core.utils.particles.formats.AtomicFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CapeFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleFeetFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.CircleHeadFormat;
+import net.mysticcloud.spigot.core.utils.particles.formats.DotFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.DoubleHelixFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.GemsFormat;
 import net.mysticcloud.spigot.core.utils.particles.formats.HaloFormat;
@@ -106,6 +107,8 @@ public enum ParticleFormatEnum {
 			return WINGS;
 		if (format instanceof AngelicFormat)
 			return ANGELIC;
+		if (format instanceof DotFormat)
+			return DOT;
 		return CIRCLE_FEET;
 	}
 
@@ -146,6 +149,8 @@ public enum ParticleFormatEnum {
 			return new WingsFormat();
 		case "Angelic":
 			return new AngelicFormat();
+		case "Dot":
+			return new DotFormat();
 		default:
 			return new CircleHeadFormat();
 
