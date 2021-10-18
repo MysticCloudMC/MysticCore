@@ -28,7 +28,7 @@ public enum ParticleFormatEnum {
 	CIRCLE_HEAD("Circle Head"), CIRCLE_FEET("Circle Feet"), HALO("Halo"), HAT("Hat"), HELIX("Helix"),
 	DOUBLE_HELIX("Double Helix"), RANDOM("Random"), CAPE("Cape"), POPPER("Popper", false), RAINBOW("Rainbow"),
 	LILY_PAD("Lily Pad"), RAIN_CLOUD("Rain Cloud"), ATOMIC("Atomic"), SELECTOR("Selector"), GEMS("Gems"),
-	ANGELIC("Angelic", true), WINGS("Wings", false);
+	ANGELIC("Angelic", true), WINGS("Wings", false), DOT("Dot", false);
 
 	String name;
 	boolean avalible = true;
