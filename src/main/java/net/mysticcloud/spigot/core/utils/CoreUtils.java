@@ -1354,7 +1354,7 @@ public class CoreUtils {
 			}
 
 			if (item.isSet(name + ".Options.Hide"))
-				if (item.get(name + ".Options.Hide") != "All")
+				if (!item.get(name + ".Options.Hide").equals("All"))
 					for (String s : item.getStringList(name + ".Options.Hide"))
 						a.addItemFlags(ItemFlag.valueOf("HIDE_" + s.toUpperCase()));
 				else
