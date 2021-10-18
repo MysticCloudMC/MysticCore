@@ -113,6 +113,10 @@ public class CoreChatUtils {
 		};
 	}
 
+	public static void removeChannel(String channel) {
+		channels.remove(channel);
+	}
+
 	public static Channel createChannel(String name, String tag, boolean global) {
 		return createChannel(name, tag, global, false, -1);
 	}
