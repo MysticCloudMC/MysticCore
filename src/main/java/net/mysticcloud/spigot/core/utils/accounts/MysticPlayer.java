@@ -102,8 +102,9 @@ public class MysticPlayer {
 	}
 
 	public JSONObject getSettings() {
-		return extraData.has("settings") ? extraData.getJSONObject("settings")
-				: extraData.put("settings", new JSONObject("{}").get("settings"));
+		if (!extraData.has("settings"))
+			extraData.put("settings", new JSONObject("{}"));
+		return extraData.getJSONObject("settings");
 	}
 
 	public void setBalance(double balance, boolean save) {
