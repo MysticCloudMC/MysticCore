@@ -3,6 +3,8 @@ package net.mysticcloud.spigot.core.utils.admin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 import org.bukkit.Bukkit;
 
@@ -27,7 +29,7 @@ public class DebugUtils {
 			debuggers.remove(uid);
 		}
 		debuggers__remove.clear();
-		System.out.println(CoreUtils.prefixes("debug") + CoreUtils.colorize(message));
+		CoreUtils.getPlugin().getLogger().log(new LogRecord(Level.ALL, CoreUtils.prefixes("debug") + CoreUtils.colorize(message)));
 	}
 
 	public static void addDebugger(UUID uid) {

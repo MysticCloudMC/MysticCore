@@ -29,6 +29,9 @@ public class TeleportUtils {
 	private static List<UUID> disabledRequests = new ArrayList<>();
 	private static Map<UUID, Location> lastLoc = new HashMap<>();
 	private static Map<UUID, TeleportWrapper> tasks = new HashMap<>();
+	private static List<UUID> waiting = new ArrayList<>();
+
+	private static int tpDelay = 5; // in Seconds
 
 	public static TeleportResult requestTeleport(Player player, Player other) {
 		if (teleportRequests.containsKey(other.getUniqueId())) {
@@ -83,14 +86,14 @@ public class TeleportUtils {
 		if (teleportRequests.containsKey(other)) {
 			if (teleportRequests.get(other).equals(player)) {
 				teleportRequests.remove(other);
-				if (Bukkit.getPlayer(player) != null) 
+				if (Bukkit.getPlayer(player) != null)
 					Bukkit.getPlayer(player).sendMessage(
 							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "Your request has timed out."));
-				
-				if (Bukkit.getPlayer(other) != null) 
+
+				if (Bukkit.getPlayer(other) != null)
 					Bukkit.getPlayer(other).sendMessage(
 							CoreUtils.colorize(CoreUtils.prefixes("teleport") + "The request has timed out."));
-				
+
 			}
 		}
 	}
@@ -163,6 +166,10 @@ public class TeleportUtils {
 	public static void teleportLocation(Player player, Location loc, boolean message, boolean overrideWait) {
 		if ((!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting"))
 				&& !overrideWait) {
+			if (waiting.contains(player.getUniqueId())) {
+				player.sendMessage(CoreUtils.prefixes("teleport") + "You're already waiting to teleport.");
+				return;
+			}
 
 			Location holder = player.getLocation();
 			BukkitTask task = Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
@@ -184,10 +191,12 @@ public class TeleportUtils {
 			TeleportWrapper wrap = new TeleportWrapper(player, player.getLocation(), task.getTaskId());
 			tasks.put(player.getUniqueId(), wrap);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(CoreUtils.getPlugin(), "yup"));
-			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 5 seconds. Don't move.");
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in " + tpDelay + " seconds. Don't move.");
+			waiting.add(player.getUniqueId());
 			return;
 		}
 		player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
+		waiting.remove(player.getUniqueId());
 		if (message)
 			player.sendMessage(CoreUtils.colorize(
 					CoreUtils.prefixes("teleport") + "You've teleported to &7" + loc.getWorld().getName() + "&f, &7"
@@ -228,6 +237,12 @@ public class TeleportUtils {
 	public static void teleportPlayer(Player player, Player other, boolean sender, boolean overrideWait) {
 		if ((!player.hasPermission("mysticcloud.teleport.waitoverride") && !player.hasMetadata("coreteleporting"))
 				&& !overrideWait) {
+
+			if (waiting.contains(player.getUniqueId())) {
+				player.sendMessage(CoreUtils.prefixes("teleport") + "You're already waiting to teleport.");
+				return;
+			}
+
 			Location holder = player.getLocation();
 			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
@@ -244,11 +259,13 @@ public class TeleportUtils {
 				}
 			}, 10 * 20);
 			player.setMetadata("coreteleporting", new FixedMetadataValue(CoreUtils.getPlugin(), "yup"));
-			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in 10 seconds.");
+			player.sendMessage(CoreUtils.prefixes("teleport") + "Teleporting in " + tpDelay + " seconds.");
+			waiting.add(player.getUniqueId());
 			return;
 		}
 		player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 		player.teleport(other);
+		waiting.remove(player.getUniqueId());
 		if (!sender)
 			player.sendMessage(CoreUtils
 					.colorize(CoreUtils.prefixes("teleport") + "You've teleported to &7" + other.getName() + "&f."));
