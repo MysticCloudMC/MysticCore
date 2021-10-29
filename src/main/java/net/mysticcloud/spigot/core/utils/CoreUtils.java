@@ -1159,8 +1159,6 @@ public class CoreUtils {
 
 	@SuppressWarnings("deprecation")
 	public static ItemStack getItem(String name) {
-		debug("Loading Item " + name);
-
 		ItemStack i = new ItemStack(Material.STONE);
 		int amount = 1;
 		if (name.contains("-")) {
