@@ -178,7 +178,7 @@ public class TeleportUtils {
 				public void run() {
 					if (player.getLocation().getBlockX() == holder.getBlockX()
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
-						teleportLocation(player, loc, message, overrideWait);
+						teleportLocation(player, loc, message, true);
 					else {
 						player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
@@ -250,7 +250,7 @@ public class TeleportUtils {
 				public void run() {
 					if (player.getLocation().getBlockX() == holder.getBlockX()
 							&& player.getLocation().getBlockZ() == holder.getBlockZ())
-						teleportPlayer(player, other, sender, overrideWait);
+						teleportPlayer(player, other, sender, true);
 					else {
 						player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
 						player.sendMessage(CoreUtils.prefixes("teleport")
