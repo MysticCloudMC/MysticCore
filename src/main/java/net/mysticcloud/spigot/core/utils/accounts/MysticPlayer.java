@@ -119,6 +119,13 @@ public class MysticPlayer {
 
 	}
 
+	public boolean isBedrockPlayer() {
+		if (Bukkit.getPlayer(uid) == null) {
+			return true;
+		}
+		return Bukkit.getPlayer(uid).getName().startsWith(".");
+	}
+
 	public void setGems(int gems) {
 		this.gems = gems;
 	}

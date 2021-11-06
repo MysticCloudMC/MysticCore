@@ -55,6 +55,10 @@ public class GuiManager {
 		return guis;
 	}
 
+	public static void addGui(String name, GuiInventory inv) {
+		guis.put(name, inv);
+	}
+
 	public static String getOpenInventory(Player player) {
 		return invTracker.containsKey(player.getUniqueId()) ? invTracker.get(player.getUniqueId()) : "none";
 	}
