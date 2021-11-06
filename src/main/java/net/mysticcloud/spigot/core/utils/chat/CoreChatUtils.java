@@ -298,7 +298,7 @@ public class CoreChatUtils {
 		sendChannelChat(player, getChannel(player.getUniqueId()), message);
 	}
 
-	public static void setChannel(Player player, String channel) {
+	public static void setChannel(Player player, String channel, boolean message) {
 		if ((channel.equalsIgnoreCase("zachs") || channel.equalsIgnoreCase("punish"))
 				&& !player.getUniqueId().toString().equals("60191757-427b-421e-bee0-399465d7e852")) {
 			return;
@@ -306,15 +306,22 @@ public class CoreChatUtils {
 		if (channels.containsKey(channel.toLowerCase())) {
 			if (player.hasPermission("mysticcloud.channel." + channel.toLowerCase())) {
 				currentChannel.put(player.getUniqueId(), channel);
-				player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("chat") + "You're now chatting in the &7"
-						+ channel.toLowerCase() + "&f channel."));
+				if (message)
+					player.sendMessage(CoreUtils.colorize(CoreUtils.prefixes("chat") + "You're now chatting in the &7"
+							+ channel.toLowerCase() + "&f channel."));
 			} else {
-				player.sendMessage(
-						CoreUtils.prefixes("chat") + "Sorry, you don't have permission to join that channel.");
+				if (message)
+					player.sendMessage(
+							CoreUtils.prefixes("chat") + "Sorry, you don't have permission to join that channel.");
 			}
 		} else {
-			player.sendMessage(CoreUtils.prefixes("chat") + "Sorry that channel doesn't exist.");
+			if (message)
+				player.sendMessage(CoreUtils.prefixes("chat") + "Sorry that channel doesn't exist.");
 		}
+	}
+
+	public static void setChannel(Player player, String channel) {
+		setChannel(player, channel, true);
 	}
 
 }
