@@ -15,7 +15,7 @@ import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
 public class GuiItem {
 	String id;
-	String display_name;
+	String display_name = "default_name";
 	Material mat = Material.GRASS_BLOCK;
 	List<String> lore = null;
 	boolean single_action = false;
