@@ -50,7 +50,9 @@ public class GuiInventory {
 		Inventory inv = Bukkit.createInventory(player, size, CoreUtils.colorize(name));
 		for (int i = 0; i != config.length(); i++) {
 			String key = config.substring(i, i + 1);
-			inv.setItem(i, getGuiItem(key) != null ? getGuiItem(key).getItem(player) : new ItemStack(Material.AIR));
+			if (getGuiItem(key) == null)
+				continue;
+			inv.setItem(i, getGuiItem(key).getItem(player));
 		}
 		return inv;
 	}
