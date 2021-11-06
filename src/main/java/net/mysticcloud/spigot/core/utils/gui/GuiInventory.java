@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +50,7 @@ public class GuiInventory {
 		Inventory inv = Bukkit.createInventory(player, size, CoreUtils.colorize(name));
 		for (int i = 0; i != config.length(); i++) {
 			String key = config.substring(i, i + 1);
-			inv.setItem(i, getGuiItem(key).getItem(player));
+			inv.setItem(i, getGuiItem(key) != null ? getGuiItem(key).getItem(player) : new ItemStack(Material.AIR));
 		}
 		return inv;
 	}
