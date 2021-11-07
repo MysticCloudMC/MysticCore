@@ -130,7 +130,7 @@ public class ParticleFormat {
 		case ASH:
 			return Particle.SMOKE_NORMAL;
 		default:
-			return Particle.CRIT;
+			return particle;
 		}
 	}
 
