@@ -212,6 +212,7 @@ public class TeleportUtils {
 				return;
 			} else {
 				player.removeMetadata("coreteleporting", CoreUtils.getPlugin());
+				waiting.remove(player.getUniqueId());
 				Bukkit.getScheduler().cancelTask(tasks.get(player.getUniqueId()).getID());
 				player.sendMessage(
 						CoreUtils.prefixes("teleport") + "You've moved you so your teleportation has been cancelled.");
