@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
@@ -124,9 +125,22 @@ public class ParticleFormat {
 		this.materialdata = materialdata;
 	}
 
+	private Particle convertParticleForBedrock(Particle particle) {
+		switch (particle) {
+		case ASH:
+			return Particle.SMOKE_NORMAL;
+		default:
+			return Particle.CRIT;
+		}
+	}
+
 	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY, double offsetZ) {
 		if (particle.getDataType() == null) {
-			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
+			for (Player player : loc.getWorld().getPlayers())
+				if (player.getLocation().distance(loc) <= 60)
+					player.spawnParticle(
+							player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc, 0,
+							offsetX, offsetY, offsetZ, 2);
 			return;
 		}
 
@@ -138,20 +152,40 @@ public class ParticleFormat {
 					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
 							options.getFloat("size"));
 				}
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, dustoptions);
+				for (Player player : loc.getWorld().getPlayers())
+					if (player.getLocation().distance(loc) <= 60)
+						player.spawnParticle(
+								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
+								0, offsetX, offsetY, offsetZ, 2, dustoptions);
 				if (tmp) {
 					tmp = !tmp;
 					setDustOptions(new DustOptions(Color.RED, 99));
 				}
 			}
 			if (particle.getDataType() == MaterialData.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, materialdata);
+				for (Player player : loc.getWorld().getPlayers())
+					if (player.getLocation().distance(loc) <= 60)
+						player.spawnParticle(
+								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
+								0, offsetX, offsetY, offsetZ, 2, materialdata);
 			if (particle.getDataType() == ItemStack.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, itemstack);
+				for (Player player : loc.getWorld().getPlayers())
+					if (player.getLocation().distance(loc) <= 60)
+						player.spawnParticle(
+								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
+								0, offsetX, offsetY, offsetZ, 2, itemstack);
 			if (particle.getDataType() == BlockData.class)
-				loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2, blockdata);
+				for (Player player : loc.getWorld().getPlayers())
+					if (player.getLocation().distance(loc) <= 60)
+						player.spawnParticle(
+								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
+								0, offsetX, offsetY, offsetZ, 2, blockdata);
 		} else {
-			loc.getWorld().spawnParticle(particle, loc, 0, offsetX, offsetY, offsetZ, 2);
+			for (Player player : loc.getWorld().getPlayers())
+				if (player.getLocation().distance(loc) <= 60)
+					player.spawnParticle(
+							player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc, 0,
+							offsetX, offsetY, offsetZ, 2);
 		}
 
 	}
