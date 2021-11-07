@@ -125,67 +125,64 @@ public class ParticleFormat {
 		this.materialdata = materialdata;
 	}
 
-	private Particle convertParticleForBedrock(Particle particle) {
-		switch (particle) {
-		case ASH:
-			return Particle.SMOKE_NORMAL;
-		default:
-			return particle;
+	private Particle convertParticleForBedrock(Player player, Particle particle) {
+		if (player.getName().startsWith(".")) {
+			switch (particle) {
+			case ASH:
+				return Particle.SMOKE_NORMAL;
+			default:
+				return particle;
+			}
 		}
+		return particle;
 	}
 
 	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY, double offsetZ) {
 		if (particle.getDataType() == null) {
 			for (Player player : loc.getWorld().getPlayers())
 				if (player.getLocation().distance(loc) <= 60)
-					player.spawnParticle(
-							player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc, 0,
-							offsetX, offsetY, offsetZ, 2);
+					player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY, offsetZ,
+							2);
 			return;
 		}
 
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class) {
-				if (dustoptions.getSize() == 99) {
-					tmp = true;
-					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
-					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
-							options.getFloat("size"));
-				}
+//				if (dustoptions.getSize() == 99) {
+//					tmp = true;
+//					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
+//					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
+//							options.getFloat("size"));
+//				}
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
-						player.spawnParticle(
-								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
-								0, offsetX, offsetY, offsetZ, 2, dustoptions);
-				if (tmp) {
-					tmp = !tmp;
-					setDustOptions(new DustOptions(Color.RED, 99));
-				}
+						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
+								offsetZ, 2, dustoptions);
+//				if (tmp) {
+//					tmp = !tmp;
+//					setDustOptions(new DustOptions(Color.RED, 99));
+//				}
 			}
 			if (particle.getDataType() == MaterialData.class)
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
-						player.spawnParticle(
-								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
-								0, offsetX, offsetY, offsetZ, 2, materialdata);
+						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
+								offsetZ, 2, materialdata);
 			if (particle.getDataType() == ItemStack.class)
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
-						player.spawnParticle(
-								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
-								0, offsetX, offsetY, offsetZ, 2, itemstack);
+						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
+								offsetZ, 2, itemstack);
 			if (particle.getDataType() == BlockData.class)
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
-						player.spawnParticle(
-								player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc,
-								0, offsetX, offsetY, offsetZ, 2, blockdata);
+						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
+								offsetZ, 2, blockdata);
 		} else {
 			for (Player player : loc.getWorld().getPlayers())
 				if (player.getLocation().distance(loc) <= 60)
-					player.spawnParticle(
-							player.getName().startsWith(".") ? convertParticleForBedrock(particle) : particle, loc, 0,
-							offsetX, offsetY, offsetZ, 2);
+					player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY, offsetZ,
+							2);
 		}
 
 	}
