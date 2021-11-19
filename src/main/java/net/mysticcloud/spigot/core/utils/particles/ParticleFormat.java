@@ -160,7 +160,7 @@ public class ParticleFormat {
 					try {
 						dustoptions = new DustOptions(Color.fromRGB(options.getInt("color")),
 								options.has("size") ? options.getFloat("size") : 1f);
-					} catch (NumberFormatException ex) {
+					} catch (org.json2.JSONException ex) {
 						dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
 								options.has("size") ? options.getFloat("size") : 1f);
 					}
