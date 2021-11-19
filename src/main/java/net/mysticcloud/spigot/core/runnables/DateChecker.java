@@ -286,7 +286,7 @@ public class DateChecker implements Runnable {
 				}
 
 				if (CoreUtils.getMonth() == Calendar.OCTOBER) {
-					if (CoreUtils.getDay() >= 20) {
+					if (CoreUtils.getDay() >= 19) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.HALLOWEEN);
 					}
