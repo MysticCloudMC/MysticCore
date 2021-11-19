@@ -18,7 +18,6 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
 import org.json2.JSONObject;
 
-import net.minecraft.world.item.EnumColor;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
