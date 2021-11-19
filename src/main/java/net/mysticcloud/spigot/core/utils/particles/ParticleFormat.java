@@ -20,6 +20,7 @@ import org.json2.JSONObject;
 
 import net.minecraft.world.item.EnumColor;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
 @SuppressWarnings("deprecation")
 public class ParticleFormat {
@@ -128,7 +129,7 @@ public class ParticleFormat {
 	}
 
 	private Particle convertParticleForBedrock(Player player, Particle particle) {
-		if (player.getName().startsWith(".")) {
+		if (player.getName().startsWith("[" + Emoticons.WARNING + "]")) {
 			switch (particle) {
 			case ASH:
 				return Particle.SMOKE_NORMAL;
