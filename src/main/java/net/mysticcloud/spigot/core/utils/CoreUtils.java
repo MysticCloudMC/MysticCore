@@ -153,6 +153,7 @@ public class CoreUtils {
 		gem.setItemMeta(gemeta);
 
 		setupEconomy();
+		PlaceholderUtils.registerPlaceholders();
 
 		LevelUtils.start();
 

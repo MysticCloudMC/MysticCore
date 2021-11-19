@@ -1,5 +1,8 @@
 package net.mysticcloud.spigot.core.utils.placeholder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -11,7 +14,24 @@ import net.mysticcloud.spigot.core.utils.admin.Holiday;
 
 public class PlaceholderUtils {
 
+	static Map<String, PlaceholderWorker> placeholders = new HashMap<>();
+
+	public static void registerPlaceholders() {
+		placeholders.put("%test%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player) {
+				return player.getName();
+			}
+		});
+	}
+
+	public static void registerPlaceholder(String key, PlaceholderWorker worker) {
+		placeholders.put("%" + key + "%", worker);
+	}
+
 	public static String replace(Player player, String string) {
+
 		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 		if (string.contains("%lvl")) {
 			if (mp.getLevel() <= 49) {
@@ -48,7 +68,7 @@ public class PlaceholderUtils {
 		if (string.contains("%tag"))
 			string = string.replaceAll("%tag",
 					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
-		
+
 		if (MysticAccountManager.getMysticPlayer(player).isNitro()) // if nitro
 
 			string = string.replace("%nitro",
@@ -57,7 +77,9 @@ public class PlaceholderUtils {
 		else
 			string = string.replace("%nitro", "");
 
-		string = emotify(string);
+		string =
+
+				emotify(string);
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
