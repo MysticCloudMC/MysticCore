@@ -64,6 +64,7 @@ import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
+import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.FoodInfo;
@@ -613,7 +614,12 @@ public class CoreUtils {
 		return economy;
 	}
 
-	public static void setScoreboard(Player pl) {
+	public static void setScoreboard(MysticPlayer player) {
+		if (Bukkit.getPlayer(player.getUUID()) == null) {
+			return;
+		}
+		Player pl = Bukkit.getPlayer(player.getUUID());
+
 		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
 
 		Objective obj = board.registerNewObjective("title", ObjectiveType.DUMMY.getName(),
@@ -670,9 +676,11 @@ public class CoreUtils {
 		}
 	}
 
-	public static void removeScoreboard(Player pl) {
-		scoreboards.remove(pl.getUniqueId());
-		pl.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+	public static void removeScoreboard(MysticPlayer pl) {
+		if (Bukkit.getPlayer(pl.getUUID()) == null)
+			return;
+		scoreboards.remove(pl.getUUID());
+		Bukkit.getPlayer(pl.getUUID()).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 
 	public static void setupEconomy() {

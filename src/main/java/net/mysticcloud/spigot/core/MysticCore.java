@@ -89,8 +89,6 @@ public class MysticCore extends JavaPlugin {
 
 			player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
 //			player.setPlayerListName(CoreUtils.colorize(CoreUtils.getPlayerPrefix(player) + player.getName()));
-			if (CoreUtils.useCoreScoreboard())
-				CoreUtils.setScoreboard(player);
 		}
 
 	}

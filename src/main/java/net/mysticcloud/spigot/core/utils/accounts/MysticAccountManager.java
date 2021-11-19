@@ -25,10 +25,8 @@ public class MysticAccountManager {
 			return null;
 		}
 
-		MysticPlayer player = new MysticPlayer(uid);
-
-		mplayers.put(uid, player);
-		return player;
+		mplayers.put(uid, new MysticPlayer(uid));
+		return mplayers.get(uid);
 	}
 
 	public static MysticPlayer getMysticPlayer(Player player) {

@@ -100,9 +100,9 @@ public class MysticPlayer {
 			case SIDEBAR:
 				DebugUtils.debug("Setting sidebar: " + value);
 				if (value.equalsIgnoreCase("true")) {
-					CoreUtils.setScoreboard(Bukkit.getPlayer(uid));
+					CoreUtils.setScoreboard(this);
 				} else {
-					CoreUtils.removeScoreboard(Bukkit.getPlayer(uid));
+					CoreUtils.removeScoreboard(this);
 				}
 				break;
 			default:
