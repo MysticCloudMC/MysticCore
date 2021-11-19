@@ -82,9 +82,11 @@ public class MysticPlayer {
 
 	public String setSetting(PlayerSettings setting, String value) {
 		getSettings().put(setting.name(), value);
+		DebugUtils.debug("Setting " + setting.name() + " set as " + value);
 		if (Bukkit.getPlayer(uid) != null)
 			switch (setting) {
 			case SIDEBAR:
+				DebugUtils.debug("Setting sidebar: " + value);
 				if (value.equalsIgnoreCase("true")) {
 					CoreUtils.setScoreboard(Bukkit.getPlayer(uid));
 				} else {
