@@ -24,13 +24,13 @@ public class PlaceholderUtils {
 			public String run(Player player, String s) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				if (mp.getLevel() <= 49) {
-					return CoreUtils.colorize("&7[%level]");
+					return CoreUtils.colorize("&7[" + mp.getLevel() + "]");
 				}
 				if (mp.getLevel() >= 50 && mp.getLevel() <= 150) {
-					return CoreUtils.colorize("&a[%level]");
+					return CoreUtils.colorize("&a[" + mp.getLevel() + "]");
 				}
 				if (mp.getLevel() >= 150) {
-					return CoreUtils.colorize("&6[%level]");
+					return CoreUtils.colorize("&6[" + mp.getLevel() + "]");
 				}
 				return CoreUtils.colorize("&c[-1]");
 			}
