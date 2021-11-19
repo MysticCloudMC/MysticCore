@@ -37,9 +37,8 @@ public class MysticAccountManager {
 
 	public static MysticPlayer updateMysticPlayer(UUID uid) {
 		DebugUtils.debug("Creating new Mystic Player");
-		MysticPlayer player = new MysticPlayer(uid);
-		mplayers.put(uid, player);
-		return player;
+		mplayers.put(uid, new MysticPlayer(uid));
+		return mplayers.get(uid);
 	}
 
 }

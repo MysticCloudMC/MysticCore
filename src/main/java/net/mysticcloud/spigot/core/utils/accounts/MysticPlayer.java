@@ -48,15 +48,14 @@ public class MysticPlayer {
 				setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
 				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
 				setExtraData(json);
-				
-				for(PlayerSettings s : PlayerSettings.values()) {
-					if(json.has("settings") && json.getJSONObject("settings").has(s.name()))
-						setSetting(s,json.getJSONObject("settings").getString(s.name()));
-					else setSetting(s, s.getDefaultValue());
+
+				for (PlayerSettings s : PlayerSettings.values()) {
+					if (json.has("settings") && json.getJSONObject("settings").has(s.name()))
+						setSetting(s, json.getJSONObject("settings").getString(s.name()), false);
+					else
+						setSetting(s, s.getDefaultValue(), false);
 				}
-				
-				
-				
+
 //				if (json.has("settings")) {
 //					DebugUtils.debug("Has settings");
 //					JSONObject settings = json.getJSONObject("settings");
@@ -83,6 +82,12 @@ public class MysticPlayer {
 
 		updateFriends();
 	}
+	
+	public void refreshClientForSettings() {
+		for(PlayerSettings s : PlayerSettings.values()) {
+			setSetting(s, getSetting(s));
+		}
+	}
 
 	public void setNitro(boolean nitro) {
 		this.nitro = nitro;
@@ -93,9 +98,14 @@ public class MysticPlayer {
 	}
 
 	public String setSetting(PlayerSettings setting, String value) {
+		return setSetting(setting, value, true);
+	}
+
+	public String setSetting(PlayerSettings setting, String value, boolean effect) {
+
 		getSettings().put(setting.name(), value);
 		DebugUtils.debug("Setting " + setting.name() + " set as " + value);
-		if (Bukkit.getPlayer(uid) != null)
+		if (Bukkit.getPlayer(uid) != null && effect)
 			switch (setting) {
 			case SIDEBAR:
 				DebugUtils.debug("Setting sidebar: " + value);
@@ -109,6 +119,7 @@ public class MysticPlayer {
 				break;
 			}
 		return value;
+
 	}
 
 	public String getSetting(PlayerSettings setting) {
