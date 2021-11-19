@@ -340,13 +340,18 @@ public class PlayerListener implements Listener {
 //		if (v < 107)
 //			version = "1.8 or lower";
 		e.setJoinMessage(CoreUtils.colorize("&3" + e.getPlayer().getName() + "&7 has joined."));
+		DebugUtils.debug("Player joined.");
 
 		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), () -> {
+			
+			DebugUtils.debug("First runnable");
 
 			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
+					
+					DebugUtils.debug("Mystic Player update runnable/TAB list");
 					MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 					Player player = e.getPlayer();
 

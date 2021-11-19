@@ -48,13 +48,25 @@ public class MysticPlayer {
 				setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
 				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
 				setExtraData(json);
-				if (json.has("settings")) {
-					JSONObject settings = json.getJSONObject("settings");
-					for (PlayerSettings s : PlayerSettings.values()) {
-						if (json.has(s.name()))
-							setSetting(s, settings.getString(s.name()));
-					}
+				
+				for(PlayerSettings s : PlayerSettings.values()) {
+					if(json.has("settings") && json.getJSONObject("settings").has(s.name()))
+						setSetting(s,json.getJSONObject("settings").getString(s.name()));
+					else setSetting(s, s.getDefaultValue());
 				}
+				
+				
+				
+//				if (json.has("settings")) {
+//					DebugUtils.debug("Has settings");
+//					JSONObject settings = json.getJSONObject("settings");
+//					for (PlayerSettings s : PlayerSettings.values()) {
+//						if (settings.has(s.name()))
+//							setSetting(s, settings.getString(s.name()));
+//					}
+//				} else {
+////					for(PlayerSettings set : PlayerSettings.values())
+//				}
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
 			rs.close();
