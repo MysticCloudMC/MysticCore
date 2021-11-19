@@ -18,13 +18,165 @@ public class PlaceholderUtils {
 	static Map<String, PlaceholderWorker> placeholders = new HashMap<>();
 
 	public static void registerPlaceholders() {
-		placeholders.put("%test%", new PlaceholderWorker() {
+		placeholders.put("%lvl%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player) {
-				return player.getName();
+			public String run(Player player, String s) {
+				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+				if (mp.getLevel() <= 49) {
+					return CoreUtils.colorize("&7[%level]");
+				}
+				if (mp.getLevel() >= 50 && mp.getLevel() <= 150) {
+					return CoreUtils.colorize("&a[%level]");
+				}
+				if (mp.getLevel() >= 150) {
+					return CoreUtils.colorize("&6[%level]");
+				}
+				return CoreUtils.colorize("&c[-1]");
 			}
 		});
+
+		placeholders.put("%level%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+				return "" + mp.getLevel();
+			}
+		});
+
+		PlaceholderWorker name = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return player.getName();
+			}
+		};
+
+		PlaceholderWorker balance = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+				return "" + mp.getBalance();
+			}
+		};
+		PlaceholderWorker gems = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+				return "" + mp.getGems();
+			}
+		};
+		PlaceholderWorker rank = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player));
+			}
+		};
+		PlaceholderWorker dname = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return player.getDisplayName();
+			}
+		};
+		PlaceholderWorker cname = new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return player.getCustomName();
+			}
+		};
+
+		placeholders.put("%world%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return player.getWorld().getName();
+			}
+		});
+		placeholders.put("%time%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return CoreUtils.getTime();
+			}
+		});
+		placeholders.put("%playertime%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return "" + player.getPlayerTime();
+			}
+
+		});
+		placeholders.put("%suffix%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return CoreUtils.colorize(CoreUtils.getPlayerSuffix(player));
+			}
+
+		});
+		placeholders.put("%server%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return CoreUtils.getServerName();
+			}
+
+		});
+		placeholders.put("%online%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String s) {
+				return Bukkit.getOnlinePlayers().size() + "";
+			}
+
+		});
+
+		placeholders.put("%tag%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String string) {
+				return CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag%")[1]);
+			}
+		});
+
+		placeholders.put("%nitro%", new PlaceholderWorker() {
+
+			@Override
+			public String run(Player player, String string) {
+				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+				if (mp.isNitro())
+					return CoreUtils.colorize("&d" + Emoticons.NITRO)
+							+ ChatColor.getLastColors(string.split("%nitro%")[0]);
+				return "";
+			}
+		});
+
+		placeholders.put("%displayname%", dname);
+		placeholders.put("%dname%", dname);
+
+		placeholders.put("%customname%", cname);
+		placeholders.put("%cname%", cname);
+
+		placeholders.put("%player%", name);
+		placeholders.put("%pl%", name);
+
+		placeholders.put("%bal%", balance);
+		placeholders.put("%balance%", balance);
+
+		placeholders.put("%gems%", gems);
+		placeholders.put("%g%", gems);
+
+		placeholders.put("%r%", rank);
+		placeholders.put("%rank%", rank);
+		placeholders.put("%prefix%", rank);
+
 	}
 
 	public static void registerPlaceholder(String key, PlaceholderWorker worker) {
@@ -33,61 +185,13 @@ public class PlaceholderUtils {
 
 	public static String replace(Player player, String string) {
 
-		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
-
 		for (Entry<String, PlaceholderWorker> e : placeholders.entrySet()) {
 			if (string.contains(e.getKey())) {
-				string = string.replaceAll(e.getKey(), e.getValue().run(player));
+				string = string.replaceAll(e.getKey(), e.getValue().run(player, string));
 			}
 		}
 
-		if (string.contains("%lvl")) {
-			if (mp.getLevel() <= 49) {
-				string = string.replaceAll("%lvl", CoreUtils.colorize("&7[%level]"));
-			}
-			if (mp.getLevel() >= 50 && mp.getLevel() <= 150) {
-				string = string.replaceAll("%lvl", CoreUtils.colorize("&a[%level]"));
-			}
-			if (mp.getLevel() >= 150) {
-				string = string.replaceAll("%lvl", CoreUtils.colorize("&6[%level]"));
-			}
-		}
-		string = string.replaceAll("%player", player.getName());
-		string = string.replaceAll("%pl", player.getName());
-		string = string.replaceAll("%world", player.getWorld().getName());
-		string = string.replaceAll("%time", CoreUtils.getTime());
-		string = string.replaceAll("%balance", "" + mp.getBalance());
-		string = string.replaceAll("%bal", "" + mp.getBalance());
-		string = string.replaceAll("%gems", "" + mp.getGems());
-		string = string.replaceAll("%g", "" + mp.getGems());
-		string = string.replaceAll("%level", "" + mp.getLevel());
-		string = string.replaceAll("%rank", "%r%");
-		string = string.replaceAll("%prefix", "%r%");
-		string = string.replaceAll("%r%", CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
-		string = string.replaceAll("%displayname", player.getDisplayName());
-		string = string.replaceAll("%customname", player.getCustomName());
-		string = string.replaceAll("%time", player.getWorld().getFullTime() + "");
-		string = string.replaceAll("%fulltime", CoreUtils.getTime());
-		string = string.replaceAll("%playertime", player.getPlayerTime() + "");
-		string = string.replaceAll("%suffix", CoreUtils.colorize(CoreUtils.getPlayerSuffix(player)));
-		string = string.replaceAll("%server", CoreUtils.getServerName());
-		string = string.replaceAll("%online", Bukkit.getOnlinePlayers().size() + "");
-
-		if (string.contains("%tag"))
-			string = string.replaceAll("%tag",
-					CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag")[0]));
-
-		if (MysticAccountManager.getMysticPlayer(player).isNitro()) // if nitro
-
-			string = string.replace("%nitro",
-					CoreUtils.colorize("&d\u25C6") + ChatColor.getLastColors(string.split("%nitro")[0]));
-
-		else
-			string = string.replace("%nitro", "");
-
-		string =
-
-				emotify(string);
+		string = emotify(string);
 
 		if (!CoreUtils.getHoliday().equals(Holiday.NONE)) {
 			string = string.replaceAll("%holiday", "&b" + CoreUtils.getHoliday().getName());
