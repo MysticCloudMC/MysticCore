@@ -159,7 +159,7 @@ public class ParticleFormat {
 				if (options.has("color")) {
 					try {
 						dustoptions = new DustOptions(
-								Color.fromRGB((int) (Long.decode(options.getString("color")) + 4278190080L)),
+								Color.fromRGB((int) (Long.decode(options.getString("color")) + 0L)),
 								options.has("size") ? options.getFloat("size") : 1f);
 					} catch (NumberFormatException ex) {
 						dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
