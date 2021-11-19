@@ -157,8 +157,14 @@ public class ParticleFormat {
 							options.getFloat("size"));
 				}
 				if (options.has("color")) {
-					dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
-							options.has("size") ? options.getFloat("size") : 1f);
+					try {
+						dustoptions = new DustOptions(Color.fromRGB(options.getInt("color")),
+								options.has("size") ? options.getFloat("size") : 1f);
+					} catch (NumberFormatException ex) {
+						dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
+								options.has("size") ? options.getFloat("size") : 1f);
+					}
+
 				}
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
