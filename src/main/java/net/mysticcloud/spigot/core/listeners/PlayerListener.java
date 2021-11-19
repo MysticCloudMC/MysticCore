@@ -343,14 +343,14 @@ public class PlayerListener implements Listener {
 		DebugUtils.debug("Player joined.");
 
 		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), () -> {
-			
+
 			DebugUtils.debug("First runnable");
 
 			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new Runnable() {
 
 				@Override
 				public void run() {
-					
+
 					DebugUtils.debug("Mystic Player update runnable/TAB list");
 					MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 					Player player = e.getPlayer();
@@ -361,6 +361,9 @@ public class PlayerListener implements Listener {
 					player.setPlayerListHeader(CoreUtils.colorize(CoreUtils.playerList("header")));
 
 					player.setPlayerListFooter(CoreUtils.colorize(CoreUtils.playerList("footer")));
+
+					player.setDisplayName(
+							CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
 				}
 
 			}, 20);
