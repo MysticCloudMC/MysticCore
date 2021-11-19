@@ -158,9 +158,10 @@ public class ParticleFormat {
 				}
 				if (options.has("color")) {
 					try {
-						dustoptions = new DustOptions(Color.fromRGB(options.getInt("color")),
+						dustoptions = new DustOptions(
+								Color.fromRGB((int) (Long.decode(options.getString("color")) + 4278190080L)),
 								options.has("size") ? options.getFloat("size") : 1f);
-					} catch (org.json2.JSONException ex) {
+					} catch (NumberFormatException ex) {
 						dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
 								options.has("size") ? options.getFloat("size") : 1f);
 					}
