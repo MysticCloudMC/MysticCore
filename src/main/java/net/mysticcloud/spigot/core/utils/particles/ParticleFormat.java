@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -17,6 +18,7 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.util.Vector;
 import org.json2.JSONObject;
 
+import net.minecraft.world.item.EnumColor;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 
 @SuppressWarnings("deprecation")
@@ -148,20 +150,25 @@ public class ParticleFormat {
 
 		if (particle.getDataType() != Void.class) {
 			if (particle.getDataType() == DustOptions.class) {
-//				if (dustoptions.getSize() == 99) {
-//					tmp = true;
-//					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
-//					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
-//							options.getFloat("size"));
-//				}
+				if (dustoptions.getSize() == 99) {
+					tmp = true;
+					java.awt.Color color = CoreUtils.generateColor(i, 0.05125, 127);
+					dustoptions = new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()),
+							options.getFloat("size"));
+				}
+				if (options.has("color")) {
+					dustoptions = new DustOptions(
+							Color.fromRGB(DyeColor.valueOf(options.getString("color")).getColor().asRGB()),
+							options.has("size") ? options.getFloat("size") : 1f);
+				}
 				for (Player player : loc.getWorld().getPlayers())
 					if (player.getLocation().distance(loc) <= 60)
 						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
 								offsetZ, 2, dustoptions);
-//				if (tmp) {
-//					tmp = !tmp;
-//					setDustOptions(new DustOptions(Color.RED, 99));
-//				}
+				if (tmp) {
+					tmp = !tmp;
+					setDustOptions(new DustOptions(Color.RED, 99));
+				}
 			}
 			if (particle.getDataType() == MaterialData.class)
 				for (Player player : loc.getWorld().getPlayers())
