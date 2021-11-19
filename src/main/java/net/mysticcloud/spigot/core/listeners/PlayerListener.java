@@ -352,7 +352,7 @@ public class PlayerListener implements Listener {
 				public void run() {
 
 					DebugUtils.debug("Mystic Player update runnable/TAB list");
-					MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
+					MysticPlayer mp = MysticAccountManager.updateMysticPlayer(e.getPlayer().getUniqueId());
 					Player player = e.getPlayer();
 
 					player.setPlayerListName(
@@ -364,6 +364,8 @@ public class PlayerListener implements Listener {
 
 					player.setDisplayName(
 							CoreUtils.colorize(PlaceholderUtils.replace(player, CoreUtils.playerList("name"))));
+
+					mp.refreshClientForSettings();
 				}
 
 			}, 20);
