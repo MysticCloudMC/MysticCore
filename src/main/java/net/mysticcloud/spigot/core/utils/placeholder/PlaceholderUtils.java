@@ -21,7 +21,7 @@ public class PlaceholderUtils {
 		placeholders.put("%lvl%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				if (mp.getLevel() <= 49) {
 					return CoreUtils.colorize("&7[" + mp.getLevel() + "]");
@@ -39,7 +39,7 @@ public class PlaceholderUtils {
 		placeholders.put("%level%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				return "" + mp.getLevel();
 			}
@@ -48,7 +48,7 @@ public class PlaceholderUtils {
 		PlaceholderWorker name = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return player.getName();
 			}
 		};
@@ -56,7 +56,7 @@ public class PlaceholderUtils {
 		PlaceholderWorker balance = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				return "" + mp.getBalance();
 			}
@@ -64,7 +64,7 @@ public class PlaceholderUtils {
 		PlaceholderWorker gems = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				return "" + mp.getGems();
 			}
@@ -72,21 +72,21 @@ public class PlaceholderUtils {
 		PlaceholderWorker rank = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player));
 			}
 		};
 		PlaceholderWorker dname = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return player.getDisplayName();
 			}
 		};
 		PlaceholderWorker cname = new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return player.getCustomName();
 			}
 		};
@@ -94,21 +94,21 @@ public class PlaceholderUtils {
 		placeholders.put("%world%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return player.getWorld().getName();
 			}
 		});
 		placeholders.put("%time%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return CoreUtils.getTime();
 			}
 		});
 		placeholders.put("%playertime%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return "" + player.getPlayerTime();
 			}
 
@@ -116,7 +116,7 @@ public class PlaceholderUtils {
 		placeholders.put("%suffix%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return CoreUtils.colorize(CoreUtils.getPlayerSuffix(player));
 			}
 
@@ -124,7 +124,7 @@ public class PlaceholderUtils {
 		placeholders.put("%server%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return CoreUtils.getServerName();
 			}
 
@@ -132,7 +132,7 @@ public class PlaceholderUtils {
 		placeholders.put("%online%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String s) {
+			public String run(Player player) {
 				return Bukkit.getOnlinePlayers().size() + "";
 			}
 
@@ -141,27 +141,20 @@ public class PlaceholderUtils {
 		placeholders.put("%tag%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String string) {
-				try {
-					return CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag%")[1]);
-				} catch (ArrayIndexOutOfBoundsException ex) {
-					return CoreUtils.getTag(player);
-				}
+			public String run(Player player) {
+				return CoreUtils.getTag(player)
+						+ ChatColor.getLastColors(CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
 			}
 		});
 
 		placeholders.put("%nitro%", new PlaceholderWorker() {
 
 			@Override
-			public String run(Player player, String string) {
+			public String run(Player player) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				if (mp.isNitro())
-					try {
-						return CoreUtils.colorize("&d" + Emoticons.NITRO)
-								+ ChatColor.getLastColors(string.split("%nitro%")[0]);
-					} catch (ArrayIndexOutOfBoundsException ex) {
-						return CoreUtils.colorize("&d" + Emoticons.NITRO);
-					}
+					return CoreUtils.colorize("&d" + Emoticons.NITRO)
+							+ ChatColor.getLastColors(CoreUtils.colorize("" + CoreUtils.getPlayerPrefix(player)));
 				return "";
 			}
 		});
@@ -195,7 +188,7 @@ public class PlaceholderUtils {
 
 		for (Entry<String, PlaceholderWorker> e : placeholders.entrySet()) {
 			if (string.contains(e.getKey())) {
-				string = string.replaceAll(e.getKey(), e.getValue().run(player, string));
+				string = string.replaceAll(e.getKey(), e.getValue().run(player));
 			}
 		}
 
