@@ -158,8 +158,7 @@ public class ParticleFormat {
 							options.getFloat("size"));
 				}
 				if (options.has("color")) {
-					dustoptions = new DustOptions(
-							Color.fromRGB(DyeColor.valueOf(options.getString("color")).getColor().asRGB()),
+					dustoptions = new DustOptions(DyeColor.valueOf(options.getString("color")).getColor(),
 							options.has("size") ? options.getFloat("size") : 1f);
 				}
 				for (Player player : loc.getWorld().getPlayers())
