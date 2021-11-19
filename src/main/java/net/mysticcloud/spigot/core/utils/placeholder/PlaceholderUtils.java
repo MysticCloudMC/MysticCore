@@ -2,6 +2,7 @@ package net.mysticcloud.spigot.core.utils.placeholder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,6 +34,13 @@ public class PlaceholderUtils {
 	public static String replace(Player player, String string) {
 
 		MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
+
+		for (Entry<String, PlaceholderWorker> e : placeholders.entrySet()) {
+			if (string.contains(e.getKey())) {
+				string = string.replaceAll(e.getKey(), e.getValue().run(player));
+			}
+		}
+
 		if (string.contains("%lvl")) {
 			if (mp.getLevel() <= 49) {
 				string = string.replaceAll("%lvl", CoreUtils.colorize("&7[%level]"));
