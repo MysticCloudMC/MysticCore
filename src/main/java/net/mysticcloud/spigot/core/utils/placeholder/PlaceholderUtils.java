@@ -142,7 +142,11 @@ public class PlaceholderUtils {
 
 			@Override
 			public String run(Player player, String string) {
-				return CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag%")[1]);
+				try {
+					return CoreUtils.getTag(player) + ChatColor.getLastColors(string.split("%tag%")[1]);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+					return CoreUtils.getTag(player);
+				}
 			}
 		});
 
@@ -152,8 +156,12 @@ public class PlaceholderUtils {
 			public String run(Player player, String string) {
 				MysticPlayer mp = MysticAccountManager.getMysticPlayer(player);
 				if (mp.isNitro())
-					return CoreUtils.colorize("&d" + Emoticons.NITRO)
-							+ ChatColor.getLastColors(string.split("%nitro%")[0]);
+					try {
+						return CoreUtils.colorize("&d" + Emoticons.NITRO)
+								+ ChatColor.getLastColors(string.split("%nitro%")[0]);
+					} catch (ArrayIndexOutOfBoundsException ex) {
+						return CoreUtils.colorize("&d" + Emoticons.NITRO);
+					}
 				return "";
 			}
 		});
