@@ -43,17 +43,18 @@ public class CoreChatUtils {
 		int[] start = getRGB(fromHex);
 		int[] last = getRGB(toHex);
 
+		StringBuilder sb = new StringBuilder();
+
 		Integer dR = numberFade(start[0], last[0], string.length());
 		Integer dG = numberFade(start[1], last[1], string.length());
 		Integer dB = numberFade(start[2], last[2], string.length());
 
-		TextComponent message = new TextComponent();
-
 		for (int i = 0; i < string.length(); i++) {
 			Color c = new Color(start[0] + dR * i, start[1] + dG * i, start[2] + dB * i);
-			message.addExtra(net.md_5.bungee.api.ChatColor.of(c) + "" + string.charAt(i));
+
+			sb.append(net.md_5.bungee.api.ChatColor.of(c) + "" + string.charAt(i));
 		}
-		return message.toString();
+		return sb.toString();
 	}
 
 	private static int[] getRGB(String rgb) {
