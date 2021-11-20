@@ -846,7 +846,8 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		while (message.contains("%fade:")) {
-			String info = message.split("%fade:")[1].split("-fade%")[0];
+			String tmp = message;
+			String info = tmp.split("%fade:")[1].split("-fade%")[0];
 			String from = info.split(":")[0];
 			String to = info.split(":")[1];
 			String s = "";
@@ -861,12 +862,11 @@ public class CoreUtils {
 				s = s == "" ? a : s + ":" + a;
 			}
 
-			DebugUtils.debug("Info: " + info);
-			DebugUtils.debug("From: " + from);
-			DebugUtils.debug("To: " + to);
-			DebugUtils.debug("S: " + s);
+//			DebugUtils.debug("Info: " + info);
+//			DebugUtils.debug("From: " + from);
+//			DebugUtils.debug("To: " + to);
+//			DebugUtils.debug("S: " + s);
 
-			DebugUtils.debug("Replacing %fade:" + info + "-fade% WITH " + s);
 
 			message = message.replaceFirst("%fade:" + info + "-fade%", CoreChatUtils.fade(from, to, s));
 		}
