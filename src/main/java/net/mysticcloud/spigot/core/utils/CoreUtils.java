@@ -850,7 +850,7 @@ public class CoreUtils {
 			String to = message.split(":")[2];
 			String s = "";
 			for (String a : message.split(":")) {
-				if (a.equals(from) || a.equals(to))
+				if (a.equals(from) || a.equals(to) || a.equalsIgnoreCase("%fade"))
 					continue;
 				s = s == "" ? a : s + ":" + a;
 			}
