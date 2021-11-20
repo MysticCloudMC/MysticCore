@@ -848,9 +848,9 @@ public class CoreUtils {
 		while (message.contains("%fade:")) {
 			String from = message.split(":")[1];
 			String to = message.split(":")[2];
-			String s = message.split(":")[3].split("%")[0];
+			String s = message.split(":")[3].split("-fade%")[0];
 
-			message = message.replaceFirst("%fade:" + from + ":" + to + ":" + s + "%", CoreChatUtils.fade(from, to, s));
+			message = message.replaceFirst("%fade:" + from + ":" + to + ":" + s + "-fade%", CoreChatUtils.fade(from, to, s));
 		}
 		message = ChatColor.translateAlternateColorCodes('&', message);
 		if (message.contains("#")) {
