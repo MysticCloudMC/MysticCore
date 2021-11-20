@@ -846,19 +846,17 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		while (message.contains("%fade:")) {
-			String from = message.split(":")[1];
-			String to = message.split(":")[2];
+			String info = message.split("%fade:")[1].split("-%fade")[0];
+			String from = info.split(":")[0];
+			String to = info.split(":")[1];
 			String s = "";
-			for (String a : message.split(":")) {
-				if (a.equals(from) || a.equals(to) || a.contains("%fade"))
+			for (String a : info.split(":")) {
+				if (a.equals(from) || a.equals(to))
 					continue;
 				s = s == "" ? a : s + ":" + a;
 			}
 
-			s = s.split("-fade%")[0];
-
-			message = message.replaceFirst("%fade:" + from + ":" + to + ":" + s + "-fade%",
-					CoreChatUtils.fade(from, to, s));
+			message = message.replaceFirst("%fade:" + info + "-fade%", CoreChatUtils.fade(from, to, s));
 		}
 		message = ChatColor.translateAlternateColorCodes('&', message);
 		if (message.contains("#")) {
