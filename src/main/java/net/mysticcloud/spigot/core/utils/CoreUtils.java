@@ -846,26 +846,26 @@ public class CoreUtils {
 
 	public static String colorize(String message) {
 		while (message.contains("%fade:")) {
-			String info = message.split("%fade:")[1].split("-%fade")[0];
+			String info = message.split("%fade:")[1].split("-fade%")[0];
 			String from = info.split(":")[0];
 			String to = info.split(":")[1];
 			String s = "";
-			//  #FF6666[%emoticon:SWORD%%fade:FF6666:FFFF00:BEAST-fade%%emoticon:SWORD%]
+			// #FF6666[%emoticon:SWORD%%fade:FF6666:FFFF00:BEAST-fade%%emoticon:SWORD%]
 			// info = FF6666:FFFF00:BEAST
 			// from = FF6666
-			// to   = FFFF00
+			// to = FFFF00
 			// s = BEAST
 			for (String a : info.split(":")) {
 				if (a.equals(from) || a.equals(to))
 					continue;
 				s = s == "" ? a : s + ":" + a;
 			}
-			
+
 			DebugUtils.debug("Info: " + info);
 			DebugUtils.debug("From: " + from);
 			DebugUtils.debug("To: " + to);
 			DebugUtils.debug("S: " + s);
-			
+
 			DebugUtils.debug("Replacing %fade:" + info + "-fade% WITH " + s);
 
 			message = message.replaceFirst("%fade:" + info + "-fade%", CoreChatUtils.fade(from, to, s));
