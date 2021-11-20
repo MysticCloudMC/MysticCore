@@ -850,10 +850,11 @@ public class CoreUtils {
 			String to = message.split(":")[2];
 			String s = "";
 			for (String a : message.split(":")) {
-				if (a.equals(from) || a.equals(to) || a.equalsIgnoreCase("%fade"))
+				if (a.equals(from) || a.equals(to) || a.contains("%fade"))
 					continue;
 				s = s == "" ? a : s + ":" + a;
 			}
+
 			s = s.split("-fade%")[0];
 
 			message = message.replaceFirst("%fade:" + from + ":" + to + ":" + s + "-fade%",
