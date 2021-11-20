@@ -1,15 +1,15 @@
 package net.mysticcloud.spigot.core.utils.chat;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.awt.Color;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.chat.TextComponent;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.placeholder.PlaceholderUtils;
 
@@ -21,10 +21,6 @@ public class CoreChatUtils {
 	private static String playerformat = "%player: %message";
 	private static String staffformat = "&c[StaffChat]&f%player: %message";
 	private static String channelformat = "&a[%channel]&f%player: %message";
-
-	private static String[] puncuation = new String[] { ".", ",", ";", ":", "!", "?", "\"", "\'", ")", "*" };
-
-	private static Map<CharSequence[], CharSequence> replacements = new LinkedHashMap<>();
 
 	public static void start() {
 		addChannel("default", "", false);
@@ -41,25 +37,42 @@ public class CoreChatUtils {
 		if (!CoreUtils.getVariable("channelchat.format").equalsIgnoreCase("ERROR"))
 			channelformat = CoreUtils.getVariable("channelchat.format");
 
-		registerReplacements();
 	}
 
-	public static Map<CharSequence[], CharSequence> getReplacements() {
-		return replacements;
+	public static String fade(String fromHex, String toHex, String string) {
+		int[] start = getRGB(fromHex);
+		int[] last = getRGB(toHex);
+
+		Integer dR = numberFade(start[0], last[0], string.length());
+		Integer dG = numberFade(start[1], last[1], string.length());
+		Integer dB = numberFade(start[2], last[2], string.length());
+
+		TextComponent message = new TextComponent();
+
+		for (int i = 0; i < string.length(); i++) {
+			Color c = new Color(start[0] + dR * i, start[1] + dG * i, start[2] + dB * i);
+			message.addExtra(net.md_5.bungee.api.ChatColor.of(c) + "" + string.charAt(i));
+		}
+		return message.toString();
 	}
 
-	public static void registerReplacements() {
+	private static int[] getRGB(String rgb) {
+		int[] ret = new int[3];
+		for (int i = 0; i < 3; i++) {
+			ret[i] = hexToInt(rgb.charAt(i * 2), rgb.charAt(i * 2 + 1));
+		}
+		return ret;
+	}
 
-		replacements.put(new CharSequence[] { "shit", "sh!t" }, "s***");
-		replacements.put(new CharSequence[] { "fuck", "fuk", "fu(k" }, "frick");
-		replacements.put(new CharSequence[] { "cunt" }, "****");
-		replacements.put(new CharSequence[] { "bitch", "b!tch", "bit(h", "b!t(h", "bich" }, "dog");
-		replacements.put(new CharSequence[] { "fag", "faggot" }, "*****");
-		replacements.put(new CharSequence[] { "nigger", "nigga", "n!gger", "n!gga" }, "****");
-		replacements.put(new CharSequence[] { " ass " }, "**");
-		replacements.put(new CharSequence[] { "pussy" }, "*****");
-		replacements.put(new CharSequence[] { " cum " }, "***");
+	private static int hexToInt(char a, char b) {
+		int x = a < 65 ? a - 48 : a - 55;
+		int y = b < 65 ? b - 48 : b - 55;
+		return x * 16 + y;
+	}
 
+	private static Integer numberFade(int i, int f, int n) {
+		int d = (f - i) / (n - 1);
+		return d;
 	}
 
 	public static String getPlayerFormat() {

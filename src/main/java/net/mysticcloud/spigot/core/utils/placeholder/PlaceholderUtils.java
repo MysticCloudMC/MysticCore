@@ -12,6 +12,7 @@ import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
+import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
 
 public class PlaceholderUtils {
 
@@ -267,6 +268,13 @@ public class PlaceholderUtils {
 			String icon = tag.split("pper:")[1].split("%")[0];
 			tag = tag.replaceAll("%upper:" + icon + "%",
 					icon.contains("%") ? replace("", icon).toUpperCase() : icon.toUpperCase());
+		}
+		while (tag.contains("%fade:")) {
+			String from = tag.split(":")[1];
+			String to = tag.split(":")[2];
+			String s = tag.split(":")[3].split("%")[0];
+
+			tag = tag.replaceFirst("%fade:" + from + ":" + to + ":" + s + "%", CoreChatUtils.fade(from, to, s));
 		}
 		return tag;
 	}
