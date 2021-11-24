@@ -24,17 +24,18 @@ public class RainbowFormat extends ParticleFormat {
 		String s = "Rainbow";
 //		ComponentBuilder builder = new ComponentBuilder();
 		String a = "";
-		for(int i=0;i!=s.length();i++) {
-			a = a + ChatColor.of(CoreUtils.generateColor(i+2, 0.9,127)) + s.substring(i,i+1);
+		for (int i = 0; i != s.length(); i++) {
+			a = a + ChatColor.of(CoreUtils.generateColor(i + 2, 0.9, 127)) + s.substring(i, i + 1);
 		}
-		
+
 		name = a;
 		guiItem = new ItemStack(Material.COAL);
 		particle = Particle.REDSTONE;
 	}
+
 	@Override
 	public void display(UUID uid) {
-		if (Bukkit.getPlayer(uid) != null) 
+		if (Bukkit.getPlayer(uid) != null)
 			display(Bukkit.getPlayer(uid).getEyeLocation());
 	}
 
@@ -60,8 +61,8 @@ public class RainbowFormat extends ParticleFormat {
 //			if (b == 5)
 //				color = Color.PURPLE;
 //			Color.fromRGB(red, green, blue)
-			java.awt.Color color = CoreUtils.generateColor(b+((1*Math.PI)/2), 1,127);
-			setDustOptions(new DustOptions(Color.fromRGB(color.getRed(),color.getBlue(),color.getGreen()), 0.1F));
+			java.awt.Color color = CoreUtils.generateColor(b + ((1 * Math.PI) / 2), 1, 127);
+			setDustOptions(new DustOptions(Color.fromRGB(color.getRed(), color.getBlue(), color.getGreen()), 0.5F));
 			for (int a = 1; a != 21; a++) {
 				Vector v = new Vector(0, 2 + Math.cos(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)),
 						Math.sin(Math.toRadians(a + 30) * ((360) / (40))) * (r - (0.1 * b)));
