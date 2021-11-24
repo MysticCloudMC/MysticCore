@@ -39,7 +39,7 @@ public class GenericCooldownRunnable implements Runnable {
 							 * perm ? (Bukkit.getPlayer(uid).hasPermission("mysticcloud.hub." + name +
 							 * ".override") ? ((new Date().getTime() - started) / (0.4)) / 10 : ((new
 							 * Date().getTime() - started) / (cooldown)) / 10) :
-							 */ ((new Date().getTime() - started) / (cooldown)) / 10;
+							 */ ((new Date().getTime() - started) / (cooldown*1000));
 		if (Bukkit.getPlayer(uid) == null || percent >= 100) {
 			CoreUtils.removeGenericCooldown(uid, name);
 			bar.setProgress(0);

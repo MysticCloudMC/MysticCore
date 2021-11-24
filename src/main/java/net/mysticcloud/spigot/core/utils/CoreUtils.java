@@ -1855,7 +1855,7 @@ public class CoreUtils {
 			BossBar bar = Bukkit.createBossBar(CoreUtils.colorize(display), color, BarStyle.SOLID);
 			bar.addPlayer(player);
 			Bukkit.getScheduler().runTaskLater(getPlugin(), new GenericCooldownRunnable(bar, name, player.getUniqueId(),
-					new Date().getTime(), delay * 5, finish), 1);
+					new Date().getTime(), delay, finish), 1);
 		}
 	}
 
