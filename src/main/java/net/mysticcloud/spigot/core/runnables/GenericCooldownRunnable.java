@@ -40,7 +40,7 @@ public class GenericCooldownRunnable implements Runnable {
 							 * ".override") ? ((new Date().getTime() - started) / (0.4)) / 10 : ((new
 							 * Date().getTime() - started) / (cooldown)) / 10) :
 							 */ ((new Date().getTime() - started) / (cooldown * 1000));
-		if (Bukkit.getPlayer(uid) == null || percent >= 100) {
+		if (Bukkit.getPlayer(uid) == null || percent >= 1) {
 			CoreUtils.removeGenericCooldown(uid, name);
 			bar.setProgress(0);
 			bar.removeAll();
