@@ -19,6 +19,8 @@ import org.bukkit.util.Vector;
 import org.json2.JSONObject;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
+import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
+import net.mysticcloud.spigot.core.utils.accounts.PlayerSettings;
 import net.mysticcloud.spigot.core.utils.placeholder.Emoticons;
 
 @SuppressWarnings("deprecation")
@@ -142,7 +144,8 @@ public class ParticleFormat {
 	public void spawnParticle(Particle particle, Location loc, double offsetX, double offsetY, double offsetZ) {
 		if (particle.getDataType() == null) {
 			for (Player player : loc.getWorld().getPlayers())
-				if (player.getLocation().distance(loc) <= 60)
+				if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+						.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 					player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY, offsetZ,
 							2);
 			return;
@@ -168,7 +171,8 @@ public class ParticleFormat {
 
 				}
 				for (Player player : loc.getWorld().getPlayers())
-					if (player.getLocation().distance(loc) <= 60)
+					if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+							.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
 								offsetZ, 2, dustoptions);
 				if (tmp) {
@@ -178,22 +182,26 @@ public class ParticleFormat {
 			}
 			if (particle.getDataType() == MaterialData.class)
 				for (Player player : loc.getWorld().getPlayers())
-					if (player.getLocation().distance(loc) <= 60)
+					if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+							.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
 								offsetZ, 2, materialdata);
 			if (particle.getDataType() == ItemStack.class)
 				for (Player player : loc.getWorld().getPlayers())
-					if (player.getLocation().distance(loc) <= 60)
+					if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+							.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
 								offsetZ, 2, itemstack);
 			if (particle.getDataType() == BlockData.class)
 				for (Player player : loc.getWorld().getPlayers())
-					if (player.getLocation().distance(loc) <= 60)
+					if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+							.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 						player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY,
 								offsetZ, 2, blockdata);
 		} else {
 			for (Player player : loc.getWorld().getPlayers())
-				if (player.getLocation().distance(loc) <= 60)
+				if (player.getLocation().distance(loc) <= 60 && MysticAccountManager.getMysticPlayer(player)
+						.getSetting(PlayerSettings.COSMETIC_PARTICLES).equalsIgnoreCase("true"))
 					player.spawnParticle(convertParticleForBedrock(player, particle), loc, 0, offsetX, offsetY, offsetZ,
 							2);
 		}
