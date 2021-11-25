@@ -47,7 +47,7 @@ public class GenericCooldownRunnable implements Runnable {
 			Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), finish, 1);
 			return;
 		}
-		bar.setProgress((float) ((100 - percent) / 100));
+		bar.setProgress(1 - percent);
 
 		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(),
 				new GenericCooldownRunnable(bar, name, uid, started, cooldown, finish), 1);
