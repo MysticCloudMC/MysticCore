@@ -13,16 +13,16 @@ public class GenericCooldownRunnable implements Runnable {
 	BossBar bar;
 	UUID uid;
 	long started;
-	long cooldown;
+	double cooldown;
 	String name;
 	Runnable finish;
 	boolean perm;
 
-	public GenericCooldownRunnable(BossBar bar, String name, UUID uid, long started, long cooldown, Runnable finish) {
+	public GenericCooldownRunnable(BossBar bar, String name, UUID uid, long started, double cooldown, Runnable finish) {
 		this(bar, name, uid, started, cooldown, finish, true);
 	}
 
-	public GenericCooldownRunnable(BossBar bar, String name, UUID uid, long started, long cooldown, Runnable finish,
+	public GenericCooldownRunnable(BossBar bar, String name, UUID uid, long started, double cooldown, Runnable finish,
 			boolean perm) {
 		this.uid = uid;
 		this.bar = bar;
@@ -39,7 +39,7 @@ public class GenericCooldownRunnable implements Runnable {
 							 * perm ? (Bukkit.getPlayer(uid).hasPermission("mysticcloud.hub." + name +
 							 * ".override") ? ((new Date().getTime() - started) / (0.4)) / 10 : ((new
 							 * Date().getTime() - started) / (cooldown)) / 10) :
-							 */ ((new Date().getTime() - started) / (cooldown*1000));
+							 */ ((new Date().getTime() - started) / (cooldown * 1000));
 		if (Bukkit.getPlayer(uid) == null || percent >= 100) {
 			CoreUtils.removeGenericCooldown(uid, name);
 			bar.setProgress(0);
