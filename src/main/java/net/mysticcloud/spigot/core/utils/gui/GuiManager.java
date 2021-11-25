@@ -36,6 +36,7 @@ public class GuiManager {
 		GuiInventory gui = new GuiInventory("waiting", "&7Waiting...", 9, "XXXXXXXXX");
 		GuiItem item = new GuiItem("X");
 		item.setDisplayName("&7Waiting...");
+		item.setMaterial(Material.GRAY_STAINED_GLASS_PANE);
 		gui.addItem("X", item);
 		guis.put("waiting", gui);
 	}
