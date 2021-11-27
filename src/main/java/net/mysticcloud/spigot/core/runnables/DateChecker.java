@@ -293,7 +293,7 @@ public class DateChecker implements Runnable {
 
 				}
 				if (CoreUtils.getMonth() == Calendar.NOVEMBER) {
-					if (CoreUtils.getDay() <= 14) {
+					if (CoreUtils.getDay() >= 14) {
 						holiday = true;
 						CoreUtils.setHoliday(Holiday.CHRISTMAS);
 					} else {
