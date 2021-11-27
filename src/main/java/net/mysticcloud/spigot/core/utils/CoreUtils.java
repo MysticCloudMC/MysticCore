@@ -867,7 +867,6 @@ public class CoreUtils {
 //			DebugUtils.debug("To: " + to);
 //			DebugUtils.debug("S: " + s);
 
-
 			message = message.replaceFirst("%fade:" + info + "-fade%", CoreChatUtils.fade(from, to, s));
 		}
 		message = ChatColor.translateAlternateColorCodes('&', message);
@@ -997,7 +996,7 @@ public class CoreUtils {
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		return cal.get(Calendar.MONTH) + 1;
+		return cal.get(Calendar.MONTH);
 	}
 
 	public static int getDay() {
@@ -1854,8 +1853,9 @@ public class CoreUtils {
 			genericCooldowns.get(name).add(player.getUniqueId());
 			BossBar bar = Bukkit.createBossBar(CoreUtils.colorize(display), color, BarStyle.SOLID);
 			bar.addPlayer(player);
-			Bukkit.getScheduler().runTaskLater(getPlugin(), new GenericCooldownRunnable(bar, name, player.getUniqueId(),
-					new Date().getTime(), delay, finish), 1);
+			Bukkit.getScheduler().runTaskLater(getPlugin(),
+					new GenericCooldownRunnable(bar, name, player.getUniqueId(), new Date().getTime(), delay, finish),
+					1);
 		}
 	}
 
