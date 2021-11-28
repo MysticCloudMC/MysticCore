@@ -185,7 +185,7 @@ public class CoreChatUtils {
 			}
 		} else {
 			for (Player s : Bukkit.getOnlinePlayers()) {
-				if (s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
+				if (ch.getDistance() == -1 || s.hasPermission("mysticcloud.chat." + channel.toLowerCase()))
 					s.sendMessage((replaceholders(player, format, message)));
 			}
 		}
