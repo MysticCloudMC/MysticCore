@@ -205,7 +205,7 @@ public class CoreUtils {
 			}
 
 			if (SQLUtils.createDatabase("forums",
-					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "Nameless", 3306, "blue", "g3&clly"))) {
+					new IDatabase(SQLDriver.MYSQL, "sql.mysticcloud.net", "forums", 3306, "blue", "g3&clly"))) {
 				System.out.println(prefixes.get("sql") + "Successfully connected to MySQL (Forums).");
 			} else {
 				connected = false;

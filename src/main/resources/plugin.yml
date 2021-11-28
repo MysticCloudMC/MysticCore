@@ -34,9 +34,6 @@ commands:
    speed:
       usage: /speed
       description: check or update your speed.
-   register:
-      usage: /register <web name>
-      description: Link your web Account and Minecraft account.
    about:
       usage: /about
       description: Attempt to override /about TAB

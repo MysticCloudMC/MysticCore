@@ -62,7 +62,7 @@ public class MysticCore extends JavaPlugin {
 				"speed", "debug", "invsee", "level", "plugins", "back");
 		new CoreCommands(this, "vote", "about", "pet", "rules", "settings", "spawn", "particles", "clear", "afk");
 		new ItemCommand(this, "item");
-		new RegisterCommand(this, "register");
+//		new RegisterCommand(this, "register");
 		new PlayerListCommand(this, "playerlist");
 		new SudoCommand(this, "sudo");
 		new EconomyCommand(this, "balance", "pay");
