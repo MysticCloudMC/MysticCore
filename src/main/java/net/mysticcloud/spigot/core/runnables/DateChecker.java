@@ -1,8 +1,12 @@
 package net.mysticcloud.spigot.core.runnables;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +29,8 @@ import net.mysticcloud.spigot.core.utils.punishment.Punishment;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentType;
 import net.mysticcloud.spigot.core.utils.punishment.PunishmentUtils;
 import net.mysticcloud.spigot.core.utils.regions.Region;
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class DateChecker implements Runnable {
 
@@ -100,10 +106,11 @@ public class DateChecker implements Runnable {
 		if (new Date().getTime() - lastcheck >= TimeUnit.MILLISECONDS.convert(10, TimeUnit.MINUTES)) {
 			DebugUtils.debug("Updating reports");
 			PunishmentUtils.updatePunishments();
-			DebugUtils.debug("Updating friendships");
+			DebugUtils.debug("Updating voters");
 //			FriendUtils.update();
 			DebugUtils.debug("Updating permissions");
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex reload");
+			updateVoters();
 			lastcheck = new Date().getTime();
 		}
 
@@ -334,6 +341,45 @@ public class DateChecker implements Runnable {
 		}
 
 		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), this, 1);
+	}
+
+	private void updateVoters() {
+		Map<UUID, Integer> votes = new HashMap<>();
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Votes ORDER BY Day DESC");
+		try {
+			while (rs.next()) {
+				if (new Date().getTime() - Long.parseLong(rs.getString("Day")) <= TimeUnit.MILLISECONDS.convert(30,
+						TimeUnit.DAYS)) {
+					UUID uid = UUID.fromString(rs.getString("UUID"));
+					votes.put(uid, (votes.containsKey(uid) ? votes.get(uid) : 0) + 1);
+				} else
+					break;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		for (PermissionUser user : PermissionsEx.getPermissionManager().getGroup("voter").getUsers()) {
+			user.removeGroup("voter");
+		}
+		int i = 0;
+		for (Entry<UUID, Integer> e : CoreUtils.sortByValue(votes).entrySet()) {
+			if (i < 5) {
+				String s = CoreUtils.lookupUsername(e.getKey());
+				if (PermissionsEx.getUser(s).inGroup("default"))
+					PermissionsEx.getUser(s).removeGroup("default");
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "pex user " + s + " group add voter");
+			}
+			i = i + 1;
+		}
+
 	}
 
 }

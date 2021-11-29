@@ -82,9 +82,9 @@ public class MysticPlayer {
 
 		updateFriends();
 	}
-	
+
 	public void refreshClientForSettings() {
-		for(PlayerSettings s : PlayerSettings.values()) {
+		for (PlayerSettings s : PlayerSettings.values()) {
 			setSetting(s, getSetting(s));
 		}
 	}
