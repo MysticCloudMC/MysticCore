@@ -12,10 +12,6 @@
 	<url>http://www.mysticcloud.net</url>
 
 	<repositories>
-		<!-- This adds the Spigot Maven repository to the build -->
-
-		<!-- <repository> <id>minecraft</id> <url>https://mvnrepository.com/artifact/net.minecraft/server</url> 
-			</repository> -->
 		<repository>
 			<id>spigot-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>

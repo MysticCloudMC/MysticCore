@@ -38,7 +38,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.v1_17_R1.CraftWorld;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -63,7 +62,6 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
-import net.minecraft.world.entity.Entity;
 import net.mysticcloud.spigot.core.MysticCore;
 import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
