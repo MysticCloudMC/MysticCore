@@ -7,7 +7,7 @@
 	<version>0.5</version>
 	<name>MysticCore</name>
 	<properties>
-		<rootdir>/</rootdir>
+		<rootdir>C:/</rootdir>
 	</properties>
 	<url>http://www.mysticcloud.net</url>
 
@@ -16,6 +16,10 @@
 
 		<!-- <repository> <id>minecraft</id> <url>https://mvnrepository.com/artifact/net.minecraft/server</url> 
 			</repository> -->
+		<repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -32,11 +36,10 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.minecraft/server -->
 		<dependency>
-			<groupId>net.minecraft</groupId>
-			<artifactId>server</artifactId>
-			<version>1.15.1</version>
-			<scope>system</scope>
-			<systemPath>${rootdir}home/Minecraft/Dependencies/spigot.jar</systemPath>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.18-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.milkbowl</groupId>

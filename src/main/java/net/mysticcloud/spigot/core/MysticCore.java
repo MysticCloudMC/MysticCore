@@ -12,7 +12,6 @@ import net.mysticcloud.spigot.core.commands.FriendCommand;
 import net.mysticcloud.spigot.core.commands.GamemodeCommand;
 import net.mysticcloud.spigot.core.commands.ItemCommand;
 import net.mysticcloud.spigot.core.commands.PlayerListCommand;
-import net.mysticcloud.spigot.core.commands.RegisterCommand;
 import net.mysticcloud.spigot.core.commands.ReportCommand;
 import net.mysticcloud.spigot.core.commands.SQLCommand;
 import net.mysticcloud.spigot.core.commands.SudoCommand;
