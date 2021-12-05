@@ -8,9 +8,7 @@ import java.net.URLConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -37,6 +35,7 @@ public class MysticPlayer {
 
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
+
 		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
 		int a = 0;
 		try {
