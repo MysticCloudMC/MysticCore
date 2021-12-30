@@ -1,3 +1,4 @@
+package net.mysticcloud.spigot.core.utils;
 //package net.mysticcloud.spigot.core.utils;
 //
 //import java.util.ArrayList;
