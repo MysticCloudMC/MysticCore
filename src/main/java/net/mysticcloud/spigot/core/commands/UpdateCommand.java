@@ -22,7 +22,7 @@ public class UpdateCommand implements CommandExecutor {
 				String url = "https://jenkins.mysticcloud.net/job/" + plugin + "/lastSuccessfulBuild/artifact/target/"
 						+ filename;
 				sender.sendMessage(CoreUtils.prefixes("admin") + "Downloading " + filename + "...");
-				if (CoreUtils.downloadFile(url, "plugins/" + filename, "admin", "v4pob8LW"))
+				if (CoreUtils.downloadFile(url, "plugins/" + filename, "admin", "BAG3jbe!Q#C7XaYJ"))
 					sender.sendMessage(
 							CoreUtils.prefixes("admin") + CoreUtils.colorize("Finished downloading " + filename));
 				else {
