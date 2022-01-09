@@ -170,7 +170,7 @@ public class CoreChatUtils {
 			format = getPlayerFormat();
 			break;
 		case "zachs":
-			format = "&a[%channel]&f %message";
+			format = "&f%message";
 			break;
 		default:
 			format = getChannelFormat(channel);
