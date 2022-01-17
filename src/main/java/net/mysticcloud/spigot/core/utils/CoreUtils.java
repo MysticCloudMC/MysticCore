@@ -33,6 +33,7 @@ import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -44,6 +45,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.plugin.Plugin;
@@ -1238,6 +1240,22 @@ public class CoreUtils {
 					ChatColor.RESET + (i.getType() + "").substring(0, 1).toUpperCase()
 							+ (i.getType() + "").substring(1, (i.getType() + "").length()).toLowerCase())));
 
+			if (i.getType().equals(Material.SPAWNER)) {
+				if (item.isSet(name + ".Options.SpawnerType")) {
+					if (i.getItemMeta() instanceof BlockStateMeta) {
+
+						BlockStateMeta spm = (BlockStateMeta) i.getItemMeta();
+						if (spm.getBlockState() instanceof CreatureSpawner) {
+							CreatureSpawner cp = (CreatureSpawner) spm.getBlockState();
+							cp.setCreatureTypeByName(item.getString(name + ".Options.SpawnerType"));
+							spm.setBlockState(cp);
+							i.setItemMeta(spm);
+							a = i.getItemMeta();
+						}
+					}
+				}
+			}
+
 			if (item.isSet(name + ".Options.Unbreakable"))
 				a.setUnbreakable(Boolean.parseBoolean(item.getString(name + ".Options.Unbreakable")));
 
@@ -1632,38 +1650,7 @@ public class CoreUtils {
 	}
 
 	public static String formatDateRaw(long ms) {
-
 		return formatDate(ms, "", "");
-
-//		int l = (int) (ms / 1000);
-//		int sec = l % 60;
-//		int min = (l / 60) % 60;
-//		int hours = ((l / 60) / 60) % 24;
-//		int days = (((l / 60) / 60) / 24) % 7;
-//		int weeks = (((l / 60) / 60) / 24) / 7;
-//
-//		if (weeks > 0) {
-//			return weeks + " weeks" + (days > 0 ? ", " + days + " days" : "")
-//					+ (hours > 0 ? ", " + hours + " hours" : "") + (min > 0 ? ", " + min + " minutes" : "")
-//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-//		}
-//		if (days > 0) {
-//			return days + " days" + (hours > 0 ? ", " + hours + " hours" : "")
-//					+ (min > 0 ? ", " + min + " minutes" : "")
-//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-//		}
-//		if (hours > 0) {
-//			return hours + " hours" + (min > 0 ? ", " + min + " minutes" : "")
-//					+ (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-//		}
-//		if (min > 0) {
-//			return min + " minutes" + (sec > 0 ? ", and " + sec + " " + (sec == 1 ? "second" : "seconds") : "");
-//		}
-//		if (sec > 0) {
-//			return sec + " " + (sec == 1 ? "second" : "seconds");
-//		}
-//
-//		return "less than a second" + "";
 	}
 
 	public static String formatDateTime(long ms, String ncolor, String tcolor) {
@@ -1710,38 +1697,7 @@ public class CoreUtils {
 	}
 
 	public static String formatDateTimeRaw(long ms) {
-
 		return formatDateTime(ms, "", "");
-
-//		int l = (int) (ms / 1000);
-//		int sec = l % 60;
-//		int min = (l / 60) % 60;
-//		int hours = ((l / 60) / 60) % 24;
-//		int days = (((l / 60) / 60) / 24) % 7;
-//		int weeks = (((l / 60) / 60) / 24) / 7;
-//
-//		DecimalFormat format = new DecimalFormat("00");
-//
-//		if (weeks > 0) {
-//			return format.format(weeks) + ":" + format.format(days) + ":" + format.format(hours) + ":"
-//					+ format.format(min) + ":" + format.format(sec);
-//
-//		}
-//		if (days > 0) {
-//			return format.format(days) + ":" + format.format(hours) + ":" + format.format(min) + ":"
-//					+ format.format(sec);
-//		}
-//		if (hours > 0) {
-//			return format.format(hours) + ":" + format.format(min) + ":" + format.format(sec);
-//		}
-//		if (min > 0) {
-//			return format.format(min) + ":" + format.format(sec);
-//		}
-//		if (sec > 0) {
-//			return "00" + ":" + format.format(sec);
-//		}
-//
-//		return "less than a second";
 	}
 
 	public static String getSimpleTimeFormat(long ms) {
