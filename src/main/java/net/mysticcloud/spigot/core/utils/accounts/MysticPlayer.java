@@ -36,16 +36,16 @@ public class MysticPlayer {
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
 
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM mystic_players WHERE uid='" + uid.toString() + "';");
 		int a = 0;
 		try {
 			while (rs.next()) {
 				a = a + 1;
-				setBalance(Double.parseDouble(rs.getString("BALANCE")));
-				setGems(Integer.parseInt(rs.getString("GEMS")));
-				setXP(Double.parseDouble(rs.getString("LEVEL")));
-				setNitro(Boolean.parseBoolean(rs.getString("DISCORD_BOOSTER")));
-				JSONObject json = new JSONObject(rs.getString("EXTRA_DATA"));
+				setBalance(Double.parseDouble(rs.getString("balance")));
+				setGems(Integer.parseInt(rs.getString("gems")));
+				setXP(Double.parseDouble(rs.getString("level")));
+				setNitro(Boolean.parseBoolean(rs.getString("discord_linked")));
+				JSONObject json = new JSONObject(rs.getString("extra_data"));
 				setExtraData(json);
 
 				for (PlayerSettings s : PlayerSettings.values()) {
@@ -72,9 +72,9 @@ public class MysticPlayer {
 			e.printStackTrace();
 		}
 		if (a == 0) {
-			CoreUtils.sendInsert("INSERT INTO MysticPlayers (UUID, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
-					+ "','0','0','1');");
-			DebugUtils.debug("Created MysticPlayer: " + uid);
+//			CoreUtils.sendInsert("INSERT INTO mystic_players (uid, BALANCE, GEMS, LEVEL) VALUES ('" + uid.toString()
+//					+ "','0','0','1');");
+//			DebugUtils.debug("Created MysticPlayer: " + uid);
 
 			// TODO save extra data as-well
 		}
@@ -345,12 +345,12 @@ public class MysticPlayer {
 //	}
 
 	public void save() {
-		String sql = "UPDATE MysticPlayers SET ";
-		sql = sql + "BALANCE=\"" + getBalance() + "\", ";
-		sql = sql + "GEMS=\"" + getGems() + "\",";
-		sql = sql + "LEVEL=\"" + getXP() + "\", ";
-		sql = sql + "EXTRA_DATA=\"" + getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
-		sql = sql + "WHERE UUID=\"" + getUUID() + "\";";
+		String sql = "UPDATE mystic_players SET ";
+		sql = sql + "balance=\"" + getBalance() + "\", ";
+		sql = sql + "gems=\"" + getGems() + "\",";
+		sql = sql + "level=\"" + getXP() + "\", ";
+		sql = sql + "exrta_data=\"" + getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
+		sql = sql + "WHERE uuid=\"" + getUUID() + "\";";
 		DebugUtils.debug(sql);
 		CoreUtils.sendUpdate(sql);
 
@@ -358,10 +358,10 @@ public class MysticPlayer {
 
 	public GameVersion getGameVersion() {
 		if (version == null) {
-			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM MysticPlayers WHERE UUID='" + uid + "';");
+			ResultSet rs = CoreUtils.sendQuery("SELECT * FROM mystic_players WHERE uuid='" + uid + "';");
 			try {
 				if (rs.next()) {
-					version = GameVersion.getGameVersion(Integer.parseInt(rs.getString("VERSION")));
+					version = GameVersion.getGameVersion(Integer.parseInt(rs.getString("version")));
 					rs.close();
 					return version;
 				}
