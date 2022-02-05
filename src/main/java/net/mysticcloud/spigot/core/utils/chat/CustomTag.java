@@ -50,7 +50,7 @@ public class CustomTag {
 				tags.put(rs.getString("NAME").toUpperCase(), CoreUtils.colorize(rs.getString("TAG")));
 			}
 			rs.close();
-		} catch (SQLException ex) {
+		} catch (NullPointerException | SQLException ex) {
 			// Skip
 
 		}
