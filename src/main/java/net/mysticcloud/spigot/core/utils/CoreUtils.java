@@ -693,10 +693,10 @@ public class CoreUtils {
 	}
 
 	public static void loadVariables() {
-		ResultSet rs = sendQuery("SELECT * FROM Settings");
+		ResultSet rs = sendQuery("SELECT * FROM variables");
 		try {
 			while (rs.next()) {
-				variables.put(rs.getString("SETTING"), rs.getString("VALUE"));
+				variables.put(rs.getString("variable"), rs.getString("value"));
 			}
 			rs.close();
 		} catch (SQLException e) {
