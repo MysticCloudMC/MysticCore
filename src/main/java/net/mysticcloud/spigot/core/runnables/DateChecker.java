@@ -345,12 +345,12 @@ public class DateChecker implements Runnable {
 
 	private void updateVoters() {
 		Map<UUID, Integer> votes = new HashMap<>();
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Votes ORDER BY Day DESC");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM voters ORDER BY day DESC");
 		try {
 			while (rs.next()) {
-				if (new Date().getTime() - Long.parseLong(rs.getString("Day")) <= TimeUnit.MILLISECONDS.convert(30,
+				if (new Date().getTime() - Long.parseLong(rs.getString("day")) <= TimeUnit.MILLISECONDS.convert(30,
 						TimeUnit.DAYS)) {
-					UUID uid = UUID.fromString(rs.getString("UUID"));
+					UUID uid = UUID.fromString(rs.getString("uuid"));
 					votes.put(uid, (votes.containsKey(uid) ? votes.get(uid) : 0) + 1);
 				} else
 					break;

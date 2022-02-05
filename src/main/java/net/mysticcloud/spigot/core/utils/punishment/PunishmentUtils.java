@@ -29,14 +29,14 @@ public class PunishmentUtils {
 	public static Map<String, List<Object>> punishmentBuilder = new HashMap<>();
 
 	public static void registerPunishments() {
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments;");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM infringements;");
 		try {
 			while (rs.next()) {
-				long duration = Long.parseLong(rs.getString("DURATION"));
-				UUID uid = UUID.fromString(rs.getString("UUID"));
-				PunishmentType type = PunishmentType.valueOf(rs.getString("ACTION"));
-				long date = Long.parseLong(rs.getString("DATE"));
-				String notes = rs.getString("NOTES");
+				long duration = Long.parseLong(rs.getString("duration"));
+				UUID uid = UUID.fromString(rs.getString("uuid"));
+				PunishmentType type = PunishmentType.valueOf(rs.getString("action"));
+				long date = Long.parseLong(rs.getString("date"));
+				String notes = rs.getString("notes");
 				if (!notes.contains("[WARNING]")) {
 					Punishment punishment = new Punishment(uid, type, duration, date);
 					punishment.setNotes(notes);
@@ -152,7 +152,7 @@ public class PunishmentUtils {
 
 		}
 
-		CoreUtils.sendInsert("INSERT INTO Punishments (UUID, TYPE, DURATION, DATE, NOTES, STAFF, ACTION) VALUES ('"
+		CoreUtils.sendInsert("INSERT INTO infringements (uuid, type, duration, date, notes, staff, actopm) VALUES ('"
 				+ uid.toString() + "','" + inf.name() + "','" + duration + "','" + new Date().getTime() + "','" + notes
 				+ "','" + staff + "', '" + type.name() + "');");
 		CoreChatUtils.sendChannelChat(Bukkit.getPlayer(staff), "punish",
@@ -180,7 +180,7 @@ public class PunishmentUtils {
 
 	public static int getOccurrences(UUID uid) {
 		int occurrences = 0;
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM infringements WHERE uuid='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
 				occurrences = occurrences + 1;
@@ -195,10 +195,10 @@ public class PunishmentUtils {
 
 	public static int getOccurrences(UUID uid, InfringementType type) {
 		int occurrences = 0;
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM infringements WHERE uuid='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
-				if (rs.getString("TYPE").equalsIgnoreCase(type.name()))
+				if (rs.getString("type").equalsIgnoreCase(type.name()))
 					occurrences = occurrences + 1;
 			}
 			rs.close();
@@ -211,12 +211,12 @@ public class PunishmentUtils {
 
 	public static int getOccurrences(UUID uid, InfringementType type, InfringementSeverity severity) {
 		int occurrences = 0;
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM infringements WHERE uuid='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
-				if (rs.getString("TYPE").equalsIgnoreCase(type.name())) {
-					if (rs.getString("NOTES").contains("[SEVERITY ")) {
-						String sev = rs.getString("NOTES").replaceAll("[\\[\\]]", "|");
+				if (rs.getString("type").equalsIgnoreCase(type.name())) {
+					if (rs.getString("notes").contains("[SEVERITY ")) {
+						String sev = rs.getString("notes").replaceAll("[\\[\\]]", "|");
 //						sev = sev.replaceAll("]","|");
 						sev = sev.split("EVERITY ")[1].split("|")[0];
 						Bukkit.broadcastMessage(sev);
@@ -237,10 +237,10 @@ public class PunishmentUtils {
 
 	public static int getOccurrences(UUID uid, PunishmentType type) {
 		int occurrences = 0;
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM Punishments WHERE UUID='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM infringements WHERE uuid='" + uid.toString() + "';");
 		try {
 			while (rs.next()) {
-				if (rs.getString("ACTION").equalsIgnoreCase(type.name()))
+				if (rs.getString("action").equalsIgnoreCase(type.name()))
 					occurrences = occurrences + 1;
 			}
 			rs.close();
