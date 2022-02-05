@@ -44,7 +44,7 @@ public class MysticPlayer {
 				setBalance(Double.parseDouble(rs.getString("balance")));
 				setGems(Integer.parseInt(rs.getString("gems")));
 				setXP(Double.parseDouble(rs.getString("level")));
-				setNitro(Boolean.parseBoolean(rs.getString("discord_linked")));
+				setNitro(Boolean.parseBoolean(rs.getString("discord_booster")));
 				JSONObject json = new JSONObject(rs.getString("extra_data"));
 				setExtraData(json);
 
