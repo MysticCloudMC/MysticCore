@@ -349,7 +349,7 @@ public class MysticPlayer {
 		sql = sql + "balance=\"" + getBalance() + "\", ";
 		sql = sql + "gems=\"" + getGems() + "\",";
 		sql = sql + "level=\"" + getXP() + "\", ";
-		sql = sql + "exrta_data=\"" + getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
+		sql = sql + "extra_data=\"" + getExtraData().toString().replaceAll("\"", "\\\\\"") + "\" ";
 		sql = sql + "WHERE uuid=\"" + getUUID() + "\";";
 		DebugUtils.debug(sql);
 		CoreUtils.sendUpdate(sql);
