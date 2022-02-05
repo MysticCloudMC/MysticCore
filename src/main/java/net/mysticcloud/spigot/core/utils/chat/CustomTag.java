@@ -16,6 +16,8 @@ public class CustomTag {
 
 	static Map<String, String> tags = new HashMap<>();
 
+	private static String table_name = "custom_tags";
+
 //	AVACADO("&2[AVACADO]"),
 //	BEAST("&6[%emoticon:SWORD%BEAST%emoticon:SWORD%] "),
 //	STAR("&e[%emoticon:STAR_7%STAR%emoticon:STAR_7%] "),
@@ -43,11 +45,11 @@ public class CustomTag {
 
 	public static void registerTags() {
 
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM CustomTags");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM " + table_name + "");
 		try {
 			while (rs.next()) {
-				CoreUtils.debug("Adding Tag: " + rs.getString("NAME"));
-				tags.put(rs.getString("NAME").toUpperCase(), CoreUtils.colorize(rs.getString("TAG")));
+				CoreUtils.debug("Adding Tag: " + rs.getString("name"));
+				tags.put(rs.getString("name").toUpperCase(), CoreUtils.colorize(rs.getString("tag")));
 			}
 			rs.close();
 		} catch (NullPointerException | SQLException ex) {
@@ -105,7 +107,7 @@ public class CustomTag {
 		key = key.toUpperCase();
 		if (tags.containsKey(key)) {
 			tags.remove(key);
-			return CoreUtils.sendUpdate("DELETE FROM CustomTags WHERE NAME='" + key.toUpperCase() + "';");
+			return CoreUtils.sendUpdate("DELETE FROM " + table_name + " WHERE name='" + key.toUpperCase() + "';");
 		} else {
 			return -99;
 		}
@@ -115,12 +117,12 @@ public class CustomTag {
 		key = key.toUpperCase();
 		if (tags.containsKey(key)) {
 			tags.put(key, CoreUtils.colorize(value));
-			return CoreUtils.sendUpdate("UPDATE CustomTags SET TAG='" + value + "' WHERE NAME='" + key + "';");
+			return CoreUtils.sendUpdate("UPDATE " + table_name + " SET tag='" + value + "' WHERE name='" + key + "';");
 		} else {
 			tags.put(key, CoreUtils.colorize(value));
-			return CoreUtils.sendInsert("INSERT INTO CustomTags (NAME, TAG) VALUES ('" + key + "', '" + value + "');")
-					? -1000
-					: -1001;
+			return CoreUtils.sendInsert(
+					"INSERT INTO " + table_name + " (name, tag) VALUES ('" + key + "', '" + value + "');") ? -1000
+							: -1001;
 		}
 	}
 
