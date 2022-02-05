@@ -36,7 +36,7 @@ public class MysticPlayer {
 	MysticPlayer(UUID uid) {
 		this.uid = uid;
 
-		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM mystic_players WHERE uid='" + uid.toString() + "';");
+		ResultSet rs = CoreUtils.sendQuery("SELECT * FROM mystic_players WHERE uuid='" + uid.toString() + "';");
 		int a = 0;
 		try {
 			while (rs.next()) {
@@ -68,7 +68,7 @@ public class MysticPlayer {
 				CoreUtils.debug("Registered MysticPlayer: " + uid);
 			}
 			rs.close();
-		} catch (SQLException e) {
+		} catch (NullPointerException | SQLException e) {
 			e.printStackTrace();
 		}
 		if (a == 0) {
