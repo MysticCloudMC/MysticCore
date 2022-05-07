@@ -24,8 +24,6 @@ import net.mysticcloud.spigot.core.listeners.ParticleGUIListener;
 import net.mysticcloud.spigot.core.listeners.PlayerListener;
 import net.mysticcloud.spigot.core.listeners.ReportGUIListener;
 import net.mysticcloud.spigot.core.listeners.VoteListener;
-import net.mysticcloud.spigot.core.runnables.DateChecker;
-import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.accounts.MysticAccountManager;
 import net.mysticcloud.spigot.core.utils.chat.CoreChatUtils;
@@ -73,7 +71,6 @@ public class MysticCore extends JavaPlugin {
 		new GamemodeCommand(this, "gamemode", "gmc", "gms", "gmsp", "gma");
 		new UpdateCommand(this, "update");
 		new TagCommand(this, "tags", "tag");
-		startDateChecker();
 
 		CustomTag.start();
 
@@ -100,8 +97,4 @@ public class MysticCore extends JavaPlugin {
 		BlockParticleUtils.end();
 	}
 
-	private static void startDateChecker() {
-		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new ParticleTimer(1), 1);
-		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new DateChecker(), 1);
-	}
 }
