@@ -65,7 +65,9 @@ import com.google.common.io.ByteStreams;
 
 import net.milkbowl.vault.economy.Economy;
 import net.mysticcloud.spigot.core.MysticCore;
+import net.mysticcloud.spigot.core.runnables.DateChecker;
 import net.mysticcloud.spigot.core.runnables.GenericCooldownRunnable;
+import net.mysticcloud.spigot.core.runnables.ParticleTimer;
 import net.mysticcloud.spigot.core.utils.accounts.MysticPlayer;
 import net.mysticcloud.spigot.core.utils.admin.AlertType;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
@@ -144,6 +146,8 @@ public class CoreUtils {
 	static Map<String, List<UUID>> genericCooldowns = new HashMap<>();
 
 	private static MysticCore plugin;
+
+	private static DateChecker dateChecker;
 
 	public static void start(MysticCore main) {
 		plugin = main;
@@ -346,8 +350,16 @@ public class CoreUtils {
 
 		WarpUtils.registerWarps();
 
+		startDateChecker();
+
 //		MysticEntityUtils.registerEntities();
 
+	}
+
+	private static void startDateChecker() {
+		dateChecker = new DateChecker();
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), new ParticleTimer(1), 1);
+		Bukkit.getScheduler().runTaskLater(CoreUtils.getPlugin(), dateChecker, 1);
 	}
 
 	public static MysticCore getPlugin() {
@@ -789,14 +801,6 @@ public class CoreUtils {
 		return r;
 	}
 
-	public static Map<String, String> prefixes() {
-		return prefixes;
-	}
-
-	public static void addPrefix(String key, String value) {
-		prefixes.put(key, (colorize(value)));
-	}
-
 	public static void teleportToSpawn(Player player) {
 		teleportToSpawn(player, SpawnReason.SELF);
 	}
@@ -816,6 +820,14 @@ public class CoreUtils {
 			// player.sendMessage(fullPrefix + reason.message());
 		}
 
+	}
+
+	public static Map<String, String> prefixes() {
+		return prefixes;
+	}
+
+	public static void addPrefix(String key, String value) {
+		prefixes.put(key, (colorize(value)));
 	}
 
 	public static String prefixes(String key) {
@@ -885,6 +897,10 @@ public class CoreUtils {
 		}
 		return message;
 
+	}
+
+	public static UID addHeartbeatProcess(Runnable run) {
+		return dateChecker.addRepeat(run);
 	}
 
 	public static Color generateColor(double seed, double frequency) {

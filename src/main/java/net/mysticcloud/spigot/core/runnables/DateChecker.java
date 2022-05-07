@@ -19,6 +19,7 @@ import org.bukkit.plugin.Plugin;
 
 import net.mysticcloud.spigot.core.utils.CoreUtils;
 import net.mysticcloud.spigot.core.utils.TimedPerm;
+import net.mysticcloud.spigot.core.utils.UID;
 import net.mysticcloud.spigot.core.utils.admin.DebugUtils;
 import net.mysticcloud.spigot.core.utils.admin.Holiday;
 import net.mysticcloud.spigot.core.utils.events.Event;
@@ -42,6 +43,7 @@ public class DateChecker implements Runnable {
 	boolean fmWarn = false;
 	Calendar calendar = Calendar.getInstance();
 	Runnable run = new HolidayParticles();
+	Map<UID, Runnable> repeats = new HashMap<>();
 
 	boolean justStarted = true;
 	long startedTime = new Date().getTime();
@@ -52,6 +54,14 @@ public class DateChecker implements Runnable {
 
 	public DateChecker() {
 
+	}
+
+	public UID addRepeat(Runnable runnable) {
+		UID uid = new UID(10);
+		while (repeats.containsKey(uid))
+			uid = new UID(10);
+		repeats.put(uid, runnable);
+		return uid;
 	}
 
 	@Override
@@ -335,6 +345,10 @@ public class DateChecker implements Runnable {
 				else
 					CoreUtils.setHoliday(Holiday.NONE);
 			}
+
+			for (Runnable run : repeats.values())
+				run.run();
+
 		} catch (Exception ex) {
 			CoreUtils.debug("There was an error!");
 			ex.printStackTrace();
